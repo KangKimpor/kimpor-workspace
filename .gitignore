@@ -21,3 +21,6 @@ test-results/
 playwright-report/
 docs/screenshots/
 *.log
+
+.lighthouseci/
+docs/evidence/lighthouse/
