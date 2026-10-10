@@ -8,12 +8,16 @@ accessible dialogs, command palette and a persistent multilingual editor study.
 Today, Calendar, Notes, Journal, Workspace and cloud auth/sync are later phases.
 See [the phase report](docs/PHASE-0-REPORT.md) for download/preview evidence and gaps.
 
+![Light foundation gallery](docs/images/design-light.png)
+![Dark foundation gallery](docs/images/design-dark.png)
+
 ## Run and verify
 
 Install Node 24 and pnpm 11.19.0, then:
 
 ```sh
 pnpm install --frozen-lockfile
+pnpm hooks:install
 pnpm brand:build
 pnpm dev
 pnpm check
@@ -24,7 +28,10 @@ pnpm e2e
 
 `/design` is the gallery; `/spikes/editor` is the study. For the full screenshot
 matrix, build, start `pnpm --filter @veloradesk/web preview --port 4173`, then run
-`pnpm shots`. Review the contact sheets in `docs/screenshots/` before reporting.
+`pnpm shots` and `pnpm lighthouse`. Review the contact sheets in `docs/screenshots/`
+before reporting. CI screenshot baselines are still pending repository access:
+the `record-visual-baseline` PR label runs a candidate capture. Review and commit
+its artifact, then `pnpm visual:check` enforces the 0.1% changed-pixel gate.
 
 `pnpm build:desktop` omits the service worker. With Rust 1.99.0 and Visual Studio
 C++ Build Tools on Windows, run `pnpm --filter @veloradesk/desktop build`.
@@ -36,7 +43,8 @@ On iPhone/iPad, open the preview in Safari → Share → Add to Home Screen; kee
 An online first visit is required. Subsequent cached reloads can work offline.
 Physical device verification remains required.
 
-Download the x64 Windows setup executable and verify SHA256SUMS.txt. The initial
+After the Windows CI job creates it, download the x64 setup executable and verify
+SHA256SUMS.txt. No installer has been built yet. The initial
 installer is unsigned. SmartScreen may warn: “More info” → “Run anyway” after
 checking source/checksum. Installation is per-user with a Start menu entry.
 The updater public key is provisioned; signed update delivery is a Phase 1 task.

@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-10T06:52:10.350Z",
+  "lighthouseVersion": "12.6.1",
+  "url": "http://127.0.0.1:4173/design",
+  "mode": "single local desktop run; not a real device benchmark",
+  "scores": {
+    "performance": 100,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 91
+  },
+  "metrics": {
+    "first-contentful-paint": 382.372,
+    "largest-contentful-paint": 422.372,
+    "total-blocking-time": 33.5,
+    "cumulative-layout-shift": 0.0002938798985682415,
+    "speed-index": 382.372
+  }
+}

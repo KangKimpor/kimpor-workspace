@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-10",
+  "source_dimensions": [
+    1280,
+    1093
+  ],
+  "source_type": "RGB JPEG on white background",
+  "ink_bounds": [
+    242,
+    415,
+    1036,
+    791
+  ],
+  "median_ink_rgb": [
+    38,
+    91,
+    154
+  ],
+  "method": "VisionCortex VTracer private outline; Zhang-Suen centerline thinning, graph ordering, RDP and quadratic Bezier smoothing",
+  "concepts": {
+    "A": {
+      "strokes": 11,
+      "nodes_per_stroke": [
+        3,
+        2,
+        2,
+        3,
+        2,
+        5,
+        2,
+        2,
+        4,
+        2,
+        4
+      ]
+    },
+    "B": {
+      "strokes": 10,
+      "nodes_per_stroke": [
+        3,
+        3,
+        2,
+        3,
+        2,
+        5,
+        2,
+        2,
+        4,
+        2
+      ]
+    },
+    "C": {
+      "strokes": 7,
+      "nodes_per_stroke": [
+        4,
+        2,
+        3,
+        6,
+        9,
+        2,
+        2
+      ]
+    }
+  },
+  "original_signature_private": true
+}

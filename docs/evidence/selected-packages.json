@@ -1,0 +1,229 @@
+{
+  "typescript": {
+    "version": "7.0.2",
+    "license": "Apache-2.0",
+    "engines": {
+      "node": ">=16.20.0"
+    }
+  },
+  "vite": {
+    "version": "8.3.4",
+    "license": "MIT",
+    "engines": {
+      "node": "^20.19.0 || >=22.12.0"
+    }
+  },
+  "@vitejs/plugin-react": {
+    "version": "6.1.2",
+    "license": "MIT",
+    "engines": {
+      "node": "^20.19.0 || >=22.12.0"
+    }
+  },
+  "@tailwindcss/vite": {
+    "version": "4.3.3",
+    "license": "MIT",
+    "engines": null
+  },
+  "tailwindcss": {
+    "version": "4.3.3",
+    "license": "MIT",
+    "engines": null
+  },
+  "vitest": {
+    "version": "5.0.3",
+    "license": "MIT",
+    "engines": {
+      "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+    }
+  },
+  "@vitest/coverage-v8": {
+    "version": "5.0.3",
+    "license": "MIT",
+    "engines": null
+  },
+  "@playwright/test": {
+    "version": "1.64.0",
+    "license": "Apache-2.0",
+    "engines": {
+      "node": ">=20"
+    }
+  },
+  "@axe-core/playwright": {
+    "version": "4.13.0",
+    "license": "MPL-2.0",
+    "engines": null
+  },
+  "@types/react": {
+    "version": "19.3.0",
+    "license": "MIT",
+    "engines": null
+  },
+  "@types/react-dom": {
+    "version": "19.3.0",
+    "license": "MIT",
+    "engines": null
+  },
+  "@types/node": {
+    "version": "26.6.5",
+    "license": "MIT",
+    "engines": null
+  },
+  "sharp": {
+    "version": "0.35.5",
+    "license": "Apache-2.0",
+    "engines": {
+      "node": ">=20.9.0"
+    }
+  },
+  "fast-check": {
+    "version": "4.10.2",
+    "license": "MIT",
+    "engines": {
+      "node": ">=12.17.0"
+    }
+  },
+  "@tauri-apps/cli": {
+    "version": "2.12.1",
+    "license": "Apache-2.0 OR MIT",
+    "engines": {
+      "node": ">= 10"
+    }
+  },
+  "react": {
+    "version": "19.3.0",
+    "license": "MIT",
+    "engines": {
+      "node": ">=0.10.0"
+    }
+  },
+  "react-dom": {
+    "version": "19.3.0",
+    "license": "MIT",
+    "engines": null
+  },
+  "motion": {
+    "version": "14.1.0",
+    "license": "MIT",
+    "engines": null
+  },
+  "lucide-react": {
+    "version": "1.54.0",
+    "license": "ISC",
+    "engines": null
+  },
+  "@radix-ui/react-dialog": {
+    "version": "1.2.0",
+    "license": "MIT",
+    "engines": null
+  },
+  "@radix-ui/react-dropdown-menu": {
+    "version": "2.1.25",
+    "license": "MIT",
+    "engines": null
+  },
+  "@fontsource-variable/inter": {
+    "version": "5.3.0",
+    "license": "OFL-1.1",
+    "engines": null
+  },
+  "@tiptap/react": {
+    "version": "3.31.4",
+    "license": "MIT",
+    "engines": null
+  },
+  "@tiptap/starter-kit": {
+    "version": "3.31.4",
+    "license": "MIT",
+    "engines": null
+  },
+  "@tiptap/extension-collaboration": {
+    "version": "3.31.4",
+    "license": "MIT",
+    "engines": null
+  },
+  "@tiptap/y-tiptap": {
+    "version": "3.0.9",
+    "license": "MIT",
+    "engines": {
+      "npm": ">=8.0.0",
+      "node": ">=16.0.0"
+    }
+  },
+  "yjs": {
+    "version": "13.6.33",
+    "license": "MIT",
+    "engines": {
+      "npm": ">=8.0.0",
+      "node": ">=16.0.0"
+    }
+  },
+  "dexie": {
+    "version": "4.4.6",
+    "license": "Apache-2.0",
+    "engines": null
+  },
+  "vite-plugin-pwa": {
+    "version": "2.0.0",
+    "license": "MIT",
+    "engines": {
+      "node": ">=20.19.0"
+    }
+  },
+  "@tauri-apps/api": {
+    "version": "2.12.2",
+    "license": "Apache-2.0 OR MIT",
+    "engines": null
+  },
+  "@tauri-apps/plugin-deep-link": {
+    "version": "2.6.1",
+    "license": "MIT OR Apache-2.0",
+    "engines": null
+  },
+  "@tauri-apps/plugin-opener": {
+    "version": "2.7.0",
+    "license": "MIT OR Apache-2.0",
+    "engines": null
+  },
+  "@tauri-apps/plugin-updater": {
+    "version": "2.13.2",
+    "license": "MIT OR Apache-2.0",
+    "engines": null
+  },
+  "@dnd-kit/core": {
+    "version": "6.3.1",
+    "license": "MIT",
+    "engines": null
+  },
+  "@dnd-kit/sortable": {
+    "version": "10.0.0",
+    "license": "MIT",
+    "engines": null
+  },
+  "@dnd-kit/utilities": {
+    "version": "3.2.2",
+    "license": "MIT",
+    "engines": null
+  },
+  "eslint": {
+    "version": "10.12.0",
+    "license": "MIT",
+    "engines": {
+      "node": "^20.19.0 || ^22.13.0 || >=24"
+    }
+  },
+  "typescript-eslint": {
+    "version": "8.71.1",
+    "license": "MIT",
+    "engines": {
+      "node": "^18.18.0 || ^20.9.0 || >=21.1.0"
+    }
+  },
+  "eslint-plugin-react-hooks": {
+    "version": "7.1.1",
+    "license": "MIT",
+    "engines": {
+      "node": ">=18"
+    }
+  }
+}

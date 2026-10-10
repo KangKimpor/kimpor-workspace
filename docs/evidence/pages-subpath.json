@@ -1,0 +1,24 @@
+{
+  "date": "2026-10-10T07:02:49.711Z",
+  "mode": "local production build with Pages CSP meta; no public deployment",
+  "checks": [
+    {
+      "engine": "chromium",
+      "url": "http://127.0.0.1:4180/veloradesk/spikes/editor",
+      "prefix": "/veloradesk/",
+      "directGallery": true,
+      "editorNavigation": true,
+      "cachedOfflineReload": true,
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "url": "http://127.0.0.1:4180/veloradesk/spikes/editor",
+      "prefix": "/veloradesk/",
+      "directGallery": true,
+      "editorNavigation": true,
+      "cachedOfflineReload": true,
+      "errors": []
+    }
+  ]
+}
