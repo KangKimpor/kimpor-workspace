@@ -7,6 +7,11 @@ test('theme persists, command palette supports keyboard and modal focus returns'
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await page.evaluate(() => {
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, isComposing: true }));
+    window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, keyCode: 229 }));
+  });
+  await expect(page.getByRole('dialog')).toHaveCount(0);
   await page.keyboard.press('Control+k');
   await expect(page.getByRole('dialog')).toBeVisible();
   await page.getByLabel('Search commands').fill('Editor');
