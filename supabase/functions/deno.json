@@ -1,0 +1,9 @@
+{
+  "unstable": ["sloppy-imports"],
+  "compilerOptions": { "strict": true, "types": ["./_shared/web-push.d.ts"] },
+  "imports": {
+    "rrule": "npm:rrule@2.8.1",
+    "chrono-node": "npm:chrono-node@2.10.2",
+    "yjs": "npm:yjs@13.6.33"
+  }
+}

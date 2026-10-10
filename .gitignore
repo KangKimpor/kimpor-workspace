@@ -24,3 +24,5 @@ docs/screenshots/
 
 .lighthouseci/
 docs/evidence/lighthouse/
+.private/
+backup/

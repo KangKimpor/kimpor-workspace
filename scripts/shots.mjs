@@ -1,4 +1,4 @@
-import { chromium, webkit, firefox } from '@playwright/test';
+import { chromium, webkit, firefox, expect } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
 import sharp from 'sharp';
 const url = process.env.BASE_URL ?? 'http://127.0.0.1:4173';
@@ -20,27 +20,63 @@ try {
       const context = await browsers[engine].newContext({ viewport:{width,height}, deviceScaleFactor:dpr, hasTouch:engine==='webkit', isMobile:engine==='webkit', colorScheme:theme, reducedMotion:'reduce' });
       const page=await context.newPage();
       await page.addInitScript(value=>localStorage.setItem('velora-theme',value),theme);
-      for (const [screen,route] of [['design','/design'],['editor','/spikes/editor'],['about','/design'],['palette','/design']]) {
-        await page.goto(`${url}${route}`,{waitUntil:'networkidle'});
-        await page.evaluate(()=>document.fonts.ready);
+      await page.goto(`${url}/`,{waitUntil:'networkidle'});
+      await page.getByRole('button',{name:'Notes',exact:true}).first().click();
+      await page.getByRole('button',{name:'New note',exact:true}).click();
+      await page.getByRole('textbox',{name:'Page title'}).fill('A little room for ideas');
+      await page.getByRole('textbox',{name:'Document editor'}).fill('A quiet place to think.\n\nខ្មែរ · 中文 · English\n\nSmall ideas become good days.');
+      await page.getByRole('button',{name:'Workspace',exact:true}).first().click();
+      await page.getByRole('button',{name:'New database',exact:true}).click();
+      await page.getByRole('textbox',{name:'Page title'}).fill('Projects');
+      await page.getByRole('button',{name:'New row',exact:true}).click();
+      await page.getByRole('textbox',{name:'Document editor'}).waitFor();
+      await page.getByRole('textbox',{name:'Page title'}).fill('Make room for a small idea');
+      await page.getByRole('textbox',{name:'Document editor'}).fill('One small step, every day.');
+      await page.getByRole('navigation',{name:width<600?'Bottom navigation':'Main navigation',exact:true}).getByRole('button',{name:'Journal',exact:true}).click();
+      await page.getByRole('button',{name:'New journal entry',exact:true}).click();
+      await page.getByRole('textbox',{name:'Page title'}).fill('A moment for myself');
+      await page.getByRole('textbox',{name:'Document editor'}).fill('Today I am grateful for a little quiet.\n\nអរគុណ · 谢谢 · Thank you');
+      await page.getByRole('navigation',{name:width<600?'Bottom navigation':'Main navigation',exact:true}).getByRole('button',{name:'Calendar',exact:true}).click();
+      await page.getByRole('button',{name:'New event',exact:true}).first().click();
+      await page.getByLabel('Title',{exact:true}).fill('A little time to plan');
+      await page.getByRole('dialog',{name:'New event',exact:true}).locator('select').first().selectOption({label:'Personal'});
+      await page.getByRole('button',{name:'Done',exact:true}).click();
+      await expect(page.getByRole('dialog')).toHaveCount(0,{timeout:15000});
+      const product=[['today','Today'],['calendar','Calendar'],['notes','Notes'],['note-detail','Notes'],['journal','Journal'],['workspace','Workspace'],['database','Workspace'],['settings','Today'],['search','Today']];
+      for (const [screen,route] of [...product,['design','/design'],['editor','/spikes/editor'],['about','/design'],['palette','/design']]) {
+        console.log(`Capture ${name} ${theme}: ${screen}`);
+        if(route.startsWith('/'))await page.goto(`${url}${route}`,{waitUntil:'networkidle'});
+        else{
+          const tab=page.getByRole('navigation',{name:width<600?'Bottom navigation':'Main navigation',exact:true}).getByRole('button',{name:route,exact:true});
+          await tab.click();
+          await expect(tab).toHaveAttribute('aria-current','page');
+          await expect(page.getByRole('region',{name:'Page detail',exact:true})).toHaveCount(0);
+          if(screen==='note-detail'){await page.locator('main').getByRole('button',{name:/A little room for ideas/}).first().click();await page.getByRole('textbox',{name:'Document editor'}).waitFor();}
+          if(screen==='database'){await page.locator('main').getByRole('button',{name:/Projects/}).first().click();await page.getByRole('button',{name:'New row',exact:true}).waitFor();}
+          if(screen==='settings'){if(!await page.getByRole('button',{name:'Settings',exact:true}).first().isVisible())await page.getByRole('button',{name:'Open sidebar',exact:true}).click();await page.getByRole('button',{name:'Settings',exact:true}).first().click();await page.getByRole('button',{name:'Export full ZIP'}).waitFor();}
+          if(screen==='search')await page.getByRole('button',{name:'Search workspace',exact:true}).click();
+        }
+        await page.waitForFunction(()=>document.fonts.status==='loaded',undefined,{timeout:10000});
+        if(await page.getByRole('button',{name:'Dismiss notification',exact:true}).isVisible())await page.getByRole('button',{name:'Dismiss notification',exact:true}).click({timeout:1000}).catch(()=>{});
         if(screen==='editor') await page.getByRole('textbox',{name:'Multilingual editor study'}).waitFor();
         if(screen==='about') await page.getByRole('button',{name:'Take a closer look'}).click();
         if(screen==='palette') await page.getByRole('button',{name:'Open command palette'}).click();
         const file=`docs/screenshots/${screen}-${name}-${theme}.png`;
         const overflow=await page.evaluate(()=>document.documentElement.scrollWidth > innerWidth+1);
         if(overflow) throw new Error(`Horizontal overflow: ${file}`);
-        await page.screenshot({path:file,fullPage:screen==='design'||screen==='editor',animations:'disabled'});
+        await page.screenshot({path:file,fullPage:screen==='design'||screen==='editor',animations:'disabled',timeout:30000});
         if(theme==='dark') {
           const unreadable=await page.locator('h1,h2,h3,.brand strong').evaluateAll(elements=>elements.filter(e=>getComputedStyle(e).color==='rgb(0, 0, 0)').map(e=>e.textContent));
           if(unreadable.length) throw new Error(`Dark text lost contrast: ${file}: ${unreadable.join(', ')}`);
         }
         report.push({screen,name,theme,file,width,height,dpr,engine,overflow});
+        if(screen==='settings'||screen==='search'){await page.keyboard.press('Escape');if(await page.getByRole('button',{name:'Close sidebar',exact:true}).first().isVisible())await page.getByRole('button',{name:'Close sidebar',exact:true}).first().click();}
       }
       await context.close();
     }
     console.log(`Rendered ${name}, light and dark.`);
   }
-  for(const screen of ['design','editor','about','palette']) for(const theme of ['light','dark']) {
+  for(const screen of [...new Set(report.map(row=>row.screen))]) for(const theme of ['light','dark']) {
     const captures=report.filter(row=>row.screen===screen&&row.theme===theme);
     const width=400,height=1100;
     const tiles=[];

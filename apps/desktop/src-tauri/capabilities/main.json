@@ -1,11 +1,14 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "main",
-  "description": "Local foundation window: theme, callbacks and reviewed HTTPS links",
+  "description": "Local workspace window: theme, callbacks, optional startup, notifications and signed updater",
   "windows": ["main"],
   "permissions": [
     "core:event:allow-listen", "core:event:allow-unlisten", "core:window:allow-set-theme",
     "deep-link:allow-get-current", "deep-link:allow-on-open-url",
-    { "identifier": "opener:allow-open-url", "allow": [{ "url": "https://github.com/*" }, { "url": "https://supabase.com/*" }, { "url": "https://vercel.com/*" }] }
+    "autostart:allow-is-enabled", "autostart:allow-enable", "autostart:allow-disable",
+    "notification:allow-is-permission-granted", "notification:allow-request-permission", "notification:allow-notify",
+    "updater:allow-check", "updater:allow-download", "updater:allow-install",
+    { "identifier": "opener:allow-open-url", "allow": [{ "url": "https://github.com/*" }, { "url": "https://supabase.com/*" }, { "url": "https://vercel.com/*" }, { "url": "https://*.supabase.co/auth/v1/*" }, { "url": "https://accounts.google.com/o/oauth2/v2/auth*" }, { "url": "https://login.microsoftonline.com/*/oauth2/v2.0/authorize*" }] }
   ]
 }

@@ -2173,6 +2173,18 @@
       "description": "code block extension for tiptap"
     },
     {
+      "name": "@tiptap/extension-code-block-lowlight",
+      "versions": [
+        "3.31.4"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@tiptap+extension-code-block-lowlight@3.31.4_@tiptap+core@3.31.4_@tiptap+pm@3.31.4__@ti_061d367ff3b6ea9d87957e1769fb4a64/node_modules/@tiptap/extension-code-block-lowlight"
+      ],
+      "license": "MIT",
+      "homepage": "https://tiptap.dev",
+      "description": "code block extension for tiptap"
+    },
+    {
       "name": "@tiptap/extension-collaboration",
       "versions": [
         "3.31.4"
@@ -2183,6 +2195,18 @@
       "license": "MIT",
       "homepage": "https://tiptap.dev",
       "description": "collaboration extension for tiptap"
+    },
+    {
+      "name": "@tiptap/extension-color",
+      "versions": [
+        "3.31.4"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@tiptap+extension-color@3.31.4_@tiptap+extension-text-style@3.31.4_@tiptap+core@3.31.4_@tiptap+pm@3.31.4__/node_modules/@tiptap/extension-color"
+      ],
+      "license": "MIT",
+      "homepage": "https://tiptap.dev",
+      "description": "text color extension for tiptap"
     },
     {
       "name": "@tiptap/extension-document",
@@ -2257,6 +2281,18 @@
       "description": "heading extension for tiptap"
     },
     {
+      "name": "@tiptap/extension-highlight",
+      "versions": [
+        "3.31.4"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@tiptap+extension-highlight@3.31.4_@tiptap+core@3.31.4_@tiptap+pm@3.31.4_/node_modules/@tiptap/extension-highlight"
+      ],
+      "license": "MIT",
+      "homepage": "https://tiptap.dev",
+      "description": "highlight extension for tiptap"
+    },
+    {
       "name": "@tiptap/extension-horizontal-rule",
       "versions": [
         "3.31.4"
@@ -2267,6 +2303,18 @@
       "license": "MIT",
       "homepage": "https://tiptap.dev",
       "description": "horizontal rule extension for tiptap"
+    },
+    {
+      "name": "@tiptap/extension-image",
+      "versions": [
+        "3.31.4"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@tiptap+extension-image@3.31.4_@tiptap+core@3.31.4_@tiptap+pm@3.31.4_/node_modules/@tiptap/extension-image"
+      ],
+      "license": "MIT",
+      "homepage": "https://tiptap.dev",
+      "description": "image extension for tiptap"
     },
     {
       "name": "@tiptap/extension-italic",
@@ -2365,6 +2413,42 @@
       "description": "strike extension for tiptap"
     },
     {
+      "name": "@tiptap/extension-table",
+      "versions": [
+        "3.31.4"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@tiptap+extension-table@3.31.4_@tiptap+core@3.31.4_@tiptap+pm@3.31.4__@tiptap+pm@3.31.4/node_modules/@tiptap/extension-table"
+      ],
+      "license": "MIT",
+      "homepage": "https://tiptap.dev",
+      "description": "table extension for tiptap"
+    },
+    {
+      "name": "@tiptap/extension-task-item",
+      "versions": [
+        "3.31.4"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@tiptap+extension-task-item@3.31.4_@tiptap+extension-list@3.31.4_@tiptap+core@3.31.4_@t_49de3c5de7a55736108aefa470b06d7b/node_modules/@tiptap/extension-task-item"
+      ],
+      "license": "MIT",
+      "homepage": "https://tiptap.dev",
+      "description": "task item extension for tiptap"
+    },
+    {
+      "name": "@tiptap/extension-task-list",
+      "versions": [
+        "3.31.4"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@tiptap+extension-task-list@3.31.4_@tiptap+extension-list@3.31.4_@tiptap+core@3.31.4_@t_ea636c773be19ad11ef4655c6ad24226/node_modules/@tiptap/extension-task-list"
+      ],
+      "license": "MIT",
+      "homepage": "https://tiptap.dev",
+      "description": "task list extension for tiptap"
+    },
+    {
       "name": "@tiptap/extension-text",
       "versions": [
         "3.31.4"
@@ -2375,6 +2459,18 @@
       "license": "MIT",
       "homepage": "https://tiptap.dev",
       "description": "text extension for tiptap"
+    },
+    {
+      "name": "@tiptap/extension-text-style",
+      "versions": [
+        "3.31.4"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@tiptap+extension-text-style@3.31.4_@tiptap+core@3.31.4_@tiptap+pm@3.31.4_/node_modules/@tiptap/extension-text-style"
+      ],
+      "license": "MIT",
+      "homepage": "https://tiptap.dev",
+      "description": "text style extension for tiptap"
     },
     {
       "name": "@tiptap/extension-underline",
@@ -2508,6 +2604,18 @@
       "description": "TypeScript definitions for estree"
     },
     {
+      "name": "@types/hast",
+      "versions": [
+        "3.0.5"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@types+hast@3.0.5/node_modules/@types/hast"
+      ],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/hast",
+      "description": "TypeScript definitions for hast"
+    },
+    {
       "name": "@types/json-schema",
       "versions": [
         "7.0.15"
@@ -2578,6 +2686,18 @@
       "license": "MIT",
       "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/trusted-types",
       "description": "TypeScript definitions for trusted-types"
+    },
+    {
+      "name": "@types/unist",
+      "versions": [
+        "3.0.3"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@types+unist@3.0.3/node_modules/@types/unist"
+      ],
+      "license": "MIT",
+      "homepage": "https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/unist",
+      "description": "TypeScript definitions for unist"
     },
     {
       "name": "@types/use-sync-external-store",
@@ -3308,6 +3428,18 @@
       "description": "Character detector"
     },
     {
+      "name": "chrono-node",
+      "versions": [
+        "2.10.2"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/chrono-node@2.10.2/node_modules/chrono-node"
+      ],
+      "license": "MIT",
+      "homepage": "http://github.com/wanasit/chrono",
+      "description": "A natural language date parser in Javascript"
+    },
+    {
       "name": "cli-cursor",
       "versions": [
         "2.1.0"
@@ -3353,10 +3485,12 @@
     {
       "name": "commander",
       "versions": [
-        "2.20.3"
+        "2.20.3",
+        "15.0.0"
       ],
       "paths": [
-        "/workspace/veloradesk/node_modules/.pnpm/commander@2.20.3/node_modules/commander"
+        "/workspace/veloradesk/node_modules/.pnpm/commander@2.20.3/node_modules/commander",
+        "/workspace/veloradesk/node_modules/.pnpm/commander@15.0.0/node_modules/commander"
       ],
       "license": "MIT",
       "author": "TJ Holowaychuk",
@@ -3714,6 +3848,19 @@
       "description": "Deprecate all the things"
     },
     {
+      "name": "dequal",
+      "versions": [
+        "2.0.3"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/dequal@2.0.3/node_modules/dequal"
+      ],
+      "license": "MIT",
+      "author": "Luke Edwards",
+      "homepage": "https://github.com/lukeed/dequal#readme",
+      "description": "A tiny (304B to 489B) utility for check for deep equality"
+    },
+    {
       "name": "destroy",
       "versions": [
         "1.2.0"
@@ -3738,6 +3885,19 @@
       "author": "Ilya Kantor",
       "homepage": "https://github.com/thekashey/detect-node",
       "description": "Detect Node.JS (as opposite to browser environment). ESM modification"
+    },
+    {
+      "name": "devlop",
+      "versions": [
+        "1.1.0"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/devlop@1.1.0/node_modules/devlop"
+      ],
+      "license": "MIT",
+      "author": "Titus Wormer",
+      "homepage": "https://github.com/wooorm/devlop#readme",
+      "description": "Do things in development and nothing otherwise"
     },
     {
       "name": "dot-prop",
@@ -4180,6 +4340,19 @@
       "author": "thecodrr",
       "homepage": "https://github.com/thecodrr/fdir#readme",
       "description": "The fastest directory crawler & globbing alternative to glob, fast-glob, & tiny-glob. Crawls 1m files in < 1s"
+    },
+    {
+      "name": "fflate",
+      "versions": [
+        "0.8.3"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/fflate@0.8.3/node_modules/fflate"
+      ],
+      "license": "MIT",
+      "author": "Arjun Barrett",
+      "homepage": "https://101arrowz.github.io/fflate",
+      "description": "High performance (de)compression in an 8kB package"
     },
     {
       "name": "figures",
@@ -5400,6 +5573,18 @@
       "description": "Simple JSON Addressing."
     },
     {
+      "name": "katex",
+      "versions": [
+        "0.19.0"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/katex@0.19.0/node_modules/katex"
+      ],
+      "license": "MIT",
+      "homepage": "https://katex.org",
+      "description": "Fast math typesetting for the web."
+    },
+    {
       "name": "keyv",
       "versions": [
         "5.6.0"
@@ -5542,6 +5727,19 @@
       "author": "Andy VanWagoner",
       "homepage": "https://github.com/format-message/format-message/tree/master/packages/lookup-closest-locale",
       "description": "Lookup the closest locale from among object keys"
+    },
+    {
+      "name": "lowlight",
+      "versions": [
+        "3.3.0"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/lowlight@3.3.0/node_modules/lowlight"
+      ],
+      "license": "MIT",
+      "author": "Titus Wormer",
+      "homepage": "https://github.com/wooorm/lowlight#readme",
+      "description": "Virtual syntax highlighting for virtual DOMs and non-HTML things"
     },
     {
       "name": "magic-string",
@@ -6180,6 +6378,19 @@
       "author": "Andrew Kelley",
       "homepage": "https://github.com/andrewrk/node-pend#readme",
       "description": "dead-simple optimistic async helper"
+    },
+    {
+      "name": "perfect-freehand",
+      "versions": [
+        "1.2.3"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/perfect-freehand@1.2.3/node_modules/perfect-freehand"
+      ],
+      "license": "MIT",
+      "author": "Steve Ruiz",
+      "homepage": "https://github.com/steveruizok/perfect-freehand#readme",
+      "description": "Draw perfect pressure-sensitive freehand strokes."
     },
     {
       "name": "picomatch",
@@ -8828,6 +9039,19 @@
       "homepage": "https://github.com/mmkal/expect-type#readme"
     },
     {
+      "name": "fake-indexeddb",
+      "versions": [
+        "6.2.5"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/fake-indexeddb@6.2.5/node_modules/fake-indexeddb"
+      ],
+      "license": "Apache-2.0",
+      "author": "Jeremy Scheff",
+      "homepage": "https://github.com/dumbmatter/fakeIndexedDB",
+      "description": "Fake IndexedDB: a pure JS in-memory implementation of the IndexedDB API"
+    },
+    {
       "name": "filelist",
       "versions": [
         "1.0.6"
@@ -9226,6 +9450,21 @@
       "description": "Dependency-free RFC 3986 URI toolbox"
     },
     {
+      "name": "highlight.js",
+      "versions": [
+        "11.11.2",
+        "11.12.0"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/highlight.js@11.11.2/node_modules/highlight.js",
+        "/workspace/veloradesk/node_modules/.pnpm/highlight.js@11.12.0/node_modules/highlight.js"
+      ],
+      "license": "BSD-3-Clause",
+      "author": "Josh Goebel",
+      "homepage": "https://highlightjs.org/",
+      "description": "Syntax highlighting with language autodetection."
+    },
+    {
       "name": "intl-messageformat",
       "versions": [
         "10.7.18"
@@ -9262,6 +9501,19 @@
       "license": "BSD-3-Clause",
       "homepage": "https://github.com/ljharb/qs",
       "description": "A querystring parser that supports nesting and arrays, with a depth limit"
+    },
+    {
+      "name": "rrule",
+      "versions": [
+        "2.8.1"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/rrule@2.8.1/node_modules/rrule"
+      ],
+      "license": "BSD-3-Clause",
+      "author": "Jakub Roztocil, Lars Schöning, and David Golightly",
+      "homepage": "http://jakubroztocil.github.io/rrule/",
+      "description": "JavaScript library for working with recurrence rules for calendar dates."
     },
     {
       "name": "serialize-javascript",
@@ -9358,6 +9610,17 @@
   ],
   "MIT OR Apache-2.0": [
     {
+      "name": "@tauri-apps/plugin-autostart",
+      "versions": [
+        "2.7.0"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@tauri-apps+plugin-autostart@2.7.0/node_modules/@tauri-apps/plugin-autostart"
+      ],
+      "license": "MIT OR Apache-2.0",
+      "homepage": "https://github.com/tauri-apps/plugins-workspace#readme"
+    },
+    {
       "name": "@tauri-apps/plugin-deep-link",
       "versions": [
         "2.6.1"
@@ -9368,6 +9631,28 @@
       "license": "MIT OR Apache-2.0",
       "homepage": "https://github.com/tauri-apps/plugins-workspace#readme",
       "description": "Set your Tauri application as the default handler for an URL"
+    },
+    {
+      "name": "@tauri-apps/plugin-global-shortcut",
+      "versions": [
+        "2.4.0"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@tauri-apps+plugin-global-shortcut@2.4.0/node_modules/@tauri-apps/plugin-global-shortcut"
+      ],
+      "license": "MIT OR Apache-2.0",
+      "homepage": "https://github.com/tauri-apps/plugins-workspace#readme"
+    },
+    {
+      "name": "@tauri-apps/plugin-notification",
+      "versions": [
+        "2.5.1"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@tauri-apps+plugin-notification@2.5.1/node_modules/@tauri-apps/plugin-notification"
+      ],
+      "license": "MIT OR Apache-2.0",
+      "homepage": "https://github.com/tauri-apps/plugins-workspace#readme"
     },
     {
       "name": "@tauri-apps/plugin-opener",

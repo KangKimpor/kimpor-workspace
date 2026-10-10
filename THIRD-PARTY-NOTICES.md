@@ -4,6 +4,11 @@ This app uses open-source software. `pnpm run licenses` saves the installed
 dependency/version/license inventory in `docs/evidence/dependency-licenses.json`.
 Source-path fields describe the audit machine, not application runtime paths.
 
+- KaTeX 0.19.0, Khan Academy and contributors: MIT; bundled font notice/license
+  files are included in its package. https://github.com/KaTeX/KaTeX
+- web-push 3.6.7 (server only, unmodified): MPL-2.0. The upstream license notice is in
+  docs/licenses/web-push-MPL-2.0.txt; upstream source:
+  https://github.com/web-push-libs/web-push
 - Inter Variable, Rasmus Andersson: SIL Open Font License 1.1.
   https://github.com/rsms/inter/blob/master/LICENSE.txt
 - Lucide icons, Lucide contributors: ISC license; original Feather icons by

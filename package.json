@@ -15,20 +15,22 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint . && node scripts/check-conventions.mjs",
     "test": "vitest run --coverage",
+    "test:backup": "node --test scripts/cloud-backup.test.mjs",
     "e2e": "playwright test",
     "shots": "node scripts/shots.mjs",
     "brand:build": "node scripts/brand.mjs",
     "budget": "node scripts/budget.mjs",
     "licenses": "node scripts/licenses.mjs",
     "tauri": "tauri",
-    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm budget && pnpm contrast",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm test:backup && pnpm build && pnpm budget && pnpm contrast",
     "secret:scan": "node scripts/secret-scan.mjs",
     "hooks:install": "git config core.hooksPath .githooks",
     "contrast": "node scripts/contrast.mjs",
     "lighthouse": "node scripts/lighthouse.mjs",
     "visual:record": "node scripts/visual.mjs --record",
     "visual:check": "node scripts/visual.mjs",
-    "licenses:cargo": "node scripts/licenses-cargo.mjs"
+    "licenses:cargo": "node scripts/licenses-cargo.mjs",
+    "licenses:deno": "node scripts/licenses-deno.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
@@ -51,6 +53,7 @@
     "typescript": "6.0.3",
     "typescript-eslint": "8.71.1",
     "vite": "8.3.4",
-    "vitest": "5.0.3"
+    "vitest": "5.0.3",
+    "fake-indexeddb": "6.2.5"
   }
 }

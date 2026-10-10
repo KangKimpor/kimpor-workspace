@@ -12,7 +12,7 @@ jobs:
   quality:
     name: Quality
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
@@ -26,7 +26,15 @@ jobs:
       - run: pnpm brand:build
       - run: pnpm check
       - run: pnpm run licenses
+      - run: pnpm licenses:deno
       - run: pnpm build:desktop
+      - name: PostgreSQL ownership and migration checks
+        run: bash scripts/sql-test.sh
+      - name: Pinned Deno runtime and backend contracts
+        run: |
+          bash scripts/deno-install.sh
+          /tmp/velora-deno/deno check --config supabase/functions/deno.json supabase/functions/*/index.ts
+          /tmp/velora-deno/deno test --allow-env --config supabase/functions/deno.json supabase/tests/edge_test.ts
       - name: Scan source and git history for secrets
         run: pnpm secret:scan --history
       - run: pnpm exec playwright install --with-deps chromium webkit firefox

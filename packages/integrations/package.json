@@ -6,5 +6,8 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "dependencies": {}
+  "dependencies": {
+    "rrule": "2.8.1",
+    "chrono-node": "2.10.2"
+  }
 }

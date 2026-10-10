@@ -6,7 +6,15 @@
   "exports": {
     ".": "./src/index.ts",
     "./platform": "./src/platform.ts",
-    "./study-storage": "./src/study-storage.ts"
+    "./study-storage": "./src/study-storage.ts",
+    "./model": "./src/model.ts",
+    "./store": "./src/store.ts",
+    "./order": "./src/order.ts",
+    "./sync": "./src/sync.ts",
+    "./export": "./src/export.ts",
+    "./crypto": "./src/crypto.ts",
+    "./cloud": "./src/cloud.ts",
+    "./cloud-auth": "./src/cloud-auth.ts"
   },
   "dependencies": {
     "dexie": "4.4.6",
@@ -14,6 +22,10 @@
     "@tauri-apps/api": "2.12.2",
     "@tauri-apps/plugin-deep-link": "2.6.1",
     "@tauri-apps/plugin-opener": "2.7.0",
-    "@tauri-apps/plugin-updater": "2.13.2"
+    "@tauri-apps/plugin-updater": "2.13.2",
+    "fflate": "0.8.3",
+    "@tauri-apps/plugin-notification": "2.5.1",
+    "@tauri-apps/plugin-autostart": "2.7.0",
+    "@tauri-apps/plugin-global-shortcut": "2.4.0"
   }
 }

@@ -1,0 +1,32 @@
+name: Cloud deployment
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+permissions:
+  contents: read
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 24
+      - name: Require the configured project
+        run: test -n "$SUPABASE_ACCESS_TOKEN" && test -n "$SUPABASE_DB_PASSWORD" && test -n "$SUPABASE_PROJECT_REF"
+      - run: pnpm dlx supabase@2.120.0 link --project-ref "$SUPABASE_PROJECT_REF"
+      - name: Review migration plan
+        run: pnpm dlx supabase@2.120.0 db push --dry-run
+      - name: Apply migrations and deploy functions
+        run: |
+          pnpm dlx supabase@2.120.0 db push
+          pnpm dlx supabase@2.120.0 functions deploy --import-map supabase/functions/deno.json

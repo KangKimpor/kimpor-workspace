@@ -1,7 +1,7 @@
 module.exports = {
   ci: {
     collect: {
-      url: ['http://127.0.0.1:4173/design'], numberOfRuns: 1,
+      url: ['http://127.0.0.1:4173/', 'http://127.0.0.1:4173/design'], numberOfRuns: 1,
       chromePath: process.env.CHROME_PATH,
       settings: {
         formFactor: 'desktop',

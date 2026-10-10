@@ -34,6 +34,10 @@
   --hero: #1c293a; --hero-line: #445f84; --shadow-color: #00000038; --scrim: #00000099;
 }
 * { box-sizing: border-box; }
+:root[data-accent='green']{--accent:var(--success);--accent-fill:#23764c;--accent-tint:var(--success-tint);}
+:root[data-accent='red']{--accent:var(--danger);--accent-fill:#b92335;--accent-tint:var(--danger-tint);}
+:root[data-accent='purple']{--accent:var(--purple);--accent-fill:#7852b5;--accent-tint:var(--purple-tint);}
+:root[data-accent='orange']{--accent:var(--warm);--accent-fill:#94652c;--accent-tint:var(--warm-tint);}
 html { background: var(--bg); color: var(--text); font-family: var(--font); font-size: var(--text-body); line-height: var(--leading-body); scroll-behavior: smooth; }
 body { margin: 0; min-width: 0; color: var(--text); }
 button, input, select, textarea { font: inherit; }

@@ -2,11 +2,15 @@ name: Windows installer
 on:
   workflow_dispatch:
   push:
+    branches: [main]
     tags: ['v*']
   pull_request:
     types: [opened, synchronize, reopened, labeled]
 permissions:
   contents: read
+concurrency:
+  group: desktop-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
   windows:
     if: github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'build-desktop')
@@ -20,29 +24,57 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 24
-      - run: rustup toolchain install 1.99.0 --profile minimal
+      - run: rustup toolchain install 1.99.0 --profile minimal --component rustfmt
       - run: rustup default 1.99.0
       - run: pnpm install --frozen-lockfile
       - run: pnpm brand:build
       - run: pnpm licenses:cargo
-      - name: Build unsigned per-user NSIS installer
-        run: pnpm --filter @veloradesk/desktop build -- --locked
+      - run: cargo fmt --manifest-path apps/desktop/src-tauri/Cargo.toml -- --check
+      - name: Build per-user NSIS installer and signed updater on tags
+        shell: pwsh
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          IS_RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ startsWith(github.ref, 'refs/tags/v') && secrets.TAURI_SIGNING_PRIVATE_KEY || '' }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ startsWith(github.ref, 'refs/tags/v') && secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD || '' }}
+        run: |
+          if ($env:IS_RELEASE -eq 'true') {
+            if (!$env:TAURI_SIGNING_PRIVATE_KEY) { throw 'A release requires the backed-up TAURI_SIGNING_PRIVATE_KEY repository secret.' }
+            $version = $env:RELEASE_TAG -replace '^v', ''
+            if ($version -notmatch '^\d+\.\d+\.\d+(-[0-9A-Za-z.-]+)?$') { throw 'Release tag must contain a semantic version.' }
+            $config = Join-Path $env:RUNNER_TEMP 'veloradesk-release.json'
+            @{ version = $version; bundle = @{ createUpdaterArtifacts = $true } } | ConvertTo-Json -Depth 5 | Set-Content $config
+            pnpm --filter @veloradesk/desktop build -- --locked --config $config
+          } else {
+            pnpm --filter @veloradesk/desktop build -- --locked
+          }
+          if ($LASTEXITCODE -ne 0) { throw 'Tauri build failed.' }
       - name: Install, window and single-instance smoke checks
         shell: pwsh
         run: ./scripts/windows-smoke.ps1
-      - name: Check installer size and SHA256
+      - name: Installer budget, checksums and update feed
         shell: pwsh
-        run: |
-          $installer = Get-ChildItem apps/desktop/src-tauri/target/release/bundle/nsis/*-setup.exe | Select-Object -First 1
-          if ($installer.Length -gt 20MB) { throw "Installer exceeds 20 MiB budget" }
-          $hash = (Get-FileHash $installer.FullName -Algorithm SHA256).Hash.ToLower()
-          "$hash  $($installer.Name)" | Set-Content "$($installer.Directory)/SHA256SUMS.txt"
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+          REPOSITORY: ${{ github.repository }}
+          IS_RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
+        run: ./scripts/windows-release.ps1
+      - name: Preserve Windows verification evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: VeloraDesk-windows-verification
+          path: docs/evidence/windows-smoke.json
+          retention-days: 7
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: VeloraDesk-windows-x64
           path: |
             apps/desktop/src-tauri/target/release/bundle/nsis/*-setup.exe
+            apps/desktop/src-tauri/target/release/bundle/nsis/*.sig
             apps/desktop/src-tauri/target/release/bundle/nsis/SHA256SUMS.txt
+            apps/desktop/src-tauri/target/release/bundle/nsis/latest.json
+            docs/evidence/windows-smoke.json
           retention-days: 7
   release:
     if: startsWith(github.ref, 'refs/tags/v')
@@ -55,7 +87,12 @@ jobs:
         with:
           name: VeloraDesk-windows-x64
           path: release
-      - run: gh release create "$RELEASE_TAG" release/* --repo "$REPOSITORY" --prerelease --title "VeloraDesk $RELEASE_TAG — Foundation preview" --notes "Phase 0 foundation preview. Unsigned Windows installer; SmartScreen may warn. Product modules and cloud sign-in are not implemented. See the Phase 0 report for verification and gaps."
+      - name: Publish release with signed update feed
+        run: |
+          feed=$(find release -name latest.json -type f -print -quit)
+          test -n "$feed"
+          bundle=$(dirname "$feed")
+          gh release create "$RELEASE_TAG" "$bundle"/* --repo "$REPOSITORY" --title "VeloraDesk $RELEASE_TAG" --notes "Local-first workspace. Windows installer is unsigned for Authenticode; SmartScreen may show a warning. The in-app update package has a verified Tauri updater signature. See the release evidence and device checklist for remaining verification."
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ github.ref_name }}

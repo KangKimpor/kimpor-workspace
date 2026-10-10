@@ -1,0 +1,19 @@
+project_id = "veloradesk"
+[functions.calendar-proxy]
+verify_jwt = false
+[functions.calendar-callback]
+verify_jwt = false
+[functions.push-register]
+verify_jwt = false
+[functions.maintenance]
+verify_jwt = false
+[functions.attachments]
+verify_jwt = false
+[functions.delete-account]
+verify_jwt = false
+[functions.backup]
+verify_jwt = false
+[functions.keepalive]
+verify_jwt = false
+# Owner endpoints validate the bearer session against Auth inside the function.
+# Callback validates signed one-time state; maintenance validates a server secret.

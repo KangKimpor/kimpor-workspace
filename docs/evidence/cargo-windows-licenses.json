@@ -33,6 +33,11 @@
       "license": "Apache-2.0 OR MIT"
     },
     {
+      "name": "auto-launch",
+      "version": "0.6.0",
+      "license": "MIT"
+    },
+    {
       "name": "autocfg",
       "version": "1.5.1",
       "license": "Apache-2.0 OR MIT"
@@ -388,6 +393,11 @@
       "license": "MIT OR Apache-2.0"
     },
     {
+      "name": "global-hotkey",
+      "version": "0.8.0",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
       "name": "hashbrown",
       "version": "0.12.3",
       "license": "MIT OR Apache-2.0"
@@ -559,6 +569,11 @@
     },
     {
       "name": "keyboard-types",
+      "version": "0.7.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "keyboard-types",
       "version": "0.8.3",
       "license": "MIT OR Apache-2.0"
     },
@@ -628,6 +643,11 @@
       "license": "MIT"
     },
     {
+      "name": "notify-rust",
+      "version": "4.18.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
       "name": "num-conv",
       "version": "0.2.2",
       "license": "MIT OR Apache-2.0"
@@ -651,6 +671,11 @@
       "name": "option-ext",
       "version": "0.2.0",
       "license": "MPL-2.0"
+    },
+    {
+      "name": "os_info",
+      "version": "3.15.0",
+      "license": "MIT"
     },
     {
       "name": "parking_lot",
@@ -723,6 +748,11 @@
       "license": "MIT OR Apache-2.0"
     },
     {
+      "name": "ppv-lite86",
+      "version": "0.2.21",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
       "name": "precomputed-hash",
       "version": "0.1.1",
       "license": "MIT"
@@ -740,6 +770,21 @@
     {
       "name": "quote",
       "version": "1.0.47",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "rand",
+      "version": "0.9.5",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "rand_chacha",
+      "version": "0.9.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "rand_core",
+      "version": "0.9.5",
       "license": "MIT OR Apache-2.0"
     },
     {
@@ -1033,8 +1078,23 @@
       "license": "Apache-2.0 OR MIT"
     },
     {
+      "name": "tauri-plugin-autostart",
+      "version": "2.7.0",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
       "name": "tauri-plugin-deep-link",
       "version": "2.6.1",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "tauri-plugin-global-shortcut",
+      "version": "2.4.0",
+      "license": "Apache-2.0 OR MIT"
+    },
+    {
+      "name": "tauri-plugin-notification",
+      "version": "2.5.1",
       "license": "Apache-2.0 OR MIT"
     },
     {
@@ -1076,6 +1136,11 @@
       "name": "tauri-winres",
       "version": "0.3.6",
       "license": "MIT"
+    },
+    {
+      "name": "tauri-winrt-notification",
+      "version": "0.8.1",
+      "license": "MIT OR Apache-2.0"
     },
     {
       "name": "tempfile",
@@ -1369,7 +1434,17 @@
     },
     {
       "name": "windows-sys",
+      "version": "0.59.0",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-sys",
       "version": "0.61.2",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows-targets",
+      "version": "0.52.6",
       "license": "MIT OR Apache-2.0"
     },
     {
@@ -1380,6 +1455,11 @@
     {
       "name": "windows-version",
       "version": "0.1.7",
+      "license": "MIT OR Apache-2.0"
+    },
+    {
+      "name": "windows_x86_64_msvc",
+      "version": "0.52.6",
       "license": "MIT OR Apache-2.0"
     },
     {
@@ -1411,6 +1491,11 @@
       "name": "yoke-derive",
       "version": "0.8.4",
       "license": "Unicode-3.0"
+    },
+    {
+      "name": "zerocopy",
+      "version": "0.8.62",
+      "license": "BSD-2-Clause OR Apache-2.0 OR MIT"
     },
     {
       "name": "zerofrom",

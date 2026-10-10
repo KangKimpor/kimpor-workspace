@@ -1,0 +1,4 @@
+.ws-app-lock { min-height: 100dvh; display: grid; place-items: center; padding: max(24px, env(safe-area-inset-top)) 24px; background: var(--bg); color: var(--text); }
+.ws-app-lock .ws-card { width: min(100%, 420px); padding: 32px; border: 1px solid var(--line); border-radius: var(--radius-card); background: var(--surface); }
+.ws-app-lock form, .ws-app-lock label { display: grid; gap: 16px; }
+.ws-app-lock input { min-height: 44px; min-width: 0; width: 100%; padding: 10px 12px; background: var(--field); color: var(--text); border: 1px solid var(--line); border-radius: var(--radius-control); }
