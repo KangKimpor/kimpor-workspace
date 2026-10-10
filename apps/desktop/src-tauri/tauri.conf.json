@@ -1,0 +1,74 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "VeloraDesk",
+  "mainBinaryName": "VeloraDesk",
+  "version": "0.0.1",
+  "identifier": "com.kimpor.veloradesk",
+  "build": {
+    "beforeDevCommand": "pnpm --dir ../.. dev",
+    "beforeBuildCommand": "pnpm --dir ../.. build:desktop",
+    "devUrl": "http://localhost:5173",
+    "frontendDist": "../../web/dist-desktop"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "VeloraDesk",
+        "width": 1280,
+        "height": 800,
+        "minWidth": 800,
+        "minHeight": 600,
+        "center": true,
+        "decorations": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' ipc: http://ipc.localhost; object-src 'none'; base-uri 'self'; frame-src 'none'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "nsis"
+    ],
+    "createUpdaterArtifacts": false,
+    "category": "Productivity",
+    "shortDescription": "A quieter place for everything",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/256x256.png",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper",
+        "silent": true
+      },
+      "nsis": {
+        "installMode": "currentUser",
+        "compression": "lzma",
+        "displayLanguageSelector": false,
+        "installerIcon": "icons/icon.ico",
+        "headerImage": "icons/installer-header.bmp",
+        "sidebarImage": "icons/installer-sidebar.bmp"
+      }
+    }
+  },
+  "plugins": {
+    "deep-link": {
+      "desktop": {
+        "schemes": [
+          "veloradesk"
+        ]
+      }
+    },
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEMxQUVGM0Q5NjlEMkNDQ0YKUldUUHpOSnAyZk91d1JPN1c2MXA0Vy9sMDVOblRxT2MrcnNkQlVLc1BzNnVvQU5NRUFiWmxtZHoK",
+      "endpoints": [
+        "https://github.com/KangKimpor/veloradesk/releases/latest/download/latest.json"
+      ]
+    }
+  }
+}

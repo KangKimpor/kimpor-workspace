@@ -1,0 +1,30 @@
+[package]
+name = "veloradesk"
+version = "0.0.1"
+description = "VeloraDesk foundation preview"
+authors = ["KangKimpor"]
+license = "MIT"
+edition = "2021"
+rust-version = "1.82"
+
+[lib]
+name = "veloradesk_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "=2.7.1", features = [] }
+
+[dependencies]
+tauri = { version = "=2.12.2", features = [] }
+tauri-plugin-single-instance = { version = "=2.5.2", features = ["deep-link"] }
+tauri-plugin-deep-link = "=2.6.1"
+tauri-plugin-opener = "=2.7.0"
+tauri-plugin-updater = "=2.13.2"
+tauri-plugin-window-state = "=2.5.0"
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true
