@@ -1,0 +1,14 @@
+{
+  "name": "@veloradesk/ui",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./src/tokens.css"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "motion": "14.1.0"
+  }
+}

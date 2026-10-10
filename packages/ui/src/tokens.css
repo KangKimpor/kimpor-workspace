@@ -1,0 +1,49 @@
+@import 'tailwindcss';
+:root {
+  color-scheme: light;
+  --font: -apple-system, BlinkMacSystemFont, 'Inter Variable', 'Segoe UI Variable', system-ui, sans-serif;
+  --mono: ui-monospace, 'SF Mono', Consolas, monospace;
+  --preview-light-bg: #f5f5f7; --preview-light-surface: #ffffff; --preview-light-line: #dcdce2;
+  --preview-dark-bg: #17171a; --preview-dark-surface: #2c2c30; --preview-dark-line: #45454d;
+  --brand-seed: #265b9a; --brand-top: #3c7bc8; --brand-bottom: #1e4a85; --accent: #2268bf; --accent-fill: #2268bf; --accent-tint: #e5edf8;
+  --bg: #f5f5f7; --surface: #ffffff; --surface-raised: #ffffff; --sidebar: #ededf1; --field: #f1f1f4;
+  --text: #23232a; --secondary: #62626c; --tertiary: #656570; --line: #dcdce2; --white: #ffffff;
+  --glass: #ffffffd9; --success: #23764c; --success-tint: #e7f2eb; --danger: #b92335; --danger-tint: #fbe9eb;
+  --purple: #7852b5; --purple-tint: #ede8f5; --warm: #94652c; --warm-tint: #f6eddf;
+  --hero: #e7edf5; --hero-line: #a2b9d9; --shadow-color: #21355c12; --scrim: #10132166;
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px; --space-12: 48px; --space-16: 64px;
+  --radius-control: 10px; --radius-card: 14px; --radius-group: 20px; --radius-sheet: 28px; --radius-pill: 999px;
+  --duration-press: 80ms; --duration-fast: 150ms; --duration-normal: 250ms; --duration-slow: 350ms;
+  --spring-snappy: 400, 30; --spring-soft: 260, 28; --ease-standard: cubic-bezier(.2,.8,.2,1);
+  --hairline: 1px; --focus-width: 2px; --focus-offset: 2px; --press-scale: .97;
+  --text-caption: 12px; --text-footnote: 13px; --text-body: 15px; --text-input: 16px; --text-headline: 17px; --text-title3: 20px; --text-title2: 22px; --text-title: 28px; --text-large: 34px; --text-hero: 44px;
+  --leading-tight: 1.2; --leading-body: 1.5; --tracking-tight: -.035em; --tracking-wide: .1em;
+  --target: 44px; --sidebar-width: 232px; --reading-width: 720px; --content-width: 1160px;
+  --shadow: 0 8px 32px var(--shadow-color); --shadow-lift: 0 16px 40px var(--shadow-color);
+  --blur: 20px; --icon: 20px; --small-icon: 16px; --switch-width: 48px; --switch-height: 28px; --switch-knob: 24px; --switch-travel: 20px;
+  --logo-size: 36px; --hero-art-width: 260px; --hero-art-height: 180px; --hero-card-width: 180px; --hero-card-height: 128px;
+  --section-min: 280px; --max-dialog: 480px; --chip-padding: 6px; --nav-height: 64px; --touch-lift: -8px;
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --accent: #5a9ced; --accent-fill: #236dc7; --accent-tint: #22334a;
+  --bg: #111113; --surface: #1c1c1e; --surface-raised: #27272b; --sidebar: #19191c; --field: #2c2c30;
+  --text: #f3f3f5; --secondary: #b1b1ba; --tertiary: #a0a0ab; --line: #3c3c43; --glass: #1c1c1ee6;
+  --success: #78cea1; --success-tint: #203b2f; --danger: #ff8996; --danger-tint: #45282f;
+  --purple: #bd9ce8; --purple-tint: #332d45; --warm: #dec097; --warm-tint: #3e3426;
+  --hero: #1c293a; --hero-line: #445f84; --shadow-color: #00000038; --scrim: #00000099;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); color: var(--text); font-family: var(--font); font-size: var(--text-body); line-height: var(--leading-body); scroll-behavior: smooth; }
+body { margin: 0; min-width: 0; color: var(--text); }
+button, input, select, textarea { font: inherit; }
+button, input, select, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+button { color: inherit; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: var(--focus-width) solid var(--accent); outline-offset: var(--focus-offset); }
+svg { flex-shrink: 0; }
+button:disabled { cursor: not-allowed; opacity: .5; }
+::selection { background: var(--accent-tint); color: var(--text); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+:root[data-reduce-motion='true'] *, :root[data-reduce-motion='true'] *::before, :root[data-reduce-motion='true'] *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) { :root { --glass: var(--surface); --blur: 0px; } }
+@media (forced-colors: active) { .pressable, .card, input { border: var(--hairline) solid ButtonText !important; } }
