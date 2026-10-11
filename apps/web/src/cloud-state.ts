@@ -57,7 +57,9 @@ async function bind(session: CloudSession | null) {
       lastSyncedAt: null,
       error: null,
     },
-    error: "",
+    // The initial local binding can finish after the redirect error callback.
+    // Keep that guidance visible until a successful sign-in changes the account.
+    error: session ? "" : state.error,
   };
   emit();
   if (!session) return;

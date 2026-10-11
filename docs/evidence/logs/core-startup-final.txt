@@ -1,0 +1,35 @@
+$ vitest run --coverage
+
+ RUN  v5.0.3 /workspace/veloradesk
+      Coverage enabled with v8
+
+
+ Test Files  13 passed (13)
+      Tests  67 passed (67)
+   Start at  17:23:14
+   Duration  6.17s (tests 67%, import 17%, transform 10%, worker 6%)
+
+    Isolate  13 workers spawned · ~108ms startup each (spawn + environment, per file)
+             at least ~1.29s faster with isolate: false — reuses workers across files instead of one per file
+
+ % Coverage report from v8
+------------------|---------|----------|---------|---------|--------------------
+File              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------------|---------|----------|---------|---------|--------------------
+All files         |   85.65 |    81.14 |   83.88 |   88.29 |
+ clock.ts         |     100 |    96.66 |     100 |     100 | 10
+ cloud-auth.ts    |   95.62 |    92.37 |   88.88 |   96.87 | 239-240,311-312
+ cloud.ts         |   93.91 |    86.84 |   95.65 |   94.39 | ...156,160,172,181
+ crypto.ts        |   93.82 |    82.05 |     100 |   97.29 | 55,210
+ export.ts        |   95.04 |    83.39 |   97.29 |   97.52 | ...342,402-403,449
+ platform.ts      |   25.54 |    35.16 |   18.75 |   27.58 | ...217-218,222-235
+ store.ts         |   86.74 |    82.31 |    88.8 |   89.34 | ...,1405,1413,1424
+ sync.ts          |   90.98 |       68 |   83.33 |   95.23 | 60,87-88,150,193
+------------------|---------|----------|---------|---------|--------------------
+
+=============================== Coverage summary ===============================
+Statements   : 85.65% ( 1308/1527 )
+Branches     : 81.14% ( 964/1188 )
+Functions    : 83.88% ( 255/304 )
+Lines        : 88.29% ( 1222/1384 )
+================================================================================

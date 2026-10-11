@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-11T17:12:31.386Z",
+  "origin": "https://kangkimpor.github.io",
+  "mode": "Actual public Pages deployment, tested in managed local browsers; no physical-device result inferred.",
+  "checks": [
+    {
+      "engine": "chromium",
+      "prefix": "/kimpor-workspace/",
+      "directGallery": true,
+      "editorNavigation": true,
+      "manifestScope": true,
+      "csp": true,
+      "cachedOfflineReload": true,
+      "offlineEditPersistence": true,
+      "workspaceRoot": true,
+      "cloudAccountScreen": true,
+      "unconfiguredGoogleHidden": true,
+      "errors": []
+    },
+    {
+      "engine": "webkit",
+      "prefix": "/kimpor-workspace/",
+      "directGallery": true,
+      "editorNavigation": true,
+      "manifestScope": true,
+      "csp": true,
+      "cachedOfflineReload": true,
+      "offlineEditPersistence": true,
+      "workspaceRoot": true,
+      "cloudAccountScreen": true,
+      "unconfiguredGoogleHidden": true,
+      "errors": []
+    }
+  ],
+  "source_commit": "0444c75608af40dd510846862e160908837e573c",
+  "deployment_run": 38158472168
+}

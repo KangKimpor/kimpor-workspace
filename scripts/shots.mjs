@@ -81,8 +81,14 @@ try {
         if(screen==='editor') await page.getByRole('textbox',{name:'Multilingual editor study'}).waitFor();
         if(screen==='about') await page.getByRole('button',{name:'Take a closer look'}).click();
         if(screen==='palette') await page.getByRole('button',{name:'Open command palette'}).click();
-        // React's selected-tab attributes can update before WebKit repaints its
-        // fixed navigation layer. Capture the settled paint, not the old tab tint.
+        // Pressable uses a JavaScript spring, which screenshot animations:'disabled'
+        // does not stop. WebKit can retain the old tab text tint in that layer until
+        // the spring returns to rest even after aria-current updates.
+        await page.waitForFunction(() => [...document.querySelectorAll('.ws-nav,.ws-tab')].every(element => {
+          const style = getComputedStyle(element);
+          return style.opacity === '1' && style.transform === 'none' && element.getAttribute('data-pressed') !== 'true';
+        }));
+        // Capture the settled compositor paint after the navigation is at rest.
         await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
         const file=`docs/screenshots/${screen}-${name}-${theme}.png`;
         const overflow=await page.evaluate(()=>document.documentElement.scrollWidth > innerWidth+1);

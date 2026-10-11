@@ -25,21 +25,25 @@ verified. The source workspace was not modified. Private data stays out of Git.
 
 ## Evidence
 
-- Local quality checks and final core run: 66 core tests in 12 files, 88.29% line coverage (85% gate),
+- Local quality checks and final core run: 66 core tests plus one web startup regression, 88.29% core line coverage (85% gate),
   backup test, seven cloud-management tests, build, bundle limits and 44 contrast pairs.
 - Ten SQL migrations and seven Deno fixtures/eight entry points passed before
   this frontend update; these backend sources are unchanged.
-- Main 9abb454: actual CI 38138837020 passed all 76 browser cases. Intentional
-  interface changes failed the previous pixel baseline; actual runner baseline
-  38138849715 (312 images/26 contacts) was reviewed and copied exactly. See
-  interface-baseline-review.json; the comparison threshold is unchanged.
+- Main 0444c75: actual CI 38158453661 passed all 76 browser cases and 311/312
+  pixel comparisons. One WebKit landscape capture retained a previous tab tint
+  during the JavaScript spring. Captures now wait for navigation to rest, with
+  no baseline or threshold relaxation. Actual runner baseline 38138849715
+  (312 images/26 contacts) was reviewed and copied exactly; provenance is in
+  interface-baseline-review.json. The follow-up CI result is recorded separately.
 - The eight added navigation/import cases pass Chromium, WebKit, Firefox and
   phone WebKit. Final full-source browser/viewport results live in evidence files.
-- Published cloud-browser.json records actual two-engine live UI behavior;
-  automated cross-engine title appearance was 1,691 ms in that sample.
-- Windows 38138836867: installed release app rendered Today, saved/reopened Khmer
+- Published cloud-interface-live.json records actual two-engine live UI behavior
+  on deployment 38158472168; cross-engine title appearance was 2,558 ms in that
+  sample. All four privately imported databases also open in fresh desktop
+  Chromium and phone WebKit sessions; later owner edits are preserved.
+- Windows 38158453670: installed release app rendered Today, saved/reopened Khmer
   and Chinese text, handled protocol/single-instance/normal exit/uninstall.
-  Aggregate working set was 404,488,192 bytes; the 150 MiB gate failed. CPU was 0%.
+  Aggregate working set was 402,972,672 bytes; the 150 MiB gate failed. CPU was 0%.
   The UI Automation timing includes harness setup and is not a pure launch metric.
 
 ## Remaining release gates

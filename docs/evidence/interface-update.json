@@ -17,8 +17,8 @@
   "responsive_review": "All 30 managed-browser captures reviewed in contact sheet; no horizontal document overflow. Phone default toolbar has five controls; advanced controls open/collapse. Journal create/continue and Calendar main event action work.",
   "physical_devices_verified": false,
   "ci_browser_step": {
-    "run": 38138837020,
-    "source": "9abb454867926a9fa5c756059235e1cc3ad22d0a",
+    "run": 38158453661,
+    "source": "0444c75608af40dd510846862e160908837e573c",
     "status": "passed",
     "cases": 76
   },
@@ -32,10 +32,18 @@
   },
   "baseline_review": "interface-baseline-review.json",
   "windows": {
-    "run": 38138836867,
+    "run": 38158453670,
     "functional_checks": "passed",
-    "working_set_bytes": 404488192,
+    "working_set_bytes": 402972672,
     "memory_budget_bytes": 157286400,
     "memory_gate": "failed"
-  }
+  },
+  "app_startup_regression": "Confirmation guidance survives asynchronous initial account binding; successful sign-in clears it. Browser reproduction failed before the fix and passes on the configured production build after it.",
+  "visual_followup": {
+    "run": 38158453661,
+    "passed": 311,
+    "total": 312,
+    "capture_defect": "Calendar landscape WebKit retained previous navigation text tint during the Pressable JavaScript spring; screenshot capture now waits for navigation transform and opacity to return to rest. No baseline or threshold relaxation."
+  },
+  "current_migration": "All 66 imported pages and 62 documents remain present in snapshots/updates; fresh pull passes. Later edits are preserved and are not overwritten by the archived source."
 }

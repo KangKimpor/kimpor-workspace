@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-11T17:13:41.192Z",
+  "site": "https://kangkimpor.github.io/kimpor-workspace/",
+  "mode": "User-authorized migration validation in isolated managed browsers; no password change or email sent; no physical-device or user sign-in claim",
+  "checks": [
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1980,
+        "height": 1080
+      },
+      "databases_opened": 4,
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "viewport": {
+        "width": 393,
+        "height": 852
+      },
+      "databases_opened": 4,
+      "status": "passed"
+    }
+  ],
+  "status": "passed",
+  "scope": "Aggregate private migration check; personal identifiers and page content excluded"
+}

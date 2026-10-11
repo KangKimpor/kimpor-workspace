@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-11T17:12:08.967Z",
+  "site": "https://kangkimpor.github.io/kimpor-workspace/",
+  "project_ref": "nlcpjdokfvawlpzyfytx",
+  "pages_run": 38158472168,
+  "published_source_commit": "0444c75608af40dd510846862e160908837e573c",
+  "mode": "Actual public app in independent managed Chromium/WebKit profiles, real cloud; seeded temporary Auth grants, no email or physical-device claim",
+  "checks": [
+    {
+      "name": "Published account UI adopts isolated temporary Auth sessions in both engines",
+      "status": "passed"
+    },
+    {
+      "name": "Actual UI note creation, upload and WebKit download preserve Khmer/Chinese text",
+      "status": "passed"
+    },
+    {
+      "name": "Offline cached reload retains a cloud-owned edit and reconnect synchronizes it",
+      "status": "passed"
+    },
+    {
+      "name": "Published file picker uploads ciphertext; independent WebKit owner downloads exact decrypted bytes",
+      "status": "passed"
+    },
+    {
+      "name": "Foreign browser owner cannot see the created note",
+      "status": "passed"
+    }
+  ],
+  "cleanup": true,
+  "status": "passed",
+  "automatic_cross_engine_title": {
+    "within_5_seconds": true,
+    "observed_ms": 2558
+  },
+  "page_errors": [],
+  "temporary_users_created": 2,
+  "source_commit": "0444c75608af40dd510846862e160908837e573c",
+  "deployment_run": 38158472168
+}
