@@ -84,6 +84,8 @@ export async function configureAuth(api) {
 
 export async function configureServer(api) {
   const names = new Set((await api('secrets')).map(row => row.name));
+  const available = await query(api, "select to_regclass('vault.decrypted_secrets')::text as vault", undefined, true);
+  if (!available[0]?.vault) await query(api, 'create schema if not exists vault; create extension if not exists supabase_vault with schema vault;');
   const vault = new Map((await query(api, "select name,decrypted_secret from vault.decrypted_secrets where name in ('kimpor_credential_encryption_key','kimpor_oauth_state_secret','velora_maintenance_secret','kimpor_vapid_private_key','kimpor_vapid_public_key')", undefined, true)).map(row => [row.name, row.decrypted_secret]));
   const secrets = [];
   const keep = async (name, vaultName, make) => {
@@ -98,7 +100,7 @@ export async function configureServer(api) {
   };
   await keep('CREDENTIAL_ENCRYPTION_KEY', 'kimpor_credential_encryption_key', () => randomBytes(32).toString('base64'));
   await keep('OAUTH_STATE_SECRET', 'kimpor_oauth_state_secret', () => randomBytes(32).toString('base64url'));
-  const maintenance = await keep('MAINTENANCE_SECRET', 'velora_maintenance_secret', () => randomBytes(32).toString('base64url'));
+  await keep('MAINTENANCE_SECRET', 'velora_maintenance_secret', () => randomBytes(32).toString('base64url'));
   const pair = createECDH('prime256v1');
   pair.generateKeys();
   const privateKey = await keep('VAPID_PRIVATE_KEY', 'kimpor_vapid_private_key', () => pair.getPrivateKey().toString('base64url'));
@@ -115,7 +117,7 @@ export async function configureServer(api) {
   await query(api, "select cron.schedule('velora-maintenance','*/15 * * * *',$1)", [command]);
   const jobs = await query(api, "select jobname,schedule,active from cron.job where jobname='velora-maintenance'", undefined, true);
   if (jobs.length !== 1 || jobs[0].active !== true) throw new Error('Maintenance schedule is not active');
-  return { secret_names: [...saved].filter(name => !name.startsWith('SUPABASE_')).sort(), private_backup: 'Supabase Vault; never exported to Actions artifacts', maintenance_schedule: jobs[0], vapid_public_key: publicKey, maintenance };
+  return { secret_names: [...saved].filter(name => !name.startsWith('SUPABASE_')).sort(), private_backup: 'Supabase Vault; never exported to Actions artifacts', maintenance_schedule: jobs[0], vapid_public_key: publicKey };
 }
 
 export async function verifyFunctions(api, manifest) {
@@ -150,7 +152,7 @@ async function main() {
     const schema = await readFile(path.join(root, 'supabase/dashboard/schema.sql'), 'utf8');
     const migration = await applyReviewedSchema(api, schema, manifest);
     const auth = await configureAuth(api);
-    const { maintenance: _private, ...server } = await configureServer(api);
+    const server = await configureServer(api);
     report = { project: identity, schema: migration, auth, server, functions: [], method: 'Supabase Management HTTPS query endpoint (experimental) and pinned official CLI; no DB password required' };
   }
   report.date = new Date().toISOString();

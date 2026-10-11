@@ -33,9 +33,13 @@ jobs:
         run: pnpm dlx supabase@2.120.0 functions deploy --project-ref "$SUPABASE_PROJECT_REF" --use-api --import-map supabase/functions/deno.json
       - name: Verify deployed functions and real maintenance
         run: node scripts/cloud-management.mjs --verify
+      - name: Verify live authenticated ownership and private Storage
+        run: node scripts/cloud-live-check.mjs
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: cloud-deployment-evidence
-          path: docs/evidence/cloud-deployment.json
+          path: |
+            docs/evidence/cloud-deployment.json
+            docs/evidence/cloud-live.json
           retention-days: 1
