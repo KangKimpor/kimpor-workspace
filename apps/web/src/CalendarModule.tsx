@@ -813,13 +813,6 @@ export default function CalendarModule({
                         +{entriesFor(day).length - 3} more
                       </Pressable>
                     )}
-                    <Pressable
-                      className="cal-day-add"
-                      aria-label={`New event on ${day}`}
-                      onClick={() => newDraft(day)}
-                    >
-                      <Plus size={16} />
-                    </Pressable>
                   </div>
                 ))}
               </div>

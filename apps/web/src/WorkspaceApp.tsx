@@ -29,6 +29,9 @@ import {
   Menu,
   MoreHorizontal,
   Plus,
+  PenLine,
+  PanelLeftClose,
+  PanelLeftOpen,
   Search,
   Settings,
   Star,
@@ -37,6 +40,7 @@ import {
   X,
 } from "lucide-react";
 import { BrandMark, Pressable } from "@veloradesk/ui";
+import { EdgeBack, SheetHandle, useCollapsingTitle } from "./WorkspaceChrome";
 import type {
   CalendarEvent,
   DatabaseDefinition,
@@ -217,7 +221,7 @@ function Sheet({
             event.preventDefault();
             (
               content.current?.querySelector<HTMLElement>(
-                'input:not([type="file"]),button',
+                'input:not([type="file"]),button:not(.ws-sheet-handle)',
               ) ?? content.current
             )?.focus();
           }}
@@ -226,7 +230,7 @@ function Sheet({
             if (opener.current?.isConnected) opener.current.focus();
           }}
         >
-          <div className="ws-sheet-handle" />
+          <SheetHandle content={content} open={open} />
           <div className="ws-sheet-heading">
             <Dialog.Title>{title}</Dialog.Title>
             <Dialog.Close asChild>
@@ -426,6 +430,7 @@ export default function WorkspaceApp() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [captureOpen, setCaptureOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(readSetting("velora-sidebar-collapsed", "false") === "true");
   const [trashOpen, setTrashOpen] = useState(false);
   const [templatesOpen, setTemplatesOpen] = useState(false);
   const [online, setOnline] = useState(navigator.onLine);
@@ -443,6 +448,7 @@ export default function WorkspaceApp() {
     Number(readSetting("velora-list-width", "320")),
   );
   const mainRef = useRef<HTMLElement>(null);
+  useCollapsingTitle(mainRef);
   useLayoutEffect(() => {
     if (selectedId) window.scrollTo({ top: 0, behavior: "instant" });
   }, [selectedId]);
@@ -591,6 +597,15 @@ export default function WorkspaceApp() {
       })
       .catch((cause) => setError(String(cause)));
   }, []);
+  const back = useCallback(() => {
+    void flushEditors().then(() => { setSelectedId(null); mainRef.current?.focus(); })
+      .catch(cause => setError(String(cause)));
+  }, []);
+  const toggleSidebar = () => setSidebarCollapsed(previous => {
+    const next = !previous;
+    localStorage.setItem("velora-sidebar-collapsed", String(next));
+    return next;
+  });
   const openPage = (id: string) => {
     void flushEditors()
       .then(() => {
@@ -845,7 +860,7 @@ export default function WorkspaceApp() {
   };
   return (
     <div
-      className={`ws-app ${focus ? "focus-mode" : ""} ${selected ? "has-detail" : ""}`}
+      className={`ws-app ${focus ? "focus-mode" : ""} ${selected ? "has-detail" : ""} ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}
       style={
         {
           "--ws-sidebar-width": `${sidebarWidth}px`,
@@ -956,8 +971,14 @@ export default function WorkspaceApp() {
         </>
       )}
       <main className="ws-main" ref={mainRef} tabIndex={-1}>
+        {selected && <EdgeBack main={mainRef} onBack={back} />}
         <header className="ws-topbar">
           <div className="ws-topbar-leading">
+            {!focus && <Pressable className="ws-icon ws-sidebar-toggle"
+              aria-label={sidebarCollapsed ? "Open sidebar" : "Collapse sidebar"}
+              aria-expanded={!sidebarCollapsed} onClick={toggleSidebar}>
+              {sidebarCollapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}
+            </Pressable>}
             {!focus && (
               <Pressable
                 className="ws-icon ws-menu-button"
@@ -972,7 +993,7 @@ export default function WorkspaceApp() {
                 <Pressable
                   className="ws-icon ws-detail-back"
                   aria-label={`Back to ${module}`}
-                  onClick={() => setSelectedId(null)}
+                  onClick={back}
                 >
                   <ChevronLeft size={20} />
                 </Pressable>
@@ -1073,20 +1094,17 @@ export default function WorkspaceApp() {
                   </p>
                   <h1>{module}</h1>
                 </div>
+                {module !== "Journal" && (
                 <Pressable
                   className="ws-icon ws-tinted"
-                  aria-label={`New ${module === "Notes" ? "note" : module === "Journal" ? "journal entry" : "page"}`}
+                  aria-label={`New ${module === "Notes" ? "note" : "page"}`}
                   onClick={() =>
                     void run(() =>
                       create(
-                        module === "Notes"
-                          ? "note"
-                          : module === "Journal"
-                            ? "journal"
-                            : "page",
+                        module === "Notes" ? "note" : "page",
                         "",
                         {
-                          date: module === "Journal" ? localDate() : null,
+                          date: null,
                           parentId: folderId,
                         },
                       ),
@@ -1095,11 +1113,13 @@ export default function WorkspaceApp() {
                 >
                   <Plus size={20} />
                 </Pressable>
+                )}
               </div>
               {module === "Journal" && (
                 <JournalOverview
                   pages={livePages.filter((page) => page.type === "journal")}
                   onOpen={openPage}
+                  onWrite={() => void run(() => create("journal", "", { date: localDate() }))}
                 />
               )}
               <div className="ws-list-tools">
@@ -1707,12 +1727,10 @@ function Memories({
   ) : null;
 }
 
-function JournalOverview({
-  pages,
-  onOpen,
-}: {
+function JournalOverview({ pages, onOpen, onWrite }: {
   pages: Page[];
   onOpen: (id: string) => void;
+  onWrite: () => void;
 }) {
   const days = Array.from({ length: 84 }, (_, index) => {
     const date = new Date();
@@ -1727,31 +1745,38 @@ function JournalOverview({
     if (!dates.has(localDate(date))) break;
     streak++;
   }
+  const today = pages.find((page) => page.date === localDate());
   return (
     <div className="ws-journal-overview">
-      <div
-        className="ws-heatmap"
-        aria-label="Journal entries in the last twelve weeks"
-      >
-        {days.map((date) => {
+      <div className="ws-journal-invitation">
+        <span className="ws-eyebrow">{displayDate(localDate())}</span>
+        <h2>{today ? "A moment to come back to" : "What is on your mind?"}</h2>
+        <Pressable className="ws-button primary" onClick={() => today ? onOpen(today.id) : onWrite()}>
+          <PenLine size={18} />{today ? "Continue writing" : "Write today"}
+        </Pressable>
+      </div>
+      <div className="ws-journal-week" aria-label="Journal this week">
+        {days.slice(-7).map((date) => {
           const entry = pages.find((page) => page.date === date);
-          return (
-            <Pressable
-              key={date}
-              className={`ws-heatmap-day ${entry ? "written" : ""}`}
-              aria-label={`${displayDate(date)}: ${entry ? "entry written" : "no entry"}`}
-              title={`${displayDate(date)}: ${entry ? "entry written" : "no entry"}`}
-              onClick={() => entry && onOpen(entry.id)}
-              disabled={!entry}
-            />
-          );
+          return <Pressable key={date} className={entry ? "written" : ""}
+            aria-label={`${displayDate(date)}: ${entry ? "entry written" : "no entry"}`}
+            onClick={() => entry && onOpen(entry.id)} disabled={!entry}>
+            <span>{new Date(`${date}T12:00:00`).toLocaleDateString(undefined, { weekday: "narrow" })}</span>
+            <span>{Number(date.slice(-2))}</span>
+            <i aria-hidden="true" />
+          </Pressable>;
         })}
       </div>
-      <p className="ws-muted">
-        {streak
-          ? `${streak} ${streak === 1 ? "day" : "days"} of checking in. Every entry counts.`
-          : "Every day is a fresh page. No pressure to keep a streak."}
-      </p>
+      <details className="ws-journal-history">
+        <summary>{streak ? `${streak} ${streak === 1 ? "day" : "days"} of writing` : "Writing history"}<span>Last 12 weeks</span></summary>
+        <div className="ws-heatmap" aria-label="Journal entries in the last twelve weeks">
+          {days.map((date) => {
+            const entry = pages.find((page) => page.date === date);
+            return <span key={date} className={`ws-heatmap-day ${entry ? "written" : ""}`}
+              title={`${displayDate(date)}: ${entry ? "entry written" : "no entry"}`} />;
+          })}
+        </div>
+      </details>
     </div>
   );
 }
@@ -2206,7 +2231,7 @@ function PageDetail({
           />
         </Suspense>
       )}
-      {page.type !== "database" && (
+      {page.type !== "database" && (page.type === "page" || pages.some((child) => child.parentId === page.id) || backlinks.length > 0) && (
         <div className="ws-page-links">
           <div className="ws-page-links-heading">
             <h3>Inside this page</h3>

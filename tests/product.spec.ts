@@ -134,6 +134,7 @@ test("encryption rejects a wrong passphrase and keeps content after reload", asy
   await page
     .getByRole("textbox", { name: "Document editor" })
     .fill("Secret journal content ខ្មែរ 中文");
+  if (await page.getByRole("button", { name: "More formatting", exact: true }).isVisible()) await page.getByRole("button", { name: "More formatting", exact: true }).click();
   await page
     .getByRole("button", { name: "Protect document", exact: true })
     .click();
@@ -144,6 +145,8 @@ test("encryption rejects a wrong passphrase and keeps content after reload", asy
   await page
     .getByRole("button", { name: "Enable encryption", exact: true })
     .click();
+  await expect(page.getByRole("toolbar", { name: "Document formatting", exact: true })).toBeVisible();
+  if (await page.getByRole("button", { name: "More formatting", exact: true }).isVisible()) await page.getByRole("button", { name: "More formatting", exact: true }).click();
   await expect(
     page.getByRole("button", { name: "Lock document", exact: true }),
   ).toBeVisible();

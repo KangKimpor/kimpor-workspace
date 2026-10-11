@@ -38,6 +38,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import {
   Bold,
+  MoreHorizontal,
   Check,
   Code2,
   FilePlus2,
@@ -299,6 +300,7 @@ function SessionEditor({
     [menu, setMenu] = useState<Menu | null>(null),
     [query, setQuery] = useState(""),
     [activeCommand, setActiveCommand] = useState(0);
+  const [toolsExpanded, setToolsExpanded] = useState(false);
   const [find, setFind] = useState(false),
     [findText, setFindText] = useState(""),
     [findResult, setFindResult] = useState(""),
@@ -930,7 +932,7 @@ function SessionEditor({
   return (
     <div className="rich-editor">
       <div
-        className="rich-toolbar"
+        className={`rich-toolbar ${toolsExpanded ? "expanded" : ""}`}
         role="toolbar"
         aria-label="Document formatting"
       >
@@ -957,7 +959,7 @@ function SessionEditor({
           <Bold size={18} />
         </Pressable>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label="Italic text"
           aria-pressed={editor.isActive("italic")}
           onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -965,7 +967,7 @@ function SessionEditor({
           <Italic size={18} />
         </Pressable>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label="Underline text"
           aria-pressed={editor.isActive("underline")}
           onClick={() => editor.chain().focus().toggleUnderline().run()}
@@ -973,7 +975,7 @@ function SessionEditor({
           <Underline size={18} />
         </Pressable>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label="Highlight text"
           aria-pressed={editor.isActive("highlight")}
           onClick={() => editor.chain().focus().toggleHighlight().run()}
@@ -981,14 +983,14 @@ function SessionEditor({
           <Highlighter size={18} />
         </Pressable>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label="Heading 2"
           onClick={() => editor.chain().focus().setHeading({ level: 2 }).run()}
         >
           <Heading2 size={18} />
         </Pressable>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label="Bullet list"
           onClick={() => editor.chain().focus().toggleBulletList().run()}
         >
@@ -1001,7 +1003,7 @@ function SessionEditor({
         >
           <ListChecks size={18} />
         </Pressable>
-        <label className="rich-color">
+        <label className="rich-color rich-tool-secondary">
           <Palette size={18} />
           <span className="sr-only">Text color</span>
           <select
@@ -1028,35 +1030,35 @@ function SessionEditor({
           </select>
         </label>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label="Insert image"
           onClick={() => imageInput.current?.click()}
         >
           <ImagePlus size={18} />
         </Pressable>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label="Attach file"
           onClick={() => fileInput.current?.click()}
         >
           <FilePlus2 size={18} />
         </Pressable>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label="Add a link"
           onClick={() => setLinkPanel((value) => !value)}
         >
           ↗
         </Pressable>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label="Add equation"
           onClick={() => setEquationPanel((value) => !value)}
         >
           <Code2 size={18} />
         </Pressable>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label="Find in document"
           onClick={() => setFind((value) => !value)}
         >
@@ -1070,14 +1072,14 @@ function SessionEditor({
           <Undo2 size={18} />
         </Pressable>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label="Redo typing"
           onClick={() => editor.chain().focus().redo().run()}
         >
           <Redo2 size={18} />
         </Pressable>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label="Sketch canvas"
           aria-pressed={sketch}
           onClick={() => setSketch((value) => !value)}
@@ -1085,7 +1087,7 @@ function SessionEditor({
           <PenLine size={18} />
         </Pressable>
         <Pressable
-          className="icon-button"
+          className="icon-button rich-tool-secondary"
           aria-label={session.key ? "Lock document" : "Protect document"}
           onClick={() => {
             if (session.key) void lock();
@@ -1101,6 +1103,14 @@ function SessionEditor({
           }}
         >
           <LockKeyhole size={18} />
+        </Pressable>
+        <Pressable
+          className="icon-button rich-tools-toggle"
+          aria-label={toolsExpanded ? "Less formatting" : "More formatting"}
+          aria-expanded={toolsExpanded}
+          onClick={() => setToolsExpanded((value) => !value)}
+        >
+          {toolsExpanded ? <X size={18} /> : <MoreHorizontal size={18} />}
         </Pressable>
       </div>
       <input

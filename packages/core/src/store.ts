@@ -852,9 +852,23 @@ export class WorkspaceStore {
     pageId: string,
     file: Blob,
     name: string,
-    id = crypto.randomUUID(),
+    id: string = crypto.randomUUID(),
   ): Promise<Attachment> {
-    if (file.size > 10_485_760)
+    if (file.size > 10_485_760) throw new Error("Attachments must be smaller than 10 MB");
+    const user = this.user;
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    if (user !== this.user) throw new Error("Workspace account changed");
+    return this.saveAttachmentBytes(pageId, bytes, name, id, file.type);
+  }
+  /** Prepared bytes allow archive imports to keep all writes in one transaction. */
+  async saveAttachmentBytes(
+    pageId: string,
+    bytes: Uint8Array,
+    name: string,
+    id: string = crypto.randomUUID(),
+    mime = "application/octet-stream",
+  ): Promise<Attachment> {
+    if (bytes.byteLength > 10_485_760)
       throw new Error("Attachments must be smaller than 10 MB");
     const user = this.user;
     const attachment: Attachment = {
@@ -862,10 +876,10 @@ export class WorkspaceStore {
       userId: user,
       pageId,
       name: name.slice(0, 255),
-      mime: file.type || "application/octet-stream",
-      size: file.size,
+      mime: mime || "application/octet-stream",
+      size: bytes.byteLength,
       createdAt: new Date().toISOString(),
-      bytes: new Uint8Array(await file.arrayBuffer()),
+      bytes: new Uint8Array(bytes),
     };
     await this.db.transaction(
       "rw",
@@ -882,7 +896,7 @@ export class WorkspaceStore {
         await this.queueAttachment(attachment);
       },
     );
-    await this.refresh();
+    if (!Dexie.currentTransaction) await this.refresh();
     return attachment;
   }
   private async queueAttachment(attachment: Attachment): Promise<void> {

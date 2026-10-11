@@ -3,6 +3,7 @@ import { afterEach, expect, it, vi } from "vitest";
 import * as Y from "yjs";
 import { zipSync, strToU8 } from "fflate";
 import { WorkspaceStore } from "./store";
+import { decryptAttachment } from "./crypto";
 import {
   compressImage,
   documentToMarkdown,
@@ -138,6 +139,41 @@ it("imports a Notion text archive atomically, updates visible cache and rejects 
   await expect(
     importWorkspaceZip(store, zipSync({ "data.txt": strToU8("x") })),
   ).rejects.toThrow("No Markdown");
+});
+it("preserves Notion parent folders and encrypted embedded media without changing code samples", async () => {
+  const store = await workspace();
+  const folder = "Parent 0123456789abcdef0123456789abcdef";
+  const image = Uint8Array.from(atob("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a6S8AAAAASUVORK5CYII="), value => value.charCodeAt(0));
+  const paper = strToU8("Synthetic PDF bytes 中文 ខ្មែរ");
+  const zip = zipSync({
+    [`${folder}.md`]: strToU8("# Parent"),
+    [`${folder}/Child.md`]: strToU8("# Child\n\n![Photo](photo.png)\n\n[Paper](paper.pdf)\n\n```text\n![Sample](photo.png)\n```"),
+    [`${folder}/photo.png`]: image,
+    [`${folder}/paper.pdf`]: paper,
+  });
+  expect(await importWorkspaceZip(store, zip)).toBe(2);
+  const parent = store.listPages().find(page => page.title === "Parent")!;
+  const child = store.listPages().find(page => page.title === "Child")!;
+  expect(child.parentId).toBe(parent.id);
+  expect(child.properties.__text).toContain("[Paper](paper.pdf)");
+  const doc = new Y.Doc();
+  try {
+    Y.applyUpdate(doc, (await store.loadDoc(child.id))!);
+    const nodes = doc.getXmlFragment("default").toArray().filter((node): node is Y.XmlElement => node instanceof Y.XmlElement);
+    const media = nodes.filter(node => ["image", "fileAttachment"].includes(node.nodeName));
+    expect(media.map(node => node.nodeName)).toEqual(["image", "fileAttachment"]);
+    expect(await store.listAttachments(child.id)).toHaveLength(2);
+    for (const node of media) {
+      const attrs = node.getAttributes();
+      const file = (await store.getAttachment(String(attrs.attachmentId)))!;
+      const expected = node.nodeName === "image" ? image : paper;
+      expect(file.name).toBe("Encrypted attachment");
+      expect(file.mime).toBe("application/octet-stream");
+      expect(file.bytes).not.toEqual(expected);
+      expect(await decryptAttachment(file.bytes, String(attrs.fileKey), String(attrs.fileIv), file.id)).toEqual(expected);
+    }
+    expect(documentToMarkdown((await store.loadDoc(child.id))!)).toContain("![Sample](photo.png)");
+  } finally { doc.destroy(); }
 });
 it("parses and formats CSV with quoted commas, newlines, quotes and empty values", async () => {
   const rows = [

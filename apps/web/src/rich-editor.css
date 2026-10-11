@@ -1,4 +1,17 @@
 .rich-editor { position: relative; min-width: 0; width: 100%; color: var(--text); }
+@media (max-width: 767px) {
+  .rich-editor:not(:has(.rich-toolbar.expanded)) .rich-block-gutter { display: none; }
+  .rich-editor:not(:has(.rich-toolbar.expanded)) .rich-document-wrap { padding-left: 0; }
+  .rich-editor .rich-save-status > span { display: none; }
+}
+.rich-tools-toggle { display: none; }
+@media (max-width: 767px) {
+  .rich-toolbar:not(.expanded) .rich-tool-secondary { display: none; }
+  .rich-toolbar .rich-tools-toggle { display: inline-flex; margin-left: auto; }
+  .rich-toolbar { top: var(--nav-height); }
+  .rich-toolbar.expanded .rich-tool-secondary { order: 2; }
+  .rich-toolbar.expanded { padding-bottom: var(--space-3); }
+}
 .rich-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-1); padding: var(--space-2) 0; border-bottom: var(--hairline) solid var(--line); position: sticky; top: 0; background: var(--surface); z-index: 3; }
 .rich-toolbar [aria-pressed='true'] { color: var(--accent); background: var(--accent-tint); }
 .rich-color { display: inline-flex; align-items: center; gap: var(--space-1); min-height: var(--target); }

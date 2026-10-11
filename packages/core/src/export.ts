@@ -2,6 +2,7 @@ import { strFromU8, strToU8, unzipSync, zipSync } from "fflate";
 import * as Y from "yjs";
 import type { Page, PropertyDefinition } from "./model";
 import type { WorkspaceStore } from "./store";
+import { encryptAttachment } from "./crypto";
 
 function inline(text: Y.XmlText): string {
   return text
@@ -289,7 +290,7 @@ export async function importWorkspaceZip(
         file.name.split("/").includes("..")
       )
         throw new Error("Unsafe archive path");
-      return /(?:^|\/)(workspace\.json)$|\.md$|\.csv$/i.test(file.name);
+      return !file.name.endsWith("/");
     },
   });
   const archive = files["workspace.json"];
@@ -318,11 +319,95 @@ export async function importWorkspaceZip(
   for (const entry of parsed)
     if (/\.csv$/i.test(entry.name)) parseCSV(entry.text);
     else markdownToDocument(entry.text);
+  const owner = workspace.accountId;
+  const mediaTypes: Record<string, string> = {
+    png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", webp: "image/webp",
+    gif: "image/gif", avif: "image/avif", pdf: "application/pdf", txt: "text/plain",
+    mp3: "audio/mpeg", mp4: "video/mp4", wav: "audio/wav",
+  };
+  const mediaType = (name: string) => mediaTypes[name.split(".").at(-1)?.toLowerCase() ?? ""] ?? "application/octet-stream";
+  const resolve = (href: string, name: string) => {
+    try {
+      const url = new URL(href.trim().replace(/^<|>$/g, ""), `https://archive.invalid/${name}`);
+      return url.origin === "https://archive.invalid" ? decodeURIComponent(url.pathname.slice(1)) : null;
+    } catch { return null; }
+  };
+  type Asset = { marker: string; id: string; bytes: Uint8Array; attrs: Record<string, string>; image: boolean };
+  const prepared: ((typeof parsed)[number] & { originalText: string; assets: Map<string, Asset> })[] = [];
+  // Crypto and file reads finish before the IndexedDB transaction begins.
+  for (const entry of parsed) {
+    const assets = new Map<string, Asset>();
+    const searchable = /\.csv$/i.test(entry.name) ? "" : entry.text
+      .replace(/^```[^\n]*\n[\s\S]*?(?:^```[^\n]*(?:\n|$)|$(?![\s\S]))/gm, value => " ".repeat(value.length))
+      .replace(/`[^`\n]*`/g, value => " ".repeat(value.length));
+    const matches = [...searchable.matchAll(/(!?)\[([^\]\n]*)\]\(([^)\n]+)\)/g)].reverse();
+    let text = entry.text;
+    for (const match of matches) {
+      const name = resolve(match[3]!, entry.name);
+      if (!name || /\.(md|csv)$/i.test(name) || !files[name]) continue;
+      if (files[name].byteLength > 10_485_760 - 16) throw new Error("An embedded file exceeds 10 MB");
+      let asset = assets.get(name);
+      if (!asset) {
+        const id = crypto.randomUUID();
+        const encrypted = await encryptAttachment(files[name], id);
+        const mime = mediaType(name);
+        asset = {
+          id, marker: `KIMPOR_ATTACHMENT_${id}`, bytes: encrypted.bytes,
+          image: match[1] === "!" && /^image\/(png|jpeg|webp|gif|avif)$/.test(mime),
+          attrs: { attachmentId: id, fileKey: encrypted.key, fileIv: encrypted.iv, mime,
+            name: name.split("/").at(-1)!, size: String(files[name].byteLength),
+            src: `attachment:${id}`, alt: match[2] || name.split("/").at(-1)! },
+        };
+        assets.set(name, asset);
+      }
+      text = text.slice(0, match.index) + `\n\n${asset.marker}\n\n` + text.slice(match.index + match[0].length);
+    }
+    prepared.push({ ...entry, text, originalText: entry.text, assets });
+  }
+  if (owner !== workspace.accountId) throw new Error("Workspace account changed");
   await workspace.db.transaction("rw", workspace.db.tables, async () => {
-    for (const entry of parsed)
-      if (/\.csv$/i.test(entry.name))
-        await importCSV(workspace, entry.text, entry.title);
-      else await importMarkdown(workspace, entry.text, entry.title);
+    const pages = new Map<string, Page>();
+    for (const entry of prepared) {
+      if (owner !== workspace.accountId) throw new Error("Workspace account changed");
+      const page = /\.csv$/i.test(entry.name)
+        ? await importCSV(workspace, entry.text, entry.title)
+        : await importMarkdown(workspace, entry.text, entry.title);
+      pages.set(entry.name, page);
+      if (!entry.assets.size || /\.csv$/i.test(entry.name)) continue;
+      const doc = new Y.Doc();
+      try {
+        Y.applyUpdate(doc, (await workspace.loadDoc(page.id))!);
+        const fragment = doc.getXmlFragment("default");
+        for (const asset of entry.assets.values()) {
+          await workspace.saveAttachmentBytes(page.id, asset.bytes, "Encrypted attachment", asset.id);
+          for (let index = fragment.length - 1; index >= 0; index--) {
+            const node = fragment.get(index);
+            if (!(node instanceof Y.XmlElement) || node.nodeName !== "paragraph" || node.toArray().map(part => part.toString()).join("") !== asset.marker) continue;
+            const attachment = new Y.XmlElement(asset.image ? "image" : "fileAttachment");
+            for (const [key, value] of Object.entries(asset.attrs)) attachment.setAttribute(key, value);
+            fragment.delete(index, 1); fragment.insert(index, [attachment]);
+          }
+        }
+        await workspace.saveDoc(page.id, Y.encodeStateAsUpdate(doc));
+      } finally { doc.destroy(); }
+    }
+    const folders = new Map([...pages].map(([name, page]) => [name.replace(/\.[^.]+$/, ""), page]));
+    for (const entry of prepared) {
+      const page = pages.get(entry.name)!;
+      let folder = entry.name.slice(0, entry.name.lastIndexOf("/"));
+      let parent: Page | undefined;
+      while (folder && entry.name.includes("/")) {
+        parent = folders.get(folder);
+        if (parent) break;
+        const slash = folder.lastIndexOf("/");
+        folder = slash < 0 ? "" : folder.slice(0, slash);
+      }
+      await workspace.patchPage(page.id, {
+        parentId: parent?.id ?? null,
+        properties: { ...page.properties, __text: entry.originalText },
+      });
+    }
+    if (owner !== workspace.accountId) throw new Error("Workspace account changed");
   });
   await workspace.refreshSnapshot();
   return parsed.length;
