@@ -1,0 +1,112 @@
+{
+  "mode": "Fresh project only; generated from the canonical migrations and Edge source. No credentials are embedded.",
+  "schema_sha256": "886238c4f21b36fb400ec0f7347990c2d2046f86f898fe144ef5ad3ccf3bc99e",
+  "migrations": [
+    {
+      "file": "202610100001_workspace.sql",
+      "version": "202610100001",
+      "sha256": "9e08927d6d9f150e8ceafe5e0c0ad2ff8651d87c15c0cc4e7316756803a88076"
+    },
+    {
+      "file": "202610100002_maintenance.sql",
+      "version": "202610100002",
+      "sha256": "e9cd6f9178aec38eb77b2c32bbadb6f5990fafd878491f4cb21e671b5677b72d"
+    },
+    {
+      "file": "202610100003_files_compaction.sql",
+      "version": "202610100003",
+      "sha256": "a54b97ed5ad8fa92e3440b78ed2744156c1c680b98abcfd13db995bc66e93f60"
+    },
+    {
+      "file": "202610100004_encrypted_attachments.sql",
+      "version": "202610100004",
+      "sha256": "5ed550ab9c068654bccde2a2e17cae6d71ed6783f1f952c6c87d77177039add9"
+    },
+    {
+      "file": "202610100005_calendar_maintenance.sql",
+      "version": "202610100005",
+      "sha256": "c57f775695e9e2216755f049189c274ee252c29687212f2561152d5569006b52"
+    },
+    {
+      "file": "202610100006_health.sql",
+      "version": "202610100006",
+      "sha256": "245f79d9f6f17a7c77ffe78b67969fe089c63946e3c1f23f5171d1abb8efc3dd"
+    },
+    {
+      "file": "202610100007_consistent_backups.sql",
+      "version": "202610100007",
+      "sha256": "bb2f81707bdce2fbe71bb419b290acd1a314521e156a08d5642837d5f207fccd"
+    },
+    {
+      "file": "202610100008_compaction_cas.sql",
+      "version": "202610100008",
+      "sha256": "c09f470c3f6fd81467c1515a080946dffe551bb219f247eb3f45cbbd7545bdd5"
+    }
+  ],
+  "functions": [
+    {
+      "name": "attachments",
+      "entry": "functions/attachments/index.js",
+      "source_sha256": "fbd43847f99d656c314eec5261917ce51a74a73b168fd23989706e343983bfdf",
+      "bundle_sha256": "c2450dfb0860b63314c4d8838a46bb16823bfd754630146feb33743b26c61009",
+      "bytes": 8418,
+      "verify_jwt": false
+    },
+    {
+      "name": "backup",
+      "entry": "functions/backup/index.js",
+      "source_sha256": "fb683b6e37ad4e63281ec78015bf95349c9cf12a343fce0cf6276f5e1bf54dd0",
+      "bundle_sha256": "1c1a5b0791408297f743656f04fbe582aba83c61e246c303e56efba554f8a46e",
+      "bytes": 6391,
+      "verify_jwt": false
+    },
+    {
+      "name": "calendar-callback",
+      "entry": "functions/calendar-callback/index.js",
+      "source_sha256": "f9959373ce6ac603fe775c88e0822589d620f1d2290be06cb7f2f55e3ec28ed4",
+      "bundle_sha256": "89f05a20c37f8644a5fa9d0a247e6165e7b171ab53121893218f94efce73378b",
+      "bytes": 8521,
+      "verify_jwt": false
+    },
+    {
+      "name": "calendar-proxy",
+      "entry": "functions/calendar-proxy/index.js",
+      "source_sha256": "250688a78c8817e9f780c96dd16b75727d0952c8068dd589779d0deecc7c00b4",
+      "bundle_sha256": "d47349acadccf17ed348bed5748e31a5750344a0585a1d21d73f6dadba0a47e0",
+      "bytes": 47946,
+      "verify_jwt": false
+    },
+    {
+      "name": "delete-account",
+      "entry": "functions/delete-account/index.js",
+      "source_sha256": "0e7296386792a2f26f93ffded2ae941ec69f7f88bea320e12ca8f564a82a6f46",
+      "bundle_sha256": "569a458d8809f250d2594132651749c7148f26abac5375f41bbe74fbdcc0e817",
+      "bytes": 4030,
+      "verify_jwt": false
+    },
+    {
+      "name": "keepalive",
+      "entry": "functions/keepalive/index.js",
+      "source_sha256": "1af6a4b2ba17b92d6fe2454e839c12f62f0b2fd38b9ee017a289b403c41df476",
+      "bundle_sha256": "3be6adb6594edcd3f40995881957f3afd3757c819ad0bfa3d2f8c52263ae78d0",
+      "bytes": 2793,
+      "verify_jwt": false
+    },
+    {
+      "name": "maintenance",
+      "entry": "functions/maintenance/index.js",
+      "source_sha256": "83a1b25e311413d6afb07be85f5c5b076a0184f1ade36d753b71ec1da0431126",
+      "bundle_sha256": "fa02ed3608b5e3dda3b05d786e2d00d28b1705b45c72b56fbe603e3f4e992583",
+      "bytes": 53331,
+      "verify_jwt": false
+    },
+    {
+      "name": "push-register",
+      "entry": "functions/push-register/index.js",
+      "source_sha256": "6359f83c5b6d5fcce2112802401b76d330505214c583203dddb3451298651042",
+      "bundle_sha256": "0dee9de4b2f330c39ccd66d3430b12b97768b18486dd42ba27c97d05d864d8f9",
+      "bytes": 5598,
+      "verify_jwt": false
+    }
+  ]
+}

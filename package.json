@@ -12,6 +12,7 @@
     "dev": "pnpm --filter @veloradesk/web dev",
     "build": "pnpm --filter @veloradesk/web build",
     "build:desktop": "pnpm --filter @veloradesk/web build:desktop",
+    "cloud:dashboard": "node scripts/dashboard-deploy.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . && node scripts/check-conventions.mjs",
     "test": "vitest run --coverage",

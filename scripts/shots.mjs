@@ -81,6 +81,9 @@ try {
         if(screen==='editor') await page.getByRole('textbox',{name:'Multilingual editor study'}).waitFor();
         if(screen==='about') await page.getByRole('button',{name:'Take a closer look'}).click();
         if(screen==='palette') await page.getByRole('button',{name:'Open command palette'}).click();
+        // React's selected-tab attributes can update before WebKit repaints its
+        // fixed navigation layer. Capture the settled paint, not the old tab tint.
+        await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
         const file=`docs/screenshots/${screen}-${name}-${theme}.png`;
         const overflow=await page.evaluate(()=>document.documentElement.scrollWidth > innerWidth+1);
         if(overflow) throw new Error(`Horizontal overflow: ${file}`);
