@@ -2,11 +2,13 @@ import { test, expect, type Page } from "@playwright/test";
 test.setTimeout(90_000);
 test.use({ actionTimeout: 20_000 });
 async function module(page: Page, name: string) {
-  await page
+  const tab = page
     .getByRole("button", { name, exact: true })
     .filter({ visible: true })
-    .first()
-    .click();
+    .first();
+  await tab.click();
+  await expect(tab).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("region", { name: "Page detail", exact: true })).toHaveCount(0);
 }
 async function settings(page: Page) {
   if (
