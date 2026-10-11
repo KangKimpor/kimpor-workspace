@@ -25,7 +25,10 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm brand:build
       - name: Verify reproducible dashboard deployment bundles
-        run: pnpm cloud:dashboard && git diff --exit-code -- supabase/dashboard
+        run: |
+          pnpm cloud:dashboard
+          git diff --exit-code -- supabase/dashboard
+          test -z "$(git ls-files --others --exclude-standard -- supabase/dashboard)"
       - run: pnpm check
       - run: pnpm run licenses
       - run: pnpm licenses:deno
