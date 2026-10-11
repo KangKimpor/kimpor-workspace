@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-11T08:46:59.195Z",
+  "source_commit": "8af8d674383147fc8fbd1429f849ac77e44b7cac",
+  "project_ref": "nlcpjdokfvawlpzyfytx",
+  "mode": "Real Auth, PostgREST, Edge and private Storage; temporary synthetic users, no physical device or email-delivery claim",
+  "checks": [
+    {
+      "name": "Auth grants for two isolated temporary owners",
+      "status": "passed"
+    },
+    {
+      "name": "Live push/pull, idempotency and owner row isolation",
+      "status": "passed"
+    },
+    {
+      "name": "Forbidden direct writes, foreign pushes and credential reads",
+      "status": "passed"
+    },
+    {
+      "name": "Real private Storage upload, exact bytes and cross-owner denial",
+      "status": "passed"
+    },
+    {
+      "name": "Allowed and rejected cross-origin Edge requests",
+      "status": "passed"
+    },
+    {
+      "name": "Protection purges plaintext and rejects a stale plain update",
+      "status": "passed"
+    },
+    {
+      "name": "Live owner quota measurement",
+      "status": "passed"
+    }
+  ],
+  "cleanup": true,
+  "status": "passed",
+  "usage": {
+    "database_bytes": 12695219,
+    "storage_bytes": 64
+  },
+  "temporary_users_created": 2
+}

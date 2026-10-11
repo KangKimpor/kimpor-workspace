@@ -1,0 +1,53 @@
+{
+  "result": "passed",
+  "normal_exit": true,
+  "idle_cpu_percent": 0.0,
+  "runner": "Windows",
+  "installer": "Kimpor Workspace_0.0.1_x64-setup.exe",
+  "single_instance": true,
+  "process_count": 6,
+  "idle_private_committed_bytes": 43024384,
+  "measured_at": "2026-10-11T07:38:13.5489042Z",
+  "budgets": {
+    "idle_working_set_bytes": 157286400,
+    "idle_cpu_percent": 2,
+    "native_window_ms": 2000
+  },
+  "process_memory": [
+    {
+      "name": "KimporWorkspace",
+      "working_set_bytes": 28499968,
+      "private_committed_bytes": 4186112
+    },
+    {
+      "name": "msedgewebview2",
+      "working_set_bytes": 75698176,
+      "private_committed_bytes": 25178112
+    },
+    {
+      "name": "msedgewebview2",
+      "working_set_bytes": 9539584,
+      "private_committed_bytes": 2555904
+    },
+    {
+      "name": "msedgewebview2",
+      "working_set_bytes": 30773248,
+      "private_committed_bytes": 9637888
+    },
+    {
+      "name": "msedgewebview2",
+      "working_set_bytes": 3248128,
+      "private_committed_bytes": 786432
+    },
+    {
+      "name": "msedgewebview2",
+      "working_set_bytes": 3112960,
+      "private_committed_bytes": 679936
+    }
+  ],
+  "callback_registration": true,
+  "functional_checks": "passed",
+  "native_window_ms": 255,
+  "uninstall": true,
+  "idle_working_set_bytes": 150872064
+}

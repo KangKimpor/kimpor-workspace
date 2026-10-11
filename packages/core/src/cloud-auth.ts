@@ -244,6 +244,14 @@ export async function consumeAuthRedirect(
   raw: string,
 ): Promise<CloudSession | null> {
   const url = new URL(raw);
+  const fragment = new URLSearchParams(url.hash.slice(1));
+  if (fragment.has("access_token") || fragment.has("refresh_token")) {
+    // Invitations confirm the email without a device-bound PKCE request. Never
+    // adopt an unsolicited bearer session or retain its credentials in history.
+    if (!platform.desktop && url.origin === location.origin && url.pathname === location.pathname)
+      history.replaceState({}, "", `${url.pathname}${url.search}`);
+    throw new Error("Finish signing in from Settings → Account on this device.");
+  }
   if (!url.searchParams.has("code") && !url.searchParams.has("error"))
     return null;
   const pending = JSON.parse(localStorage.getItem(PKCE_KEY) || "null") as {

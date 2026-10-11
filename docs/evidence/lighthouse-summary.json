@@ -1,19 +1,41 @@
 {
-  "date": "2026-10-10T06:52:10.350Z",
-  "lighthouseVersion": "12.6.1",
-  "url": "http://127.0.0.1:4173/design",
-  "mode": "single local desktop run; not a real device benchmark",
-  "scores": {
-    "performance": 100,
-    "accessibility": 100,
-    "best-practices": 100,
-    "seo": 91
-  },
-  "metrics": {
-    "first-contentful-paint": 382.372,
-    "largest-contentful-paint": 422.372,
-    "total-blocking-time": 33.5,
-    "cumulative-layout-shift": 0.0002938798985682415,
-    "speed-index": 382.372
-  }
+  "mode": "Isolated local desktop production-browser runs; not physical-device benchmarks.",
+  "results": [
+    {
+      "url": "http://127.0.0.1:4173/",
+      "date": "2026-10-11T02:31:45.068Z",
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 91
+      },
+      "metrics": {
+        "first-contentful-paint": 693.246625,
+        "largest-contentful-paint": 815.49595,
+        "total-blocking-time": 14.5,
+        "cumulative-layout-shift": 0.00013203805049851426,
+        "speed-index": 693.246625
+      },
+      "report": "docs/evidence/lighthouse/127_0_0_1--2026_10_11_02_31_45.report.json"
+    },
+    {
+      "url": "http://127.0.0.1:4173/design",
+      "date": "2026-10-11T02:31:59.278Z",
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 91
+      },
+      "metrics": {
+        "first-contentful-paint": 634.6186249999998,
+        "largest-contentful-paint": 675.94235,
+        "total-blocking-time": 0,
+        "cumulative-layout-shift": 0,
+        "speed-index": 634.6186249999998
+      },
+      "report": "docs/evidence/lighthouse/127_0_0_1-design-2026_10_11_02_31_59.report.json"
+    }
+  ]
 }

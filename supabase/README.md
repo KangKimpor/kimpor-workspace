@@ -1,9 +1,17 @@
 # Optional cloud backend
 
-Local editing needs no project, account or environment values. Eight migrations
-and eight Edge Functions implement the optional cloud boundary. Isolated
-PostgreSQL ownership/idempotency/compaction/privacy/quota checks and Deno provider
-fixtures pass locally. No live Supabase project has been created or migrated.
+Local editing needs no project, account or environment values. Ten reviewed
+migrations and eight canonical Edge Functions are deployed to the dedicated
+Free/NANO project kimpor-workspace (`nlcpjdokfvawlpzyfytx`, Singapore). All 18
+public tables have RLS. Actual temporary Auth grants, push/pull, idempotency, owner
+isolation, protected-body purge and private Storage checks pass; synthetic users
+and files were removed. The 15-minute cron reached maintenance with HTTP 200.
+
+Public GitHub URL/key variables and VAPID public material configure web/native
+builds by default. Set `KIMPOR_CLOUD_READY=false` for an explicitly local-only build.
+Default free email is restricted to project-team addresses and uses PKCE links.
+Real email delivery, provider consent, closed-app push and user backups remain
+separate gates; see the evidence ledger.
 
 ## Client and server configuration
 
@@ -34,9 +42,24 @@ credential migration; replacing the AES key makes existing credentials unreadabl
 ## Deployment
 
 Use a dedicated Free project. The configured GitHub Cloud deployment workflow
-requires `SUPABASE_ACCESS_TOKEN`, `SUPABASE_DB_PASSWORD` and `SUPABASE_PROJECT_REF`.
-It links CLI 2.120.0, shows a dry run, applies all migrations and deploys functions.
-Equivalent commands:
+requires a complete `SUPABASE_ACCESS_TOKEN` (private sbp_ PAT) and targets only
+`nlcpjdokfvawlpzyfytx`. The first browser-transferred value returned HTTP 401 and
+was not usable. A replacement full private PAT was verified and used for the
+actual deployment locally; the GitHub secret still needs repair. The workflow uses the Management HTTPS query API (experimental)
+without a DB password. It checks project identity and the reviewed schema checksum,
+applies all ten migrations atomically to an empty workspace, or verifies the
+exact existing migration stamps without changing them. Partial/unknown histories
+are refused. It configures six-digit Auth, saves new server keys in Supabase Vault
+without rotating existing keys, and configures maintenance/VAPID. CLI 2.120.0
+deploys canonical functions through the official API; live owner/Storage tests use
+temporary confirmed QA users, send no mail and clean up their data. Reports never
+contain private keys. Run `pnpm test:cloud` for deployment safety checks.
+
+The browser PAT has a 24-hour expiry; renew it privately for later deployments.
+For future incremental migrations use the CLI path with a privately stored DB
+password, review the dry run, and update the reviewed manifest deliberately:
+
+Equivalent CLI commands:
 
 ```sh
 pnpm dlx supabase@2.120.0 link --project-ref YOUR_PROJECT_REF
@@ -56,10 +79,14 @@ read/execute grants. Files live at owner-qualified private Storage paths.
 
 ## Auth and calendars
 
-Supabase Auth → Email template uses `{{ .Token }}` so installed web apps receive
-a six-digit code. Configure the actual site URL, allowed return URLs and Google
-identity provider. Desktop sign-in returns to `kimpor-workspace://auth/callback` through
-the system browser. Live native/provider exchange remains a release gate.
+Auth Site URL and web/new-native/legacy-native return patterns are saved and
+verified. Confirmation is on, anonymous sign-in off, and code length is six.
+The Free/default sender rejects template customization and accepts only team
+addresses. The app supports its state-bound PKCE email links; an existing custom
+SMTP sender enables `{{ .Token }}` templates and six-digit codes. Google sign-in
+stays hidden until the actual Auth settings enable it. Desktop returns through
+`kimpor-workspace://auth/callback` in the system browser. Real delivery and native
+exchange remain release gates.
 
 Calendar OAuth is separate. Enable Google Calendar API, choose appropriate
 production consent settings and register this exact web callback for Google and
@@ -80,7 +107,8 @@ Enable Database → Extensions → pg_cron and pg_net. Create Vault secrets name
 `velora_maintenance_secret` (the same MAINTENANCE_SECRET). Migration 0002 schedules
 15-minute maintenance only when those extensions/Vault are present. If they were
 enabled later, run its scheduling DO block or create the same `*/15 * * * *` job
-in Database → Cron. Verify the actual scheduled request in logs.
+in Database → Cron. This project has the active job and independently verified
+successful runs at 08:30 and 08:45 UTC on October 11, with HTTP 200 responses.
 
 Maintenance compacts known plain Yjs update IDs with a snapshot compare-and-swap,
 polls a bounded number of provider accounts, and sends current recurring event
@@ -118,5 +146,7 @@ pnpm test:backup
 ```
 
 The PostgreSQL harness mocks Auth/Storage prerequisites. It does not start the
-actual Supabase gateway, Storage server, Realtime or OAuth services. Live isolation,
-quota, background schedule and provider consent tests remain necessary.
+actual Supabase gateway, Storage server, Realtime or OAuth services. Separate
+live Auth/ownership/Storage/quota and cron checks now pass, recorded in
+`docs/evidence/cloud-live.json` and `cloud-deployment.json`. Provider consent,
+email, background push and physical-device latency still require live proof.

@@ -1,8 +1,8 @@
 # Free-tier ledger
 
-Checked **2026-10-10** against vendor-owned pages. Seven live page captures, requested with `maxAge: 0`, are saved in [vendor-pages.json](evidence/vendor-pages.json). Values below are current observations, not perpetual guarantees. No service has been provisioned for this project.
+Checked **2026-10-10** against vendor-owned pages. Seven live page captures, requested with `maxAge: 0`, are saved in [vendor-pages.json](evidence/vendor-pages.json). Values below are current observations, not perpetual guarantees. GitHub Pages and public standard-runner Actions are provisioned. The dedicated Supabase project was created on Free/NANO without a card on October 11; ten migrations and eight functions are deployed and live ownership/Storage checks pass.
 
-The user’s recorded “Find ways around it” accepts current free plans, offline local editing, quota controls, exports and replaceable hosting. No inspected vendor guarantees perpetual free hosting. No paid plan/trial has been provisioned; account-level allowances and card requirements remain unverified.
+The user’s recorded “Find ways around it” accepts current free plans, offline local editing, quota controls, exports and replaceable hosting. No inspected vendor guarantees perpetual free hosting. No paid plan/trial has been provisioned. The actual Supabase provisioning path required no card; account-level allowances still need monitoring.
 
 ## Service limits
 
@@ -26,10 +26,10 @@ The user’s recorded “Find ways around it” accepts current free plans, offl
 ## Corrections and unresolved checks
 
 - The current GitHub billing page publishes runner prices directly, including Windows x64 at $0.010/minute. Do not carry over the prompt's “Windows minutes count double” statement without confirming how the account's current allowance is calculated. Public standard-runner minutes are explicitly free; artifact/cache limits still need care.
-- The Supabase pricing page does not explicitly state its credit-card requirement. A vendor blog says the Supabase free tier requires no credit card: [official blog](https://supabase.com/blog/observability-for-every-supabase-project-with-grafana-cloud). Actual account provisioning and its plan must still be checked.
+- The Supabase pricing page does not explicitly state its credit-card requirement. A vendor blog says the Supabase free tier requires no credit card: [official blog](https://supabase.com/blog/observability-for-every-supabase-project-with-grafana-cloud). The dedicated kimpor-workspace project was actually provisioned without a card and its Free/NANO plan was checked; see evidence/supabase-project.json.
 - The inspected Vercel Hobby page confirms a free plan but does not explicitly state whether every signup path avoids card verification. Verify the connected team's plan and selected services before creating a project. Do not enroll in a Pro trial.
 - The Google OAuth page's 100-refresh-token limit is per Google account/client. It is **not** evidence for the separate 100-user cap on unverified applications. Verify that cap on consent/verification documentation before the OAuth ADR.
-- SMTP provider is undecided. Built-in Supabase mail limits and a no-card provider must be verified before promising email-code delivery.
+- The actual Free project rejects custom email templates without custom SMTP. Its default sender uses PKCE sign-in links and permits project-team addresses only. General email delivery requires a connected free SMTP sender; no sender, paid plan or trial was provisioned.
 - Microsoft Store/MSIX is optional Phase 3, has not been reverified and is not a dependency of the proposed unsigned NSIS release.
 - Provider-free quotas are shared account resources, not guaranteed dedicated app capacity. Usage meters must distinguish measured totals from estimates. Neither local usage estimates nor warning badges alone enforce a cloud cap.
 - No free cloud service allows unlimited attachments. Local disk/browser storage is also finite and may be evicted. A full export remains necessary even with sync.
@@ -43,6 +43,24 @@ The observed main stack packages use MIT, Apache-2.0, BSD-3-Clause or ISC. `axe-
 Use only TipTap's open-source core/extensions unless a separately reviewed license allows otherwise. Avoid Potrace's GPL implementation. The npm package named `vtracer` must not be assumed to be the requested MIT VisionCortex tracing tool merely because names match; verify the actual upstream tool before brand work.
 
 
-## Phase 0 enforcement boundary
+## Phase 1–3 implementation boundary
 
-Quota classification/fail-closed write contracts are tested; no live cloud meter, upload gate, backup or keepalive has been implemented. Product quota enforcement belongs in Phase 1. CI workflows use standard public runners and 1/7-day artifact retention, but have not run remotely because repository access is blocked. No service has been upgraded or unrelated project altered.
+Cloud is optional. Settings shows local estimates and measured cloud database/file
+storage when configured, with a 70% warning. SQL/Edge writes fail closed when shared
+capacity cannot be measured or exceeds the reserved free allowance; queued local
+edits remain available. Individual file ciphertext is capped at 10 MiB, cloud Yjs
+updates/envelopes at 1 MiB, full imports/backups at 100 MB and imported items at
+10,000. Immutable encrypted history compacts only after a client decrypts/merges
+known shards; plain compaction uses known IDs and snapshot compare-and-swap.
+
+Edge invocation, Realtime message and egress meters are not implemented in the app;
+inspect provider dashboards. Polling is bounded and backs off, but it does not
+guarantee account-wide usage. Schedules and encrypted backups are implemented with
+explicit missing-configuration notices, not yet run against a real service. The
+weekly backup artifact contains authenticated ciphertext; preserve its key privately.
+Public Actions use standard free runners and short artifact retention. The current
+312-capture matrix occupies roughly 65 MB locally before packaging; account storage
+still needs monitoring. No paid account, plan upgrade or unrelated project was used.
+
+A production release, actual backup restoration, provider revocation, free sender,
+code-signing application and physical performance remain documented gates.

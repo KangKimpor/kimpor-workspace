@@ -1,0 +1,224 @@
+{
+  "project": {
+    "ref": "nlcpjdokfvawlpzyfytx",
+    "name": "kimpor-workspace",
+    "region": "ap-southeast-1",
+    "status": "ACTIVE_HEALTHY"
+  },
+  "schema": {
+    "applied": false,
+    "migrations": [
+      "202610100001",
+      "202610100002",
+      "202610100003",
+      "202610100004",
+      "202610100005",
+      "202610100006",
+      "202610100007",
+      "202610100008",
+      "202610100009",
+      "202610100010"
+    ],
+    "tables": [
+      {
+        "name": "attachments",
+        "rls": true
+      },
+      {
+        "name": "calendar_oauth_requests",
+        "rls": true
+      },
+      {
+        "name": "calendars",
+        "rls": true
+      },
+      {
+        "name": "connected_accounts",
+        "rls": true
+      },
+      {
+        "name": "databases",
+        "rls": true
+      },
+      {
+        "name": "encrypted_doc_updates",
+        "rls": true
+      },
+      {
+        "name": "events",
+        "rls": true
+      },
+      {
+        "name": "page_doc_snapshots",
+        "rls": true
+      },
+      {
+        "name": "page_doc_updates",
+        "rls": true
+      },
+      {
+        "name": "page_versions",
+        "rls": true
+      },
+      {
+        "name": "pages",
+        "rls": true
+      },
+      {
+        "name": "push_subscriptions",
+        "rls": true
+      },
+      {
+        "name": "reminder_deliveries",
+        "rls": true
+      },
+      {
+        "name": "sync_changes",
+        "rls": true
+      },
+      {
+        "name": "sync_receipts",
+        "rls": true
+      },
+      {
+        "name": "tags",
+        "rls": true
+      },
+      {
+        "name": "tombstones",
+        "rls": true
+      },
+      {
+        "name": "user_settings",
+        "rls": true
+      }
+    ],
+    "verified": true,
+    "applied_flag_meaning": "False means this verification run preserved the already-deployed schema; all listed migrations were independently verified"
+  },
+  "auth": {
+    "site_url": "https://kangkimpor.github.io/kimpor-workspace/",
+    "redirects": [
+      "https://kangkimpor.github.io/kimpor-workspace/**",
+      "kimpor-workspace://auth/callback**",
+      "veloradesk://auth/callback**"
+    ],
+    "email_codes": 6,
+    "code_expiry_seconds": 600,
+    "email_confirmation": true,
+    "anonymous_signin": false,
+    "google_enabled": false,
+    "custom_smtp": false,
+    "email_mode": "link",
+    "default_sender_restricted_to_team": true,
+    "delivery_tested": false
+  },
+  "server": {
+    "secret_names": [
+      "ALLOWED_ORIGINS",
+      "CREDENTIAL_ENCRYPTION_KEY",
+      "MAINTENANCE_SECRET",
+      "OAUTH_STATE_SECRET",
+      "VAPID_PRIVATE_KEY",
+      "VAPID_PUBLIC_KEY",
+      "VAPID_SUBJECT"
+    ],
+    "private_backup": "Supabase Vault; never exported to Actions artifacts",
+    "maintenance_schedule": {
+      "jobname": "velora-maintenance",
+      "schedule": "*/15 * * * *",
+      "active": true
+    },
+    "vapid_public_key": "BDUcFBWQAJcPeiuPcWNoDeLDPee6-gAnXwezubAT437DBU4znP0bgaQz72164Ia3l2gho2K3x_rb3pFifvEfZ_0"
+  },
+  "functions": [
+    {
+      "name": "attachments",
+      "status": "ACTIVE",
+      "version": 2,
+      "verify_jwt": false
+    },
+    {
+      "name": "backup",
+      "status": "ACTIVE",
+      "version": 2,
+      "verify_jwt": false
+    },
+    {
+      "name": "calendar-callback",
+      "status": "ACTIVE",
+      "version": 2,
+      "verify_jwt": false
+    },
+    {
+      "name": "calendar-proxy",
+      "status": "ACTIVE",
+      "version": 2,
+      "verify_jwt": false
+    },
+    {
+      "name": "delete-account",
+      "status": "ACTIVE",
+      "version": 2,
+      "verify_jwt": false
+    },
+    {
+      "name": "keepalive",
+      "status": "ACTIVE",
+      "version": 2,
+      "verify_jwt": false
+    },
+    {
+      "name": "maintenance",
+      "status": "ACTIVE",
+      "version": 3,
+      "verify_jwt": false
+    },
+    {
+      "name": "push-register",
+      "status": "ACTIVE",
+      "version": 2,
+      "verify_jwt": false
+    }
+  ],
+  "method": "Supabase Management HTTPS query endpoint (experimental) and pinned official CLI; no DB password required",
+  "date": "2026-10-11T08:46:59.116Z",
+  "source_commit": "8af8d674383147fc8fbd1429f849ac77e44b7cac",
+  "keepalive": {
+    "ok": true
+  },
+  "maintenance": {
+    "ok": true,
+    "push_configured": true,
+    "compacted": 0,
+    "sent": 0
+  },
+  "scheduled_runs": [
+    {
+      "status": "succeeded",
+      "start_time": "2026-10-11 08:45:00.351592+00",
+      "end_time": "2026-10-11 08:45:00.427655+00"
+    },
+    {
+      "status": "succeeded",
+      "start_time": "2026-10-11 08:30:00.106603+00",
+      "end_time": "2026-10-11 08:30:00.131312+00"
+    }
+  ],
+  "scheduled_http_responses": [
+    {
+      "status_code": 200,
+      "timed_out": false,
+      "created": "2026-10-11 08:45:00.44147+00"
+    },
+    {
+      "status_code": 200,
+      "timed_out": false,
+      "created": "2026-10-11 08:30:00.137224+00"
+    }
+  ],
+  "qa_cleanup": {
+    "temporary_users_remaining": 0,
+    "storage_objects_remaining": 0
+  }
+}

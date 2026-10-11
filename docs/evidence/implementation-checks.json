@@ -1,0 +1,626 @@
+{
+  "recorded_at": "2026-10-11T08:03:32.414623+00:00",
+  "implementation_commit": "6e25c97e40fed9d25d7c34347d232c66b5820ba7",
+  "branch": "main",
+  "scope": "Historical implementation checks; source-specific current evidence is in interface-update.json and cloud-browser.json. No physical-device claim.",
+  "checks": [
+    {
+      "name": "Quality",
+      "command": "pnpm check",
+      "status": "passed",
+      "log": "logs/quality-performance.txt",
+      "details": "Core/store source passes pnpm check with 63 tests, backup round-trip, build, budget and contrast. Final browser source then passes lint, strict types, production build and budget in the separate final-code logs.",
+      "additional_logs": [
+        "logs/lint-final-code.txt",
+        "logs/types-final-code.txt",
+        "logs/build-final-code.txt",
+        "logs/budget-final-code.txt"
+      ]
+    },
+    {
+      "name": "Vitest",
+      "status": "passed",
+      "tests": 63,
+      "test_files": 12,
+      "coverage_scope": "whole packages/core source",
+      "coverage_percent": {
+        "statements": 85.54,
+        "branches": 81.65,
+        "functions": 83.72,
+        "lines": 87.91
+      },
+      "line_threshold": 85,
+      "log": "logs/quality-performance.txt"
+    },
+    {
+      "name": "Backup CLI",
+      "command": "pnpm test:backup",
+      "status": "passed",
+      "tests": 1,
+      "details": "Encrypted full round-trip, no plaintext export artifact, wrong-key and tamper rejection.",
+      "log": "logs/quality-performance.txt"
+    },
+    {
+      "name": "Browser foundation",
+      "command": "LD_LIBRARY_PATH=<local browser libraries> PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 pnpm exec playwright test --workers=2",
+      "status": "passed",
+      "tests": 32,
+      "profiles": [
+        "chromium",
+        "webkit",
+        "firefox",
+        "phone-webkit"
+      ],
+      "log": "logs/browser-final-code.txt",
+      "details": "The complete final-source run passes all 68 cases together with two workers, including insert/save/reload/follow/backlink page mentions in all four profiles."
+    },
+    {
+      "name": "Browser product and features",
+      "command": "LD_LIBRARY_PATH=<local browser libraries> PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=1 pnpm exec playwright test --workers=2",
+      "status": "passed",
+      "tests": 36,
+      "profiles": [
+        "chromium",
+        "webkit",
+        "firefox",
+        "phone-webkit"
+      ],
+      "log": "logs/browser-final-code.txt",
+      "details": "The complete final-source run passes all 68 cases together with two workers, including insert/save/reload/follow/backlink page mentions in all four profiles."
+    },
+    {
+      "name": "Save regression repeats",
+      "status": "passed",
+      "tests": 3,
+      "profile": "chromium",
+      "log_available": false,
+      "observed_date": "2026-10-10"
+    },
+    {
+      "name": "Deno functions",
+      "status": "passed",
+      "entry_points": 8,
+      "log": "logs/deno-check-renamed.txt"
+    },
+    {
+      "name": "Deno fixtures",
+      "status": "passed",
+      "tests": 6,
+      "log": "logs/edge-tests.txt"
+    },
+    {
+      "name": "PostgreSQL",
+      "command": "bash scripts/sql-test.sh",
+      "status": "passed",
+      "migrations": 8,
+      "log": "logs/postgresql.txt",
+      "details": "Ownership, denied credential reads/direct/foreign writes, idempotency, encrypted purge, known update compaction, snapshot CAS and quota rejection. Supabase gateway/Storage/Realtime not running in this harness. Final TCP listener readiness regression also passes.",
+      "harness_exit_code": 0,
+      "additional_logs": [
+        "logs/postgresql-tcp-readiness.txt"
+      ]
+    },
+    {
+      "name": "Screenshot matrix",
+      "status": "passed",
+      "screens": 13,
+      "profiles": 12,
+      "themes": 2,
+      "log": "logs/screenshots-final-code.txt",
+      "details": "312 latest local captures, 26 reviewed local contact sheets, no document overflow; independently reviewed real-runner baseline committed with provenance.",
+      "captures": 312,
+      "contact_sheets": 26,
+      "reviewed_contact_sheets": 26,
+      "overflow_count": 0
+    },
+    {
+      "name": "Lighthouse",
+      "command": "pnpm lighthouse",
+      "status": "passed",
+      "mode": "Isolated local desktop production-browser runs; not physical-device benchmarks.",
+      "results": [
+        {
+          "url": "http://127.0.0.1:4173/",
+          "date": "2026-10-11T02:31:45.068Z",
+          "scores": {
+            "performance": 99,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 91
+          },
+          "metrics": {
+            "first-contentful-paint": 693.246625,
+            "largest-contentful-paint": 815.49595,
+            "total-blocking-time": 14.5,
+            "cumulative-layout-shift": 0.00013203805049851426,
+            "speed-index": 693.246625
+          },
+          "report": "docs/evidence/lighthouse/127_0_0_1--2026_10_11_02_31_45.report.json"
+        },
+        {
+          "url": "http://127.0.0.1:4173/design",
+          "date": "2026-10-11T02:31:59.278Z",
+          "scores": {
+            "performance": 100,
+            "accessibility": 100,
+            "best-practices": 100,
+            "seo": 91
+          },
+          "metrics": {
+            "first-contentful-paint": 634.6186249999998,
+            "largest-contentful-paint": 675.94235,
+            "total-blocking-time": 0,
+            "cumulative-layout-shift": 0,
+            "speed-index": 634.6186249999998
+          },
+          "report": "docs/evidence/lighthouse/127_0_0_1-design-2026_10_11_02_31_59.report.json"
+        }
+      ],
+      "raw_reports_retained": true,
+      "log_available": true,
+      "log": "logs/lighthouse-final-code.txt"
+    },
+    {
+      "name": "Gzip budgets",
+      "command": "pnpm budget",
+      "status": "passed",
+      "limit_kib_per_graph": 250,
+      "graphs": [
+        {
+          "entry": "../../node_modules/.pnpm/@tauri-apps+api@2.12.2/node_modules/@tauri-apps/api/core.js",
+          "gzip_kib": 0.8,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "../../node_modules/.pnpm/@tauri-apps+api@2.12.2/node_modules/@tauri-apps/api/event.js",
+          "gzip_kib": 1.5,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "../../node_modules/.pnpm/@tauri-apps+api@2.12.2/node_modules/@tauri-apps/api/window.js",
+          "gzip_kib": 4.6,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "../../node_modules/.pnpm/@tauri-apps+plugin-autostart@2.7.0/node_modules/@tauri-apps/plugin-autostart/dist-js/index.js",
+          "gzip_kib": 1.0,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "../../node_modules/.pnpm/@tauri-apps+plugin-deep-link@2.6.1/node_modules/@tauri-apps/plugin-deep-link/dist-js/index.js",
+          "gzip_kib": 1.7,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "../../node_modules/.pnpm/@tauri-apps+plugin-notification@2.5.1/node_modules/@tauri-apps/plugin-notification/dist-js/index.js",
+          "gzip_kib": 1.3,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "../../node_modules/.pnpm/@tauri-apps+plugin-opener@2.7.0/node_modules/@tauri-apps/plugin-opener/dist-js/index.js",
+          "gzip_kib": 1.0,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "../../node_modules/.pnpm/@tauri-apps+plugin-updater@2.13.2/node_modules/@tauri-apps/plugin-updater/dist-js/index.js",
+          "gzip_kib": 1.3,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "../../packages/core/src/cloud.ts",
+          "gzip_kib": 3.8,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "index.html",
+          "gzip_kib": 206.6,
+          "kind": "initial dependency graph"
+        },
+        {
+          "entry": "src/AccountPanel.tsx",
+          "gzip_kib": 7.3,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "src/App.tsx",
+          "gzip_kib": 7.5,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "src/CalendarModule.tsx",
+          "gzip_kib": 43.2,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "src/DesktopSettings.tsx",
+          "gzip_kib": 3.2,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "src/EditorSpike.tsx",
+          "gzip_kib": 147.6,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "src/ImportExportPanel.tsx",
+          "gzip_kib": 10.3,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "src/InstallSettings.tsx",
+          "gzip_kib": 0.9,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "src/RichTextEditor.tsx",
+          "gzip_kib": 182.4,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "src/SketchCanvas.tsx",
+          "gzip_kib": 3.6,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "src/cloud-state.ts",
+          "gzip_kib": 5.6,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "src/code-highlighting.ts",
+          "gzip_kib": 18.3,
+          "kind": "additional lazy-load dependency graph"
+        },
+        {
+          "entry": "src/math-renderer.ts",
+          "gzip_kib": 75.2,
+          "kind": "additional lazy-load dependency graph"
+        }
+      ],
+      "log": "logs/budget-final-code.txt"
+    },
+    {
+      "name": "Semantic contrast",
+      "command": "pnpm contrast",
+      "status": "passed",
+      "pairs": 44,
+      "log": "logs/contrast.txt"
+    },
+    {
+      "name": "JavaScript licenses",
+      "command": "pnpm run licenses",
+      "status": "passed",
+      "inventory": "dependency-licenses.json",
+      "log": "logs/javascript-licenses.txt"
+    },
+    {
+      "name": "Deno npm licenses",
+      "command": "pnpm licenses:deno",
+      "status": "passed",
+      "packages": 23,
+      "inventory": "deno-licenses.json",
+      "details": "Includes reviewed unmodified server-side web-push MPL-2.0; upstream notice/source link preserved.",
+      "log": "logs/deno-licenses.txt"
+    },
+    {
+      "name": "Windows Cargo licenses",
+      "command": "pnpm licenses:cargo",
+      "status": "passed",
+      "packages": 308,
+      "inventory": "cargo-windows-licenses.json",
+      "log": "logs/cargo-licenses.txt"
+    },
+    {
+      "name": "Desktop web assets",
+      "command": "pnpm build:desktop",
+      "status": "passed",
+      "service_worker_present": false,
+      "log": "logs/desktop-final-code.txt"
+    },
+    {
+      "name": "Rust format",
+      "command": "cargo fmt --manifest-path apps/desktop/src-tauri/Cargo.toml -- --check",
+      "status": "passed",
+      "log": "logs/rustfmt-final.txt"
+    },
+    {
+      "name": "Windows GNU cross-check",
+      "command": "cargo check --locked --target x86_64-pc-windows-gnu",
+      "status": "passed",
+      "mode": "Linux Debian container with MinGW; not Windows MSVC, installer or hardware proof.",
+      "log": "logs/windows-gnu-renamed.txt",
+      "details": "Invalid inherited deep-link ACL and missing direct serde_json dependency were corrected; renamed Tauri context compiles. Windows MSVC and installer execution remain separate gates."
+    },
+    {
+      "name": "Workflow syntax",
+      "command": "actionlint",
+      "status": "passed",
+      "log": "logs/workflows-cloud-config.txt"
+    },
+    {
+      "name": "Frozen lockfile install",
+      "command": "pnpm install --frozen-lockfile",
+      "status": "passed",
+      "log": "logs/install-renamed.txt"
+    },
+    {
+      "name": "Staged secrets",
+      "command": "pnpm secret:scan",
+      "status": "passed",
+      "leaks": 0,
+      "log": "logs/secrets-staged-rename.txt"
+    },
+    {
+      "name": "History secrets",
+      "command": "pnpm secret:scan --history",
+      "status": "passed",
+      "leaks": 0,
+      "log": "logs/secrets-history-current.txt",
+      "scope": "22-commit main history through 3c891f6; final export/staged scans recorded separately"
+    },
+    {
+      "name": "Foundation route readiness",
+      "status": "passed",
+      "tests": 4,
+      "profiles": [
+        "chromium",
+        "webkit"
+      ],
+      "log": "logs/foundation-readiness.txt"
+    },
+    {
+      "name": "Large workspace benchmark",
+      "command": "pnpm performance",
+      "status": "budget failure",
+      "functional_assertions": "passed in Chromium and phone WebKit",
+      "fixture": {
+        "pages": 2000,
+        "journals": 365,
+        "total_page_entities": 2365,
+        "events": 5000,
+        "blocks": 20000,
+        "long_page_blocks": 5000,
+        "search_items": 10000
+      },
+      "report": "seeded-performance.json",
+      "log": "logs/seeded-performance-final.txt",
+      "limits": "Warm start and warm 10k-item worker queries meet sampled targets. Typing on the 5k-block note exceeds the required 16 ms maximum. Lists/tree/drag handles are windowed; editor body, galleries and database bodies are not fully virtualized. Emulation is not physical-device evidence."
+    },
+    {
+      "name": "Real GitHub Quality",
+      "run_id": 38122879255,
+      "commit": "3c891f678239a4314ec3b2b4efff9fdaeabe7f3a",
+      "status": "passed",
+      "browser_tests": 68,
+      "browser_result": "passed",
+      "visual_passed": 312,
+      "visual_failed": 0,
+      "details": "Actual real-runner Quality passes 63 core tests, one backup test, six deployment safety tests, SQL, eight Deno entry points, six Edge fixtures, 68 browser cases, Lighthouse and 312 pixel comparisons. Comparison tolerance is unchanged.",
+      "log": "logs/github-ci-native-check-green.txt"
+    },
+    {
+      "name": "Real GitHub CodeQL",
+      "run_id": 38122879257,
+      "status": "passed",
+      "commit": "3c891f678239a4314ec3b2b4efff9fdaeabe7f3a"
+    },
+    {
+      "name": "Windows MSVC and NSIS candidate",
+      "run_id": 38121695281,
+      "commit": "7215f7475a56ae1ed06031854d81cf4f4681e396",
+      "status": "passed on this runner",
+      "functional_checks": "passed",
+      "report": "windows-smoke-passed.json",
+      "native_window_ms": 255,
+      "idle_cpu_percent": 0.0,
+      "idle_working_set_bytes": 150872064,
+      "idle_private_committed_bytes": 43024384,
+      "installer_bytes": 3522565,
+      "installer_budget_bytes": 20971520,
+      "installer_sha256": "d72c62aaac62f668f4dfc2dfd9a5d7b4bc582a087d00232c0b40d6df0ab415c8",
+      "candidate_artifact_id": 11695448921,
+      "checksum_verified": true,
+      "log": "logs/github-windows-passed.txt",
+      "historical_memory_failures": {
+        "first_run": 38105147984,
+        "working_set_bytes": 263811072,
+        "later_run": 38121052480,
+        "later_working_set_bytes": 377835520
+      },
+      "limits": "Resident memory varied without an app-memory change. This original smoke checks a native window, not complete first render. Stronger UI persistence verification is running on 3c891f6."
+    },
+    {
+      "name": "Public Pages offline check",
+      "status": "passed",
+      "engines": [
+        "chromium",
+        "webkit"
+      ],
+      "report": "pages-public.json",
+      "log": "logs/pages-public-final.txt"
+    },
+    {
+      "name": "Atomic dashboard migrations",
+      "status": "passed locally",
+      "migrations": 8,
+      "details": "Generated fresh-project schema passes the full ownership/privacy/quota/CAS test harness and records all eight CLI-compatible migration versions. No live SQL result inferred.",
+      "log": "logs/dashboard-sql-check.txt"
+    },
+    {
+      "name": "Standalone Edge bundles",
+      "status": "passed",
+      "functions": 8,
+      "details": "Generated from original strict-checked source using pinned Vite and Deno imports. All eight bundles pass Deno syntax/import checks and lint.",
+      "logs": [
+        "logs/cloud-dashboard-build.txt",
+        "logs/deno-dashboard-bundles.txt",
+        "logs/lint-dashboard-and-capture.txt"
+      ]
+    },
+    {
+      "name": "Clean exported cloud bundle generation",
+      "status": "passed",
+      "details": "All eight canonical entry points and generated bundles are in source. Builder now normalizes its working directory; a clean export reproduces schema, all eight JS files and manifest byte for byte.",
+      "log": "logs/dashboard-clean-source.txt"
+    },
+    {
+      "name": "HTTPS deployment safety",
+      "status": "passed",
+      "tests": 6,
+      "details": "Wrong project, unready/renamed project, masked/project-key credentials, changed schema and partial migration history are refused; error bodies never expose credentials.",
+      "log": "logs/cloud-management-tests.txt"
+    },
+    {
+      "name": "Supabase real deployment attempt",
+      "run_id": 38122577022,
+      "commit": "b18295858b11421966303064b20d0eb08f0695a4",
+      "status": "blocked",
+      "details": "Supabase Management GET project returned HTTP 401. No project configuration/schema/functions were changed by this run. Browser reports of a saved secret were not treated as proof of a valid token.",
+      "log": "logs/cloud-deploy-first-failed.txt"
+    }
+  ],
+  "prior_failed_attempts": [
+    {
+      "name": "Broad browser run",
+      "passed": 60,
+      "failed": 4,
+      "resolution": "Navigation completion is now awaited before reload; three repeated save checks and all 32 product/feature checks pass. Audit timeouts were rerun with two workers without concurrent Lighthouse/screenshots."
+    },
+    {
+      "name": "Concurrent Lighthouse",
+      "resolution": "Failed performance budgets under competing work; final isolated / and /design both scored 99 and passed budgets. Prior reports retained."
+    },
+    {
+      "name": "Populated screenshot seed",
+      "resolution": "One event dialog did not close within five seconds. Eighteen isolated first-run/full-seed cases succeeded. Seeding now explicitly selects Personal and waits up to fifteen seconds. The original final matrix completed; the final renamed 312-capture matrix also completed."
+    },
+    {
+      "name": "Screenshot selector",
+      "resolution": "A broad Calendar label matched the module section; scoped to the new-event dialog select before rerunning."
+    },
+    {
+      "name": "Windows environment",
+      "resolution": "Initial host lacked MinGW; Debian trust/compiler packages added. First container source was read-only and Tauri schema generation failed; writable source mount now in use."
+    },
+    {
+      "name": "October 11 browser rerun before rename",
+      "status": "interrupted",
+      "log": "logs/browser-before-rename-interrupted.txt",
+      "resolution": "Two foundation checks ran before the lazy route was ready. They now wait for the actual palette control/heading; all four Chromium/WebKit readiness checks pass. WebKit library symlinks pointed into removed temporary storage; official Debian libraries were restored in persistent validation storage before the renamed run."
+    },
+    {
+      "name": "Early October 11 Lighthouse start",
+      "status": "interrupted",
+      "log": "logs/lighthouse-before-contact-sheets-interrupted.txt",
+      "resolution": "Stopped before counting a result because the contact sheet process was still active. Final isolated run completed and passed all budgets."
+    },
+    {
+      "name": "Final-code browser first attempt",
+      "passed": 63,
+      "failed": 5,
+      "log": "logs/browser-performance-first-attempt.txt",
+      "resolution": "Four mention expectations omitted the actual arrow glyph; the 200% text check sampled immediately after style injection. Corrected labels and layout polling pass the subsequent complete 68-case run."
+    },
+    {
+      "name": "First real Quality run",
+      "run_id": 38105148033,
+      "resolution": "SQL harness waited for the Docker temporary socket server. Final TCP listener is now awaited and local/real-runner SQL passes.",
+      "log": "logs/github-ci-initial-failed.txt"
+    },
+    {
+      "name": "Second real Quality run",
+      "run_id": 38105305441,
+      "resolution": "67 browser cases passed; journal reload ran before module navigation completed. Test helper now awaits selected module plus completed page-detail exit. Targeted local cases and subsequent full 68-case real CI pass.",
+      "log": "logs/github-ci-tcp-readiness-failed.txt"
+    },
+    {
+      "name": "Generated source completeness",
+      "run_id": 38120259020,
+      "resolution": "The private backup-directory ignore also excluded the public canonical backup endpoint. Explicit server-source exceptions now include both canonical and generated backup files; the eight-function completeness check and clean export pass.",
+      "log": "logs/github-ci-dashboard-failed.txt"
+    },
+    {
+      "name": "One unsettled Calendar tab capture",
+      "run_id": 38119192050,
+      "passed": 311,
+      "failed": 1,
+      "resolution": "Two-frame capture settlement plus visually reviewed exact single-image correction. Full subsequent real Quality run 38121052501 passes 312/312 with unchanged tolerance."
+    }
+  ],
+  "publication": {
+    "github": {
+      "account": "KangKimpor",
+      "repository": "KangKimpor/kimpor-workspace",
+      "pushed": true,
+      "log": "logs/github-rename-create.txt",
+      "read_log": "logs/github-rename-read.txt",
+      "observed_date": "2026-10-11",
+      "repository_selection": "all",
+      "existing_repositories_accessible": true,
+      "access_record": "github-access.json",
+      "graphql_create_retry": {
+        "command": "gh repo create KangKimpor/kimpor-workspace --public",
+        "status": "blocked",
+        "error": "Resource not accessible by integration (createRepository)",
+        "log": "logs/github-create-after-user-update.txt",
+        "context": "Retried after the user confirmed broad GitHub access; existing repository access is confirmed, creation remains denied."
+      },
+      "historical_integration_create": {
+        "read_status": 404,
+        "create_status": 403,
+        "error": "Resource not accessible by integration"
+      },
+      "read_status": 200,
+      "admin_and_push": true,
+      "browser_creation": "succeeded after user saved GitHub sign-in",
+      "quality_run": 38122879255,
+      "quality_status": "passed",
+      "baseline_run": 38105170530,
+      "baseline_committed": true,
+      "baseline_review": "ci-baseline-review.json",
+      "visual_passed": 312
+    },
+    "vercel": {
+      "status": "not deployed",
+      "reason": "No callable deployment credential"
+    },
+    "sites": {
+      "status": "not registered or deployed",
+      "reason": "Native tools available, but mandatory site-workflow.mjs helper absent from runtime and skill resources"
+    },
+    "supabase": {
+      "status": "dedicated Free project provisioned; deployment blocked by invalid/incomplete transferred PAT (HTTP 401)",
+      "project_ref": "nlcpjdokfvawlpzyfytx",
+      "report": "supabase-project.json",
+      "auth_public_configuration": "Saved Site URL/three return patterns, six-digit OTP, confirmation on, anonymous off; templates and delivery remain unverified"
+    },
+    "windows_installation": {
+      "status": "original native-window check passed after earlier memory failures; stronger rendered-app check pending",
+      "candidate_run": 38121695281,
+      "physical_pc": "unverified"
+    },
+    "physical_devices": {
+      "status": "unverified",
+      "devices_connected": 0
+    },
+    "release": {
+      "version": "0.0.1",
+      "v1_tag_created": false,
+      "reason": "Typing target, authenticated live cloud/providers, physical-device tests and documented scope gaps remain; memory measurements vary and stronger rendered-app validation is pending"
+    },
+    "pages": {
+      "status": "live",
+      "url": "https://kangkimpor.github.io/kimpor-workspace/",
+      "run_id": 38123405988,
+      "source_commit": "3c891f678239a4314ec3b2b4efff9fdaeabe7f3a",
+      "http_status": 200,
+      "public_browser_checks": "pages-public.json",
+      "public_browser_check_source": "Recorded public checks dated 2026-10-11T08:01:12.745Z; source app code unchanged across deployment commits"
+    }
+  },
+  "product_name": "Kimpor Workspace",
+  "final_code_commit": "361645cca239405ad0d61f710602c98e26ec85ec",
+  "evidence_note": "Original October 10 checks were completed before the workspace restarted. Temporary logs were lost at restart. Retained reports/captures and new October 11 command logs are distinguished below; no missing raw log is reconstructed.",
+  "verification_commit": "3c891f678239a4314ec3b2b4efff9fdaeabe7f3a",
+  "historical": true
+}

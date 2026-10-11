@@ -1,0 +1,20 @@
+{
+  "runner": "Windows",
+  "idle_cpu_percent": 0.0,
+  "callback_registration": true,
+  "idle_working_set_bytes": 263811072,
+  "error": "App and WebView2 idle RAM exceed the 150 MiB budget.",
+  "single_instance": true,
+  "uninstall": true,
+  "native_window_ms": 257,
+  "budgets": {
+    "idle_cpu_percent": 2,
+    "idle_working_set_bytes": 157286400,
+    "native_window_ms": 2000
+  },
+  "measured_at": "2026-10-11T02:33:25.6597828Z",
+  "installer": "Kimpor Workspace_0.0.1_x64-setup.exe",
+  "normal_exit": true,
+  "result": "failed",
+  "process_count": 7
+}

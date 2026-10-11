@@ -1,0 +1,79 @@
+{
+  "recorded_at": "2026-10-11T09:08:00.280687+00:00",
+  "project_name": "kimpor-workspace",
+  "project_ref": "nlcpjdokfvawlpzyfytx",
+  "url": "https://nlcpjdokfvawlpzyfytx.supabase.co",
+  "region": "ap-southeast-1",
+  "plan": "Free",
+  "compute": "NANO",
+  "provisioning": "Ready (browser verified)",
+  "dedicated_new_project": true,
+  "schema_deployed": true,
+  "functions_deployed": [
+    "attachments",
+    "backup",
+    "calendar-callback",
+    "calendar-proxy",
+    "delete-account",
+    "keepalive",
+    "maintenance",
+    "push-register"
+  ],
+  "auth_settings_public_endpoint": "Email enabled; Google disabled; live settings verified through Management API",
+  "public_build_variables": "Verified saved; builds enabled after actual live checks, explicit KIMPOR_CLOUD_READY=false disables cloud",
+  "private_password_storage": "Built-in browser password manager reported available; successful password save was not independently confirmed. No password was returned.",
+  "billing_changes": false,
+  "other_projects_modified": false,
+  "auth_urls_configured": true,
+  "dashboard_sql_attempts": [
+    {
+      "status": "Unverified submission; metadata not returned",
+      "source_hash": "886238c4f21b36fb400ec0f7347990c2d2046f86f898fe144ef5ad3ccf3bc99e"
+    },
+    {
+      "status": "Editor model remained empty; Run returned query too small error. No SQL execution proved."
+    }
+  ],
+  "deployment_method": "Supabase Management HTTPS query API and official pinned CLI; dashboard SQL/editor and DB-password transfer attempts did not succeed",
+  "deployment_credentials": {
+    "token_name": "kimpor-workspace-deploy",
+    "github_secret": "SUPABASE_ACCESS_TOKEN",
+    "saved_and_verified": true,
+    "expiry_hours": 24,
+    "scope": "Full access within selected project/organization",
+    "private_values_exported": false,
+    "database_password_secret_saved": false,
+    "database_password_required_for_https_deployment": false,
+    "valid_token_verified": true,
+    "actual_deployment_result": "Ten migrations and eight functions deployed, live QA and scheduled maintenance pass",
+    "replacement_transfer_verified": true,
+    "current_token_name": "kimpor-ci-20261011",
+    "github_secret_valid": false,
+    "github_secret_repair": "Pending saved GitHub reauthentication; local deployment completed independently"
+  },
+  "auth_configuration": {
+    "site_url": "https://kangkimpor.github.io/kimpor-workspace/",
+    "redirects": [
+      "https://kangkimpor.github.io/kimpor-workspace/**",
+      "kimpor-workspace://auth/callback**",
+      "veloradesk://auth/callback**"
+    ],
+    "email_otp_length": 6,
+    "previous_default_otp_length": 8,
+    "email_confirmation": true,
+    "anonymous_signin": false,
+    "email_templates_verified": false,
+    "email_delivery_verified": false,
+    "verification": "Actual Management API read and public account-screen tests",
+    "email_mode": "PKCE sign-in link",
+    "default_sender_restricted_to_team": true,
+    "custom_smtp": false
+  },
+  "migration_count": 10,
+  "private_values_in_public_evidence": false,
+  "historical_public_pages_probe": {
+    "http_status": 404,
+    "code": "PGRST205",
+    "message": "public.pages absent from schema cache"
+  }
+}

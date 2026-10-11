@@ -1,0 +1,384 @@
+{
+  "date": "2026-10-11T01:50:42.731Z",
+  "mode": "Local production browser benchmark; no physical-device or cloud result inferred.",
+  "fixture": {
+    "pages": 2000,
+    "journals": 365,
+    "events": 5000,
+    "blocks": 20000,
+    "long_page_blocks": 5000,
+    "search_items": 10000
+  },
+  "results": [
+    {
+      "profile": "chromium",
+      "browser_version": "156.0.8078.4",
+      "errors": [],
+      "import_ms": 21032.251729000003,
+      "warm_start_ms": 165.52764899999966,
+      "rendered_tree_rows": 21,
+      "scrolled_nested_tree": true,
+      "rendered_note_rows": 20,
+      "scrolled_last_note": true,
+      "opened_scrolled_note_at_top": true,
+      "open_long_page_ms": 786.9187009999987,
+      "typing_keydown_to_next_frame_ms": {
+        "samples": [
+          87.59999999962747,
+          38,
+          28,
+          30.100000000093132,
+          45.5,
+          23.199999999720603,
+          25.699999999720603,
+          41.89999999990687,
+          21.100000000093132,
+          47,
+          20.799999999813735,
+          22.300000000279397,
+          34.3000000002794,
+          20.399999999906868,
+          20.299999999813735,
+          19,
+          35.39999999990687,
+          26.600000000093132,
+          39.200000000186265,
+          19.200000000186265
+        ],
+        "median": 26.600000000093132,
+        "p95": 47,
+        "max": 87.59999999962747
+      },
+      "visible_drag_handles": 21,
+      "drag_scroll_geometry": {
+        "scrollY": 219958,
+        "viewportHeight": 864,
+        "viewportTop": 0,
+        "first": -219560,
+        "last": 630.328125,
+        "handles": [
+          "Move block 1: abcdefghijklmnopqrstSmall idea 0",
+          "Move block 2: Small idea 0.1. ខ្មែរ 中文 English",
+          "Move block 3: Small idea 0.2. ខ្មែរ 中文 English",
+          "Move block 4: Small idea 0.3. ខ្មែរ 中文 English",
+          "Move block 5: Small idea 0.4. ខ្មែរ 中文 English",
+          "Move block 6: Small idea 0.5. ខ្មែរ 中文 English",
+          "Move block 7: Small idea 0.6. ខ្មែរ 中文 English",
+          "Move block 8: Small idea 0.7. ខ្មែរ 中文 English",
+          "Move block 9: Small idea 0.8. ខ្មែរ 中文 English",
+          "Move block 10: Small idea 0.9. ខ្មែរ 中文 English",
+          "Move block 11: Small idea 0.10. ខ្មែរ 中文 Englis",
+          "Move block 12: Small idea 0.11. ខ្មែរ 中文 Englis",
+          "Move block 13: Small idea 0.12. ខ្មែរ 中文 Englis",
+          "Move block 14: Small idea 0.13. ខ្មែរ 中文 Englis",
+          "Move block 15: Small idea 0.14. ខ្មែរ 中文 Englis",
+          "Move block 16: Small idea 0.15. ខ្មែរ 中文 Englis",
+          "Move block 17: Small idea 0.16. ខ្មែរ 中文 Englis",
+          "Move block 18: Small idea 0.17. ខ្មែរ 中文 Englis",
+          "Move block 19: Small idea 0.18. ខ្មែរ 中文 Englis",
+          "Move block 20: Small idea 0.19. ខ្មែរ 中文 Englis",
+          "Move block 21: Small idea 0.20. ខ្មែរ 中文 Englis"
+        ]
+      },
+      "offscreen_handles_and_keyboard_reorder": true,
+      "search_worker_initial_ms": 77.5,
+      "search_worker_round_trip_ms": {
+        "samples": [
+          {
+            "query": "中文",
+            "ms": 22.699999999720603,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 10.100000000093132,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 5.600000000093132,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 5.100000000093132,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 6.399999999906868,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 6.399999999906868,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 6.5,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 5.2000000001862645,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 4.899999999906868,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 6.7000000001862645,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 6.2999999998137355,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 6.600000000093132,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 5.099999999627471,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 4.800000000279397,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 6.600000000093132,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 6.2999999998137355,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 6.600000000093132,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 5.2999999998137355,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 5,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 8.700000000186265,
+            "results": 100
+          }
+        ],
+        "median": 6.2999999998137355,
+        "p95": 10.100000000093132,
+        "max": 22.699999999720603
+      },
+      "budgets": {
+        "warm_start_1500ms": true,
+        "typing_max_16ms": false,
+        "search_max_50ms": true
+      }
+    },
+    {
+      "profile": "phone-webkit",
+      "browser_version": "27.2",
+      "errors": [],
+      "import_ms": 29176.97133,
+      "warm_start_ms": 322.72873000000254,
+      "rendered_tree_rows": 21,
+      "scrolled_nested_tree": true,
+      "rendered_note_rows": 20,
+      "scrolled_last_note": true,
+      "opened_scrolled_note_at_top": true,
+      "open_long_page_ms": 2613.179191999996,
+      "typing_keydown_to_next_frame_ms": {
+        "samples": [
+          94,
+          71,
+          62,
+          38,
+          20,
+          22,
+          46,
+          21,
+          50,
+          27,
+          25,
+          28,
+          26,
+          16,
+          29,
+          30,
+          40,
+          47,
+          24,
+          61
+        ],
+        "median": 29,
+        "p95": 71,
+        "max": 94
+      },
+      "visible_drag_handles": 20,
+      "drag_scroll_geometry": {
+        "scrollY": 211831,
+        "viewportHeight": 852,
+        "viewportTop": 0,
+        "first": -211401,
+        "last": 536.125,
+        "handles": [
+          "Move block 1: abcdefghijklmnopqrstSmall idea 0",
+          "Move block 2: Small idea 0.1. ខ្មែរ 中文 English",
+          "Move block 3: Small idea 0.2. ខ្មែរ 中文 English",
+          "Move block 4: Small idea 0.3. ខ្មែរ 中文 English",
+          "Move block 5: Small idea 0.4. ខ្មែរ 中文 English",
+          "Move block 6: Small idea 0.5. ខ្មែរ 中文 English",
+          "Move block 7: Small idea 0.6. ខ្មែរ 中文 English",
+          "Move block 8: Small idea 0.7. ខ្មែរ 中文 English",
+          "Move block 9: Small idea 0.8. ខ្មែរ 中文 English",
+          "Move block 10: Small idea 0.9. ខ្មែរ 中文 English",
+          "Move block 11: Small idea 0.10. ខ្មែរ 中文 Englis",
+          "Move block 12: Small idea 0.11. ខ្មែរ 中文 Englis",
+          "Move block 13: Small idea 0.12. ខ្មែរ 中文 Englis",
+          "Move block 14: Small idea 0.13. ខ្មែរ 中文 Englis",
+          "Move block 15: Small idea 0.14. ខ្មែរ 中文 Englis",
+          "Move block 16: Small idea 0.15. ខ្មែរ 中文 Englis",
+          "Move block 17: Small idea 0.16. ខ្មែរ 中文 Englis",
+          "Move block 18: Small idea 0.17. ខ្មែរ 中文 Englis",
+          "Move block 19: Small idea 0.18. ខ្មែរ 中文 Englis",
+          "Move block 20: Small idea 0.19. ខ្មែរ 中文 Englis"
+        ]
+      },
+      "offscreen_handles_and_keyboard_reorder": true,
+      "search_worker_initial_ms": 55,
+      "search_worker_round_trip_ms": {
+        "samples": [
+          {
+            "query": "中文",
+            "ms": 19,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 36,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 9,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 9,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 12,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 12,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 12,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 9,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 8,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 12,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 13,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 13,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 8,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 8,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 12,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 12,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 12,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 8,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 8,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 13,
+            "results": 100
+          }
+        ],
+        "median": 12,
+        "p95": 19,
+        "max": 36
+      },
+      "budgets": {
+        "warm_start_1500ms": true,
+        "typing_max_16ms": false,
+        "search_max_50ms": true
+      }
+    }
+  ],
+  "status": "budget failures"
+}

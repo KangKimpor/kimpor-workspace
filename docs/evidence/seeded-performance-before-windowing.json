@@ -1,0 +1,309 @@
+{
+  "date": "2026-10-11T01:20:22.671Z",
+  "mode": "Local production browser benchmark; no physical-device or cloud result inferred.",
+  "fixture": {
+    "pages": 2000,
+    "journals": 365,
+    "events": 5000,
+    "blocks": 20000,
+    "long_page_blocks": 5000,
+    "search_items": 10000
+  },
+  "results": [
+    {
+      "profile": "chromium",
+      "errors": [],
+      "import_ms": 20410.221966,
+      "warm_start_ms": 441.1383910000004,
+      "rendered_note_rows": 0,
+      "open_long_page_ms": 9306.157279000003,
+      "typing_keydown_to_next_frame_ms": {
+        "samples": [
+          1497.5,
+          1924.5999999998603,
+          714.5,
+          1674.5999999998603,
+          649.3000000000466,
+          964.5,
+          1180.8999999999069,
+          2049.3000000000466,
+          1979.8000000000466,
+          1427.6999999999534,
+          658.6000000000931,
+          1611.5,
+          770.5,
+          1560.4000000001397,
+          1173.3999999999069,
+          645.1000000000931,
+          673.2000000001863,
+          611.3999999999069,
+          1171.5,
+          1152
+        ],
+        "median": 1171.5,
+        "p95": 1979.8000000000466,
+        "max": 2049.3000000000466
+      },
+      "search_worker_round_trip_ms": {
+        "samples": [
+          {
+            "query": "quiet",
+            "ms": 270.39999999990687,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 17,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 13.800000000046566,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 16.300000000046566,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 35.10000000009313,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 14.700000000186265,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 30.899999999906868,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 29.199999999953434,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 13.300000000046566,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 12.100000000093132,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 24.300000000046566,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 18.399999999906868,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 10.900000000139698,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 8.5,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 12.199999999953434,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 40.199999999953434,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 11.300000000046566,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 14.300000000046566,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 12.5,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 8.899999999906868,
+            "results": 0
+          }
+        ],
+        "median": 14.300000000046566,
+        "p95": 40.199999999953434,
+        "max": 270.39999999990687
+      },
+      "budgets": {
+        "warm_start_1500ms": true,
+        "typing_p95_16ms": false,
+        "search_p95_50ms": true
+      }
+    },
+    {
+      "profile": "phone-webkit",
+      "errors": [],
+      "import_ms": 24827.86125100001,
+      "warm_start_ms": 215.35151400000905,
+      "rendered_note_rows": 0,
+      "open_long_page_ms": 8915.944489000001,
+      "typing_keydown_to_next_frame_ms": {
+        "samples": [
+          971,
+          2563,
+          833,
+          1514,
+          1432,
+          2129,
+          1470,
+          1389,
+          3259,
+          905,
+          1087,
+          2571,
+          1067,
+          1803,
+          1161,
+          1918,
+          836,
+          1790,
+          1016,
+          1835
+        ],
+        "median": 1432,
+        "p95": 2571,
+        "max": 3259
+      },
+      "search_worker_round_trip_ms": {
+        "samples": [
+          {
+            "query": "quiet",
+            "ms": 1808,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 9318,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 1186,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 3011,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 1219,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 61,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 166,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 33,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 11,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 16,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 66,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 92,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 90,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 21,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 19,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 23,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 36,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 60,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 37,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 20,
+            "results": 0
+          }
+        ],
+        "median": 60,
+        "p95": 3011,
+        "max": 9318
+      },
+      "budgets": {
+        "warm_start_1500ms": true,
+        "typing_p95_16ms": false,
+        "search_p95_50ms": false
+      }
+    }
+  ],
+  "status": "budget failures"
+}

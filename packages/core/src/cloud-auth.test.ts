@@ -49,6 +49,14 @@ function response(body: unknown, status = 200) {
     headers: { "Content-Type": "application/json" },
   });
 }
+it("clears invitation bearer fragments without adopting an unsolicited account", async () => {
+  const auth = await import("./cloud-auth");
+  await expect(auth.consumeAuthRedirect("https://workspace.example.test/#access_token=untrusted&refresh_token=untrusted"))
+    .rejects.toThrow("Settings → Account");
+  expect(history.replaceState).toHaveBeenCalledWith({}, "", "/");
+  expect(fetcher).not.toHaveBeenCalled();
+  expect(saved.size).toBe(0);
+});
 it("keeps missing cloud configuration local and rejects malformed endpoints", async () => {
   const auth = await import("./cloud-auth");
   vi.stubEnv("VITE_SUPABASE_URL", "");

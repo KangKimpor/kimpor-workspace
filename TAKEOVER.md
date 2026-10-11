@@ -1,39 +1,33 @@
-# Resume VeloraDesk Phase 0
+# Kimpor Workspace takeover
 
-This file supersedes the incoming handoff, preserved in
-[docs/archive/2026-10-10-incoming-takeover.md](docs/archive/2026-10-10-incoming-takeover.md).
-Read [CLAUDE.md](CLAUDE.md), [the report](docs/PHASE-0-REPORT.md), and the original
-[BUILD-PROMPT.md](BUILD-PROMPT.md). Do not restart feasibility or ask for accepted decisions.
+Updated 2026-10-11. Main: KangKimpor/kimpor-workspace. The user authorizes direct
+main pushes, all available account steps and deployment. Free only; no cards,
+paid plans, trials or TinyFish top-ups. Product remains 0.0.1 until release gates pass.
 
-The source is restored, dependencies repaired, gallery/editor functional,
-signature-derived public assets generated, contracts/tests/scripts and Tauri/CI
-scaffolds authored. See the verification ledger for actual checks and limits.
-Full signature source and updater private material stay in ignored directories;
-a public source export intentionally omits both.
+The public app is https://kangkimpor.github.io/kimpor-workspace/ with live cloud.
+Read CLAUDE.md, docs/VERIFICATION.md and docs/PHASES-1-3-REPORT.md before continuing.
+Ten Supabase migrations/eight functions are deployed and owner/file isolation plus
+real Chromium↔WebKit cloud sync were tested. Default email sender is limited to
+project-team addresses; calendar OAuth providers are not connected.
 
-The next independent gate is remote access: `gh repo view KangKimpor/veloradesk`.
-Creating the repo failed with integration permission 403; user was asked to create
-an empty public repo and grant selected-repository access. There is no remote URL
-or installer to verify yet. Do not treat a pending user request as completed.
+The requested owner account is confirmed. Its private Notion migration contains
+four databases and 62 tasks, verified against an unfiltered source inventory,
+remote field/document bytes and a fresh-client pull. All 124 unknown Drive/Figma
+blocks were individually fetched and found empty. Source links remain; empty PDF
+placeholders have no attachment. Private data/receipts are under .private and must
+never enter source, public evidence, Git history or release bundles.
 
-When access exists:
+Current UI work simplifies mobile formatting, Journal and Calendar, adds sidebar
+collapse, phone swipe-back with save, and sheet sizing. Notion ZIP imports now
+preserve page hierarchy and encrypt referenced attachments. Responsive checks
+include 393×852, 820×1180, 1180×820, 1980×1080 and 1980×1200.
 
-1. Push the minimal main bootstrap and `feat/phase-zero-foundation` commits; open a
-   reviewable PR and add `build-desktop`. Use the checked-in workflows, standard
-   free public runners and short artifact retention.
-2. Upload updater key/password from ignored secrets/ to `TAURI_SIGNING_PRIVATE_KEY`
-   and `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` without printing them. Confirm backup.
-3. Run Quality and Windows installer jobs; fix actual failures. Native smoke must
-   install per-user, find the window, register/forward the callback and exit cleanly.
-4. Protect main using actual successful check names, enable Pages source Actions,
-   merge after checks pass, and confirm direct gallery/editor URLs and cached
-   offline reload under `/veloradesk/`. If Vercel becomes callable, verify Hobby
-   before deploying the configured project. No paid trials.
-5. Record real PR/run/preview/artifact links in the report and setup checklist.
-   Ask user to install on iPhone/iPad and Windows using DEVICE-TEST.md.
-6. Stop and report Phase 0. Device, live OAuth, full editor dragging and cloud sync
-   are explicit open gates. Do not start Today/Calendar/Notes/Journal product work.
+Windows run 38138836867 passes actual installed UI creation/restart persistence,
+protocol/single-instance/normal exit/uninstall. Its 385.8 MiB aggregate resident
+memory fails the 150 MiB budget. Typing-frame performance also remains above the
+16 ms maximum. No physical iPhone/iPad/PC, updater N→N+1 or seven-day provider proof
+has been supplied. Do not issue a v1 release or claim every original phase complete.
 
-Use regular small Conventional Commits. No secrets, private sources or personal
-backups in artifacts or git. Do not claim workflow files as successful CI, a
-prepared URL as a deployed preview, or a generated key as live signed updates.
+Preserve the private original signature and updater keys separately. Use only the
+public derived A mark. GitHub credential repair may require saved secure browser
+reauthentication; do not assume a pending human action is completed.

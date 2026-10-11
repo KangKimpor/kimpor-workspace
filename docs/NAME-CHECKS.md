@@ -1,6 +1,12 @@
 # Candidate names
 
-Checked 2026-10-10. Working default: **VeloraDesk** (`veloradesk`). No name has been reserved.
+The user chose **Kimpor Workspace** on 2026-10-11. The intended public repository
+is `KangKimpor/kimpor-workspace`, created publicly on October 11 through the user's
+authenticated browser profile. Main is pushed and CLI admin/push access confirmed.
+The earlier integration-only create attempts returned 403. No npm scope is reserved.
+Private internal workspace packages do not need an npm organization.
+
+The earlier candidate checks below are historical, from 2026-10-10.
 
 | Display name | GitHub repository under KangKimpor | npm organization endpoint | npm scope availability |
 | --- | --- | --- | --- |

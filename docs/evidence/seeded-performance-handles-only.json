@@ -1,0 +1,202 @@
+{
+  "date": "2026-10-11T01:24:27.429Z",
+  "mode": "Local production browser benchmark; no physical-device or cloud result inferred.",
+  "fixture": {
+    "pages": 2000,
+    "journals": 365,
+    "events": 5000,
+    "blocks": 20000,
+    "long_page_blocks": 5000,
+    "search_items": 10000
+  },
+  "results": [
+    {
+      "profile": "chromium",
+      "errors": [],
+      "import_ms": 20686.759205000002,
+      "warm_start_ms": 221.7695369999965,
+      "rendered_note_rows": 2000,
+      "open_long_page_ms": 4746.483419,
+      "typing_keydown_to_next_frame_ms": {
+        "samples": [
+          158.5,
+          142.4000000001397,
+          88.89999999990687,
+          792.0999999998603,
+          91.5999999998603,
+          165.30000000004657,
+          112.19999999995343,
+          733.3000000000466,
+          96.5,
+          163.19999999995343,
+          144.69999999995343,
+          1516.1999999999534,
+          199.30000000004657,
+          856.6000000000931,
+          86.5999999998603,
+          100.80000000004657,
+          78.80000000004657,
+          95.0999999998603,
+          88.9000000001397,
+          175.5
+        ],
+        "median": 142.4000000001397,
+        "p95": 856.6000000000931,
+        "max": 1516.1999999999534
+      },
+      "visible_drag_handles": 21,
+      "failure": "Error: expect(locator).toBeVisible() failed\n\nLocator: getByRole('button', { name: /^Move block 4999:/ })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" getByRole('button', { name: /^Move block 4999:/ }) with timeout 5000ms\n  - waiting for getByRole('button', { name: /^Move block 4999:/ })\n"
+    },
+    {
+      "profile": "phone-webkit",
+      "errors": [],
+      "import_ms": 41466.881197,
+      "warm_start_ms": 644.5234809999965,
+      "rendered_note_rows": 2000,
+      "open_long_page_ms": 10402.992178999993,
+      "typing_keydown_to_next_frame_ms": {
+        "samples": [
+          174,
+          133,
+          237,
+          82,
+          1100,
+          86,
+          182,
+          111,
+          249,
+          204,
+          90,
+          491,
+          148,
+          93,
+          500,
+          145,
+          85,
+          612,
+          79,
+          81
+        ],
+        "median": 145,
+        "p95": 612,
+        "max": 1100
+      },
+      "visible_drag_handles": 20,
+      "offscreen_handles_and_keyboard_reorder": true,
+      "search_worker_initial_ms": 1014,
+      "search_worker_round_trip_ms": {
+        "samples": [
+          {
+            "query": "中文",
+            "ms": 46,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 15,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 13,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 29,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 21,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 34,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 59,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 69,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 9,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 13,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 18,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 12,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 8,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 8,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 12,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 12,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 36,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 35,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 17,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 58,
+            "results": 100
+          }
+        ],
+        "median": 17,
+        "p95": 59,
+        "max": 69
+      },
+      "budgets": {
+        "warm_start_1500ms": true,
+        "typing_p95_16ms": false,
+        "search_p95_50ms": false
+      }
+    }
+  ],
+  "status": "budget failures"
+}

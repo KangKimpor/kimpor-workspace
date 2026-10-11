@@ -1,0 +1,35 @@
+{
+  "date": "2026-10-11T01:40:16.127Z",
+  "mode": "Local production browser benchmark; no physical-device or cloud result inferred.",
+  "fixture": {
+    "pages": 2000,
+    "journals": 365,
+    "events": 5000,
+    "blocks": 20000,
+    "long_page_blocks": 5000,
+    "search_items": 10000
+  },
+  "results": [
+    {
+      "profile": "chromium",
+      "errors": [],
+      "import_ms": 25522.999042,
+      "warm_start_ms": 169.83525699999882,
+      "rendered_tree_rows": 21,
+      "scrolled_nested_tree": true,
+      "rendered_note_rows": 20,
+      "failure": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.ws-page-list').getByRole('button', { name: /note 81 ខ្មែរ 中文/ })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.ws-page-list').getByRole('button', { name: /note 81 ខ្មែរ 中文/ }) with timeout 5000ms\n  - waiting for locator('.ws-page-list').getByRole('button', { name: /note 81 ខ្មែរ 中文/ })\n"
+    },
+    {
+      "profile": "phone-webkit",
+      "errors": [],
+      "import_ms": 25601.801494000007,
+      "warm_start_ms": 355.6481750000021,
+      "rendered_tree_rows": 21,
+      "scrolled_nested_tree": true,
+      "rendered_note_rows": 20,
+      "failure": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.ws-page-list').getByRole('button', { name: /note 81 ខ្មែរ 中文/ })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.ws-page-list').getByRole('button', { name: /note 81 ខ្មែរ 中文/ }) with timeout 5000ms\n  - waiting for locator('.ws-page-list').getByRole('button', { name: /note 81 ខ្មែរ 中文/ })\n"
+    }
+  ],
+  "status": "budget failures"
+}

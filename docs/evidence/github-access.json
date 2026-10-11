@@ -1,0 +1,31 @@
+{
+  "account": "KangKimpor",
+  "repository_selection": "all",
+  "target": "KangKimpor/kimpor-workspace",
+  "connector_checks": [
+    "get_repo new target:404",
+    "get_repo legacy target:404",
+    "list_installations: repository_selection all",
+    "list_repositories_by_affiliation: existing owner repositories have push permissions"
+  ],
+  "note": "Initial create API failures resolved using the user-authorized saved browser profile. Source main push and the public Pages PWA are verified. No unrelated repository was modified.",
+  "historical_observation": {
+    "date": "2026-10-11T01:12:38.035939+00:00",
+    "target_read_status": 404,
+    "repository_create_status": 403,
+    "error": "Resource not accessible by integration"
+  },
+  "date": "2026-10-11T08:05:41.943757+00:00",
+  "target_read_status": 200,
+  "repository_created": true,
+  "public": true,
+  "main_pushed": true,
+  "admin_permission": true,
+  "push_permission": true,
+  "pages_source": "GitHub Actions",
+  "public_url": "https://kangkimpor.github.io/kimpor-workspace/",
+  "latest_quality_run": 38122879255,
+  "latest_quality_status": "passed",
+  "latest_codeql_run": 38122879257,
+  "latest_codeql_status": "passed"
+}

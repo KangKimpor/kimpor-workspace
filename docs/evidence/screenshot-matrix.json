@@ -1,6 +1,117 @@
 {
-  "date": "2026-10-10T06:52:02.126Z",
+  "date": "2026-10-11T02:29:17.400Z",
+  "fixture_time": "2026-10-11T09:00:00Z",
+  "locale": "en-US",
+  "time_zone": "UTC",
   "captures": [
+    {
+      "screen": "today",
+      "name": "phone-small",
+      "theme": "light",
+      "file": "docs/screenshots/today-phone-small-light.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:49.269Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "phone-small",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-phone-small-light.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:49.615Z"
+    },
+    {
+      "screen": "notes",
+      "name": "phone-small",
+      "theme": "light",
+      "file": "docs/screenshots/notes-phone-small-light.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:49.783Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "phone-small",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-phone-small-light.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:50.059Z"
+    },
+    {
+      "screen": "journal",
+      "name": "phone-small",
+      "theme": "light",
+      "file": "docs/screenshots/journal-phone-small-light.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:50.305Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "phone-small",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-phone-small-light.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:50.453Z"
+    },
+    {
+      "screen": "database",
+      "name": "phone-small",
+      "theme": "light",
+      "file": "docs/screenshots/database-phone-small-light.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:50.653Z"
+    },
+    {
+      "screen": "settings",
+      "name": "phone-small",
+      "theme": "light",
+      "file": "docs/screenshots/settings-phone-small-light.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:51.228Z"
+    },
+    {
+      "screen": "search",
+      "name": "phone-small",
+      "theme": "light",
+      "file": "docs/screenshots/search-phone-small-light.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:51.662Z"
+    },
     {
       "screen": "design",
       "name": "phone-small",
@@ -10,7 +121,8 @@
       "height": 640,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:53.124Z"
     },
     {
       "screen": "editor",
@@ -21,7 +133,8 @@
       "height": 640,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:54.243Z"
     },
     {
       "screen": "about",
@@ -32,7 +145,8 @@
       "height": 640,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:55.454Z"
     },
     {
       "screen": "palette",
@@ -43,7 +157,116 @@
       "height": 640,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:22:56.805Z"
+    },
+    {
+      "screen": "today",
+      "name": "phone-small",
+      "theme": "dark",
+      "file": "docs/screenshots/today-phone-small-dark.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:03.330Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "phone-small",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-phone-small-dark.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:03.837Z"
+    },
+    {
+      "screen": "notes",
+      "name": "phone-small",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-phone-small-dark.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:04.106Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "phone-small",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-phone-small-dark.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:04.408Z"
+    },
+    {
+      "screen": "journal",
+      "name": "phone-small",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-phone-small-dark.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:04.900Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "phone-small",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-phone-small-dark.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:05.088Z"
+    },
+    {
+      "screen": "database",
+      "name": "phone-small",
+      "theme": "dark",
+      "file": "docs/screenshots/database-phone-small-dark.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:05.307Z"
+    },
+    {
+      "screen": "settings",
+      "name": "phone-small",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-phone-small-dark.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:05.993Z"
+    },
+    {
+      "screen": "search",
+      "name": "phone-small",
+      "theme": "dark",
+      "file": "docs/screenshots/search-phone-small-dark.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:06.409Z"
     },
     {
       "screen": "design",
@@ -54,7 +277,8 @@
       "height": 640,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:07.796Z"
     },
     {
       "screen": "editor",
@@ -65,7 +289,8 @@
       "height": 640,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:09.131Z"
     },
     {
       "screen": "about",
@@ -76,7 +301,8 @@
       "height": 640,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:10.398Z"
     },
     {
       "screen": "palette",
@@ -87,7 +313,116 @@
       "height": 640,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:11.614Z"
+    },
+    {
+      "screen": "today",
+      "name": "iphone15-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/today-iphone15-portrait-light.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:20.347Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "iphone15-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-iphone15-portrait-light.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:21.224Z"
+    },
+    {
+      "screen": "notes",
+      "name": "iphone15-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/notes-iphone15-portrait-light.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:21.854Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "iphone15-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-iphone15-portrait-light.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:22.723Z"
+    },
+    {
+      "screen": "journal",
+      "name": "iphone15-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/journal-iphone15-portrait-light.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:23.124Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "iphone15-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-iphone15-portrait-light.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:23.371Z"
+    },
+    {
+      "screen": "database",
+      "name": "iphone15-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/database-iphone15-portrait-light.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:23.845Z"
+    },
+    {
+      "screen": "settings",
+      "name": "iphone15-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/settings-iphone15-portrait-light.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:24.952Z"
+    },
+    {
+      "screen": "search",
+      "name": "iphone15-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/search-iphone15-portrait-light.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:25.766Z"
     },
     {
       "screen": "design",
@@ -98,7 +433,8 @@
       "height": 852,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:27.537Z"
     },
     {
       "screen": "editor",
@@ -109,7 +445,8 @@
       "height": 852,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:28.752Z"
     },
     {
       "screen": "about",
@@ -120,7 +457,8 @@
       "height": 852,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:30.336Z"
     },
     {
       "screen": "palette",
@@ -131,7 +469,116 @@
       "height": 852,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:31.758Z"
+    },
+    {
+      "screen": "today",
+      "name": "iphone15-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/today-iphone15-portrait-dark.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:41.574Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "iphone15-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-iphone15-portrait-dark.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:42.500Z"
+    },
+    {
+      "screen": "notes",
+      "name": "iphone15-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-iphone15-portrait-dark.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:42.780Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "iphone15-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-iphone15-portrait-dark.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:43.210Z"
+    },
+    {
+      "screen": "journal",
+      "name": "iphone15-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-iphone15-portrait-dark.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:43.703Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "iphone15-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-iphone15-portrait-dark.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:44.119Z"
+    },
+    {
+      "screen": "database",
+      "name": "iphone15-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/database-iphone15-portrait-dark.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:44.430Z"
+    },
+    {
+      "screen": "settings",
+      "name": "iphone15-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-iphone15-portrait-dark.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:45.760Z"
+    },
+    {
+      "screen": "search",
+      "name": "iphone15-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/search-iphone15-portrait-dark.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:47.216Z"
     },
     {
       "screen": "design",
@@ -142,7 +589,8 @@
       "height": 852,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:48.950Z"
     },
     {
       "screen": "editor",
@@ -153,7 +601,8 @@
       "height": 852,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:50.390Z"
     },
     {
       "screen": "about",
@@ -164,7 +613,8 @@
       "height": 852,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:52.103Z"
     },
     {
       "screen": "palette",
@@ -175,7 +625,116 @@
       "height": 852,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:23:53.780Z"
+    },
+    {
+      "screen": "today",
+      "name": "iphone15-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/today-iphone15-landscape-light.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:01.381Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "iphone15-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-iphone15-landscape-light.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:02.531Z"
+    },
+    {
+      "screen": "notes",
+      "name": "iphone15-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/notes-iphone15-landscape-light.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:03.482Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "iphone15-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-iphone15-landscape-light.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:04.166Z"
+    },
+    {
+      "screen": "journal",
+      "name": "iphone15-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/journal-iphone15-landscape-light.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:05.126Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "iphone15-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-iphone15-landscape-light.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:05.578Z"
+    },
+    {
+      "screen": "database",
+      "name": "iphone15-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/database-iphone15-landscape-light.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:06.213Z"
+    },
+    {
+      "screen": "settings",
+      "name": "iphone15-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/settings-iphone15-landscape-light.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:06.984Z"
+    },
+    {
+      "screen": "search",
+      "name": "iphone15-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/search-iphone15-landscape-light.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:07.665Z"
     },
     {
       "screen": "design",
@@ -186,7 +745,8 @@
       "height": 393,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:09.998Z"
     },
     {
       "screen": "editor",
@@ -197,7 +757,8 @@
       "height": 393,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:11.855Z"
     },
     {
       "screen": "about",
@@ -208,7 +769,8 @@
       "height": 393,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:13.477Z"
     },
     {
       "screen": "palette",
@@ -219,7 +781,116 @@
       "height": 393,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:15.156Z"
+    },
+    {
+      "screen": "today",
+      "name": "iphone15-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/today-iphone15-landscape-dark.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:23.225Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "iphone15-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-iphone15-landscape-dark.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:24.072Z"
+    },
+    {
+      "screen": "notes",
+      "name": "iphone15-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-iphone15-landscape-dark.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:24.589Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "iphone15-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-iphone15-landscape-dark.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:25.334Z"
+    },
+    {
+      "screen": "journal",
+      "name": "iphone15-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-iphone15-landscape-dark.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:25.843Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "iphone15-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-iphone15-landscape-dark.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:26.397Z"
+    },
+    {
+      "screen": "database",
+      "name": "iphone15-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/database-iphone15-landscape-dark.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:26.771Z"
+    },
+    {
+      "screen": "settings",
+      "name": "iphone15-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-iphone15-landscape-dark.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:27.339Z"
+    },
+    {
+      "screen": "search",
+      "name": "iphone15-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/search-iphone15-landscape-dark.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:27.896Z"
     },
     {
       "screen": "design",
@@ -230,7 +901,8 @@
       "height": 393,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:29.821Z"
     },
     {
       "screen": "editor",
@@ -241,7 +913,8 @@
       "height": 393,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:31.440Z"
     },
     {
       "screen": "about",
@@ -252,7 +925,8 @@
       "height": 393,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:32.812Z"
     },
     {
       "screen": "palette",
@@ -263,7 +937,116 @@
       "height": 393,
       "dpr": 3,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:34.768Z"
+    },
+    {
+      "screen": "today",
+      "name": "ipad-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/today-ipad-portrait-light.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:42.493Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "ipad-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-ipad-portrait-light.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:42.976Z"
+    },
+    {
+      "screen": "notes",
+      "name": "ipad-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/notes-ipad-portrait-light.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:43.343Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "ipad-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-ipad-portrait-light.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:43.790Z"
+    },
+    {
+      "screen": "journal",
+      "name": "ipad-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/journal-ipad-portrait-light.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:44.178Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "ipad-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-ipad-portrait-light.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:44.470Z"
+    },
+    {
+      "screen": "database",
+      "name": "ipad-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/database-ipad-portrait-light.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:44.881Z"
+    },
+    {
+      "screen": "settings",
+      "name": "ipad-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/settings-ipad-portrait-light.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:45.908Z"
+    },
+    {
+      "screen": "search",
+      "name": "ipad-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/search-ipad-portrait-light.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:47.025Z"
     },
     {
       "screen": "design",
@@ -274,7 +1057,8 @@
       "height": 1180,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:48.930Z"
     },
     {
       "screen": "editor",
@@ -285,7 +1069,8 @@
       "height": 1180,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:50.416Z"
     },
     {
       "screen": "about",
@@ -296,7 +1081,8 @@
       "height": 1180,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:52.220Z"
     },
     {
       "screen": "palette",
@@ -307,7 +1093,116 @@
       "height": 1180,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:24:53.755Z"
+    },
+    {
+      "screen": "today",
+      "name": "ipad-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/today-ipad-portrait-dark.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:00.872Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "ipad-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-ipad-portrait-dark.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:01.388Z"
+    },
+    {
+      "screen": "notes",
+      "name": "ipad-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-ipad-portrait-dark.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:01.706Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "ipad-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-ipad-portrait-dark.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:02.449Z"
+    },
+    {
+      "screen": "journal",
+      "name": "ipad-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-ipad-portrait-dark.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:03.002Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "ipad-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-ipad-portrait-dark.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:03.461Z"
+    },
+    {
+      "screen": "database",
+      "name": "ipad-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/database-ipad-portrait-dark.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:04.099Z"
+    },
+    {
+      "screen": "settings",
+      "name": "ipad-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-ipad-portrait-dark.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:05.293Z"
+    },
+    {
+      "screen": "search",
+      "name": "ipad-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/search-ipad-portrait-dark.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:05.982Z"
     },
     {
       "screen": "design",
@@ -318,7 +1213,8 @@
       "height": 1180,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:07.653Z"
     },
     {
       "screen": "editor",
@@ -329,7 +1225,8 @@
       "height": 1180,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:09.525Z"
     },
     {
       "screen": "about",
@@ -340,7 +1237,8 @@
       "height": 1180,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:11.297Z"
     },
     {
       "screen": "palette",
@@ -351,7 +1249,116 @@
       "height": 1180,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:13.070Z"
+    },
+    {
+      "screen": "today",
+      "name": "ipad-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/today-ipad-landscape-light.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:20.298Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "ipad-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-ipad-landscape-light.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:20.837Z"
+    },
+    {
+      "screen": "notes",
+      "name": "ipad-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/notes-ipad-landscape-light.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:21.178Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "ipad-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-ipad-landscape-light.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:21.713Z"
+    },
+    {
+      "screen": "journal",
+      "name": "ipad-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/journal-ipad-landscape-light.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:22.202Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "ipad-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-ipad-landscape-light.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:22.524Z"
+    },
+    {
+      "screen": "database",
+      "name": "ipad-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/database-ipad-landscape-light.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:22.956Z"
+    },
+    {
+      "screen": "settings",
+      "name": "ipad-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/settings-ipad-landscape-light.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:23.925Z"
+    },
+    {
+      "screen": "search",
+      "name": "ipad-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/search-ipad-landscape-light.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:25.012Z"
     },
     {
       "screen": "design",
@@ -362,7 +1369,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:27.311Z"
     },
     {
       "screen": "editor",
@@ -373,7 +1381,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:29.199Z"
     },
     {
       "screen": "about",
@@ -384,7 +1393,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:30.826Z"
     },
     {
       "screen": "palette",
@@ -395,7 +1405,116 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:32.336Z"
+    },
+    {
+      "screen": "today",
+      "name": "ipad-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/today-ipad-landscape-dark.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:39.486Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "ipad-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-ipad-landscape-dark.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:40.067Z"
+    },
+    {
+      "screen": "notes",
+      "name": "ipad-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-ipad-landscape-dark.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:40.405Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "ipad-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-ipad-landscape-dark.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:41.049Z"
+    },
+    {
+      "screen": "journal",
+      "name": "ipad-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-ipad-landscape-dark.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:41.703Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "ipad-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-ipad-landscape-dark.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:42.101Z"
+    },
+    {
+      "screen": "database",
+      "name": "ipad-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/database-ipad-landscape-dark.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:42.526Z"
+    },
+    {
+      "screen": "settings",
+      "name": "ipad-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-ipad-landscape-dark.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:43.205Z"
+    },
+    {
+      "screen": "search",
+      "name": "ipad-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/search-ipad-landscape-dark.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:43.808Z"
     },
     {
       "screen": "design",
@@ -406,7 +1525,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:45.838Z"
     },
     {
       "screen": "editor",
@@ -417,7 +1537,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:47.409Z"
     },
     {
       "screen": "about",
@@ -428,7 +1549,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:48.923Z"
     },
     {
       "screen": "palette",
@@ -439,7 +1561,116 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:50.982Z"
+    },
+    {
+      "screen": "today",
+      "name": "ipad-split-narrow",
+      "theme": "light",
+      "file": "docs/screenshots/today-ipad-split-narrow-light.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:56.364Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "ipad-split-narrow",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-ipad-split-narrow-light.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:56.693Z"
+    },
+    {
+      "screen": "notes",
+      "name": "ipad-split-narrow",
+      "theme": "light",
+      "file": "docs/screenshots/notes-ipad-split-narrow-light.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:56.909Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "ipad-split-narrow",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-ipad-split-narrow-light.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:57.208Z"
+    },
+    {
+      "screen": "journal",
+      "name": "ipad-split-narrow",
+      "theme": "light",
+      "file": "docs/screenshots/journal-ipad-split-narrow-light.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:57.522Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "ipad-split-narrow",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-ipad-split-narrow-light.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:57.852Z"
+    },
+    {
+      "screen": "database",
+      "name": "ipad-split-narrow",
+      "theme": "light",
+      "file": "docs/screenshots/database-ipad-split-narrow-light.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:58.158Z"
+    },
+    {
+      "screen": "settings",
+      "name": "ipad-split-narrow",
+      "theme": "light",
+      "file": "docs/screenshots/settings-ipad-split-narrow-light.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:25:59.536Z"
+    },
+    {
+      "screen": "search",
+      "name": "ipad-split-narrow",
+      "theme": "light",
+      "file": "docs/screenshots/search-ipad-split-narrow-light.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:00.115Z"
     },
     {
       "screen": "design",
@@ -450,7 +1681,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:01.665Z"
     },
     {
       "screen": "editor",
@@ -461,7 +1693,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:03.847Z"
     },
     {
       "screen": "about",
@@ -472,7 +1705,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:05.329Z"
     },
     {
       "screen": "palette",
@@ -483,7 +1717,116 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:06.743Z"
+    },
+    {
+      "screen": "today",
+      "name": "ipad-split-narrow",
+      "theme": "dark",
+      "file": "docs/screenshots/today-ipad-split-narrow-dark.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:13.931Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "ipad-split-narrow",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-ipad-split-narrow-dark.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:14.811Z"
+    },
+    {
+      "screen": "notes",
+      "name": "ipad-split-narrow",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-ipad-split-narrow-dark.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:15.027Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "ipad-split-narrow",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-ipad-split-narrow-dark.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:15.664Z"
+    },
+    {
+      "screen": "journal",
+      "name": "ipad-split-narrow",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-ipad-split-narrow-dark.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:16.041Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "ipad-split-narrow",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-ipad-split-narrow-dark.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:16.287Z"
+    },
+    {
+      "screen": "database",
+      "name": "ipad-split-narrow",
+      "theme": "dark",
+      "file": "docs/screenshots/database-ipad-split-narrow-dark.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:16.627Z"
+    },
+    {
+      "screen": "settings",
+      "name": "ipad-split-narrow",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-ipad-split-narrow-dark.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:17.461Z"
+    },
+    {
+      "screen": "search",
+      "name": "ipad-split-narrow",
+      "theme": "dark",
+      "file": "docs/screenshots/search-ipad-split-narrow-dark.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:18.203Z"
     },
     {
       "screen": "design",
@@ -494,7 +1837,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:19.657Z"
     },
     {
       "screen": "editor",
@@ -505,7 +1849,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:21.409Z"
     },
     {
       "screen": "about",
@@ -516,7 +1861,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:23.218Z"
     },
     {
       "screen": "palette",
@@ -527,7 +1873,116 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:24.586Z"
+    },
+    {
+      "screen": "today",
+      "name": "ipad-split-half",
+      "theme": "light",
+      "file": "docs/screenshots/today-ipad-split-half-light.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:30.218Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "ipad-split-half",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-ipad-split-half-light.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:30.641Z"
+    },
+    {
+      "screen": "notes",
+      "name": "ipad-split-half",
+      "theme": "light",
+      "file": "docs/screenshots/notes-ipad-split-half-light.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:30.858Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "ipad-split-half",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-ipad-split-half-light.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:31.148Z"
+    },
+    {
+      "screen": "journal",
+      "name": "ipad-split-half",
+      "theme": "light",
+      "file": "docs/screenshots/journal-ipad-split-half-light.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:31.498Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "ipad-split-half",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-ipad-split-half-light.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:31.684Z"
+    },
+    {
+      "screen": "database",
+      "name": "ipad-split-half",
+      "theme": "light",
+      "file": "docs/screenshots/database-ipad-split-half-light.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:31.960Z"
+    },
+    {
+      "screen": "settings",
+      "name": "ipad-split-half",
+      "theme": "light",
+      "file": "docs/screenshots/settings-ipad-split-half-light.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:32.698Z"
+    },
+    {
+      "screen": "search",
+      "name": "ipad-split-half",
+      "theme": "light",
+      "file": "docs/screenshots/search-ipad-split-half-light.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:33.361Z"
     },
     {
       "screen": "design",
@@ -538,7 +1993,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:35.177Z"
     },
     {
       "screen": "editor",
@@ -549,7 +2005,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:36.604Z"
     },
     {
       "screen": "about",
@@ -560,7 +2017,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:37.909Z"
     },
     {
       "screen": "palette",
@@ -571,7 +2029,116 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:39.610Z"
+    },
+    {
+      "screen": "today",
+      "name": "ipad-split-half",
+      "theme": "dark",
+      "file": "docs/screenshots/today-ipad-split-half-dark.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:45.813Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "ipad-split-half",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-ipad-split-half-dark.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:46.600Z"
+    },
+    {
+      "screen": "notes",
+      "name": "ipad-split-half",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-ipad-split-half-dark.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:46.837Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "ipad-split-half",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-ipad-split-half-dark.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:47.364Z"
+    },
+    {
+      "screen": "journal",
+      "name": "ipad-split-half",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-ipad-split-half-dark.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:47.709Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "ipad-split-half",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-ipad-split-half-dark.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:47.956Z"
+    },
+    {
+      "screen": "database",
+      "name": "ipad-split-half",
+      "theme": "dark",
+      "file": "docs/screenshots/database-ipad-split-half-dark.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:48.246Z"
+    },
+    {
+      "screen": "settings",
+      "name": "ipad-split-half",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-ipad-split-half-dark.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:49.613Z"
+    },
+    {
+      "screen": "search",
+      "name": "ipad-split-half",
+      "theme": "dark",
+      "file": "docs/screenshots/search-ipad-split-half-dark.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:50.445Z"
     },
     {
       "screen": "design",
@@ -582,7 +2149,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:52.156Z"
     },
     {
       "screen": "editor",
@@ -593,7 +2161,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:53.124Z"
     },
     {
       "screen": "about",
@@ -604,7 +2173,8 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:54.440Z"
     },
     {
       "screen": "palette",
@@ -615,7 +2185,116 @@
       "height": 820,
       "dpr": 2,
       "engine": "webkit",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:26:55.786Z"
+    },
+    {
+      "screen": "today",
+      "name": "window-min",
+      "theme": "light",
+      "file": "docs/screenshots/today-window-min-light.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:00.856Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "window-min",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-window-min-light.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:01.132Z"
+    },
+    {
+      "screen": "notes",
+      "name": "window-min",
+      "theme": "light",
+      "file": "docs/screenshots/notes-window-min-light.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:01.256Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "window-min",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-window-min-light.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:01.460Z"
+    },
+    {
+      "screen": "journal",
+      "name": "window-min",
+      "theme": "light",
+      "file": "docs/screenshots/journal-window-min-light.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:01.667Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "window-min",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-window-min-light.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:01.857Z"
+    },
+    {
+      "screen": "database",
+      "name": "window-min",
+      "theme": "light",
+      "file": "docs/screenshots/database-window-min-light.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:02.042Z"
+    },
+    {
+      "screen": "settings",
+      "name": "window-min",
+      "theme": "light",
+      "file": "docs/screenshots/settings-window-min-light.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:02.589Z"
+    },
+    {
+      "screen": "search",
+      "name": "window-min",
+      "theme": "light",
+      "file": "docs/screenshots/search-window-min-light.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:02.793Z"
     },
     {
       "screen": "design",
@@ -626,7 +2305,8 @@
       "height": 600,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:03.827Z"
     },
     {
       "screen": "editor",
@@ -637,7 +2317,8 @@
       "height": 600,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:04.720Z"
     },
     {
       "screen": "about",
@@ -648,7 +2329,8 @@
       "height": 600,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:05.720Z"
     },
     {
       "screen": "palette",
@@ -659,7 +2341,116 @@
       "height": 600,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:06.615Z"
+    },
+    {
+      "screen": "today",
+      "name": "window-min",
+      "theme": "dark",
+      "file": "docs/screenshots/today-window-min-dark.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:10.482Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "window-min",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-window-min-dark.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:11.082Z"
+    },
+    {
+      "screen": "notes",
+      "name": "window-min",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-window-min-dark.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:11.264Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "window-min",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-window-min-dark.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:11.521Z"
+    },
+    {
+      "screen": "journal",
+      "name": "window-min",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-window-min-dark.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:11.688Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "window-min",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-window-min-dark.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:11.851Z"
+    },
+    {
+      "screen": "database",
+      "name": "window-min",
+      "theme": "dark",
+      "file": "docs/screenshots/database-window-min-dark.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:12.033Z"
+    },
+    {
+      "screen": "settings",
+      "name": "window-min",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-window-min-dark.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:12.554Z"
+    },
+    {
+      "screen": "search",
+      "name": "window-min",
+      "theme": "dark",
+      "file": "docs/screenshots/search-window-min-dark.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:12.768Z"
     },
     {
       "screen": "design",
@@ -670,7 +2461,8 @@
       "height": 600,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:13.818Z"
     },
     {
       "screen": "editor",
@@ -681,7 +2473,8 @@
       "height": 600,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:14.629Z"
     },
     {
       "screen": "about",
@@ -692,7 +2485,8 @@
       "height": 600,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:15.748Z"
     },
     {
       "screen": "palette",
@@ -703,7 +2497,116 @@
       "height": 600,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:17.088Z"
+    },
+    {
+      "screen": "today",
+      "name": "laptop",
+      "theme": "light",
+      "file": "docs/screenshots/today-laptop-light.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:20.542Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "laptop",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-laptop-light.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:20.817Z"
+    },
+    {
+      "screen": "notes",
+      "name": "laptop",
+      "theme": "light",
+      "file": "docs/screenshots/notes-laptop-light.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:20.990Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "laptop",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-laptop-light.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:21.229Z"
+    },
+    {
+      "screen": "journal",
+      "name": "laptop",
+      "theme": "light",
+      "file": "docs/screenshots/journal-laptop-light.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:21.417Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "laptop",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-laptop-light.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:21.557Z"
+    },
+    {
+      "screen": "database",
+      "name": "laptop",
+      "theme": "light",
+      "file": "docs/screenshots/database-laptop-light.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:21.739Z"
+    },
+    {
+      "screen": "settings",
+      "name": "laptop",
+      "theme": "light",
+      "file": "docs/screenshots/settings-laptop-light.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:22.309Z"
+    },
+    {
+      "screen": "search",
+      "name": "laptop",
+      "theme": "light",
+      "file": "docs/screenshots/search-laptop-light.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:22.685Z"
     },
     {
       "screen": "design",
@@ -714,7 +2617,8 @@
       "height": 864,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:23.618Z"
     },
     {
       "screen": "editor",
@@ -725,7 +2629,8 @@
       "height": 864,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:24.424Z"
     },
     {
       "screen": "about",
@@ -736,7 +2641,8 @@
       "height": 864,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:25.357Z"
     },
     {
       "screen": "palette",
@@ -747,7 +2653,116 @@
       "height": 864,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:26.528Z"
+    },
+    {
+      "screen": "today",
+      "name": "laptop",
+      "theme": "dark",
+      "file": "docs/screenshots/today-laptop-dark.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:31.046Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "laptop",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-laptop-dark.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:31.346Z"
+    },
+    {
+      "screen": "notes",
+      "name": "laptop",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-laptop-dark.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:31.578Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "laptop",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-laptop-dark.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:31.832Z"
+    },
+    {
+      "screen": "journal",
+      "name": "laptop",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-laptop-dark.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:32.021Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "laptop",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-laptop-dark.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:32.173Z"
+    },
+    {
+      "screen": "database",
+      "name": "laptop",
+      "theme": "dark",
+      "file": "docs/screenshots/database-laptop-dark.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:32.366Z"
+    },
+    {
+      "screen": "settings",
+      "name": "laptop",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-laptop-dark.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:32.929Z"
+    },
+    {
+      "screen": "search",
+      "name": "laptop",
+      "theme": "dark",
+      "file": "docs/screenshots/search-laptop-dark.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:33.314Z"
     },
     {
       "screen": "design",
@@ -758,7 +2773,8 @@
       "height": 864,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:34.596Z"
     },
     {
       "screen": "editor",
@@ -769,7 +2785,8 @@
       "height": 864,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:35.545Z"
     },
     {
       "screen": "about",
@@ -780,7 +2797,8 @@
       "height": 864,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:36.472Z"
     },
     {
       "screen": "palette",
@@ -791,7 +2809,116 @@
       "height": 864,
       "dpr": 1.25,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:37.337Z"
+    },
+    {
+      "screen": "today",
+      "name": "desktop",
+      "theme": "light",
+      "file": "docs/screenshots/today-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:41.528Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "desktop",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:41.793Z"
+    },
+    {
+      "screen": "notes",
+      "name": "desktop",
+      "theme": "light",
+      "file": "docs/screenshots/notes-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:41.962Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "desktop",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:42.264Z"
+    },
+    {
+      "screen": "journal",
+      "name": "desktop",
+      "theme": "light",
+      "file": "docs/screenshots/journal-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:42.547Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "desktop",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:42.678Z"
+    },
+    {
+      "screen": "database",
+      "name": "desktop",
+      "theme": "light",
+      "file": "docs/screenshots/database-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:42.877Z"
+    },
+    {
+      "screen": "settings",
+      "name": "desktop",
+      "theme": "light",
+      "file": "docs/screenshots/settings-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:43.502Z"
+    },
+    {
+      "screen": "search",
+      "name": "desktop",
+      "theme": "light",
+      "file": "docs/screenshots/search-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:43.832Z"
     },
     {
       "screen": "design",
@@ -802,7 +2929,8 @@
       "height": 1080,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:44.864Z"
     },
     {
       "screen": "editor",
@@ -813,7 +2941,8 @@
       "height": 1080,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:45.828Z"
     },
     {
       "screen": "about",
@@ -824,7 +2953,8 @@
       "height": 1080,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:46.806Z"
     },
     {
       "screen": "palette",
@@ -835,7 +2965,116 @@
       "height": 1080,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:47.909Z"
+    },
+    {
+      "screen": "today",
+      "name": "desktop",
+      "theme": "dark",
+      "file": "docs/screenshots/today-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:51.632Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "desktop",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:51.983Z"
+    },
+    {
+      "screen": "notes",
+      "name": "desktop",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:52.118Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "desktop",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:52.334Z"
+    },
+    {
+      "screen": "journal",
+      "name": "desktop",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:52.547Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "desktop",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:52.700Z"
+    },
+    {
+      "screen": "database",
+      "name": "desktop",
+      "theme": "dark",
+      "file": "docs/screenshots/database-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:52.885Z"
+    },
+    {
+      "screen": "settings",
+      "name": "desktop",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:53.536Z"
+    },
+    {
+      "screen": "search",
+      "name": "desktop",
+      "theme": "dark",
+      "file": "docs/screenshots/search-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:53.866Z"
     },
     {
       "screen": "design",
@@ -846,7 +3085,8 @@
       "height": 1080,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:54.759Z"
     },
     {
       "screen": "editor",
@@ -857,7 +3097,8 @@
       "height": 1080,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:55.673Z"
     },
     {
       "screen": "about",
@@ -868,7 +3109,8 @@
       "height": 1080,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:56.650Z"
     },
     {
       "screen": "palette",
@@ -879,7 +3121,116 @@
       "height": 1080,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:27:57.469Z"
+    },
+    {
+      "screen": "today",
+      "name": "desktop-firefox",
+      "theme": "light",
+      "file": "docs/screenshots/today-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:05.145Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "desktop-firefox",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:05.692Z"
+    },
+    {
+      "screen": "notes",
+      "name": "desktop-firefox",
+      "theme": "light",
+      "file": "docs/screenshots/notes-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:06.116Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "desktop-firefox",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:06.740Z"
+    },
+    {
+      "screen": "journal",
+      "name": "desktop-firefox",
+      "theme": "light",
+      "file": "docs/screenshots/journal-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:07.042Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "desktop-firefox",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:07.240Z"
+    },
+    {
+      "screen": "database",
+      "name": "desktop-firefox",
+      "theme": "light",
+      "file": "docs/screenshots/database-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:07.623Z"
+    },
+    {
+      "screen": "settings",
+      "name": "desktop-firefox",
+      "theme": "light",
+      "file": "docs/screenshots/settings-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:08.376Z"
+    },
+    {
+      "screen": "search",
+      "name": "desktop-firefox",
+      "theme": "light",
+      "file": "docs/screenshots/search-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:08.858Z"
     },
     {
       "screen": "design",
@@ -890,7 +3241,8 @@
       "height": 1080,
       "dpr": 1,
       "engine": "firefox",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:09.946Z"
     },
     {
       "screen": "editor",
@@ -901,7 +3253,8 @@
       "height": 1080,
       "dpr": 1,
       "engine": "firefox",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:10.803Z"
     },
     {
       "screen": "about",
@@ -912,7 +3265,8 @@
       "height": 1080,
       "dpr": 1,
       "engine": "firefox",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:11.942Z"
     },
     {
       "screen": "palette",
@@ -923,7 +3277,116 @@
       "height": 1080,
       "dpr": 1,
       "engine": "firefox",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:12.905Z"
+    },
+    {
+      "screen": "today",
+      "name": "desktop-firefox",
+      "theme": "dark",
+      "file": "docs/screenshots/today-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:21.334Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "desktop-firefox",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:22.716Z"
+    },
+    {
+      "screen": "notes",
+      "name": "desktop-firefox",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:23.173Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "desktop-firefox",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:23.662Z"
+    },
+    {
+      "screen": "journal",
+      "name": "desktop-firefox",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:24.381Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "desktop-firefox",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:24.629Z"
+    },
+    {
+      "screen": "database",
+      "name": "desktop-firefox",
+      "theme": "dark",
+      "file": "docs/screenshots/database-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:25.087Z"
+    },
+    {
+      "screen": "settings",
+      "name": "desktop-firefox",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:25.830Z"
+    },
+    {
+      "screen": "search",
+      "name": "desktop-firefox",
+      "theme": "dark",
+      "file": "docs/screenshots/search-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:26.289Z"
     },
     {
       "screen": "design",
@@ -934,7 +3397,8 @@
       "height": 1080,
       "dpr": 1,
       "engine": "firefox",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:27.578Z"
     },
     {
       "screen": "editor",
@@ -945,7 +3409,8 @@
       "height": 1080,
       "dpr": 1,
       "engine": "firefox",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:29.367Z"
     },
     {
       "screen": "about",
@@ -956,7 +3421,8 @@
       "height": 1080,
       "dpr": 1,
       "engine": "firefox",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:30.580Z"
     },
     {
       "screen": "palette",
@@ -967,7 +3433,116 @@
       "height": 1080,
       "dpr": 1,
       "engine": "firefox",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:31.709Z"
+    },
+    {
+      "screen": "today",
+      "name": "wide",
+      "theme": "light",
+      "file": "docs/screenshots/today-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:36.604Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "wide",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:36.889Z"
+    },
+    {
+      "screen": "notes",
+      "name": "wide",
+      "theme": "light",
+      "file": "docs/screenshots/notes-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:37.051Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "wide",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:37.377Z"
+    },
+    {
+      "screen": "journal",
+      "name": "wide",
+      "theme": "light",
+      "file": "docs/screenshots/journal-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:37.581Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "wide",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:37.753Z"
+    },
+    {
+      "screen": "database",
+      "name": "wide",
+      "theme": "light",
+      "file": "docs/screenshots/database-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:37.971Z"
+    },
+    {
+      "screen": "settings",
+      "name": "wide",
+      "theme": "light",
+      "file": "docs/screenshots/settings-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:38.539Z"
+    },
+    {
+      "screen": "search",
+      "name": "wide",
+      "theme": "light",
+      "file": "docs/screenshots/search-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:38.811Z"
     },
     {
       "screen": "design",
@@ -978,7 +3553,8 @@
       "height": 1440,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:39.788Z"
     },
     {
       "screen": "editor",
@@ -989,7 +3565,8 @@
       "height": 1440,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:40.748Z"
     },
     {
       "screen": "about",
@@ -1000,7 +3577,8 @@
       "height": 1440,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:41.729Z"
     },
     {
       "screen": "palette",
@@ -1011,7 +3589,116 @@
       "height": 1440,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:42.786Z"
+    },
+    {
+      "screen": "today",
+      "name": "wide",
+      "theme": "dark",
+      "file": "docs/screenshots/today-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:46.995Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "wide",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:47.341Z"
+    },
+    {
+      "screen": "notes",
+      "name": "wide",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:47.523Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "wide",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:47.780Z"
+    },
+    {
+      "screen": "journal",
+      "name": "wide",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:47.991Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "wide",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:48.150Z"
+    },
+    {
+      "screen": "database",
+      "name": "wide",
+      "theme": "dark",
+      "file": "docs/screenshots/database-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:48.378Z"
+    },
+    {
+      "screen": "settings",
+      "name": "wide",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:48.935Z"
+    },
+    {
+      "screen": "search",
+      "name": "wide",
+      "theme": "dark",
+      "file": "docs/screenshots/search-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:49.210Z"
     },
     {
       "screen": "design",
@@ -1022,7 +3709,8 @@
       "height": 1440,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:50.115Z"
     },
     {
       "screen": "editor",
@@ -1033,7 +3721,8 @@
       "height": 1440,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:50.981Z"
     },
     {
       "screen": "about",
@@ -1044,7 +3733,8 @@
       "height": 1440,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:52.044Z"
     },
     {
       "screen": "palette",
@@ -1055,7 +3745,8 @@
       "height": 1440,
       "dpr": 1,
       "engine": "chromium",
-      "overflow": false
+      "overflow": false,
+      "capturedAt": "2026-10-11T02:28:52.976Z"
     }
   ]
 }

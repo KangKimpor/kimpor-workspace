@@ -1,0 +1,61 @@
+{
+  "runner": "Windows",
+  "functional_checks": "passed",
+  "installer": "Kimpor Workspace_0.0.1_x64-setup.exe",
+  "error": "App and WebView2 idle RAM exceed the 150 MiB budget.",
+  "budgets": {
+    "idle_working_set_bytes": 157286400,
+    "native_window_ms": 2000,
+    "idle_cpu_percent": 2
+  },
+  "process_count": 7,
+  "uninstall": true,
+  "normal_exit": true,
+  "idle_cpu_percent": 0.0,
+  "rendered_workspace": true,
+  "idle_private_committed_bytes": 161447936,
+  "multilingual_note_restart": true,
+  "single_instance": true,
+  "idle_working_set_bytes": 404488192,
+  "native_window_ms": 251,
+  "process_memory": [
+    {
+      "private_committed_bytes": 5795840,
+      "working_set_bytes": 30502912,
+      "name": "KimporWorkspace"
+    },
+    {
+      "private_committed_bytes": 46301184,
+      "working_set_bytes": 130236416,
+      "name": "msedgewebview2"
+    },
+    {
+      "private_committed_bytes": 2555904,
+      "working_set_bytes": 9871360,
+      "name": "msedgewebview2"
+    },
+    {
+      "private_committed_bytes": 12161024,
+      "working_set_bytes": 38752256,
+      "name": "msedgewebview2"
+    },
+    {
+      "private_committed_bytes": 16637952,
+      "working_set_bytes": 48852992,
+      "name": "msedgewebview2"
+    },
+    {
+      "private_committed_bytes": 8257536,
+      "working_set_bytes": 18542592,
+      "name": "msedgewebview2"
+    },
+    {
+      "private_committed_bytes": 69738496,
+      "working_set_bytes": 127729664,
+      "name": "msedgewebview2"
+    }
+  ],
+  "measured_at": "2026-10-11T12:26:53.7795048Z",
+  "callback_registration": true,
+  "result": "failed"
+}

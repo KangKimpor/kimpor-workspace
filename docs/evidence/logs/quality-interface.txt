@@ -1,0 +1,217 @@
+$ pnpm lint && pnpm typecheck && pnpm test && pnpm test:backup && pnpm test:cloud && pnpm build && pnpm budget && pnpm contrast
+$ eslint . && node scripts/check-conventions.mjs
+Conventions: Pressable ownership and semantic colors passed.
+$ tsc --noEmit
+$ vitest run --coverage
+
+ RUN  v5.0.3 /workspace/veloradesk
+      Coverage enabled with v8
+
+
+ Test Files  12 passed (12)
+      Tests  65 passed (65)
+   Start at  12:09:15
+   Duration  5.63s (tests 63%, import 20%, transform 11%, worker 6%)
+
+    Isolate  12 workers spawned · ~109ms startup each (spawn + environment, per file)
+             at least ~1.19s faster with isolate: false — reuses workers across files instead of one per file
+
+ % Coverage report from v8
+------------------|---------|----------|---------|---------|--------------------
+File              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+------------------|---------|----------|---------|---------|--------------------
+All files         |   85.61 |       81 |   83.88 |   88.25 |
+ clock.ts         |     100 |    93.33 |     100 |     100 | 10
+ cloud-auth.ts    |   95.45 |    92.66 |   88.88 |   96.74 | 239-240,303-304
+ cloud.ts         |   93.91 |    86.84 |   95.65 |   94.39 | ...156,160,172,181
+ crypto.ts        |   93.82 |    82.05 |     100 |   97.29 | 55,210
+ export.ts        |   95.04 |    83.39 |   97.29 |   97.52 | ...342,402-403,449
+ platform.ts      |   25.54 |    35.16 |   18.75 |   27.58 | ...217-218,222-235
+ store.ts         |   86.74 |    82.31 |    88.8 |   89.34 | ...,1405,1413,1424
+ sync.ts          |   90.98 |       68 |   83.33 |   95.23 | 60,87-88,150,193
+------------------|---------|----------|---------|---------|--------------------
+
+=============================== Coverage summary ===============================
+Statements   : 85.61% ( 1303/1522 )
+Branches     : 81% ( 955/1179 )
+Functions    : 83.88% ( 255/304 )
+Lines        : 88.25% ( 1217/1379 )
+================================================================================
+$ node --test scripts/cloud-backup.test.mjs
+✔ backup CLI round-trips without plaintext artifacts and rejects altered bytes and wrong keys (272.286433ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 347.990457
+$ node --test scripts/cloud-management.test.mjs
+✔ deployment rejects another project before any network request (1.152884ms)
+✔ API errors omit server response bodies containing private values (20.390338ms)
+✔ a project API key or masked token is rejected before network access (0.260303ms)
+✔ renamed or unready project refuses deployment (0.231903ms)
+✔ partial or unrecognized live migration history refuses schema writes (14.488162ms)
+✔ changed schema bytes refuse deployment before database access (1.129229ms)
+✔ default free email sender keeps link templates and reports its delivery restriction (0.459721ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 127.065488
+$ pnpm --filter @veloradesk/web build
+$ vite build
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 3002 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/manifest.webmanifest                               0.49 kB
+dist/assets/search.worker-oFhaBSQ6.js                   0.74 kB
+dist/index.html                                         1.58 kB │ gzip:   0.66 kB
+dist/assets/KaTeX_Size3-Regular-CTq5MqoE.woff           4.42 kB
+dist/assets/KaTeX_Size4-Regular-Dl5lxZxV.woff2          4.92 kB
+dist/assets/KaTeX_Size2-Regular-Dy4dx90m.woff2          5.20 kB
+dist/assets/KaTeX_Size1-Regular-mCD8mA8B.woff2          5.46 kB
+dist/assets/KaTeX_Size4-Regular-BF-4gkZK.woff           5.98 kB
+dist/assets/KaTeX_Size2-Regular-oD1tc_U0.woff           6.18 kB
+dist/assets/KaTeX_Size1-Regular-C195tn64.woff           6.49 kB
+dist/assets/KaTeX_Caligraphic-Regular-Di6jR-x-.woff2    6.90 kB
+dist/assets/KaTeX_Caligraphic-Bold-Dq_IR9rO.woff2       6.91 kB
+dist/assets/KaTeX_Size3-Regular-DgpXs0kz.ttf            7.58 kB
+dist/assets/KaTeX_Caligraphic-Regular-CTRA-rTL.woff     7.65 kB
+dist/assets/KaTeX_Caligraphic-Bold-BEiXGLvX.woff        7.71 kB
+dist/assets/KaTeX_Script-Regular-D3wIWfF6.woff2         9.64 kB
+dist/assets/KaTeX_SansSerif-Regular-DDBCnlJ7.woff2     10.34 kB
+dist/assets/KaTeX_Size4-Regular-DWFBv043.ttf           10.36 kB
+dist/assets/KaTeX_Script-Regular-D5yQViql.woff         10.58 kB
+dist/assets/KaTeX_Fraktur-Regular-CTYiF6lA.woff2       11.31 kB
+dist/assets/KaTeX_Fraktur-Bold-CL6g_b3V.woff2          11.34 kB
+dist/assets/KaTeX_Size2-Regular-B7gKUWhC.ttf           11.50 kB
+dist/assets/KaTeX_SansSerif-Italic-C3H0VqGB.woff2      12.02 kB
+dist/assets/KaTeX_SansSerif-Bold-D1sUS0GD.woff2        12.21 kB
+dist/assets/KaTeX_Size1-Regular-Dbsnue_I.ttf           12.22 kB
+dist/assets/KaTeX_SansSerif-Regular-CS6fqUqJ.woff      12.31 kB
+dist/assets/KaTeX_Caligraphic-Regular-wX97UBjC.ttf     12.34 kB
+dist/assets/KaTeX_Caligraphic-Bold-ATXxdsX0.ttf        12.36 kB
+dist/assets/KaTeX_Fraktur-Regular-Dxdc4cR9.woff        13.20 kB
+dist/assets/KaTeX_Fraktur-Bold-BsDP51OF.woff           13.29 kB
+dist/assets/KaTeX_Typewriter-Regular-CO6r4hn1.woff2    13.56 kB
+dist/assets/KaTeX_SansSerif-Italic-DN2j7dab.woff       14.11 kB
+dist/assets/KaTeX_SansSerif-Bold-DbIhKOiC.woff         14.40 kB
+dist/assets/KaTeX_Typewriter-Regular-C0xS9mPB.woff     16.02 kB
+dist/assets/KaTeX_Math-BoldItalic-CZnvNsCZ.woff2       16.40 kB
+dist/assets/KaTeX_Math-Italic-t53AETM-.woff2           16.44 kB
+dist/assets/KaTeX_Script-Regular-C5JkGWo-.ttf          16.64 kB
+dist/assets/KaTeX_Main-BoldItalic-DxDJ3AOS.woff2       16.78 kB
+dist/assets/KaTeX_Main-Italic-NWA7e6Wa.woff2           16.98 kB
+dist/assets/KaTeX_Math-BoldItalic-iY-2wyZ7.woff        18.66 kB
+dist/assets/KaTeX_Math-Italic-DA0__PXp.woff            18.74 kB
+dist/assets/KaTeX_Main-BoldItalic-SpSLRI95.woff        19.41 kB
+dist/assets/KaTeX_SansSerif-Regular-BNo7hRIc.ttf       19.43 kB
+dist/assets/KaTeX_Fraktur-Regular-CB_wures.ttf         19.57 kB
+dist/assets/KaTeX_Fraktur-Bold-BdnERNNW.ttf            19.58 kB
+dist/assets/KaTeX_Main-Italic-BMLOBm91.woff            19.67 kB
+dist/assets/KaTeX_SansSerif-Italic-YYjJ1zSn.ttf        22.36 kB
+dist/assets/KaTeX_SansSerif-Bold-CFMepnvq.ttf          24.50 kB
+dist/assets/KaTeX_Main-Bold-Cx986IdX.woff2             25.32 kB
+dist/assets/KaTeX_Main-Regular-B22Nviop.woff2          26.27 kB
+dist/assets/KaTeX_Typewriter-Regular-D3Ib7_Hf.ttf      27.55 kB
+dist/assets/KaTeX_AMS-Regular-BQhdFMY1.woff2           28.07 kB
+dist/assets/KaTeX_Main-Bold-Jm3AIy58.woff              29.91 kB
+dist/assets/KaTeX_Main-Regular-Dr94JaBh.woff           30.77 kB
+dist/assets/KaTeX_Math-BoldItalic-B3XSjfu4.ttf         31.19 kB
+dist/assets/KaTeX_Math-Italic-flOr_0UB.ttf             31.30 kB
+dist/.vite/manifest.json                               31.80 kB │ gzip:   3.10 kB
+dist/assets/KaTeX_Main-BoldItalic-DzxPMmG6.ttf         32.96 kB
+dist/assets/KaTeX_AMS-Regular-DMm9YOAa.woff            33.51 kB
+dist/assets/KaTeX_Main-Italic-3WenGoN9.ttf             33.58 kB
+dist/assets/inter-latin-wght-normal-Dx4kXJAl.woff2     48.25 kB
+dist/assets/KaTeX_Main-Bold-waoOVXN0.ttf               51.33 kB
+dist/assets/KaTeX_Main-Regular-ypZvNtVU.ttf            53.58 kB
+dist/assets/KaTeX_AMS-Regular-DRggAlZN.ttf             63.63 kB
+dist/assets/RichTextEditor-CuzIXxjA.css                 6.83 kB │ gzip:   1.70 kB
+dist/assets/CalendarModule-mGkr3GCw.css                 7.20 kB │ gzip:   1.85 kB
+dist/assets/math-renderer-Ngnvt50Q.css                 29.80 kB │ gzip:   7.97 kB
+dist/assets/index-CFMaH8ma.css                         69.25 kB │ gzip:  12.79 kB
+dist/assets/dist-js-Dm4WNxF5.js                         0.13 kB │ gzip:   0.14 kB
+dist/assets/undo-2-BD0DE00n.js                          0.24 kB │ gzip:   0.20 kB
+dist/assets/dist-js-Cx1ZqxSF.js                         0.26 kB │ gzip:   0.16 kB
+dist/assets/dist-js-Bnknl20j.js                         0.27 kB │ gzip:   0.21 kB
+dist/assets/settings-2-CIy1v4pF.js                      0.29 kB │ gzip:   0.22 kB
+dist/assets/rolldown-runtime-hePW80VL.js                0.71 kB │ gzip:   0.42 kB
+dist/assets/shield-check-a7ABHd6c.js                    0.84 kB │ gzip:   0.44 kB
+dist/assets/dist-js-CLeO8-bn.js                         0.86 kB │ gzip:   0.44 kB
+dist/assets/dist-js-DEquvqLq.js                         1.04 kB │ gzip:   0.51 kB
+dist/assets/event-CQWXsoKk.js                           1.37 kB │ gzip:   0.65 kB
+dist/assets/preload-helper-BLdHbfdN.js                  1.51 kB │ gzip:   0.79 kB
+dist/assets/InstallSettings-CRHgQ5yq.js                 1.83 kB │ gzip:   0.93 kB
+dist/assets/core-DyTF7cW7.js                            1.97 kB │ gzip:   0.84 kB
+dist/assets/ImportExportPanel-DCViK8gR.js               2.34 kB │ gzip:   1.16 kB
+dist/assets/DesktopSettings-BGP_L5Ns.js                 2.83 kB │ gzip:   1.18 kB
+dist/assets/createLucideIcon-BGS8zjh0.js                3.12 kB │ gzip:   1.50 kB
+dist/assets/react-dom-CQgCP87u.js                       3.90 kB │ gzip:   1.42 kB
+dist/assets/cloud-BNHV7Ua7.js                           4.16 kB │ gzip:   1.80 kB
+dist/assets/AccountPanel-C5RVyHr3.js                    4.43 kB │ gzip:   1.76 kB
+dist/assets/cloud-state-ChHch5u8.js                     4.96 kB │ gzip:   1.84 kB
+dist/assets/cloud-auth-_K8c-bnS.js                      5.57 kB │ gzip:   2.26 kB
+dist/assets/EditorSpike-CI_iCdVW.js                     5.81 kB │ gzip:   2.47 kB
+dist/assets/SketchCanvas-BxJgs-lY.js                    7.80 kB │ gzip:   3.44 kB
+dist/assets/window-kxE_W0kx.js                         13.26 kB │ gzip:   3.19 kB
+dist/assets/App-B0nzFeqi.js                            22.77 kB │ gzip:   6.99 kB
+dist/assets/export-C3Bh_1DR.js                         26.08 kB │ gzip:  11.59 kB
+dist/assets/CalendarModule-0l_Dhs-V.js                 42.00 kB │ gzip:  13.03 kB
+dist/assets/code-highlighting-Df_F_y65.js              52.16 kB │ gzip:  18.86 kB
+dist/assets/RichTextEditor-BkcadWLq.js                 89.25 kB │ gzip:  27.48 kB
+dist/assets/src-BS44AG0g.js                            98.12 kB │ gzip:  29.13 kB
+dist/assets/src-Bf3LZSM6.js                           132.15 kB │ gzip:  43.49 kB
+dist/assets/yjs-CXI0yVRI.js                           180.31 kB │ gzip:  56.64 kB
+dist/assets/math-renderer-B49uQQI6.js                 259.06 kB │ gzip:  77.74 kB
+dist/assets/index-B0p3vKk2.js                         365.42 kB │ gzip: 110.75 kB
+dist/assets/sortable.esm-Cp6P0NgA.js                  472.71 kB │ gzip: 150.25 kB
+
+[33m[IMPORT_IS_UNDEFINED] [0mImport `default` will always be undefined because there is no matching export in '../../node_modules/.pnpm/rrule@2.8.1/node_modules/rrule/dist/esm/index.js'
+   [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m ../../packages/integrations/src/calendar.ts:3:45 [38;5;246m][0m
+   [38;5;246m│[0m
+ [38;5;246m3 │[0m [38;5;249mc[0m[38;5;249mo[0m[38;5;249mn[0m[38;5;249ms[0m[38;5;249mt[0m[38;5;249m [0m[38;5;249m{[0m[38;5;249m [0m[38;5;249mR[0m[38;5;249mR[0m[38;5;249mu[0m[38;5;249ml[0m[38;5;249me[0m[38;5;249m [0m[38;5;249m}[0m[38;5;249m [0m[38;5;249m=[0m[38;5;249m [0m[38;5;249m"[0m[38;5;249md[0m[38;5;249me[0m[38;5;249mf[0m[38;5;249ma[0m[38;5;249mu[0m[38;5;249ml[0m[38;5;249mt[0m[38;5;249m"[0m[38;5;249m [0m[38;5;249mi[0m[38;5;249mn[0m[38;5;249m [0m[38;5;249mr[0m[38;5;249me[0m[38;5;249mc[0m[38;5;249mu[0m[38;5;249mr[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249mc[0m[38;5;249me[0m[38;5;249m [0m[38;5;249m?[0m[38;5;249m [0mrecurrence.default[38;5;249m [0m[38;5;249m:[0m[38;5;249m [0m[38;5;249mr[0m[38;5;249me[0m[38;5;249mc[0m[38;5;249mu[0m[38;5;249mr[0m[38;5;249mr[0m[38;5;249me[0m[38;5;249mn[0m[38;5;249mc[0m[38;5;249me[0m[38;5;249m;[0m
+ [38;5;240m  │[0m                                             ─────────┬────────
+ [38;5;240m  │[0m                                                      ╰──────────
+[38;5;246m───╯[0m
+
+✓ built in 1.65s
+
+PWA v2.0.0
+mode      generateSW
+precache  76 entries (2270.71 KiB)
+files generated
+  dist/sw.js
+  dist/workbox-9c191d2f.js
+$ node scripts/budget.mjs
+../../node_modules/.pnpm/@tauri-apps+api@2.12.2/node_modules/@tauri-apps/api/core.js: 0.8 KiB gzip (additional lazy-load dependency graph)
+../../node_modules/.pnpm/@tauri-apps+api@2.12.2/node_modules/@tauri-apps/api/event.js: 1.5 KiB gzip (additional lazy-load dependency graph)
+../../node_modules/.pnpm/@tauri-apps+api@2.12.2/node_modules/@tauri-apps/api/window.js: 4.6 KiB gzip (additional lazy-load dependency graph)
+../../node_modules/.pnpm/@tauri-apps+plugin-autostart@2.7.0/node_modules/@tauri-apps/plugin-autostart/dist-js/index.js: 1.0 KiB gzip (additional lazy-load dependency graph)
+../../node_modules/.pnpm/@tauri-apps+plugin-deep-link@2.6.1/node_modules/@tauri-apps/plugin-deep-link/dist-js/index.js: 1.7 KiB gzip (additional lazy-load dependency graph)
+../../node_modules/.pnpm/@tauri-apps+plugin-notification@2.5.1/node_modules/@tauri-apps/plugin-notification/dist-js/index.js: 1.3 KiB gzip (additional lazy-load dependency graph)
+../../node_modules/.pnpm/@tauri-apps+plugin-opener@2.7.0/node_modules/@tauri-apps/plugin-opener/dist-js/index.js: 1.0 KiB gzip (additional lazy-load dependency graph)
+../../node_modules/.pnpm/@tauri-apps+plugin-updater@2.13.2/node_modules/@tauri-apps/plugin-updater/dist-js/index.js: 1.3 KiB gzip (additional lazy-load dependency graph)
+../../packages/core/src/cloud.ts: 4.0 KiB gzip (additional lazy-load dependency graph)
+index.html: 208.1 KiB gzip (initial dependency graph)
+src/AccountPanel.tsx: 7.5 KiB gzip (additional lazy-load dependency graph)
+src/App.tsx: 7.5 KiB gzip (additional lazy-load dependency graph)
+src/CalendarModule.tsx: 43.4 KiB gzip (additional lazy-load dependency graph)
+src/DesktopSettings.tsx: 3.4 KiB gzip (additional lazy-load dependency graph)
+src/EditorSpike.tsx: 147.6 KiB gzip (additional lazy-load dependency graph)
+src/ImportExportPanel.tsx: 12.4 KiB gzip (additional lazy-load dependency graph)
+src/InstallSettings.tsx: 0.9 KiB gzip (additional lazy-load dependency graph)
+src/RichTextEditor.tsx: 183.5 KiB gzip (additional lazy-load dependency graph)
+src/SketchCanvas.tsx: 3.6 KiB gzip (additional lazy-load dependency graph)
+src/cloud-state.ts: 5.8 KiB gzip (additional lazy-load dependency graph)
+src/code-highlighting.ts: 18.3 KiB gzip (additional lazy-load dependency graph)
+src/math-renderer.ts: 75.2 KiB gzip (additional lazy-load dependency graph)
+$ node scripts/contrast.mjs
+44 semantic color pairs meet text, focus and brand contrast thresholds.

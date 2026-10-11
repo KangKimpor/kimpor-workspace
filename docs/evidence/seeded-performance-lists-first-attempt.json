@@ -1,0 +1,82 @@
+{
+  "date": "2026-10-11T01:29:56.716Z",
+  "mode": "Local production browser benchmark; no physical-device or cloud result inferred.",
+  "fixture": {
+    "pages": 2000,
+    "journals": 365,
+    "events": 5000,
+    "blocks": 20000,
+    "long_page_blocks": 5000,
+    "search_items": 10000
+  },
+  "results": [
+    {
+      "profile": "chromium",
+      "errors": [],
+      "import_ms": 35037.936078,
+      "warm_start_ms": 223.3152310000005,
+      "rendered_note_rows": 20,
+      "open_long_page_ms": 2082.0522869999986,
+      "typing_keydown_to_next_frame_ms": {
+        "samples": [
+          216.60000000009313,
+          92.6999999997206,
+          101.8000000002794,
+          117,
+          106.29999999981374,
+          117.90000000037253,
+          202.5,
+          101.20000000018626,
+          105.89999999990687,
+          316.20000000018626,
+          102.29999999981374,
+          82.60000000009313,
+          95.40000000037253,
+          104.59999999962747,
+          75.5,
+          118,
+          87.09999999962747,
+          74.3000000002794,
+          136.5,
+          115.89999999990687
+        ],
+        "median": 104.59999999962747,
+        "p95": 216.60000000009313,
+        "max": 316.20000000018626
+      },
+      "visible_drag_handles": 21,
+      "drag_scroll_geometry": {
+        "scrollY": 219958,
+        "viewportHeight": 864,
+        "viewportTop": 0,
+        "first": -219560,
+        "last": 630.328125,
+        "handles": [
+          "Move block 1: abcdefghijklmnopqrstSmall idea 0",
+          "Move block 2: Small idea 0.1. ខ្មែរ 中文 English",
+          "Move block 3: Small idea 0.2. ខ្មែរ 中文 English",
+          "Move block 4: Small idea 0.3. ខ្មែរ 中文 English",
+          "Move block 5: Small idea 0.4. ខ្មែរ 中文 English",
+          "Move block 6: Small idea 0.5. ខ្មែរ 中文 English",
+          "Move block 7: Small idea 0.6. ខ្មែរ 中文 English",
+          "Move block 8: Small idea 0.7. ខ្មែរ 中文 English",
+          "Move block 9: Small idea 0.8. ខ្មែរ 中文 English",
+          "Move block 10: Small idea 0.9. ខ្មែរ 中文 English",
+          "Move block 11: Small idea 0.10. ខ្មែរ 中文 Englis",
+          "Move block 12: Small idea 0.11. ខ្មែរ 中文 Englis",
+          "Move block 13: Small idea 0.12. ខ្មែរ 中文 Englis",
+          "Move block 14: Small idea 0.13. ខ្មែរ 中文 Englis",
+          "Move block 15: Small idea 0.14. ខ្មែរ 中文 Englis",
+          "Move block 16: Small idea 0.15. ខ្មែរ 中文 Englis",
+          "Move block 17: Small idea 0.16. ខ្មែរ 中文 Englis",
+          "Move block 18: Small idea 0.17. ខ្មែរ 中文 Englis",
+          "Move block 19: Small idea 0.18. ខ្មែរ 中文 Englis",
+          "Move block 20: Small idea 0.19. ខ្មែរ 中文 Englis",
+          "Move block 21: Small idea 0.20. ខ្មែរ 中文 Englis"
+        ]
+      },
+      "failure": "Error: expect(locator).toHaveText(expected) failed\n\nLocator:  getByRole('textbox', { name: 'Document editor', exact: true }).locator('p').last()\nExpected: \"Small idea 0.4998. ខ្មែរ 中文 English.\"\nReceived: \"Small idea 0.4999. ខ្មែរ 中文 English.\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveText\" getByRole('textbox', { name: 'Document editor', exact: true }).locator('p').last() with timeout 5000ms\n  - waiting for getByRole('textbox', { name: 'Document editor', exact: true }).locator('p').last()\n    13 × locator resolved to <p>Small idea 0.4999. ខ្មែរ 中文 English.</p>\n       - unexpected value \"Small idea 0.4999. ខ្មែរ 中文 English.\"\n"
+    }
+  ],
+  "status": "budget failures"
+}

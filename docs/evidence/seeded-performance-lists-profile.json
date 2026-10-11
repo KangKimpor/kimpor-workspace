@@ -1,0 +1,195 @@
+{
+  "date": "2026-10-11T01:31:59.585Z",
+  "mode": "Local production browser benchmark; no physical-device or cloud result inferred.",
+  "fixture": {
+    "pages": 2000,
+    "journals": 365,
+    "events": 5000,
+    "blocks": 20000,
+    "long_page_blocks": 5000,
+    "search_items": 10000
+  },
+  "results": [
+    {
+      "profile": "chromium",
+      "errors": [],
+      "import_ms": 22582.096023,
+      "warm_start_ms": 312.93509800000174,
+      "rendered_note_rows": 20,
+      "open_long_page_ms": 1689.1981589999996,
+      "typing_keydown_to_next_frame_ms": {
+        "samples": [
+          180.29999999981374,
+          154.5,
+          169.29999999981374,
+          129.1999999997206,
+          86.1999999997206,
+          180.89999999990687,
+          88.40000000037253,
+          144.10000000009313,
+          156,
+          131.59999999962747,
+          111.10000000009313,
+          146.20000000018626,
+          96,
+          288.5,
+          116.39999999990687,
+          75.20000000018626,
+          121.60000000009313,
+          112.70000000018626,
+          230.70000000018626,
+          142.09999999962747
+        ],
+        "median": 131.59999999962747,
+        "p95": 230.70000000018626,
+        "max": 288.5
+      },
+      "visible_drag_handles": 21,
+      "drag_scroll_geometry": {
+        "scrollY": 219958,
+        "viewportHeight": 864,
+        "viewportTop": 0,
+        "first": -219560,
+        "last": 630.328125,
+        "handles": [
+          "Move block 1: abcdefghijklmnopqrstSmall idea 0",
+          "Move block 2: Small idea 0.1. ខ្មែរ 中文 English",
+          "Move block 3: Small idea 0.2. ខ្មែរ 中文 English",
+          "Move block 4: Small idea 0.3. ខ្មែរ 中文 English",
+          "Move block 5: Small idea 0.4. ខ្មែរ 中文 English",
+          "Move block 6: Small idea 0.5. ខ្មែរ 中文 English",
+          "Move block 7: Small idea 0.6. ខ្មែរ 中文 English",
+          "Move block 8: Small idea 0.7. ខ្មែរ 中文 English",
+          "Move block 9: Small idea 0.8. ខ្មែរ 中文 English",
+          "Move block 10: Small idea 0.9. ខ្មែរ 中文 English",
+          "Move block 11: Small idea 0.10. ខ្មែរ 中文 Englis",
+          "Move block 12: Small idea 0.11. ខ្មែរ 中文 Englis",
+          "Move block 13: Small idea 0.12. ខ្មែរ 中文 Englis",
+          "Move block 14: Small idea 0.13. ខ្មែរ 中文 Englis",
+          "Move block 15: Small idea 0.14. ខ្មែរ 中文 Englis",
+          "Move block 16: Small idea 0.15. ខ្មែរ 中文 Englis",
+          "Move block 17: Small idea 0.16. ខ្មែរ 中文 Englis",
+          "Move block 18: Small idea 0.17. ខ្មែរ 中文 Englis",
+          "Move block 19: Small idea 0.18. ខ្មែរ 中文 Englis",
+          "Move block 20: Small idea 0.19. ខ្មែរ 中文 Englis",
+          "Move block 21: Small idea 0.20. ខ្មែរ 中文 Englis"
+        ]
+      },
+      "offscreen_handles_and_keyboard_reorder": true,
+      "search_worker_initial_ms": 64.89999999990687,
+      "search_worker_round_trip_ms": {
+        "samples": [
+          {
+            "query": "中文",
+            "ms": 12.700000000186265,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 10,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 5.199999999720603,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 5.2000000001862645,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 6.5,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 6.5,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 6.5,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 5.399999999906868,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 4.899999999906868,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 6.399999999906868,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 6.400000000372529,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 6.599999999627471,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 5.2000000001862645,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 5,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 6.5,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 6.399999999906868,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 6.600000000093132,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 5,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 5.100000000093132,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 8.799999999813735,
+            "results": 100
+          }
+        ],
+        "median": 6.399999999906868,
+        "p95": 10,
+        "max": 12.700000000186265
+      },
+      "budgets": {
+        "warm_start_1500ms": true,
+        "typing_p95_16ms": false,
+        "search_p95_50ms": true
+      }
+    }
+  ],
+  "status": "budget failures"
+}

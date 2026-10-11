@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-11",
+  "interface_source_commit": "9abb454867926a9fa5c756059235e1cc3ad22d0a",
+  "core_auth_guidance": "Implicit confirmation callback clears its fragment and directs the owner to device-bound sign-in in Settings; covered by regression test.",
+  "core_tests": 66,
+  "core_line_coverage_percent": 88.29,
+  "threshold_percent": 85,
+  "navigation_import_tests": 8,
+  "responsive_captures": 30,
+  "responsive_profiles": [
+    "393x852 iPhone 15",
+    "820x1180 iPad A16",
+    "1180x820 iPad A16 landscape",
+    "1980x1080 desktop",
+    "1980x1200 desktop"
+  ],
+  "responsive_review": "All 30 managed-browser captures reviewed in contact sheet; no horizontal document overflow. Phone default toolbar has five controls; advanced controls open/collapse. Journal create/continue and Calendar main event action work.",
+  "physical_devices_verified": false,
+  "ci_browser_step": {
+    "run": 38138837020,
+    "source": "9abb454867926a9fa5c756059235e1cc3ad22d0a",
+    "status": "passed",
+    "cases": 76
+  },
+  "local_browser_attempt": "74/76 passed; two phone cases hit removed lazy assets during a local rebuild, preserved as failures and rerun on a stable build.",
+  "migration": "Private source inventory, remote field/document bytes, and cold client pull verified. Personal source data and account identifiers excluded from this public report.",
+  "secrets": "History scan passed; private credential and migration folders excluded from Git and public packages.",
+  "local_browser_stable_recheck": {
+    "cases": 2,
+    "status": "passed",
+    "reason": "Both cases affected by removed lazy assets rerun against an unchanged build."
+  },
+  "baseline_review": "interface-baseline-review.json",
+  "windows": {
+    "run": 38138836867,
+    "functional_checks": "passed",
+    "working_set_bytes": 404488192,
+    "memory_budget_bytes": 157286400,
+    "memory_gate": "failed"
+  }
+}

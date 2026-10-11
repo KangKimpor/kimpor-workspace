@@ -1,0 +1,208 @@
+{
+  "date": "2026-10-11T01:42:06.099Z",
+  "mode": "Local production browser benchmark; no physical-device or cloud result inferred.",
+  "fixture": {
+    "pages": 2000,
+    "journals": 365,
+    "events": 5000,
+    "blocks": 20000,
+    "long_page_blocks": 5000,
+    "search_items": 10000
+  },
+  "results": [
+    {
+      "profile": "chromium",
+      "errors": [],
+      "import_ms": 16230.107582999999,
+      "warm_start_ms": 153.38805800000046,
+      "rendered_tree_rows": 21,
+      "scrolled_nested_tree": true,
+      "rendered_note_rows": 20,
+      "scrolled_last_note": true,
+      "open_long_page_ms": 1004.8753429999997,
+      "typing_keydown_to_next_frame_ms": {
+        "samples": [
+          53,
+          50.6999999997206,
+          44.09999999962747,
+          20.600000000093132,
+          20.299999999813735,
+          69.10000000009313,
+          33.09999999962747,
+          32.39999999990687,
+          21.100000000093132,
+          65.79999999981374,
+          20.399999999906868,
+          35.700000000186265,
+          23.699999999720603,
+          20.700000000186265,
+          23.600000000093132,
+          63.3000000002794,
+          22,
+          87.60000000009313,
+          21,
+          48.799999999813735
+        ],
+        "median": 32.39999999990687,
+        "p95": 69.10000000009313,
+        "max": 87.60000000009313
+      },
+      "visible_drag_handles": 21,
+      "drag_scroll_geometry": {
+        "scrollY": 219958,
+        "viewportHeight": 864,
+        "viewportTop": 0,
+        "first": -219560,
+        "last": 630.328125,
+        "handles": [
+          "Move block 1: abcdefghijklmnopqrstSmall idea 0",
+          "Move block 2: Small idea 0.1. ខ្មែរ 中文 English",
+          "Move block 3: Small idea 0.2. ខ្មែរ 中文 English",
+          "Move block 4: Small idea 0.3. ខ្មែរ 中文 English",
+          "Move block 5: Small idea 0.4. ខ្មែរ 中文 English",
+          "Move block 6: Small idea 0.5. ខ្មែរ 中文 English",
+          "Move block 7: Small idea 0.6. ខ្មែរ 中文 English",
+          "Move block 8: Small idea 0.7. ខ្មែរ 中文 English",
+          "Move block 9: Small idea 0.8. ខ្មែរ 中文 English",
+          "Move block 10: Small idea 0.9. ខ្មែរ 中文 English",
+          "Move block 11: Small idea 0.10. ខ្មែរ 中文 Englis",
+          "Move block 12: Small idea 0.11. ខ្មែរ 中文 Englis",
+          "Move block 13: Small idea 0.12. ខ្មែរ 中文 Englis",
+          "Move block 14: Small idea 0.13. ខ្មែរ 中文 Englis",
+          "Move block 15: Small idea 0.14. ខ្មែរ 中文 Englis",
+          "Move block 16: Small idea 0.15. ខ្មែរ 中文 Englis",
+          "Move block 17: Small idea 0.16. ខ្មែរ 中文 Englis",
+          "Move block 18: Small idea 0.17. ខ្មែរ 中文 Englis",
+          "Move block 19: Small idea 0.18. ខ្មែរ 中文 Englis",
+          "Move block 20: Small idea 0.19. ខ្មែរ 中文 Englis",
+          "Move block 21: Small idea 0.20. ខ្មែរ 中文 Englis"
+        ]
+      },
+      "offscreen_handles_and_keyboard_reorder": true,
+      "search_worker_initial_ms": 70.09999999962747,
+      "search_worker_round_trip_ms": {
+        "samples": [
+          {
+            "query": "中文",
+            "ms": 16.600000000093132,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 8.699999999720603,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 5.300000000279397,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 4.899999999906868,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 6.600000000093132,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 6.399999999906868,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 6.600000000093132,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 4.899999999906868,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 4.899999999906868,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 6.5,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 6.300000000279397,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 6.699999999720603,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 5.2000000001862645,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 4.899999999906868,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 6.399999999906868,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 6.5,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 6.600000000093132,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 5,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 4.7999999998137355,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 7.100000000093132,
+            "results": 100
+          }
+        ],
+        "median": 6.399999999906868,
+        "p95": 8.699999999720603,
+        "max": 16.600000000093132
+      },
+      "budgets": {
+        "warm_start_1500ms": true,
+        "typing_p95_16ms": false,
+        "search_p95_50ms": true
+      }
+    },
+    {
+      "profile": "phone-webkit",
+      "errors": [],
+      "import_ms": 24423.317245,
+      "warm_start_ms": 287.79992299999867,
+      "rendered_tree_rows": 21,
+      "scrolled_nested_tree": true,
+      "rendered_note_rows": 20,
+      "failure": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('.ws-page-list').getByRole('button', { name: /note 999 ខ្មែរ 中文/ })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"toBeVisible\" locator('.ws-page-list').getByRole('button', { name: /note 999 ខ្មែរ 中文/ }) with timeout 5000ms\n  - waiting for locator('.ws-page-list').getByRole('button', { name: /note 999 ខ្មែរ 中文/ })\n"
+    }
+  ],
+  "status": "budget failures"
+}
