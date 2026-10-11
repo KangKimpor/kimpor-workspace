@@ -1518,11 +1518,10 @@ export default function RichTextEditor({
       )}
       {protection && session && (
         <section className="rich-protection" aria-label="Protect document">
-          <h2>Keep this thought private.</h2>
+          <h2>Protect document</h2>
           <p>
-            Content and sketches will be encrypted on this device and during
-            sync. Titles, dates and tags remain visible. Existing local
-            plaintext snapshots are removed when protection is enabled.
+            Encrypt text, sketches and files. Titles, dates and tags remain
+            visible. Existing unencrypted local copies are deleted.
           </p>
           <label>
             New passphrase

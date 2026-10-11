@@ -1,5 +1,5 @@
 import { chromium, webkit, firefox, expect } from '@playwright/test';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import sharp from 'sharp';
 const url = process.env.BASE_URL ?? 'http://127.0.0.1:4173';
 const matrix = [
@@ -12,7 +12,12 @@ const matrix = [
 ];
 await mkdir('docs/screenshots', {recursive:true});
 const browsers = {};
-const report=[];
+const selectedScreens=process.env.SHOT_SCREENS?.split(',').filter(Boolean);
+const screenNames=['today','calendar','notes','note-detail','journal','workspace','database','settings','search','design','editor','about','palette'];
+if(selectedScreens?.some(screen=>!screenNames.includes(screen)))throw new Error('Unknown screenshot screen.');
+const report=selectedScreens
+  ? JSON.parse(await readFile('docs/evidence/screenshot-matrix.json','utf8')).captures.filter(row=>!selectedScreens.includes(row.screen))
+  : [];
 try {
   for (const [name,width,height,dpr,engine] of matrix) {
     browsers[engine] ??= await ({chromium,webkit,firefox})[engine].launch();
@@ -44,6 +49,7 @@ try {
       await expect(page.getByRole('dialog')).toHaveCount(0,{timeout:15000});
       const product=[['today','Today'],['calendar','Calendar'],['notes','Notes'],['note-detail','Notes'],['journal','Journal'],['workspace','Workspace'],['database','Workspace'],['settings','Today'],['search','Today']];
       for (const [screen,route] of [...product,['design','/design'],['editor','/spikes/editor'],['about','/design'],['palette','/design']]) {
+        if(selectedScreens&&!selectedScreens.includes(screen))continue;
         console.log(`Capture ${name} ${theme}: ${screen}`);
         if(route.startsWith('/'))await page.goto(`${url}${route}`,{waitUntil:'networkidle'});
         else{
@@ -69,13 +75,14 @@ try {
           const unreadable=await page.locator('h1,h2,h3,.brand strong').evaluateAll(elements=>elements.filter(e=>getComputedStyle(e).color==='rgb(0, 0, 0)').map(e=>e.textContent));
           if(unreadable.length) throw new Error(`Dark text lost contrast: ${file}: ${unreadable.join(', ')}`);
         }
-        report.push({screen,name,theme,file,width,height,dpr,engine,overflow});
+        report.push({screen,name,theme,file,width,height,dpr,engine,overflow,capturedAt:new Date().toISOString()});
         if(screen==='settings'||screen==='search'){await page.keyboard.press('Escape');if(await page.getByRole('button',{name:'Close sidebar',exact:true}).first().isVisible())await page.getByRole('button',{name:'Close sidebar',exact:true}).first().click();}
       }
       await context.close();
     }
     console.log(`Rendered ${name}, light and dark.`);
   }
+  if(report.length!==screenNames.length*matrix.length*2)throw new Error('Screenshot matrix is incomplete.');
   for(const screen of [...new Set(report.map(row=>row.screen))]) for(const theme of ['light','dark']) {
     const captures=report.filter(row=>row.screen===screen&&row.theme===theme);
     const width=400,height=1100;

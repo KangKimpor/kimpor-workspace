@@ -265,13 +265,14 @@ export default function CalendarModule({
   ) {
     const local = (minutes: number) =>
       `${addDays(startDate, Math.floor(minutes / 1440))}T${String(Math.floor((minutes % 1440) / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}`;
+    const availableCalendars = store.listCalendars();
     const calendar =
-      calendars.find(
+      availableCalendars.find(
         (item) =>
           item.id === preferences.defaultCalendar && item.source !== "ics",
       ) ??
-      calendars.find((item) => item.source === "local") ??
-      calendars.find((item) => item.source !== "ics");
+      availableCalendars.find((item) => item.source === "local") ??
+      availableCalendars.find((item) => item.source !== "ics");
     setError("");
     setDraft({
       fields: {
@@ -443,9 +444,13 @@ export default function CalendarModule({
   async function submitDraft(deleting = false) {
     if (!draft) return;
     try {
-      const calendar = calendars.find(
-        (item) => item.id === draft.fields.calendarId,
-      );
+      const availableCalendars = store.listCalendars();
+      // The first local calendar can finish loading after the draft opens.
+      // An explicit selection still has to match; only an empty draft falls back.
+      const calendar = draft.fields.calendarId
+        ? availableCalendars.find((item) => item.id === draft.fields.calendarId)
+        : (availableCalendars.find((item) => item.source === "local") ??
+          availableCalendars.find((item) => item.source !== "ics"));
       if (!calendar || calendar.source === "ics")
         throw new Error("Choose an editable calendar.");
       const start = draft.fields.allDay

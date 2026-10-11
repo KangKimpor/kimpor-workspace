@@ -717,14 +717,12 @@ export function App() {
             <Logo />
           </div>
           <p>
-            VeloraDesk brings your days and ideas into one calm space. This
-            foundation preview explores its appearance, controls and editor.
+            A space for your days, notes and ideas.
           </p>
           <div className="notice">
             <ShieldCheck size={20} />
             <p>
-              Everything in this preview stays on this device. Cloud sync and
-              the product modules arrive in the next phase.
+              This design gallery stays on this device.
             </p>
           </div>
           <p className="caption muted">
