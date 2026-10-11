@@ -8,13 +8,30 @@ $executable = $candidates | Where-Object { Test-Path $_ } | Select-Object -First
 if (!$executable) { throw 'Installed application not found' }
 $clock = [System.Diagnostics.Stopwatch]::StartNew()
 $previousBrowserArgs = $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS
-$env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS = '--remote-debugging-port=9222'
+# Use the SDK's documented per-app registry override on this disposable runner.
+# Environment overrides were absent from the actual WebView2 child flags.
+# https://learn.microsoft.com/microsoft-edge/webview2/reference/win32/webview2-idl
+$debugPolicy = 'HKCU:/Software/Policies/Microsoft/Edge/WebView2/AdditionalBrowserArguments'
+$policyExisted = Test-Path $debugPolicy
+$policyNames = @('KimporWorkspace.exe', 'com.kimpor.veloradesk')
+$policyBackup = @{}
+foreach ($name in $policyNames) {
+  $key = if ($policyExisted) { Get-Item $debugPolicy } else { $null }
+  $exists = $key -and ($key.GetValueNames() -contains $name)
+  $policyBackup[$name] = if ($exists) { @{ value = $key.GetValue($name); kind = $key.GetValueKind($name) } } else { $null }
+}
+New-Item -Path $debugPolicy -Force | Out-Null
+foreach ($name in $policyNames) {
+  New-ItemProperty -Path $debugPolicy -Name $name -PropertyType String -Value '--remote-debugging-port=9222' -Force | Out-Null
+}
+$env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS = $null
 $startInfo = [System.Diagnostics.ProcessStartInfo]::new($executable)
 $startInfo.UseShellExecute = $false
-$startInfo.Environment['WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS'] = $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS
-$application = [System.Diagnostics.Process]::Start($startInfo)
+[void]$startInfo.Environment.Remove('WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS')
+$application = $null
 $evidence = @{ runner = $env:RUNNER_OS; measured_at = [DateTime]::UtcNow.ToString('o'); installer = $installer.Name }
 try {
+  $application = [System.Diagnostics.Process]::Start($startInfo)
   for ($attempt = 0; $attempt -lt 150; $attempt++) {
     Start-Sleep -Milliseconds 200
     $application.Refresh()
@@ -123,8 +140,18 @@ try {
   throw
 } finally {
   $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS = $previousBrowserArgs
+  foreach ($name in $policyNames) {
+    if ($policyBackup[$name]) {
+      New-ItemProperty -Path $debugPolicy -Name $name -PropertyType $policyBackup[$name].kind -Value $policyBackup[$name].value -Force | Out-Null
+    } else {
+      Remove-ItemProperty -Path $debugPolicy -Name $name -ErrorAction SilentlyContinue
+    }
+  }
+  if (!$policyExisted -and (Get-Item $debugPolicy).GetValueNames().Count -eq 0) { Remove-Item $debugPolicy }
   New-Item -ItemType Directory -Force 'docs/evidence' | Out-Null
   $evidence | ConvertTo-Json -Depth 5 | Set-Content 'docs/evidence/windows-smoke.json' -Encoding utf8NoBOM
-  $application.Refresh()
-  if (!$application.HasExited) { Stop-Process -Id $application.Id -Force }
+  if ($application) {
+    $application.Refresh()
+    if (!$application.HasExited) { Stop-Process -Id $application.Id -Force }
+  }
 }
