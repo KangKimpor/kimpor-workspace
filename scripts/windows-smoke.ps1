@@ -22,6 +22,35 @@ try {
   $evidence.native_window_ms = $clock.ElapsedMilliseconds
   if ($application.MainWindowHandle -eq 0) { throw 'No native application window appeared' }
   if ($application.MainWindowTitle -notmatch 'Kimpor Workspace') { throw 'Unexpected window title' }
+  # Capture only this disposable runner's app window and descendant flags for
+  # inspection if WebView2 policy/debugger access fails before DOM assertions.
+  Add-Type -AssemblyName System.Drawing
+  Add-Type @'
+  using System;
+  using System.Runtime.InteropServices;
+  public class KimporWindowCapture {
+    [StructLayout(LayoutKind.Sequential)] public struct RECT { public int Left, Top, Right, Bottom; }
+    [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr hwnd, out RECT rect);
+    [DllImport("user32.dll")] public static extern bool PrintWindow(IntPtr hwnd, IntPtr hdc, uint flags);
+  }
+'@
+  $rectangle = New-Object KimporWindowCapture+RECT
+  [void][KimporWindowCapture]::GetWindowRect($application.MainWindowHandle, [ref]$rectangle)
+  $bitmap = New-Object System.Drawing.Bitmap ($rectangle.Right - $rectangle.Left), ($rectangle.Bottom - $rectangle.Top)
+  $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
+  $device = $graphics.GetHdc()
+  [void][KimporWindowCapture]::PrintWindow($application.MainWindowHandle, $device, 2)
+  $graphics.ReleaseHdc($device)
+  New-Item -ItemType Directory -Force 'docs/evidence' | Out-Null
+  $bitmap.Save((Join-Path (Get-Location) 'docs/evidence/windows-native-window.png'))
+  $graphics.Dispose(); $bitmap.Dispose()
+  $processes = @(Get-CimInstance Win32_Process)
+  $tree = [System.Collections.Generic.HashSet[int]]::new(); [void]$tree.Add($application.Id)
+  do {
+    $added = $false
+    foreach ($item in $processes) { if ($tree.Contains([int]$item.ParentProcessId) -and $tree.Add([int]$item.ProcessId)) { $added = $true } }
+  } while ($added)
+  $processes | Where-Object { $tree.Contains([int]$_.ProcessId) } | Select-Object Name,CommandLine | ConvertTo-Json -Depth 4 | Set-Content 'docs/evidence/windows-webview-diagnostics.json' -Encoding utf8NoBOM
   node scripts/windows-ui-check.mjs
   if ($LASTEXITCODE -ne 0) { throw 'Installed workspace rendering/persistence check failed' }
   $evidence.rendered_workspace = $true

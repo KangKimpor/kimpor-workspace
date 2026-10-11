@@ -5,12 +5,13 @@ import { mkdir, writeFile } from 'node:fs/promises';
 // is launched, and no test hook or debug endpoint ships in the product.
 const endpoint = process.env.KIMPOR_CDP_URL ?? 'http://127.0.0.1:9222';
 let browser;
+let lastConnectionError;
 try {
   for (let attempt = 0; attempt < 60; attempt++) {
-    try { browser = await chromium.connectOverCDP(endpoint, { timeout: 1000 }); break; }
-    catch { await new Promise(resolve => setTimeout(resolve, 1000)); }
+    try { browser = await chromium.connectOverCDP(endpoint, { timeout: 3000 }); break; }
+    catch (error) { lastConnectionError = error.message; await new Promise(resolve => setTimeout(resolve, 1000)); }
   }
-  if (!browser) throw new Error('Installed WebView2 debug endpoint did not become ready');
+  if (!browser) throw new Error('Installed WebView2 inspector connection failed: ' + lastConnectionError?.slice(0,700));
   let page;
   for (let attempt = 0; attempt < 30; attempt++) {
     page = browser.contexts().flatMap(context => context.pages()).find(item => /tauri\.localhost/.test(item.url()));
