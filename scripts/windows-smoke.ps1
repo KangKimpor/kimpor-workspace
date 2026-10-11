@@ -9,7 +9,10 @@ if (!$executable) { throw 'Installed application not found' }
 $clock = [System.Diagnostics.Stopwatch]::StartNew()
 $previousBrowserArgs = $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS
 $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS = '--remote-debugging-port=9222'
-$application = Start-Process $executable -PassThru
+$startInfo = [System.Diagnostics.ProcessStartInfo]::new($executable)
+$startInfo.UseShellExecute = $false
+$startInfo.Environment['WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS'] = $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS
+$application = [System.Diagnostics.Process]::Start($startInfo)
 $evidence = @{ runner = $env:RUNNER_OS; measured_at = [DateTime]::UtcNow.ToString('o'); installer = $installer.Name }
 try {
   for ($attempt = 0; $attempt -lt 150; $attempt++) {
