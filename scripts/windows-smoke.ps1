@@ -51,6 +51,10 @@ try {
   $idleClock.Stop()
   $cpuAfter = ($after | Measure-Object CPU -Sum).Sum
   $evidence.idle_working_set_bytes = [long](($after | Measure-Object WorkingSet64 -Sum).Sum)
+  $evidence.idle_private_committed_bytes = [long](($after | Measure-Object PrivateMemorySize64 -Sum).Sum)
+  $evidence.process_memory = @($after | ForEach-Object {
+    @{ name = $_.ProcessName; working_set_bytes = $_.WorkingSet64; private_committed_bytes = $_.PrivateMemorySize64 }
+  })
   $evidence.idle_cpu_percent = [Math]::Round([Math]::Max(0, ($cpuAfter - $cpuBefore)) / $idleClock.Elapsed.TotalSeconds / [Environment]::ProcessorCount * 100, 3)
   $evidence.process_count = $after.Count
   $evidence.budgets = @{ native_window_ms = 2000; idle_working_set_bytes = 150MB; idle_cpu_percent = 2 }
@@ -67,6 +71,7 @@ try {
   if (Test-Path $executable) { throw 'Installed application executable remains after uninstall' }
   if (Test-Path 'HKCU:/Software/Classes/kimpor-workspace/shell/open/command') { throw 'Custom-scheme registration remains after uninstall' }
   $evidence.uninstall = $true
+  $evidence.functional_checks = 'passed'
   # Enforce published Windows budgets. The native-window metric is a lower bound
   # for full first-render readiness; physical-device checks cover the latter.
   if ($evidence.native_window_ms -gt 2000) { throw 'Native window startup exceeds the 2 second budget.' }

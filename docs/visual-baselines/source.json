@@ -1,0 +1,11 @@
+{
+  "commit": "361645cca239405ad0d61f710602c98e26ec85ec",
+  "platform": "linux",
+  "playwright": "1.64.0",
+  "runner": "Linux",
+  "captures": 312,
+  "date": "2026-10-11T02:32:36.782Z",
+  "fixture_time": "2026-10-11T09:00:00Z",
+  "locale": "en-US",
+  "time_zone": "UTC"
+}

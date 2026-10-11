@@ -31,6 +31,7 @@ jobs:
       - run: pnpm licenses:cargo
       - run: cargo fmt --manifest-path apps/desktop/src-tauri/Cargo.toml -- --check
       - name: Build per-user NSIS installer and signed updater on tags
+        id: build
         shell: pwsh
         env:
           RELEASE_TAG: ${{ github.ref_name }}
@@ -53,6 +54,8 @@ jobs:
         shell: pwsh
         run: ./scripts/windows-smoke.ps1
       - name: Installer budget, checksums and update feed
+        id: bundle
+        if: always() && steps.build.outcome == 'success'
         shell: pwsh
         env:
           RELEASE_TAG: ${{ github.ref_name }}
@@ -67,6 +70,7 @@ jobs:
           path: docs/evidence/windows-smoke.json
           retention-days: 7
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always() && steps.build.outcome == 'success' && steps.bundle.outcome == 'success'
         with:
           name: Kimpor Workspace-windows-x64
           path: |
