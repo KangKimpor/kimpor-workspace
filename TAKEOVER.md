@@ -22,8 +22,8 @@ collapse, phone swipe-back with save, and sheet sizing. Notion ZIP imports now
 preserve page hierarchy and encrypt referenced attachments. Responsive checks
 include 393×852, 820×1180, 1180×820, 1980×1080 and 1980×1200.
 
-Windows run 38159572847 passes actual installed UI creation/restart persistence,
-protocol/single-instance/normal exit/uninstall. Its 382.2 MiB aggregate resident
+Windows run 38160971752 passes actual installed UI creation/restart persistence,
+protocol/single-instance/normal exit/uninstall. Its 385.5 MiB aggregate resident
 memory fails the 150 MiB budget. Typing-frame performance also remains above the
 16 ms maximum. No physical iPhone/iPad/PC, updater N→N+1 or seven-day provider proof
 has been supplied. Do not issue a v1 release or claim every original phase complete.
@@ -37,6 +37,6 @@ coverage and a configured production-browser reproduction pass. The pixel harnes
 now waits for navigation JavaScript springs to finish; do not relax its threshold
 or replace a reviewed baseline to cover a transient capture.
 
-Main 07d6a57 Quality/CodeQL/Pages pass (67 unit, 76 browser and 312 pixel cases).
+Main 36bdd59 Quality/CodeQL/Pages pass (67 unit, 80 browser and 312 pixel cases).
 Imported timed date controls now show the stated date without rewriting stored
 timestamps; four browser import/export regressions pass.

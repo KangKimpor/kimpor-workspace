@@ -17,10 +17,10 @@
   "responsive_review": "All 30 managed-browser captures reviewed in contact sheet; no horizontal document overflow. Phone default toolbar has five controls; advanced controls open/collapse. Journal create/continue and Calendar main event action work.",
   "physical_devices_verified": false,
   "ci_browser_step": {
-    "run": 38159572774,
-    "source": "07d6a5746812412b6876dbdd31228d55a073d688",
+    "run": 38160971705,
+    "source": "36bdd594252d8a0f2838ab595c5722229d44b6ee",
     "status": "passed",
-    "cases": 76
+    "cases": 80
   },
   "local_browser_attempt": "74/76 passed; two phone cases hit removed lazy assets during a local rebuild, preserved as failures and rerun on a stable build.",
   "migration": "Private source inventory, remote field/document bytes, and cold client pull verified. Personal source data and account identifiers excluded from this public report.",
@@ -32,16 +32,16 @@
   },
   "baseline_review": "interface-baseline-review.json",
   "windows": {
-    "run": 38159572847,
-    "source": "07d6a5746812412b6876dbdd31228d55a073d688",
+    "run": 38160971752,
+    "source": "36bdd594252d8a0f2838ab595c5722229d44b6ee",
     "functional_checks": "passed",
-    "working_set_bytes": 400715776,
+    "working_set_bytes": 404180992,
     "memory_budget_bytes": 157286400,
     "memory_gate": "failed"
   },
   "app_startup_regression": "Confirmation guidance survives asynchronous initial account binding; successful sign-in clears it. Browser reproduction failed before the fix and passes on the configured production build after it.",
   "visual_followup": {
-    "run": 38159572774,
+    "run": 38160971705,
     "status": "passed",
     "passed": 312,
     "total": 312,
@@ -54,5 +54,6 @@
     "profiles": 4,
     "status": "passed",
     "behavior": "Timed ISO dates show their original stated day in date controls; full timestamp and offset remain unchanged in exported data."
-  }
+  },
+  "migration_interface": "Both fresh managed browser profiles open all four databases; displayed date controls match current cloud values. Owner edits are preserved."
 }

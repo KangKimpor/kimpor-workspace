@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-11T17:13:41.192Z",
+  "date": "2026-10-11T17:46:53.426Z",
   "site": "https://kangkimpor.github.io/kimpor-workspace/",
   "mode": "User-authorized migration validation in isolated managed browsers; no password change or email sent; no physical-device or user sign-in claim",
   "checks": [
@@ -23,5 +23,7 @@
     }
   ],
   "status": "passed",
-  "scope": "Aggregate private migration check; personal identifiers and page content excluded"
+  "date_controls_match_current_cloud_values": true,
+  "source_commit": "36bdd594252d8a0f2838ab595c5722229d44b6ee",
+  "deployment_run": 38160971910
 }

@@ -1,61 +1,61 @@
 {
-  "uninstall": true,
-  "normal_exit": true,
-  "functional_checks": "passed",
-  "installer": "Kimpor Workspace_0.0.1_x64-setup.exe",
-  "callback_registration": true,
-  "process_count": 7,
-  "error": "App and WebView2 idle RAM exceed the 150 MiB budget.",
-  "budgets": {
-    "idle_working_set_bytes": 157286400,
-    "idle_cpu_percent": 2,
-    "native_window_ms": 2000
-  },
-  "idle_private_committed_bytes": 156975104,
-  "idle_working_set_bytes": 400715776,
-  "native_window_ms": 225,
+  "rendered_workspace": true,
+  "idle_working_set_bytes": 404180992,
   "runner": "Windows",
+  "normal_exit": true,
+  "single_instance": true,
+  "callback_registration": true,
+  "result": "failed",
+  "process_count": 7,
+  "multilingual_note_restart": true,
+  "idle_private_committed_bytes": 160153600,
+  "budgets": {
+    "native_window_ms": 2000,
+    "idle_working_set_bytes": 157286400,
+    "idle_cpu_percent": 2
+  },
+  "measured_at": "2026-10-11T17:52:55.5011678Z",
+  "native_window_ms": 254,
+  "error": "App and WebView2 idle RAM exceed the 150 MiB budget.",
+  "installer": "Kimpor Workspace_0.0.1_x64-setup.exe",
+  "uninstall": true,
   "process_memory": [
     {
-      "private_committed_bytes": 5636096,
-      "working_set_bytes": 30580736,
-      "name": "KimporWorkspace"
+      "name": "KimporWorkspace",
+      "working_set_bytes": 30437376,
+      "private_committed_bytes": 5414912
     },
     {
-      "private_committed_bytes": 46358528,
-      "working_set_bytes": 130744320,
-      "name": "msedgewebview2"
+      "name": "msedgewebview2",
+      "working_set_bytes": 130174976,
+      "private_committed_bytes": 45211648
     },
     {
-      "private_committed_bytes": 2424832,
-      "working_set_bytes": 9875456,
-      "name": "msedgewebview2"
+      "name": "msedgewebview2",
+      "working_set_bytes": 9822208,
+      "private_committed_bytes": 2568192
     },
     {
-      "private_committed_bytes": 16576512,
-      "working_set_bytes": 48316416,
-      "name": "msedgewebview2"
+      "name": "msedgewebview2",
+      "working_set_bytes": 48635904,
+      "private_committed_bytes": 16748544
     },
     {
-      "private_committed_bytes": 12099584,
-      "working_set_bytes": 38916096,
-      "name": "msedgewebview2"
+      "name": "msedgewebview2",
+      "working_set_bytes": 38637568,
+      "private_committed_bytes": 12201984
     },
     {
-      "private_committed_bytes": 8101888,
-      "working_set_bytes": 18477056,
-      "name": "msedgewebview2"
+      "name": "msedgewebview2",
+      "working_set_bytes": 18505728,
+      "private_committed_bytes": 8257536
     },
     {
-      "private_committed_bytes": 65777664,
-      "working_set_bytes": 123805696,
-      "name": "msedgewebview2"
+      "name": "msedgewebview2",
+      "working_set_bytes": 127967232,
+      "private_committed_bytes": 69750784
     }
   ],
-  "multilingual_note_restart": true,
-  "result": "failed",
-  "rendered_workspace": true,
-  "idle_cpu_percent": 0.0,
-  "single_instance": true,
-  "measured_at": "2026-10-11T17:32:14.7698894Z"
+  "functional_checks": "passed",
+  "idle_cpu_percent": 0.0
 }

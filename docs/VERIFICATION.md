@@ -97,7 +97,7 @@ intentionally blank: no confirmed device results have been supplied.
 | Large-data performance | 2k notes + 365 journals, 20k blocks, 5k events; 5k-block note; windowed regular lists/tree/handles | Functional stress assertions pass; typing exceeds 16 ms; editor body, galleries and database bodies not fully virtualized | |
 | JS/Rust licenses | Locked inventories; KaTeX/font notices; Windows-resolved Cargo expressions | Audited locally; final binary notice audit needs native bundle | |
 | Workflow/secret checks | actionlint, staged/history gitleaks; six deployment safety tests; real Actions | Quality and CodeQL pass; final run/evidence recorded separately | |
-| CI pixel baselines | Latest baseline: actual run 38138849715, source 9abb454, 312 captures/26 reviewed contacts; interface-baseline-review.json | All 76 browser cases pass in 38138837020; new baseline comparison pending with unchanged 0.1% gate | |
+| CI pixel baselines | Latest baseline: actual run 38138849715, source 9abb454, 312 captures/26 reviewed contacts; interface-baseline-review.json | All 80 browser cases and 312/312 pixel comparisons pass in 38160971705 with unchanged 0.1% gate | |
 | GitHub main push/hosting | Public KangKimpor/kimpor-workspace; direct main push; Pages deployment run 38105256978 | Live URL HTTP 200; public offline/navigation/PWA checks pass in Chromium and WebKit | |
 | Physical device acceptance | DEVICE-TEST.md with dates/OS/results | Unverified; no connected hardware | |
 | Free signing/v1.0.0 | Unsigned fallback; SignPath requirements documented | No application/release; blocked by account/device/reputation gates | |
