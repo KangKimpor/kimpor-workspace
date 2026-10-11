@@ -3,6 +3,7 @@ import {
   Suspense,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -21,6 +22,7 @@ import {
   DndContext,
   KeyboardSensor,
   MouseSensor,
+  MeasuringStrategy,
   TouchSensor,
   closestCenter,
   useSensor,
@@ -314,6 +316,7 @@ function SessionEditor({
     menuRef = useRef(menu),
     selected = useRef<() => void>(() => undefined),
     onText = useRef(onTextChange);
+  const draggedBlock = useRef<number | null>(null);
   const saveQueue = useRef(Promise.resolve()),
     timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined),
     persist = useRef<() => Promise<void>>(() => Promise.resolve()),
@@ -463,32 +466,91 @@ function SessionEditor({
   );
   const refreshHandles = useCallback(() => {
     if (!editor || !holder.current) return;
-    const rect = holder.current.getBoundingClientRect(),
-      next: Block[] = [];
+    const rect = holder.current.getBoundingClientRect();
+    const offsets: number[] = [];
     editor.state.doc.forEach((node, offset, index) => {
+      offsets[index] = offset;
+    });
+    const bounds = (index: number) => {
+      const offset = offsets[index];
+      if (offset === undefined) return null;
       const element = editor.view.nodeDOM(offset);
-      if (!(element instanceof HTMLElement)) return;
+      return element instanceof HTMLElement
+        ? element.getBoundingClientRect()
+        : null;
+    };
+    const viewport = window.visualViewport;
+    const height = viewport?.height ?? window.innerHeight;
+    const overscan = Math.max(200, height / 2);
+    const top = (viewport?.offsetTop ?? 0) - overscan;
+    const bottom = top + height + overscan * 2;
+    // Blocks are in document order. Find the visible range without laying out
+    // every block or mounting thousands of sortable controls while typing.
+    let lower = 0;
+    let upper = offsets.length;
+    while (lower < upper) {
+      const middle = (lower + upper) >>> 1;
+      if ((bounds(middle)?.bottom ?? Infinity) < top) lower = middle + 1;
+      else upper = middle;
+    }
+    const first = lower;
+    upper = offsets.length;
+    while (lower < upper) {
+      const middle = (lower + upper) >>> 1;
+      if ((bounds(middle)?.top ?? Infinity) <= bottom) lower = middle + 1;
+      else upper = middle;
+    }
+    const indices = Array.from({ length: lower - first }, (_, index) => first + index);
+    if (
+      draggedBlock.current !== null &&
+      draggedBlock.current < offsets.length &&
+      !indices.includes(draggedBlock.current)
+    ) indices.push(draggedBlock.current);
+    indices.sort((a, b) => a - b);
+    const next: Block[] = [];
+    for (const index of indices) {
+      const blockBounds = bounds(index);
+      if (!blockBounds) continue;
+      const node = editor.state.doc.child(index);
       next.push({
         id: `block-${index}`,
         index,
-        top: element.getBoundingClientRect().top - rect.top,
+        top: blockBounds.top - rect.top,
         label: node.textContent.slice(0, 32) || node.type.name,
       });
-    });
-    setBlocks(next);
+    }
+    setBlocks(previous =>
+      previous.length === next.length && previous.every((item, index) => {
+        const current = next[index];
+        return current && item.id === current.id && item.top === current.top && item.label === current.label;
+      }) ? previous : next,
+    );
   }, [editor]);
   useEffect(() => {
     if (!editor) return;
-    const observer = new ResizeObserver(refreshHandles);
+    let frame = 0;
+    const scheduleHandles = () => {
+      if (!frame) frame = requestAnimationFrame(() => {
+        frame = 0;
+        refreshHandles();
+      });
+    };
+    const observer = new ResizeObserver(scheduleHandles);
     if (holder.current) observer.observe(holder.current);
-    editor.on("update", refreshHandles);
-    editor.on("selectionUpdate", refreshHandles);
-    const frame = requestAnimationFrame(refreshHandles);
+    editor.on("update", scheduleHandles);
+    editor.on("selectionUpdate", scheduleHandles);
+    window.addEventListener("scroll", scheduleHandles, true);
+    window.addEventListener("resize", scheduleHandles);
+    window.visualViewport?.addEventListener("resize", scheduleHandles);
+    scheduleHandles();
     return () => {
       observer.disconnect();
       cancelAnimationFrame(frame);
-      editor.off("update", refreshHandles);
-      editor.off("selectionUpdate", refreshHandles);
+      editor.off("update", scheduleHandles);
+      editor.off("selectionUpdate", scheduleHandles);
+      window.removeEventListener("scroll", scheduleHandles, true);
+      window.removeEventListener("resize", scheduleHandles);
+      window.visualViewport?.removeEventListener("resize", scheduleHandles);
     };
   }, [editor, refreshHandles]);
   useEffect(() => {
@@ -757,14 +819,17 @@ function SessionEditor({
       .toLowerCase()
       .includes(query.toLowerCase()),
   );
-  const mentions = store
-    .listPages()
-    .filter(
-      (page) =>
-        page.id !== pageId &&
-        page.title.toLowerCase().includes(query.toLowerCase()),
-    )
-    .slice(0, 12);
+  const mentions =
+    menu?.kind === "mention"
+      ? store
+          .listPages()
+          .filter(
+            (page) =>
+              page.id !== pageId &&
+              page.title.toLowerCase().includes(query.toLowerCase()),
+          )
+          .slice(0, 12)
+      : [];
   selected.current = () => {
     if (menu?.kind === "mention") {
       const page = mentions[Math.min(activeCommand, mentions.length - 1)];
@@ -782,6 +847,12 @@ function SessionEditor({
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
+  );
+  // Visible handles keep their index in the complete document while scrolling.
+  const blockCount = editor?.state.doc.childCount ?? 0;
+  const blockIds = useMemo(
+    () => Array.from({ length: blockCount }, (_, index) => `block-${index}`),
+    [blockCount],
   );
   function moveBlock(event: DragEndEvent) {
     if (!editor || !event.over || event.active.id === event.over.id) return;
@@ -1216,11 +1287,16 @@ function SessionEditor({
       )}
       <DndContext
         sensors={sensors}
+        measuring={{ droppable: { strategy: MeasuringStrategy.Always } }}
         collisionDetection={closestCenter}
-        onDragEnd={moveBlock}
+        onDragStart={event => {
+          draggedBlock.current = blocks.find(item => item.id === event.active.id)?.index ?? null;
+        }}
+        onDragCancel={() => { draggedBlock.current = null; refreshHandles(); }}
+        onDragEnd={event => { draggedBlock.current = null; moveBlock(event); refreshHandles(); }}
       >
         <SortableContext
-          items={blocks.map((item) => item.id)}
+          items={blockIds}
           strategy={verticalListSortingStrategy}
         >
           <div ref={holder} className="rich-document-wrap">

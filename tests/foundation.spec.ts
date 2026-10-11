@@ -107,7 +107,7 @@ test('reduced motion, touch targets, narrow layouts and 200% text', async ({ pag
   }
   await page.setViewportSize({ width: 393, height: 852 });
   await page.addStyleTag({ content: ':root { --text-caption:24px; --text-footnote:26px; --text-body:30px; --text-input:32px; --text-headline:34px; --text-title3:40px; --text-title2:44px; --text-title:56px; --text-large:68px; --text-hero:88px; }' });
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   const undersized = await page.locator('button:not(:disabled)').evaluateAll(elements => elements.filter(e => { const r=e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (r.width < 43 || r.height < 43); }).map(e => e.getAttribute('aria-label') ?? e.textContent));
   expect(undersized).toEqual([]);
 });

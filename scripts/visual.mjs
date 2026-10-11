@@ -8,7 +8,7 @@ if (process.argv.includes('--record')) {
   if (process.env.CI !== 'true') throw new Error('Record approved baselines on the CI runner with the Visual baselines workflow, then review its artifact before committing.');
   await mkdir(destination, { recursive: true });
   for (const capture of matrix.captures) await copyFile(capture.file, path.join(destination, path.basename(capture.file)));
-  await writeFile(`${destination}/source.json`, JSON.stringify({ commit: process.env.GITHUB_SHA, platform: process.platform, playwright: '1.64.0', runner: process.env.RUNNER_OS, captures: matrix.captures.length, date: matrix.date }, null, 2) + '\n');
+  await writeFile(`${destination}/source.json`, JSON.stringify({ commit: process.env.GITHUB_SHA, platform: process.platform, playwright: '1.64.0', runner: process.env.RUNNER_OS, captures: matrix.captures.length, date: matrix.date, fixture_time: matrix.fixture_time, locale: matrix.locale, time_zone: matrix.time_zone }, null, 2) + '\n');
   console.log(`Recorded ${matrix.captures.length} CI captures for review. This does not approve the baseline.`);
 } else {
   try { await access(`${destination}/source.json`); } catch { throw new Error('CI visual baseline not provisioned. Run Visual baselines, inspect its images, commit the approved artifact, and rerun CI. Phase 0 cannot pass until this gate is provisioned.'); }

@@ -128,7 +128,7 @@ function recordEntity(record: EntityRecord): WorkspaceEntity {
   const entity = Object.fromEntries(
     Object.entries(record.fields)
       .filter(([name]) => !name.startsWith("properties."))
-      .map(([name, field]) => [name, structuredClone(field.value)]),
+      .map(([name, field]) => [name, field.value]),
   );
   if (record.table === "pages") {
     const properties = {
@@ -136,10 +136,12 @@ function recordEntity(record: EntityRecord): WorkspaceEntity {
     };
     for (const [name, field] of Object.entries(record.fields))
       if (name.startsWith("properties."))
-        properties[name.slice(11)] = structuredClone(field.value);
+        properties[name.slice(11)] = field.value;
     entity.properties = properties;
   }
-  return entity as unknown as WorkspaceEntity;
+  // Detach the complete result once. Cloning every primitive field separately
+  // makes refreshing a large workspace block input without improving isolation.
+  return structuredClone(entity) as unknown as WorkspaceEntity;
 }
 function recordProperties(
   record: EntityRecord | undefined,

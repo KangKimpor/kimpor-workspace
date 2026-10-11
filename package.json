@@ -17,6 +17,7 @@
     "test": "vitest run --coverage",
     "test:backup": "node --test scripts/cloud-backup.test.mjs",
     "e2e": "playwright test",
+    "performance": "node scripts/performance.mjs",
     "shots": "node scripts/shots.mjs",
     "brand:build": "node scripts/brand.mjs",
     "budget": "node scripts/budget.mjs",

@@ -3,11 +3,12 @@ import {
   Suspense,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode, RefObject } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import {
   BookOpen,
@@ -247,14 +248,17 @@ function PageButton({
   page,
   onOpen,
   small = false,
+  style,
 }: {
   page: Page;
   onOpen: (id: string) => void;
   small?: boolean;
+  style?: CSSProperties;
 }) {
   return (
     <Pressable
       className={`ws-page-row ${small ? "compact" : ""}`}
+      style={style}
       onClick={() => onOpen(page.id)}
     >
       <span className="ws-page-icon" aria-hidden="true">
@@ -274,120 +278,141 @@ function PageButton({
   );
 }
 
-function Tree({
-  pages,
-  parentId = null,
-  depth = 0,
-  onOpen,
-  onMove,
-  selected,
-}: {
+function useWindowedRange(
+  ref: RefObject<HTMLDivElement | null>,
+  count: number,
+  estimatedHeight: number,
+  enabled = count > 100,
+) {
+  const [range, setRange] = useState({ start: 0, end: Math.min(count, 40), height: estimatedHeight });
+  useLayoutEffect(() => {
+    if (!enabled || !ref.current) return;
+    const element = ref.current;
+    let frame = 0;
+    let observedRow: Element | null = null;
+    const measure = () => {
+      frame = 0;
+      const row = element.firstElementChild;
+      if (row !== observedRow) {
+        if (observedRow) observer.unobserve(observedRow);
+        if (row) observer.observe(row);
+        observedRow = row;
+      }
+      const height = row instanceof HTMLElement ? row.getBoundingClientRect().height || estimatedHeight : estimatedHeight;
+      const top = element.getBoundingClientRect().top;
+      const viewport = window.visualViewport?.height ?? window.innerHeight;
+      const start = Math.min(count, Math.max(0, Math.floor(-top / height) - 12));
+      const end = Math.min(count, Math.max(start, Math.ceil((viewport - top) / height) + 12));
+      setRange(previous => previous.start === start && previous.end === end && previous.height === height
+        ? previous : { start, end, height });
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(measure); };
+    const observer = new ResizeObserver(schedule);
+    observer.observe(element);
+    window.addEventListener("scroll", schedule, true);
+    window.addEventListener("resize", schedule);
+    window.visualViewport?.addEventListener("resize", schedule);
+    measure();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("scroll", schedule, true);
+      window.removeEventListener("resize", schedule);
+      window.visualViewport?.removeEventListener("resize", schedule);
+    };
+  }, [ref, count, estimatedHeight, enabled]);
+  return enabled ? {
+    start: range.start, end: range.end, height: range.height, windowed: true,
+    style: {
+      height: count * range.height,
+      position: "relative" as const,
+      overflowAnchor: "none" as const,
+    },
+  } : { start: 0, end: count, height: estimatedHeight, windowed: false, style: undefined };
+}
+function PageList({ pages, onOpen, gallery }: { pages: Page[]; onOpen: (id: string) => void; gallery: boolean }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const range = useWindowedRange(ref, pages.length, 80, !gallery && pages.length > 100);
+  return <div ref={ref} className={`ws-page-list ${gallery ? "gallery" : ""}`} style={range.style}>
+    {pages.slice(range.start, range.end).map((page, index) => <PageButton key={page.id} page={page} onOpen={onOpen}
+      style={range.windowed ? { position: "absolute", top: (range.start + index) * range.height, left: 0 } : undefined} />)}
+  </div>;
+}
+function Tree({ pages, onOpen, onMove, selected }: {
   pages: Page[];
-  parentId?: string | null;
-  depth?: number;
   onOpen: (id: string) => void;
   onMove: (id: string, parentId: string | null, after?: string | null) => void;
   selected: string | null;
 }) {
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
-  const children = pages
-    .filter(
-      (page) =>
-        page.parentId === parentId &&
-        page.type !== "row" &&
-        page.type !== "journal",
-    )
-    .sort(
-      (a, b) =>
-        compareOrder(a.properties.__order, b.properties.__order) ||
-        a.createdAt.localeCompare(b.createdAt),
-    );
-  return (
-    <div className="ws-tree" role={depth === 0 ? "tree" : "group"}>
-      {children.map((page) => (
-        <div
-          key={page.id}
-          role="treeitem"
-          aria-selected={selected === page.id}
-          aria-expanded={
-            pages.some((item) => item.parentId === page.id)
-              ? expanded.has(page.id)
-              : undefined
-          }
-          onDragOver={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-          }}
-          onDrop={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            const id = event.dataTransfer.getData("text/veloradesk-page");
-            if (id) {
-              const bounds = event.currentTarget
-                .querySelector(".ws-tree-row")
-                ?.getBoundingClientRect();
-              const position = bounds
-                ? (event.clientY - bounds.top) / bounds.height
-                : 0.5;
-              const index = children.findIndex((item) => item.id === page.id);
-              if (position < 0.25)
-                onMove(id, parentId, children[index - 1]?.id ?? null);
-              else if (position > 0.75) onMove(id, parentId, page.id);
-              else onMove(id, page.id);
-            }
-          }}
-        >
-          <div
-            className="ws-tree-row"
-            style={{
-              paddingInlineStart: `calc(var(--space-2) + ${depth} * var(--space-3))`,
-            }}
-          >
-            <Pressable
-              className="ws-icon"
-              aria-label={`${expanded.has(page.id) ? "Collapse" : "Expand"} ${titleOf(page)}`}
-              onClick={() =>
-                setExpanded((old) => {
-                  const next = new Set(old);
-                  if (next.has(page.id)) next.delete(page.id);
-                  else next.add(page.id);
-                  return next;
-                })
-              }
-              disabled={!pages.some((item) => item.parentId === page.id)}
-            >
-              {expanded.has(page.id) ? (
-                <ChevronDown size={14} />
-              ) : (
-                <ChevronRight size={14} />
-              )}
-            </Pressable>
-            <Pressable
-              className={`ws-tree-page ${selected === page.id ? "selected" : ""}`}
-              draggable
-              onDragStartCapture={(event) =>
-                event.dataTransfer.setData("text/veloradesk-page", page.id)
-              }
-              onClick={() => onOpen(page.id)}
-            >
-              <span aria-hidden="true">{pageIcon(page)}</span>
-              <span>{titleOf(page)}</span>
-            </Pressable>
-          </div>
-          {expanded.has(page.id) && (
-            <Tree
-              pages={pages}
-              parentId={page.id}
-              depth={depth + 1}
-              onOpen={onOpen}
-              onMove={onMove}
-              selected={selected}
-            />
-          )}
+  const ref = useRef<HTMLDivElement>(null);
+  const groups = useMemo(() => {
+    const result = new Map<string | null, Page[]>();
+    for (const page of pages) {
+      if (page.type === "row" || page.type === "journal") continue;
+      const siblings = result.get(page.parentId) ?? [];
+      siblings.push(page);
+      result.set(page.parentId, siblings);
+    }
+    for (const siblings of result.values()) siblings.sort((a, b) =>
+      compareOrder(a.properties.__order, b.properties.__order) || a.createdAt.localeCompare(b.createdAt));
+    return result;
+  }, [pages]);
+  const rows = useMemo(() => {
+    const result: { page: Page; depth: number }[] = [];
+    const stack = [...(groups.get(null) ?? [])].reverse().map(page => ({ page, depth: 0 }));
+    const visited = new Set<string>();
+    while (stack.length) {
+      const row = stack.pop()!;
+      if (visited.has(row.page.id)) continue;
+      visited.add(row.page.id);
+      result.push(row);
+      if (expanded.has(row.page.id)) {
+        for (const page of [...(groups.get(row.page.id) ?? [])].reverse()) stack.push({ page, depth: row.depth + 1 });
+      }
+    }
+    return result;
+  }, [groups, expanded]);
+  const range = useWindowedRange(ref, rows.length, 44);
+  return <div ref={ref} className="ws-tree" role="tree" style={range.style}>
+    {rows.slice(range.start, range.end).map(({ page, depth }, rowIndex) => {
+      const siblings = groups.get(page.parentId) ?? [];
+      const index = siblings.findIndex(item => item.id === page.id);
+      const hasChildren = !!groups.get(page.id)?.length;
+      return <div key={page.id} role="treeitem" aria-level={depth + 1}
+        style={range.windowed ? { position: "absolute", top: (range.start + rowIndex) * range.height, left: 0, right: 0 } : undefined}
+        aria-posinset={index + 1} aria-setsize={siblings.length}
+        aria-selected={selected === page.id} aria-expanded={hasChildren ? expanded.has(page.id) : undefined}
+        onDragOver={event => { event.preventDefault(); event.stopPropagation(); }}
+        onDrop={event => {
+          event.preventDefault(); event.stopPropagation();
+          const id = event.dataTransfer.getData("text/veloradesk-page");
+          if (!id) return;
+          const bounds = event.currentTarget.querySelector(".ws-tree-row")?.getBoundingClientRect();
+          const position = bounds ? (event.clientY - bounds.top) / bounds.height : 0.5;
+          if (position < 0.25) onMove(id, page.parentId, siblings[index - 1]?.id ?? null);
+          else if (position > 0.75) onMove(id, page.parentId, page.id);
+          else onMove(id, page.id);
+        }}>
+        <div className="ws-tree-row" style={{ paddingInlineStart: `calc(var(--space-2) + ${depth} * var(--space-3))` }}>
+          <Pressable className="ws-icon" disabled={!hasChildren}
+            aria-label={`${expanded.has(page.id) ? "Collapse" : "Expand"} ${titleOf(page)}`}
+            onClick={() => setExpanded(old => {
+              const next = new Set(old);
+              if (next.has(page.id)) next.delete(page.id); else next.add(page.id);
+              return next;
+            })}>
+            {expanded.has(page.id) ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+          </Pressable>
+          <Pressable className={`ws-tree-page ${selected === page.id ? "selected" : ""}`} draggable
+            onDragStartCapture={event => event.dataTransfer.setData("text/veloradesk-page", page.id)}
+            onClick={() => onOpen(page.id)}>
+            <span aria-hidden="true">{pageIcon(page)}</span><span>{titleOf(page)}</span>
+          </Pressable>
         </div>
-      ))}
-    </div>
-  );
+      </div>;
+    })}
+  </div>;
 }
 
 export default function WorkspaceApp() {
@@ -418,6 +443,9 @@ export default function WorkspaceApp() {
     Number(readSetting("velora-list-width", "320")),
   );
   const mainRef = useRef<HTMLElement>(null);
+  useLayoutEffect(() => {
+    if (selectedId) window.scrollTo({ top: 0, behavior: "instant" });
+  }, [selectedId]);
   const refresh = useCallback(async () => {
     try {
       const [nextPages, nextEvents, nextDatabases] = await Promise.all([
@@ -1167,14 +1195,10 @@ export default function WorkspaceApp() {
                   </Pressable>
                 </div>
               )}
-              <div
-                className={`ws-page-list ${listView === "gallery" ? "gallery" : ""}`}
-              >
-                {listPages.length ? (
-                  listPages.map((page) => (
-                    <PageButton key={page.id} page={page} onOpen={openPage} />
-                  ))
-                ) : (
+              {listPages.length ? (
+                <PageList pages={listPages} onOpen={openPage} gallery={listView === "gallery"} />
+              ) : (
+                <div className={`ws-page-list ${listView === "gallery" ? "gallery" : ""}`}>
                   <Empty
                     title={
                       filter
@@ -1190,8 +1214,8 @@ export default function WorkspaceApp() {
                           ? "Ideas, checklists, and everything you want to keep."
                           : "Create a page or database. Everything is saved on your device."}
                   </Empty>
-                )}
-              </div>
+                </div>
+              )}
             </section>
             {selected && (
               <>
@@ -2029,7 +2053,21 @@ function PageDetail({
       candidate.id !== page.id,
   );
   return (
-    <div className="ws-page-detail" key={page.id}>
+    <div
+      className="ws-page-detail"
+      key={page.id}
+      onClickCapture={(event) => {
+        const link = event.target instanceof Element
+          ? event.target.closest<HTMLAnchorElement>("a[data-page-mention]")
+          : null;
+        if (!link) return;
+        event.preventDefault();
+        event.stopPropagation();
+        const id = link.dataset.pageMention;
+        if (id && pages.some((candidate) => candidate.id === id)) onOpen(id);
+        else onNotify("This page is in Trash or unavailable.");
+      }}
+    >
       {page.cover && (
         <div
           className={`ws-page-cover ${["blue", "purple", "warm"].includes(page.cover) ? page.cover : ""}`}

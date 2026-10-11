@@ -31,6 +31,28 @@ afterEach(async () => {
     await store.db.delete();
   }
 });
+it("keeps list edits detached from persisted pages and nested property values", async () => {
+  const store = await workspace();
+  await store.createPage("note", "Original", {
+    tags: ["kept"],
+    properties: { choices: ["one", "two"] },
+  });
+  const page = store.listPages()[0]!;
+  page.title = "Unsaved";
+  page.tags.push("unsaved");
+  (page.properties.choices as string[]).push("three");
+  expect(store.listPages()[0]).toMatchObject({
+    title: "Original",
+    tags: ["kept"],
+    properties: { choices: ["one", "two"] },
+  });
+  const archive = JSON.parse(await store.exportData());
+  expect(archive.entities[0].entity).toMatchObject({
+    title: "Original",
+    tags: ["kept"],
+    properties: { choices: ["one", "two"] },
+  });
+});
 it("saves complete calendar drafts, database schemas, restores trash and keeps field updates independent", async () => {
   const store = await workspace();
   const a = await store.createPage("page", "First"),

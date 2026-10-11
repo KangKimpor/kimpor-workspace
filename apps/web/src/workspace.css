@@ -106,7 +106,7 @@
 .ws-page-icon { font-size: var(--text-title2); flex-shrink: 0; width: var(--space-8); text-align: center; }
 .ws-page-row-text { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; flex: 1; text-align: left; }
 .ws-page-row-text strong { font-size: var(--text-body); font-weight: 550; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ws-page-row-text > span { font-size: var(--text-caption); color: var(--secondary); }
+.ws-page-row-text > span { font-size: var(--text-caption); color: var(--secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ws-page-row.compact { padding: var(--space-2); }
 .ws-page-list.gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: var(--space-3); border: 0; background: transparent; }
 .ws-page-list.gallery .ws-page-row { flex-direction: column; align-items: flex-start; background: var(--surface); border: var(--hairline) solid var(--line); border-radius: var(--radius-card); min-height: 140px; }

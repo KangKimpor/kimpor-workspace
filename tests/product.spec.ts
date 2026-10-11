@@ -100,6 +100,33 @@ test("the command palette searches local mixed-language bodies and suppresses IM
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toHaveCount(0);
 });
+test("page mentions open after typing and persist through navigation and reload", async ({
+  page,
+}) => {
+  await note(page, "Mention destination 中文");
+  await page.getByRole("textbox", { name: "Document editor" }).fill("Destination body");
+  await navigate(page, "Notes");
+  await page.getByRole("button", { name: "New note", exact: true }).click();
+  await page.getByRole("textbox", { name: "Page title" }).fill("Mention source");
+  const editor = page.getByRole("textbox", { name: "Document editor" });
+  await editor.fill("See this page: ");
+  await editor.press("End");
+  await editor.press("@");
+  const menu = page.getByRole("group", { name: "Mention a page", exact: true });
+  await expect(menu).toBeVisible();
+  await menu.getByRole("textbox", { name: "Filter block commands" }).fill("destination");
+  await menu.getByRole("button", { name: "Mention destination 中文", exact: true }).click();
+  await expect(menu).toHaveCount(0);
+  await expect(editor.locator("a[data-page-mention]")).toHaveText("↗ Mention destination 中文");
+  await navigate(page, "Today");
+  await page.reload();
+  await page.locator("main").getByRole("button", { name: /Mention source/ }).first().click();
+  await expect(editor.locator("a[data-page-mention]")).toHaveText("↗ Mention destination 中文");
+  await editor.getByRole("link", { name: "↗ Mention destination 中文", exact: true }).click();
+  await expect(page.getByRole("textbox", { name: "Page title" })).toHaveValue("Mention destination 中文");
+  await expect(editor).toContainText("Destination body");
+  await expect(page.getByRole("heading", { name: "Backlinks", exact: true })).toBeVisible();
+});
 test("encryption rejects a wrong passphrase and keeps content after reload", async ({
   page,
 }) => {

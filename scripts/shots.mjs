@@ -2,6 +2,7 @@ import { chromium, webkit, firefox, expect } from '@playwright/test';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import sharp from 'sharp';
 const url = process.env.BASE_URL ?? 'http://127.0.0.1:4173';
+const fixtureTime = '2026-10-11T09:00:00Z';
 const matrix = [
   ['phone-small',320,640,2,'webkit'], ['iphone15-portrait',393,852,3,'webkit'],
   ['iphone15-landscape',852,393,3,'webkit'], ['ipad-portrait',820,1180,2,'webkit'],
@@ -22,26 +23,39 @@ try {
   for (const [name,width,height,dpr,engine] of matrix) {
     browsers[engine] ??= await ({chromium,webkit,firefox})[engine].launch();
     for (const theme of ['light','dark']) {
-      const context = await browsers[engine].newContext({ viewport:{width,height}, deviceScaleFactor:dpr, hasTouch:engine==='webkit', isMobile:engine==='webkit', colorScheme:theme, reducedMotion:'reduce' });
+      const context = await browsers[engine].newContext({ viewport:{width,height}, deviceScaleFactor:dpr, hasTouch:engine==='webkit', isMobile:engine==='webkit', colorScheme:theme, reducedMotion:'reduce', locale:'en-US', timezoneId:'UTC' });
       const page=await context.newPage();
+      const seedTime = offset => page.clock.setFixedTime(new Date(Date.parse(fixtureTime) + offset));
+      const navigate = async route => {
+        const tab = page.getByRole('navigation',{name:width<600?'Bottom navigation':'Main navigation',exact:true}).getByRole('button',{name:route,exact:true});
+        await tab.click();
+        await expect(tab).toHaveAttribute('aria-current','page');
+      };
+      await seedTime(-5000);
       await page.addInitScript(value=>localStorage.setItem('velora-theme',value),theme);
       await page.goto(`${url}/`,{waitUntil:'networkidle'});
-      await page.getByRole('button',{name:'Notes',exact:true}).first().click();
+      await navigate('Notes');
+      await seedTime(-4000);
       await page.getByRole('button',{name:'New note',exact:true}).click();
       await page.getByRole('textbox',{name:'Page title'}).fill('A little room for ideas');
       await page.getByRole('textbox',{name:'Document editor'}).fill('A quiet place to think.\n\nខ្មែរ · 中文 · English\n\nSmall ideas become good days.');
-      await page.getByRole('button',{name:'Workspace',exact:true}).first().click();
+      await navigate('Workspace');
+      await seedTime(-3000);
       await page.getByRole('button',{name:'New database',exact:true}).click();
       await page.getByRole('textbox',{name:'Page title'}).fill('Projects');
+      await expect(page.locator('.ws-page-detail .ws-save-state')).toHaveText('Saved');
+      await seedTime(-2000);
       await page.getByRole('button',{name:'New row',exact:true}).click();
       await page.getByRole('textbox',{name:'Document editor'}).waitFor();
       await page.getByRole('textbox',{name:'Page title'}).fill('Make room for a small idea');
       await page.getByRole('textbox',{name:'Document editor'}).fill('One small step, every day.');
-      await page.getByRole('navigation',{name:width<600?'Bottom navigation':'Main navigation',exact:true}).getByRole('button',{name:'Journal',exact:true}).click();
+      await navigate('Journal');
+      await seedTime(-1000);
       await page.getByRole('button',{name:'New journal entry',exact:true}).click();
       await page.getByRole('textbox',{name:'Page title'}).fill('A moment for myself');
       await page.getByRole('textbox',{name:'Document editor'}).fill('Today I am grateful for a little quiet.\n\nអរគុណ · 谢谢 · Thank you');
-      await page.getByRole('navigation',{name:width<600?'Bottom navigation':'Main navigation',exact:true}).getByRole('button',{name:'Calendar',exact:true}).click();
+      await navigate('Calendar');
+      await seedTime(0);
       await page.getByRole('button',{name:'New event',exact:true}).first().click();
       await page.getByLabel('Title',{exact:true}).fill('A little time to plan');
       await page.getByRole('dialog',{name:'New event',exact:true}).locator('select').first().selectOption({label:'Personal'});
@@ -96,5 +110,5 @@ try {
     }
     await sharp({create:{width:width*4,height:height*Math.ceil(tiles.length/4),channels:4,background:'#dcdce2'}}).composite(tiles).png().toFile(`docs/screenshots/contact-${screen}-${theme}.png`);
   }
-  await writeFile('docs/evidence/screenshot-matrix.json',JSON.stringify({date:new Date().toISOString(),captures:report},null,2)+'\n');
+  await writeFile('docs/evidence/screenshot-matrix.json',JSON.stringify({date:new Date().toISOString(),fixture_time:fixtureTime,locale:'en-US',time_zone:'UTC',captures:report},null,2)+'\n');
 } finally { for(const browser of Object.values(browsers)) await browser.close(); }
