@@ -58,7 +58,7 @@ read/execute grants. Files live at owner-qualified private Storage paths.
 
 Supabase Auth → Email template uses `{{ .Token }}` so installed web apps receive
 a six-digit code. Configure the actual site URL, allowed return URLs and Google
-identity provider. Desktop sign-in returns to `veloradesk://auth/callback` through
+identity provider. Desktop sign-in returns to `kimpor-workspace://auth/callback` through
 the system browser. Live native/provider exchange remains a release gate.
 
 Calendar OAuth is separate. Enable Google Calendar API, choose appropriate

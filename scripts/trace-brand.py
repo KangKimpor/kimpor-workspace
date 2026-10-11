@@ -119,7 +119,7 @@ metrics = {}
 for name, paths in concepts.items():
     converted = [curve(p) for p in paths]
     svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">'
-    svg += f'<title>VeloraDesk signature-derived monogram {name}</title><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
+    svg += f'<title>Kimpor Workspace signature-derived monogram {name}</title><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
     svg += ''.join(f'<path d="{d}"/>' for d, _ in converted) + '</g></svg>\n'
     (out/f'concept-{name}.svg').write_text(svg)
     metrics[name] = {'strokes': len(paths), 'nodes_per_stroke': [n for _, n in converted]}

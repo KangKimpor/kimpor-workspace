@@ -1329,7 +1329,7 @@ export class WorkspaceStore {
       !Array.isArray(archive.documents) ||
       !Array.isArray(archive.versions)
     )
-      throw new Error("Unsupported VeloraDesk export");
+      throw new Error("Unsupported workspace export");
     if (
       archive.entities.length > LIMIT ||
       archive.documents.length > LIMIT ||

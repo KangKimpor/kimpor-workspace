@@ -10,7 +10,7 @@ serve(async (request) => {
   )
     throw new HttpError(
       400,
-      "Calendar connection was declined. Return to VeloraDesk and try again.",
+      "Calendar connection was declined. Return to Kimpor Workspace and try again.",
     );
   const userId = await finishCalendarOAuth(
     url.searchParams.get("state")!,
@@ -18,7 +18,7 @@ serve(async (request) => {
   );
   await nudge(userId);
   return new Response(
-    '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Calendar connected</title><body><main><h1>Calendar connected</h1><p>You can close this window and return to VeloraDesk.</p></main></body></html>',
+    '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Calendar connected</title><body><main><h1>Calendar connected</h1><p>You can close this window and return to Kimpor Workspace.</p></main></body></html>',
     {
       headers: {
         "Content-Type": "text/html; charset=utf-8",

@@ -175,7 +175,7 @@ export function ApplicationLock({ children }: { children: ReactNode }) {
         <main className="ws-app-lock">
           <div className="ws-card">
             <h1>Welcome back</h1>
-            <p>Unlock VeloraDesk on this device.</p>
+            <p>Unlock Kimpor Workspace on this device.</p>
             <form
               onSubmit={(event) => {
                 event.preventDefault();

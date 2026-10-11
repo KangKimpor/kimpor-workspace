@@ -259,7 +259,7 @@ export async function exportWorkspaceZip(
   const files: Record<string, Uint8Array> = {
     "workspace.json": strToU8(await workspace.exportData()),
     "README.txt": strToU8(
-      "VeloraDesk full-data export. Import workspace.json or this ZIP in Settings. Protected pages remain encrypted; recovery credentials are not included.\n",
+      "Kimpor Workspace full-data export. Import workspace.json or this ZIP in Settings. Protected pages remain encrypted; recovery credentials are not included.\n",
     ),
   };
   for (const page of workspace.listPages(true)) {
@@ -303,7 +303,7 @@ export async function importWorkspaceZip(
   );
   if (!entries.length)
     throw new Error(
-      "No Markdown, CSV, or VeloraDesk data found in this archive",
+      "No Markdown, CSV, or Kimpor Workspace data found in this archive",
     );
   // Parse before writing; malformed CSV must not leave half of a Notion import.
   const parsed = entries.map(([name, content]) => ({

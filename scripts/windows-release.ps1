@@ -13,7 +13,7 @@ if ($env:IS_RELEASE -eq 'true') {
   $assetUrl = "https://github.com/$($env:REPOSITORY)/releases/download/$($env:RELEASE_TAG)/$([Uri]::EscapeDataString($installer.Name))"
   $manifest = @{
     version = $version
-    notes = "VeloraDesk $version. Save and sync your work before installing."
+    notes = "Kimpor Workspace $version. Save and sync your work before installing."
     pub_date = [DateTime]::UtcNow.ToString('yyyy-MM-ddTHH:mm:ssZ')
     platforms = @{ 'windows-x86_64' = @{ signature = $signature; url = $assetUrl } }
   }

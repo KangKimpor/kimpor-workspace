@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "VeloraDesk",
-  "mainBinaryName": "VeloraDesk",
+  "productName": "Kimpor Workspace",
+  "mainBinaryName": "KimporWorkspace",
   "version": "0.0.1",
   "identifier": "com.kimpor.veloradesk",
   "build": {
@@ -14,7 +14,7 @@
     "windows": [
       {
         "label": "main",
-        "title": "VeloraDesk",
+        "title": "Kimpor Workspace",
         "width": 1280,
         "height": 800,
         "minWidth": 800,
@@ -60,6 +60,7 @@
     "deep-link": {
       "desktop": {
         "schemes": [
+          "kimpor-workspace",
           "veloradesk"
         ]
       }
@@ -67,7 +68,7 @@
     "updater": {
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEMxQUVGM0Q5NjlEMkNDQ0YKUldUUHpOSnAyZk91d1JPN1c2MXA0Vy9sMDVOblRxT2MrcnNkQlVLc1BzNnVvQU5NRUFiWmxtZHoK",
       "endpoints": [
-        "https://github.com/KangKimpor/veloradesk/releases/latest/download/latest.json"
+        "https://github.com/KangKimpor/kimpor-workspace/releases/latest/download/latest.json"
       ]
     }
   }

@@ -19,7 +19,7 @@ export function parseDesktopCallback(
 ): { code: string } {
   const url = new URL(raw);
   if (
-    url.protocol !== "veloradesk:" ||
+    (url.protocol !== "kimpor-workspace:" && url.protocol !== "veloradesk:") ||
     url.hostname !== "auth" ||
     url.pathname !== "/callback" ||
     url.username ||

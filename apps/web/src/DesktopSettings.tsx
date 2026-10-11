@@ -130,7 +130,7 @@ export default function DesktopSettings() {
             onClick={() => {
               if (
                 !confirm(
-                  "Download, verify and install this update? VeloraDesk will restart.",
+                  "Download, verify and install this update? Kimpor Workspace will restart.",
                 )
               )
                 return;

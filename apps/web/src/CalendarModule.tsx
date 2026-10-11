@@ -1416,7 +1416,7 @@ export default function CalendarModule({
                   className="button outline"
                   onClick={() =>
                     platform.download(
-                      "VeloraDesk.ics",
+                      "Kimpor Workspace.ics",
                       exportIcs(events.map(providerEvent)),
                       "text/calendar",
                     )

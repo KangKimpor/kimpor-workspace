@@ -15,7 +15,7 @@ for (const directory of ['apps/web/public', 'apps/desktop/src-tauri/icons', 'bra
 await writeFile('brand/svg/mark.svg', master);
 await writeFile('brand/svg/mark-bold.svg', bold);
 await writeFile('brand/svg/mark-mono.svg', master);
-await writeFile('brand/svg/lockup.svg', `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 100"><g color="#2268BF">${innerOf(master)}</g><text x="112" y="63" font-family="Inter, system-ui, sans-serif" font-size="40" font-weight="600" letter-spacing="-1" fill="#2268BF">VeloraDesk</text></svg>`);
+await writeFile('brand/svg/lockup.svg', `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 100"><g color="#2268BF">${innerOf(master)}</g><text x="112" y="63" font-family="Inter, system-ui, sans-serif" font-size="40" font-weight="600" letter-spacing="-1" fill="#2268BF">Kimpor Workspace</text></svg>`);
 await writeFile('brand/svg/icon.svg', rounded);
 await writeFile('brand/svg/icon-fullbleed.svg', fullBleed);
 const paths = [...bold.matchAll(/<path d="([^"]+)"/g)].map(match => match[1]);
@@ -39,7 +39,7 @@ async function ico(svg, sizes, file) {
 await ico(rounded, [16, 24, 32, 48, 64, 128, 256], 'apps/desktop/src-tauri/icons/icon.ico');
 await ico(blueBold, [16, 32, 48], 'apps/web/public/favicon.ico');
 for (const [name, width, height] of [['og', 1200, 630], ['github-social', 1280, 640]]) {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect width="100%" height="100%" fill="#E7EDF5"/><svg x="64" y="110" width="220" height="220" viewBox="0 0 100 100" color="#2268BF">${inner}</svg><text x="340" y="275" font-family="sans-serif" font-size="64" font-weight="600" fill="#23232A">VeloraDesk</text><text x="345" y="340" font-family="sans-serif" font-size="28" fill="#62626C">A quieter place for everything.</text></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect width="100%" height="100%" fill="#E7EDF5"/><svg x="64" y="110" width="220" height="220" viewBox="0 0 100 100" color="#2268BF">${inner}</svg><text x="340" y="275" font-family="sans-serif" font-size="64" font-weight="600" fill="#23232A">Kimpor Workspace</text><text x="345" y="340" font-family="sans-serif" font-size="28" fill="#62626C">A quieter place for everything.</text></svg>`;
   await sharp(Buffer.from(svg)).png().toFile(`brand/exports/${name}.png`);
 }
 await sharp('brand/exports/og.png').toFile('apps/web/public/og.png');
@@ -52,8 +52,8 @@ async function bmp(svg, width, height, file) {
   for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) { const source = (y * width + x) * 3, target = 54 + (height - 1 - y) * stride + x * 3; data[target] = rgb[source + 2]; data[target + 1] = rgb[source + 1]; data[target + 2] = rgb[source]; }
   await writeFile(file, data);
 }
-await bmp(`<svg width="150" height="57" xmlns="http://www.w3.org/2000/svg"><rect width="150" height="57" fill="#E7EDF5"/><svg x="8" y="10" width="36" height="36" viewBox="0 0 100 100" color="#2268BF">${inner}</svg><text x="50" y="34" font-family="sans-serif" font-weight="600" font-size="13" fill="#23232A">VeloraDesk</text></svg>`, 150, 57, 'apps/desktop/src-tauri/icons/installer-header.bmp');
-await bmp(`<svg width="164" height="314" xmlns="http://www.w3.org/2000/svg"><rect width="164" height="314" fill="#E7EDF5"/><svg x="30" y="52" width="104" height="104" viewBox="0 0 100 100" color="#2268BF">${inner}</svg><text x="82" y="204" text-anchor="middle" font-family="sans-serif" font-weight="600" font-size="22" fill="#23232A">VeloraDesk</text><text x="82" y="236" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#62626C">A quieter place</text><text x="82" y="254" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#62626C">for everything.</text></svg>`, 164, 314, 'apps/desktop/src-tauri/icons/installer-sidebar.bmp');
+await bmp(`<svg width="150" height="57" xmlns="http://www.w3.org/2000/svg"><rect width="150" height="57" fill="#E7EDF5"/><svg x="8" y="10" width="36" height="36" viewBox="0 0 100 100" color="#2268BF">${inner}</svg><text x="50" y="25" font-family="sans-serif" font-weight="600" font-size="13" fill="#23232A">Kimpor</text><text x="50" y="42" font-family="sans-serif" font-weight="600" font-size="13" fill="#23232A">Workspace</text></svg>`, 150, 57, 'apps/desktop/src-tauri/icons/installer-header.bmp');
+await bmp(`<svg width="164" height="314" xmlns="http://www.w3.org/2000/svg"><rect width="164" height="314" fill="#E7EDF5"/><svg x="30" y="52" width="104" height="104" viewBox="0 0 100 100" color="#2268BF">${inner}</svg><text x="82" y="199" text-anchor="middle" font-family="sans-serif" font-weight="600" font-size="22" fill="#23232A">Kimpor</text><text x="82" y="226" text-anchor="middle" font-family="sans-serif" font-weight="600" font-size="22" fill="#23232A">Workspace</text><text x="82" y="264" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#62626C">A quieter place</text><text x="82" y="282" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#62626C">for everything.</text></svg>`, 164, 314, 'apps/desktop/src-tauri/icons/installer-sidebar.bmp');
 await rm('brand/exports/temporary-mark-review.png', { force: true });
 await import('./brand-review.mjs');
 console.log('Signature-derived A exported: vector masters, PWA, Apple touch, favicons, Windows, NSIS and social images.');

@@ -126,7 +126,7 @@ describe("free-tier guard", () => {
 });
 describe("desktop OAuth and CORS contract spike", () => {
   const allowed = [
-    "https://veloradesk.vercel.app",
+    "https://kimpor-workspace.vercel.app",
     "http://tauri.localhost",
     "tauri://localhost",
   ];
@@ -138,18 +138,21 @@ describe("desktop OAuth and CORS contract spike", () => {
     );
     expect(corsHeaders(null, allowed)).toBeNull();
     expect(
-      corsHeaders("https://veloradesk.vercel.app.evil.test", allowed),
+      corsHeaders("https://kimpor-workspace.vercel.app.evil.test", allowed),
     ).toBeNull();
   });
-  it("accepts a code with matching live state", () =>
-    expect(
-      parseDesktopCallback(
-        "veloradesk://auth/callback?code=abc&state=nonce",
-        "nonce",
-        200,
-        100,
-      ),
-    ).toEqual({ code: "abc" }));
+  it("accepts the current and legacy schemes with matching live state", () => {
+    for (const scheme of ["kimpor-workspace", "veloradesk"]) {
+      expect(
+        parseDesktopCallback(
+          `${scheme}://auth/callback?code=abc&state=nonce`,
+          "nonce",
+          200,
+          100,
+        ),
+      ).toEqual({ code: "abc" });
+    }
+  });
   it("rejects forged, expired, fragment and duplicate parameters", () => {
     for (const url of [
       "https://auth/callback?code=x&state=nonce",

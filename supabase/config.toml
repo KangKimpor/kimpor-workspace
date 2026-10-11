@@ -1,4 +1,4 @@
-project_id = "veloradesk"
+project_id = "kimpor-workspace"
 [functions.calendar-proxy]
 verify_jwt = false
 [functions.calendar-callback]

@@ -154,7 +154,7 @@ serve(async (request) => {
             await webpush.sendNotification(
               subscription.subscription,
               JSON.stringify({
-                title: "VeloraDesk reminder",
+                title: "Kimpor Workspace reminder",
                 body: String(values.title || "An event is coming up."),
                 url: "/calendar",
               }),

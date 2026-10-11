@@ -11,7 +11,7 @@ export async function enablePush(): Promise<string> {
   if (platform.desktop) {
     const granted = await platform.requestNotificationPermission();
     if (!granted) throw new Error("Notification permission was not granted.");
-    return "Windows notifications enabled while VeloraDesk is running.";
+    return "Windows notifications enabled while Kimpor Workspace is running.";
   }
   if (
     !("serviceWorker" in navigator) ||
@@ -19,12 +19,12 @@ export async function enablePush(): Promise<string> {
     !("Notification" in window)
   )
     throw new Error(
-      "Install VeloraDesk on your Home Screen to use notifications, or use a browser that supports Web Push.",
+      "Install Kimpor Workspace on your Home Screen to use notifications, or use a browser that supports Web Push.",
     );
   const publicKey = import.meta.env.VITE_VAPID_PUBLIC_KEY as string | undefined;
   if (!publicKey)
     throw new Error(
-      "Background reminders need cloud notification configuration. In-app reminders work while VeloraDesk is open.",
+      "Background reminders need cloud notification configuration. In-app reminders work while Kimpor Workspace is open.",
     );
   const { cloudRequest } = await import("@veloradesk/core/cloud");
   const permission = await Notification.requestPermission();
@@ -106,7 +106,7 @@ export function startReminders(
               .then((granted) => {
                 if (granted)
                   return platform.notify({
-                    title: "VeloraDesk reminder",
+                    title: "Kimpor Workspace reminder",
                     body: message,
                   });
               })

@@ -91,7 +91,7 @@ export default function SketchCanvas({ doc }: { doc: Y.Doc }) {
     );
     const link = document.createElement("a");
     link.href = url;
-    link.download = "veloradesk-sketch.svg";
+    link.download = "kimpor-workspace-sketch.svg";
     link.click();
     setTimeout(() => URL.revokeObjectURL(url), 5000);
   }

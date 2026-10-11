@@ -3,7 +3,7 @@ self.addEventListener('push', event => {
   let payload = {};
   try { payload = event.data?.json() ?? {}; } catch { /* Generic reminder for malformed payloads. */ }
   const safePath = typeof payload.url === 'string' && payload.url.startsWith('/') && !payload.url.startsWith('//') ? payload.url : './';
-  event.waitUntil(self.registration.showNotification(typeof payload.title === 'string' ? payload.title.slice(0, 160) : 'VeloraDesk reminder', {
+  event.waitUntil(self.registration.showNotification(typeof payload.title === 'string' ? payload.title.slice(0, 160) : 'Kimpor Workspace reminder', {
     body: typeof payload.body === 'string' ? payload.body.slice(0, 300) : 'An event is coming up.',
     icon: new URL('icon-192.png', self.registration.scope).href,
     badge: new URL('icon-192.png', self.registration.scope).href,

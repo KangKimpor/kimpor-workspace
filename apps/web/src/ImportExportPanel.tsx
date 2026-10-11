@@ -47,7 +47,7 @@ export default function ImportExportPanel({
           onClick={() =>
             void run(async () => {
               download(
-                "veloradesk-full-export.zip",
+                "kimpor-workspace-full-export.zip",
                 await exportWorkspaceZip(store),
                 "application/zip",
               );

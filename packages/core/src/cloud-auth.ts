@@ -194,7 +194,7 @@ export async function signInGoogle() {
     ),
   );
   const redirect = platform.desktop
-    ? new URL("veloradesk://auth/callback")
+    ? new URL("kimpor-workspace://auth/callback")
     : new URL(location.pathname, location.origin);
   redirect.searchParams.set("state", state);
   localStorage.setItem(

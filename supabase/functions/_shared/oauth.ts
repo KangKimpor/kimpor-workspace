@@ -130,7 +130,7 @@ export async function finishCalendarOAuth(
   )
     throw new HttpError(
       400,
-      "Connection request expired. Start again in VeloraDesk.",
+      "Connection request expired. Start again in Kimpor Workspace.",
     );
   const requests = (await database(
     `calendar_oauth_requests?id=eq.${encoded(claims.id)}&provider=eq.${claims.provider}&consumed_at=is.null&expires_at=gt.${encoded(new Date().toISOString())}`,

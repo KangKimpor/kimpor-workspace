@@ -3,7 +3,7 @@ $installer = Get-ChildItem apps/desktop/src-tauri/target/release/bundle/nsis/*-s
 if (!$installer) { throw 'NSIS installer not found' }
 $installation = Start-Process $installer.FullName -ArgumentList '/S' -Wait -PassThru
 if ($installation.ExitCode -ne 0) { throw "Installer failed: $($installation.ExitCode)" }
-$candidates = @("$env:LOCALAPPDATA/VeloraDesk/VeloraDesk.exe", "$env:LOCALAPPDATA/Programs/VeloraDesk/VeloraDesk.exe")
+$candidates = @("$env:LOCALAPPDATA/Kimpor Workspace/KimporWorkspace.exe", "$env:LOCALAPPDATA/Programs/Kimpor Workspace/KimporWorkspace.exe")
 $executable = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
 if (!$executable) { throw 'Installed application not found' }
 $clock = [System.Diagnostics.Stopwatch]::StartNew()
@@ -19,10 +19,10 @@ try {
   $clock.Stop()
   $evidence.native_window_ms = $clock.ElapsedMilliseconds
   if ($application.MainWindowHandle -eq 0) { throw 'No native application window appeared' }
-  if ($application.MainWindowTitle -notmatch 'VeloraDesk') { throw 'Unexpected window title' }
-  $protocol = Get-ItemProperty 'HKCU:/Software/Classes/veloradesk/shell/open/command'
+  if ($application.MainWindowTitle -notmatch 'Kimpor Workspace') { throw 'Unexpected window title' }
+  $protocol = Get-ItemProperty 'HKCU:/Software/Classes/kimpor-workspace/shell/open/command'
   if (!$protocol.'(default)') { throw 'Custom-scheme callback is not registered' }
-  $second = Start-Process $executable -ArgumentList 'veloradesk://auth/callback?code=smoke&state=smoke' -PassThru
+  $second = Start-Process $executable -ArgumentList 'kimpor-workspace://auth/callback?code=smoke&state=smoke' -PassThru
   if (!$second.WaitForExit(10000)) { throw 'Second instance did not forward and exit' }
   $application.Refresh()
   if ($application.HasExited) { throw 'Original instance exited after callback' }
@@ -65,7 +65,7 @@ try {
   if ($removal.ExitCode -ne 0) { throw "Uninstall failed: $($removal.ExitCode)" }
   for ($attempt = 0; $attempt -lt 30 -and (Test-Path $executable); $attempt++) { Start-Sleep -Milliseconds 200 }
   if (Test-Path $executable) { throw 'Installed application executable remains after uninstall' }
-  if (Test-Path 'HKCU:/Software/Classes/veloradesk/shell/open/command') { throw 'Custom-scheme registration remains after uninstall' }
+  if (Test-Path 'HKCU:/Software/Classes/kimpor-workspace/shell/open/command') { throw 'Custom-scheme registration remains after uninstall' }
   $evidence.uninstall = $true
   # Enforce published Windows budgets. The native-window metric is a lower bound
   # for full first-render readiness; physical-device checks cover the latter.

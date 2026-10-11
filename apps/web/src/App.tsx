@@ -222,7 +222,7 @@ export function App() {
       <div className="brand">
         <Logo />
         <div>
-          <strong>VeloraDesk</strong>
+          <strong>Kimpor Workspace</strong>
           <span className="caption muted">A space for your life</span>
         </div>
       </div>
@@ -614,7 +614,7 @@ export function App() {
                         className="list-row"
                         onClick={() => {
                           platform.download(
-                            "veloradesk-appearance.json",
+                            "kimpor-workspace-appearance.json",
                             JSON.stringify(
                               {
                                 format: "veloradesk-appearance-preview",
@@ -682,7 +682,7 @@ export function App() {
                       Thoughtfully taking shape.
                       <br />
                       <span className="caption muted">
-                        VeloraDesk · Foundation preview
+                        Kimpor Workspace · Foundation preview
                       </span>
                     </span>
                   </div>

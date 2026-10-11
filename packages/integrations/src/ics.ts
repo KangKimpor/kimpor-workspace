@@ -56,11 +56,11 @@ function foldIcs(line: string): string {
 function icsDate(value: string): string {
   return value.replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
 }
-export function exportIcs(events: IcsEvent[], name = "VeloraDesk"): string {
+export function exportIcs(events: IcsEvent[], name = "Kimpor Workspace"): string {
   const lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//VeloraDesk//Calendar//EN",
+    "PRODID:-//Kimpor Workspace//Calendar//EN",
     "CALSCALE:GREGORIAN",
     `X-WR-CALNAME:${escapeIcs(name)}`,
   ];

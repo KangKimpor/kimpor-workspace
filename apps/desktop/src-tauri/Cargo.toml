@@ -1,7 +1,7 @@
 [package]
 name = "veloradesk"
 version = "0.0.1"
-description = "VeloraDesk local-first workspace"
+description = "Kimpor Workspace local-first workspace"
 authors = ["KangKimpor"]
 license = "MIT"
 edition = "2021"

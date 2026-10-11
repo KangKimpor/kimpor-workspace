@@ -63,12 +63,12 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always()
         with:
-          name: VeloraDesk-windows-verification
+          name: Kimpor Workspace-windows-verification
           path: docs/evidence/windows-smoke.json
           retention-days: 7
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: VeloraDesk-windows-x64
+          name: Kimpor Workspace-windows-x64
           path: |
             apps/desktop/src-tauri/target/release/bundle/nsis/*-setup.exe
             apps/desktop/src-tauri/target/release/bundle/nsis/*.sig
@@ -85,14 +85,14 @@ jobs:
     steps:
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
         with:
-          name: VeloraDesk-windows-x64
+          name: Kimpor Workspace-windows-x64
           path: release
       - name: Publish release with signed update feed
         run: |
           feed=$(find release -name latest.json -type f -print -quit)
           test -n "$feed"
           bundle=$(dirname "$feed")
-          gh release create "$RELEASE_TAG" "$bundle"/* --repo "$REPOSITORY" --title "VeloraDesk $RELEASE_TAG" --notes "Local-first workspace. Windows installer is unsigned for Authenticode; SmartScreen may show a warning. The in-app update package has a verified Tauri updater signature. See the release evidence and device checklist for remaining verification."
+          gh release create "$RELEASE_TAG" "$bundle"/* --repo "$REPOSITORY" --title "Kimpor Workspace $RELEASE_TAG" --notes "Local-first workspace. Windows installer is unsigned for Authenticode; SmartScreen may show a warning. The in-app update package has a verified Tauri updater signature. See the release evidence and device checklist for remaining verification."
         env:
           GH_TOKEN: ${{ github.token }}
           RELEASE_TAG: ${{ github.ref_name }}

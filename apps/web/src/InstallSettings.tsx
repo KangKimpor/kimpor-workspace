@@ -41,11 +41,11 @@ export default function InstallSettings() {
   if (platform.desktop) return null;
   return (
     <section>
-      <h3>Install VeloraDesk</h3>
+      <h3>Install Kimpor Workspace</h3>
       <p>
         {installed
-          ? "VeloraDesk is installed."
-          : "Add VeloraDesk to your Home Screen for a full-screen workspace and supported background reminders."}
+          ? "Kimpor Workspace is installed."
+          : "Add Kimpor Workspace to your Home Screen for a full-screen workspace and supported background reminders."}
       </p>
       {prompt && !installed ? (
         <Pressable

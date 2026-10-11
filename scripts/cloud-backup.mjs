@@ -10,7 +10,7 @@ if(mode==='decrypt'){
   if(!input)throw new Error('Usage: node scripts/cloud-backup.mjs decrypt .private/workspace.json backup/workspace.enc');
   const file=await readFile(input);if(!file.subarray(0,magic.length).equals(magic))throw new Error('Unrecognized backup format');
   const decipher=createDecipheriv('aes-256-gcm',key,file.subarray(magic.length,magic.length+12));decipher.setAAD(magic);decipher.setAuthTag(file.subarray(magic.length+12,magic.length+28));
-  const bytes=Buffer.concat([decipher.update(file.subarray(magic.length+28)),decipher.final()]);JSON.parse(bytes.toString('utf8'));await writeFile(path,bytes,{mode:0o600});console.log('Decrypted backup written locally. Import it through VeloraDesk Settings.');
+  const bytes=Buffer.concat([decipher.update(file.subarray(magic.length+28)),decipher.final()]);JSON.parse(bytes.toString('utf8'));await writeFile(path,bytes,{mode:0o600});console.log('Decrypted backup written locally. Import it through Kimpor Workspace Settings.');
 }else if(mode==='backup'){
   const url=new URL(process.env.BACKUP_SOURCE_URL||'');if(url.protocol!=='https:'||!url.hostname.endsWith('.supabase.co')||url.username||url.password||url.pathname!=='/functions/v1/backup')throw new Error('Use your HTTPS Supabase backup endpoint');
   const secret=process.env.BACKUP_SECRET;if(!secret)throw new Error('BACKUP_SECRET is missing');

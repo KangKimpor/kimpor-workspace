@@ -74,13 +74,13 @@ pub fn run() {
             quit_application
         ])
         .setup(|app| {
-            let show = MenuItem::with_id(app, "show", "Open VeloraDesk", true, None::<&str>)?;
+            let show = MenuItem::with_id(app, "show", "Open Kimpor Workspace", true, None::<&str>)?;
             let capture = MenuItem::with_id(app, "capture", "Quick capture", true, None::<&str>)?;
             let quit = MenuItem::with_id(app, "quit", "Quit", true, None::<&str>)?;
             let menu = Menu::with_items(app, &[&show, &capture, &quit])?;
             let mut tray = TrayIconBuilder::with_id("main-tray")
                 .menu(&menu)
-                .tooltip("VeloraDesk")
+                .tooltip("Kimpor Workspace")
                 .show_menu_on_left_click(false)
                 .on_menu_event(|app, event| match event.id.as_ref() {
                     "show" => show_main(app),
@@ -124,5 +124,5 @@ pub fn run() {
             }
         })
         .run(tauri::generate_context!())
-        .expect("Unable to start VeloraDesk");
+        .expect("Unable to start Kimpor Workspace");
 }

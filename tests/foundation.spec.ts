@@ -6,6 +6,7 @@ test('theme persists, command palette supports keyboard and modal focus returns'
   await page.getByRole('button', { name: 'Dark', exact: true }).click();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.reload();
+  await expect(page.getByRole('button', { name: 'Open command palette' })).toBeVisible();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.evaluate(() => {
     window.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, isComposing: true }));
@@ -116,6 +117,7 @@ test('saved dark appearance keeps heading contrast in portrait and landscape lay
   for (const viewport of [{ width: 852, height: 393 }, { width: 820, height: 1180 }, { width: 393, height: 852 }]) {
     await page.setViewportSize(viewport);
     await page.goto('/design');
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
     // Full-page capture caused WebKit to lose inherited colors during layout.
     await page.screenshot({ fullPage: true });

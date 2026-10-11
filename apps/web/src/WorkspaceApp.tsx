@@ -835,7 +835,7 @@ export default function WorkspaceApp() {
               <span className="logo">
                 <BrandMark size={28} />
               </span>
-              <strong>VeloraDesk</strong>
+              <strong>Kimpor Workspace</strong>
               <Pressable
                 className="ws-icon ws-sidebar-close"
                 aria-label="Close sidebar"
@@ -3523,7 +3523,7 @@ function SettingsPanel({
       await flushEditors();
       const data = await store.exportData();
       platform.download(
-        `veloradesk-${localDate()}.json`,
+        `kimpor-workspace-${localDate()}.json`,
         typeof data === "string" ? data : JSON.stringify(data, null, 2),
       );
       onNotify("Workspace exported");
@@ -3703,7 +3703,7 @@ function SettingsPanel({
       <section>
         <h3>Notifications</h3>
         <p>
-          In-app reminders appear while VeloraDesk is open. Background reminders
+          In-app reminders appear while Kimpor Workspace is open. Background reminders
           require an installed web app and configured cloud notifications.
         </p>
         <div className="ws-settings-actions">
