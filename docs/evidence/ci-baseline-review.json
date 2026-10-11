@@ -48,5 +48,19 @@
     "contact-workspace-light.png"
   ],
   "known_alignment_defects": [],
-  "scope": "All 26 CI contact sheets inspected, covering 312 captures. Physical devices, live cloud services and performance budgets are separate gates."
+  "scope": "All 26 CI contact sheets inspected, covering 312 captures. Physical devices, live cloud services and performance budgets are separate gates.",
+  "reviewed_corrections": [
+    {
+      "file": "calendar-phone-small-light.png",
+      "commit": "a4ab928220c37afc92fb7d0d1b67b14f012c5fc6",
+      "run_id": 38120307797,
+      "artifact_id": 11694862205,
+      "artifact_sha256": "5be8c94945abe01ca8449847f752d28d742752dc72c311c07b83adbd29fba0ad",
+      "image_sha256": "dfbfd8ebff262032cf7ab1250f42e261b93daf70e04b04b4a7235dba4b3c05aa",
+      "capture_date": "2026-10-11T07:12:18.848Z",
+      "reviewed_at": "2026-10-11T07:20:42.256040+00:00",
+      "reason": "Original baseline captured the previous Today tab tint while Calendar was selected. Capture now waits two animation frames for the fixed WebKit navigation layer to repaint. The corrected real-runner image was inspected at full resolution and shows Calendar selected. No geometry, content, or comparison threshold was changed."
+    }
+  ],
+  "known_capture_defects": []
 }

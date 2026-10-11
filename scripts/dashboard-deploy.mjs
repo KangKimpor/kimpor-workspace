@@ -7,6 +7,7 @@ import path from 'node:path';
 // A dashboard-only deployment path when no CLI credential is connected. It
 // flattens local imports while preserving pinned Deno npm dependencies.
 const root = fileURLToPath(new URL('../', import.meta.url));
+process.chdir(root);
 const directory = path.join(root, 'supabase/dashboard');
 await mkdir(directory, { recursive: true });
 const digest = bytes => createHash('sha256').update(bytes).digest('hex');
