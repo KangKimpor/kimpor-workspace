@@ -51,6 +51,20 @@ do $$begin
  if exists(select 1 from public.sync_changes where change_id='encrypted-one') then raise exception 'Superseded ciphertext survived in the sync log';end if;
 end$$;
 reset role;
+set role service_role;
+do $$ declare
+  metadata jsonb := '{"id":"33333333-3333-4333-8333-333333333333","user_id":"11111111-1111-4111-8111-111111111111","page_id":"page-one","path":"11111111-1111-4111-8111-111111111111/33333333-3333-4333-8333-333333333333","bytes":64,"mime":"application/octet-stream","name":"fixture.enc","digest":"fixture-digest"}';
+  denied boolean := false;
+begin
+  perform public.register_attachment('11111111-1111-4111-8111-111111111111',metadata,'attachment:33333333-3333-4333-8333-333333333333');
+  perform public.register_attachment('11111111-1111-4111-8111-111111111111',metadata,'attachment:33333333-3333-4333-8333-333333333333');
+  if (select count(*) from public.attachments where id='33333333-3333-4333-8333-333333333333')<>1 then raise exception 'Attachment registration was not idempotent';end if;
+  if (select count(*) from public.sync_changes where change_id='attachment:33333333-3333-4333-8333-333333333333')<>1 then raise exception 'Attachment sync receipt duplicated';end if;
+  begin perform public.register_attachment('22222222-2222-4222-8222-222222222222',metadata,'attachment:33333333-3333-4333-8333-333333333333');
+  exception when raise_exception then denied := SQLERRM='Invalid attachment identity';end;
+  if not denied then raise exception 'Foreign attachment identity was accepted';end if;
+end$$;
+reset role;
 insert into storage.objects(bucket_id,name,metadata) values('attachments','unverifiable','{}');
 set role authenticated;
 do $$begin

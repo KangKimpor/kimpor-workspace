@@ -1,6 +1,6 @@
 {
   "mode": "Fresh project only; generated from the canonical migrations and Edge source. No credentials are embedded.",
-  "schema_sha256": "886238c4f21b36fb400ec0f7347990c2d2046f86f898fe144ef5ad3ccf3bc99e",
+  "schema_sha256": "d2e3ccdda2d4e6aa32b927f03ee5ce8e63a08751fba4ac1ca4136d50a115a8bf",
   "migrations": [
     {
       "file": "202610100001_workspace.sql",
@@ -41,6 +41,16 @@
       "file": "202610100008_compaction_cas.sql",
       "version": "202610100008",
       "sha256": "c09f470c3f6fd81467c1515a080946dffe551bb219f247eb3f45cbbd7545bdd5"
+    },
+    {
+      "file": "202610100009_extension_search_path.sql",
+      "version": "202610100009",
+      "sha256": "ef70fa071e571a7cf80e0f6336cd0c402c20b11ade733e77c87d82d4d2fee1b7"
+    },
+    {
+      "file": "202610100010_attachment_idempotency.sql",
+      "version": "202610100010",
+      "sha256": "5a5198271498b9e8a0dc9bfc0cf84ff20b129566ddd2c409a18c67a236ca0a86"
     }
   ],
   "functions": [

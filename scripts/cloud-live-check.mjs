@@ -66,9 +66,14 @@ async function main() {
     return fetch(`${base}/functions/v1/attachments`, { method: 'POST', headers: { apikey: anon, Authorization: `Bearer ${owner.token}`, Origin: 'https://kangkimpor.github.io' }, body: form, signal: AbortSignal.timeout(90000) });
   };
   await check('Real private Storage upload, exact bytes and cross-owner denial', async () => {
-    const first = await upload(a);
-    assert.equal(first.status, 200);
+    // Track the synthetic path even when a response fails after writing bytes.
     files.push(`${a.id}/${file}`);
+    const first = await upload(a);
+    if (first.status !== 200) {
+      const problem = await first.json().catch(() => ({}));
+      throw new Error(`Attachment upload returned HTTP ${first.status}: ${typeof problem.error === 'string' ? problem.error.slice(0,200) : 'no application error supplied'}`);
+    }
+    assert.equal(first.status, 200);
     assert.equal((await upload(a)).status, 200);
     const owned = await raw(`/functions/v1/attachments?id=${file}`, a.token);
     assert.equal(owned.status, 200);

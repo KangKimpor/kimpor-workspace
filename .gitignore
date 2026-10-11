@@ -26,6 +26,7 @@ docs/screenshots/
 .lighthouseci/
 docs/evidence/lighthouse/
 .private/
+supabase/.temp/
 backup/
 # Public server source is separate from private user backup artifacts.
 !supabase/functions/backup/

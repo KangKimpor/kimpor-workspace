@@ -40,7 +40,7 @@ export const query = (api, sql, parameters, readOnly = false) =>
   api('database/query', 'POST', { query: sql, read_only: readOnly, ...(parameters ? { parameters } : {}) });
 
 export async function applyReviewedSchema(api, schema, manifest) {
-  if (manifest.migrations.length !== 8 || createHash('sha256').update(schema).digest('hex') !== manifest.schema_sha256)
+  if (manifest.migrations.length !== 10 || createHash('sha256').update(schema).digest('hex') !== manifest.schema_sha256)
     throw new Error('Reviewed schema count or checksum differs');
   const state = await query(api, "select to_regclass('public.pages')::text as pages, to_regclass('supabase_migrations.schema_migrations')::text as migrations", undefined, true);
   if (!Array.isArray(state) || state.length !== 1) throw new Error('Could not verify live schema state');
@@ -55,7 +55,7 @@ export async function applyReviewedSchema(api, schema, manifest) {
       throw new Error('Existing workspace differs from the reviewed schema; use incremental CLI migrations');
   }
   const versions = await query(api, 'select version from supabase_migrations.schema_migrations order by version', undefined, true);
-  if (!Array.isArray(versions) || versions.length !== 8 || versions.some((row, i) => row.version !== manifest.migrations[i].version))
+  if (!Array.isArray(versions) || versions.length !== 10 || versions.some((row, i) => row.version !== manifest.migrations[i].version))
     throw new Error('Live migration stamps do not match');
   const tables = await query(api, "select relname as name, relrowsecurity as rls from pg_class join pg_namespace n on n.oid=relnamespace where n.nspname='public' and relkind='r' order by relname", undefined, true);
   if (!Array.isArray(tables) || tables.length < 18 || tables.some(row => row.rls !== true))
