@@ -14,8 +14,7 @@ jobs:
     timeout-minutes: 15
     env:
       SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
-      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
-      SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+      SUPABASE_PROJECT_REF: nlcpjdokfvawlpzyfytx
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
@@ -26,12 +25,17 @@ jobs:
           node-version: 24
       - name: Require the configured project
         run: |
-          test -n "$SUPABASE_ACCESS_TOKEN" && test -n "$SUPABASE_DB_PASSWORD"
+          test -n "$SUPABASE_ACCESS_TOKEN"
           test "$SUPABASE_PROJECT_REF" = 'nlcpjdokfvawlpzyfytx'
-      - run: pnpm dlx supabase@2.120.0 link --project-ref "$SUPABASE_PROJECT_REF"
-      - name: Review migration plan
-        run: pnpm dlx supabase@2.120.0 db push --dry-run
-      - name: Apply migrations and deploy functions
-        run: |
-          pnpm dlx supabase@2.120.0 db push
-          pnpm dlx supabase@2.120.0 functions deploy --import-map supabase/functions/deno.json
+      - name: Apply reviewed schema and configure the dedicated project
+        run: node scripts/cloud-management.mjs
+      - name: Deploy canonical Edge Functions through the official API
+        run: pnpm dlx supabase@2.120.0 functions deploy --project-ref "$SUPABASE_PROJECT_REF" --use-api --import-map supabase/functions/deno.json
+      - name: Verify deployed functions and real maintenance
+        run: node scripts/cloud-management.mjs --verify
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: cloud-deployment-evidence
+          path: docs/evidence/cloud-deployment.json
+          retention-days: 1
