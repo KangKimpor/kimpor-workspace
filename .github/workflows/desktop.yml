@@ -35,9 +35,9 @@ jobs:
         shell: pwsh
         env:
           RELEASE_TAG: ${{ github.ref_name }}
-          VITE_SUPABASE_URL: ${{ vars.KIMPOR_CLOUD_READY == 'true' && vars.VITE_SUPABASE_URL || '' }}
-          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.KIMPOR_CLOUD_READY == 'true' && vars.VITE_SUPABASE_PUBLISHABLE_KEY || '' }}
-          VITE_VAPID_PUBLIC_KEY: ${{ vars.VITE_VAPID_PUBLIC_KEY }}
+          VITE_SUPABASE_URL: ${{ vars.KIMPOR_CLOUD_READY != 'false' && vars.VITE_SUPABASE_URL || '' }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.KIMPOR_CLOUD_READY != 'false' && vars.VITE_SUPABASE_PUBLISHABLE_KEY || '' }}
+          VITE_VAPID_PUBLIC_KEY: ${{ vars.VITE_VAPID_PUBLIC_KEY || 'BDUcFBWQAJcPeiuPcWNoDeLDPee6-gAnXwezubAT437DBU4znP0bgaQz72164Ia3l2gho2K3x_rb3pFifvEfZ_0' }}
           IS_RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
           TAURI_SIGNING_PRIVATE_KEY: ${{ startsWith(github.ref, 'refs/tags/v') && secrets.TAURI_SIGNING_PRIVATE_KEY || '' }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ startsWith(github.ref, 'refs/tags/v') && secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD || '' }}
