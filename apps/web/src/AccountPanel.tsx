@@ -1,4 +1,4 @@
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { Pressable } from "@veloradesk/ui";
 import {
   cloudConfig,
@@ -6,6 +6,7 @@ import {
   verifyEmailCode,
   signInGoogle,
   signOut,
+  availableAuthProviders,
 } from "@veloradesk/core/cloud-auth";
 import {
   cloudRequest,
@@ -26,6 +27,16 @@ export default function AccountPanel() {
   const [message, setMessage] = useState("");
   const [adopt, setAdopt] = useState(true);
   const [usage, setUsage] = useState<CloudUsage | null>(null);
+  const [google, setGoogle] = useState(false);
+  useEffect(() => {
+    let active = true;
+    if (cloudConfig())
+      void availableAuthProviders().then(
+        (providers) => { if (active) setGoogle(providers.google); },
+        () => {},
+      );
+    return () => { active = false; };
+  }, []);
   const run = async (action: () => Promise<unknown>) => {
     setBusy(true);
     setMessage("");
@@ -160,7 +171,7 @@ export default function AccountPanel() {
             />
             Sync this device’s workspace after signing in
           </label>
-          <Pressable
+          {google && <Pressable
             className="ws-button ws-tinted"
             disabled={busy}
             onClick={() =>
@@ -172,19 +183,19 @@ export default function AccountPanel() {
             }
           >
             Sign in with Google
-          </Pressable>
+          </Pressable>}
           <form
             onSubmit={(event) => {
               event.preventDefault();
               void run(async () => {
-                if (sent) {
-                  await flushEditors();
-                  adoptLocalOnNextSignIn(adopt);
+                await flushEditors();
+                adoptLocalOnNextSignIn(adopt);
+                if (sent && code) {
                   await verifyEmailCode(email, code);
                 } else {
                   await sendEmailCode(email);
                   setSent(true);
-                  setMessage("Enter the six-digit code from your email.");
+                  setMessage("Open the sign-in link in your email on this device.");
                 }
               });
             }}
@@ -202,7 +213,7 @@ export default function AccountPanel() {
             </label>
             {sent && (
               <label className="ws-field-label">
-                Six-digit email code
+                Email code (if provided)
                 <input
                   className="ws-input"
                   inputMode="numeric"
@@ -210,13 +221,12 @@ export default function AccountPanel() {
                   pattern="[0-9]{6}"
                   maxLength={6}
                   value={code}
-                  required
                   onChange={(event) => setCode(event.target.value)}
                 />
               </label>
             )}
             <Pressable type="submit" className="ws-button" disabled={busy}>
-              {busy ? "Working…" : sent ? "Verify code" : "Send email code"}
+              {busy ? "Working…" : sent && code ? "Verify code" : sent ? "Resend email" : "Send sign-in email"}
             </Pressable>
             {sent && (
               <Pressable

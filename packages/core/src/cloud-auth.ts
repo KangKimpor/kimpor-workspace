@@ -151,7 +151,13 @@ export function onSessionChange(listener: Listener): () => void {
 export async function sendEmailCode(email: string) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
     throw new Error("Enter a valid email address");
-  await authRequest("otp", { email: email.trim(), create_user: true });
+  const { redirect, challenge } = await preparePKCE();
+  await authRequest(`otp?redirect_to=${encodeURIComponent(redirect.href)}`, {
+    email: email.trim(),
+    create_user: true,
+    code_challenge: challenge,
+    code_challenge_method: "s256",
+  });
 }
 export async function verifyEmailCode(email: string, token: string) {
   if (!/^\d{6}$/.test(token))
@@ -159,6 +165,7 @@ export async function verifyEmailCode(email: string, token: string) {
   const session = sessionFrom(
     await authRequest("verify", { email: email.trim(), token, type: "email" }),
   );
+  localStorage.removeItem(PKCE_KEY);
   saveSession(session);
   return session;
 }
@@ -184,8 +191,8 @@ function base64Url(bytes: Uint8Array) {
     .replace(/\//g, "_")
     .replace(/=+$/, "");
 }
-export async function signInGoogle() {
-  const config = requireConfig();
+async function preparePKCE() {
+  requireConfig();
   const verifier = base64Url(crypto.getRandomValues(new Uint8Array(32)));
   const state = base64Url(crypto.getRandomValues(new Uint8Array(24)));
   const challenge = base64Url(
@@ -206,6 +213,21 @@ export async function signInGoogle() {
       redirect: redirect.href,
     }),
   );
+  return { redirect, challenge };
+}
+export async function availableAuthProviders(): Promise<{ google: boolean }> {
+  const config = requireConfig();
+  const response = await fetch(`${config.url}/auth/v1/settings`, {
+    headers: { apikey: config.key },
+    signal: AbortSignal.timeout(10000),
+  });
+  if (!response.ok) throw new Error("Sign-in settings are unavailable");
+  const settings = (await response.json()) as { external?: { google?: boolean } };
+  return { google: settings.external?.google === true };
+}
+export async function signInGoogle() {
+  const config = requireConfig();
+  const { redirect, challenge } = await preparePKCE();
   const url = new URL(`${config.url}/auth/v1/authorize`);
   url.search = new URLSearchParams({
     provider: "google",

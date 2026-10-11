@@ -96,8 +96,8 @@
       "name": "maintenance",
       "entry": "functions/maintenance/index.js",
       "source_sha256": "83a1b25e311413d6afb07be85f5c5b076a0184f1ade36d753b71ec1da0431126",
-      "bundle_sha256": "fa02ed3608b5e3dda3b05d786e2d00d28b1705b45c72b56fbe603e3f4e992583",
-      "bytes": 53331,
+      "bundle_sha256": "87552c90822dc2d8207e7d6619db638fd9f6ad58268d9a871b3d4463681edcee",
+      "bytes": 53412,
       "verify_jwt": false
     },
     {

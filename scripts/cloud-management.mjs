@@ -64,6 +64,7 @@ export async function applyReviewedSchema(api, schema, manifest) {
 }
 
 export async function configureAuth(api) {
+  const previous = await api('config/auth');
   const desired = {
     site_url: siteUrl,
     uri_allow_list: `${siteUrl}**,kimpor-workspace://auth/callback**,veloradesk://auth/callback**`,
@@ -72,22 +73,29 @@ export async function configureAuth(api) {
     external_email_enabled: true,
     mailer_otp_length: 6,
     mailer_otp_exp: 600,
+  };
+  // Free projects using the default sender cannot customize email templates.
+  // Keep their PKCE sign-in links usable; codes need an existing custom sender.
+  if (previous.smtp_host) Object.assign(desired, {
     mailer_subjects_confirmation: 'Your Kimpor Workspace code',
     mailer_subjects_magic_link: 'Your Kimpor Workspace code',
     mailer_templates_confirmation_content: '<h2>Kimpor Workspace</h2><p>Your sign-in code is <strong>{{ .Token }}</strong>.</p><p>This code expires in 10 minutes. Keep it private.</p>',
     mailer_templates_magic_link_content: '<h2>Kimpor Workspace</h2><p>Your sign-in code is <strong>{{ .Token }}</strong>.</p><p>This code expires in 10 minutes. Keep it private.</p>',
-  };
+  });
   await api('config/auth', 'PATCH', desired);
   const actual = await api('config/auth');
   if (Object.entries(desired).some(([key, value]) => actual[key] !== value)) throw new Error('Saved Auth configuration differs');
-  return { site_url: actual.site_url, redirects: actual.uri_allow_list.split(','), email_codes: 6, code_expiry_seconds: 600, email_confirmation: true, anonymous_signin: false, google_enabled: actual.external_google_enabled === true, delivery_tested: false };
+  const codeTemplates = ['mailer_templates_confirmation_content', 'mailer_templates_magic_link_content'].every(key => actual[key]?.includes('{{ .Token }}'));
+  return { site_url: actual.site_url, redirects: actual.uri_allow_list.split(','), email_codes: 6, code_expiry_seconds: 600, email_confirmation: true, anonymous_signin: false, google_enabled: actual.external_google_enabled === true, custom_smtp: Boolean(actual.smtp_host), email_mode: codeTemplates ? 'code' : 'link', default_sender_restricted_to_team: !actual.smtp_host, delivery_tested: false };
 }
 
 export async function configureServer(api) {
   const names = new Set((await api('secrets')).map(row => row.name));
   const available = await query(api, "select to_regclass('vault.decrypted_secrets')::text as vault", undefined, true);
   if (!available[0]?.vault) await query(api, 'create schema if not exists vault; create extension if not exists supabase_vault with schema vault;');
-  const vault = new Map((await query(api, "select name,decrypted_secret from vault.decrypted_secrets where name in ('kimpor_credential_encryption_key','kimpor_oauth_state_secret','velora_maintenance_secret','kimpor_vapid_private_key','kimpor_vapid_public_key')", undefined, true)).map(row => [row.name, row.decrypted_secret]));
+  // Vault decryption needs the administrative role. The API's read-only role
+  // intentionally cannot decrypt; do not grant it additional permissions.
+  const vault = new Map((await query(api, "select name,decrypted_secret from vault.decrypted_secrets where name in ('kimpor_credential_encryption_key','kimpor_oauth_state_secret','velora_maintenance_secret','kimpor_vapid_private_key','kimpor_vapid_public_key')")).map(row => [row.name, row.decrypted_secret]));
   const secrets = [];
   const keep = async (name, vaultName, make) => {
     if (names.has(name)) {
@@ -139,7 +147,7 @@ async function main() {
   if (process.argv.includes('--verify')) {
     report = JSON.parse(await readFile(reportPath, 'utf8'));
     report.functions = await verifyFunctions(api, manifest);
-    const values = await query(api, "select decrypted_secret from vault.decrypted_secrets where name='velora_maintenance_secret' limit 1", undefined, true);
+    const values = await query(api, "select decrypted_secret from vault.decrypted_secrets where name='velora_maintenance_secret' limit 1");
     const secret = values[0]?.decrypted_secret;
     if (!secret) throw new Error('Maintenance private configuration is missing');
     for (const name of ['keepalive', 'maintenance']) {
@@ -160,7 +168,7 @@ async function main() {
   report.source_commit = process.env.GITHUB_SHA ?? null;
   await mkdir(path.dirname(reportPath), { recursive: true });
   await writeFile(reportPath, JSON.stringify(report, null, 2) + '\n');
-  console.log(process.argv.includes('--verify') ? 'Eight deployed functions, live keepalive and maintenance verified.' : 'Reviewed schema, six-digit Auth, server secrets and maintenance schedule saved.');
+  console.log(process.argv.includes('--verify') ? 'Eight deployed functions, live keepalive and maintenance verified.' : 'Reviewed schema, Auth settings, server secrets and maintenance schedule saved.');
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

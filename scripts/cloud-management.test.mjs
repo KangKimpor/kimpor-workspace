@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { managementApi, projectRef, verifyProject, applyReviewedSchema } from './cloud-management.mjs';
+import { managementApi, projectRef, verifyProject, applyReviewedSchema, configureAuth } from './cloud-management.mjs';
 const privateFixture = 'sbp_' + 'x'.repeat(40);
 
 test('deployment rejects another project before any network request', () => {
@@ -40,4 +40,18 @@ test('partial or unrecognized live migration history refuses schema writes', asy
 test('changed schema bytes refuse deployment before database access', async () => {
   const manifest = JSON.parse(await readFile(new URL('../supabase/dashboard/manifest.json', import.meta.url), 'utf8'));
   await assert.rejects(applyReviewedSchema(() => { throw Error('Network must not run'); }, 'changed', manifest), /checksum differs/);
+});
+
+test('default free email sender keeps link templates and reports its delivery restriction', async () => {
+  let settings = { smtp_host: '', mailer_templates_magic_link_content: '{{ .ConfirmationURL }}', mailer_templates_confirmation_content: '{{ .ConfirmationURL }}' };
+  const report = await configureAuth(async (_path, method, body) => {
+    if (method === 'PATCH') {
+      assert.equal(Object.keys(body).some(key => key.startsWith('mailer_templates_') || key.startsWith('mailer_subjects_')), false);
+      settings = { ...settings, ...body };
+    }
+    return settings;
+  });
+  assert.equal(report.email_mode, 'link');
+  assert.equal(report.default_sender_restricted_to_team, true);
+  assert.equal(report.delivery_tested, false);
 });

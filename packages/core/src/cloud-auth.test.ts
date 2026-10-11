@@ -78,10 +78,15 @@ it("uses six-digit email codes and propagates provider failures", async () => {
   expect(fetcher).not.toHaveBeenCalled();
   fetcher.mockResolvedValueOnce(response({}));
   await auth.sendEmailCode(" me@example.test ");
-  expect(JSON.parse(fetcher.mock.calls[0]![1].body)).toEqual({
+  expect(JSON.parse(fetcher.mock.calls[0]![1].body)).toMatchObject({
     email: "me@example.test",
     create_user: true,
+    code_challenge_method: "s256",
   });
+  const pending = JSON.parse(saved.get("velora-pkce-v1")!);
+  const sent = new URL(fetcher.mock.calls[0]![0]);
+  expect(sent.searchParams.get("redirect_to")).toBe(pending.redirect);
+  expect(JSON.parse(fetcher.mock.calls[0]![1].body).code_challenge).not.toBe(pending.verifier);
   const listener = vi.fn();
   const cleanup = auth.onSessionChange(listener);
   fetcher.mockResolvedValueOnce(response(session));
@@ -90,6 +95,7 @@ it("uses six-digit email codes and propagates provider failures", async () => {
   );
   expect(listener).toHaveBeenLastCalledWith(session);
   expect(await auth.currentSession()).toEqual(session);
+  expect(saved.has("velora-pkce-v1")).toBe(false);
   cleanup();
   for (const error of [
     { msg: "Slow down" },
@@ -103,6 +109,20 @@ it("uses six-digit email codes and propagates provider failures", async () => {
   await expect(
     auth.verifyEmailCode("me@example.test", "123456"),
   ).rejects.toThrow("Invalid sign-in");
+});
+it("accepts a state-bound PKCE email link and reports enabled providers", async () => {
+  const auth = await import("./cloud-auth");
+  fetcher.mockResolvedValueOnce(response({}));
+  await auth.sendEmailCode("me@example.test");
+  const pending = JSON.parse(saved.get("velora-pkce-v1")!);
+  await expect(auth.consumeAuthRedirect(`${pending.redirect}&code=email-code&state=wrong`)).rejects.toThrow();
+  fetcher.mockResolvedValueOnce(response(session));
+  expect(await auth.consumeAuthRedirect(`${pending.redirect}&code=email-code`)).toEqual(session);
+  expect(JSON.parse(fetcher.mock.calls[1]![1].body)).toEqual({ auth_code: "email-code", code_verifier: pending.verifier });
+  fetcher.mockResolvedValueOnce(response({ external: { google: false } }));
+  expect(await auth.availableAuthProviders()).toEqual({ google: false });
+  fetcher.mockResolvedValueOnce(response({ external: { google: true } }));
+  expect(await auth.availableAuthProviders()).toEqual({ google: true });
 });
 it("refreshes once for concurrent calls and never resurrects a signed-out session", async () => {
   const auth = await import("./cloud-auth");

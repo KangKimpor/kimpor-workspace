@@ -1,6 +1,6 @@
 import * as Y from "npm:yjs@13.6.33";
 import webpush from "npm:web-push@3.6.7";
-import { RRule } from "npm:rrule@2.8.1";
+import * as recurrence from "npm:rrule@2.8.1";
 import "npm:chrono-node@2.10.2";
 //#region supabase/functions/_shared/runtime.ts
 var env = (name) => {
@@ -1104,6 +1104,7 @@ async function pollCalendars() {
 }
 //#endregion
 //#region packages/integrations/src/calendar.ts
+var { RRule } = "default" in recurrence ? recurrence.default : recurrence;
 var DAY = 864e5;
 function validateRecurrence(rule) {
 	if (!rule.trim()) return "";

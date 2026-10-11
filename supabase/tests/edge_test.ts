@@ -8,6 +8,7 @@ import {
   fetchPublic,
 } from "../functions/_shared/network.ts";
 import { seal, unseal } from "../functions/_shared/credentials.ts";
+import { expandEvents } from "../../packages/integrations/src/calendar.ts";
 function assert(value: unknown, message = "Assertion failed"): asserts value {
   if (!value) throw new Error(message);
 }
@@ -20,6 +21,17 @@ async function rejects(action: () => unknown | Promise<unknown>) {
   }
   assert(failed, "Expected rejection");
 }
+Deno.test("the deployed Deno calendar runtime expands recurrence across a DST change", () => {
+  const occurrences = expandEvents([{
+    id: "runtime-fixture", title: "Reminder", start: "2026-03-07T14:00:00Z",
+    end: "2026-03-07T15:00:00Z", allDay: false,
+    startZone: "America/New_York", endZone: "America/New_York",
+    recurrence: "FREQ=DAILY;COUNT=2", exceptions: [],
+  }], "2026-03-07T00:00:00Z", "2026-03-10T00:00:00Z");
+  assert(occurrences.length === 2);
+  assert(occurrences[0]?.start === "2026-03-07T14:00:00.000Z");
+  assert(occurrences[1]?.start === "2026-03-08T13:00:00.000Z");
+});
 Deno.test(
   "provider credentials are authenticated to their owner and tampering never reveals them",
   async () => {

@@ -1,5 +1,11 @@
-import { RRule } from "rrule";
+import * as recurrence from "rrule";
+import type { RRule as RecurrenceRule } from "rrule";
 import { parse } from "chrono-node";
+// The browser resolves rrule's ESM entry; Deno resolves its CommonJS entry.
+// Its UMD wrapper exposes the latter through default instead of named exports.
+const { RRule } = ("default" in recurrence
+  ? recurrence.default
+  : recurrence) as typeof recurrence;
 import {
   addDays,
   pseudoUtc,
@@ -114,7 +120,7 @@ export function validateRecurrence(rule: string): string {
     throw new Error("Recurrence interval must be positive.");
   return normalized;
 }
-function eventRule(event: EventRecord): RRule {
+function eventRule(event: EventRecord): RecurrenceRule {
   const options = RRule.parseString(validateRecurrence(event.recurrence));
   const dtstart = new Date(
     pseudoUtc(
