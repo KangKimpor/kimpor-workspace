@@ -1,0 +1,4 @@
+Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.
+chromium: Confirmation callback strips unsolicited fragments and shows device sign-in guidance without adopting a session.
+Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.
+webkit: Confirmation callback strips unsolicited fragments and shows device sign-in guidance without adopting a session.

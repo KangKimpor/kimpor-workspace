@@ -1,0 +1,21 @@
+
+Running 4 tests using 2 workers
+
+(node:77591) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.
+(node:77592) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.
+  ✓  1 [chromium] › tests/navigation.spec.ts:74:1 › imported timed dates display their stated day without losing the original value (3.3s)
+(node:77850) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.
+  ✓  2 [webkit] › tests/navigation.spec.ts:74:1 › imported timed dates display their stated day without losing the original value (5.0s)
+(node:78058) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.
+  ✓  3 [firefox] › tests/navigation.spec.ts:74:1 › imported timed dates display their stated day without losing the original value (7.4s)
+  ✓  4 [phone-webkit] › tests/navigation.spec.ts:74:1 › imported timed dates display their stated day without losing the original value (7.2s)
+
+  4 passed (15.1s)

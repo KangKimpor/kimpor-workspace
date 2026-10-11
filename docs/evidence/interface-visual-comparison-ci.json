@@ -1,0 +1,2503 @@
+{
+  "date": "2026-10-11T17:33:25.958Z",
+  "threshold": 0.1,
+  "maxChangedPixelRatio": 0.001,
+  "comparisons": [
+    {
+      "name": "today-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-phone-small-light.png",
+      "width": 640,
+      "height": 6018,
+      "changed": 1809,
+      "ratio": 0.0004696846959122632,
+      "passed": true
+    },
+    {
+      "name": "editor-phone-small-light.png",
+      "width": 640,
+      "height": 2726,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-phone-small-dark.png",
+      "width": 640,
+      "height": 6018,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-phone-small-dark.png",
+      "width": 640,
+      "height": 2726,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 7983,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 3609,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 7983,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 3609,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 1969,
+      "ratio": 0.0006533878608565918,
+      "passed": true
+    },
+    {
+      "name": "workspace-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 8142,
+      "changed": 4304,
+      "ratio": 0.0002068141813022297,
+      "passed": true
+    },
+    {
+      "name": "editor-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 3255,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 8142,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 3255,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 5506,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 5506,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 3862,
+      "changed": 1809,
+      "ratio": 0.00019847887719544628,
+      "passed": true
+    },
+    {
+      "name": "editor-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 2118,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 306,
+      "ratio": 0.00007906159570070278,
+      "passed": true
+    },
+    {
+      "name": "notes-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 3862,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 2118,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 5494,
+      "changed": 1809,
+      "ratio": 0.00043902439024390245,
+      "passed": true
+    },
+    {
+      "name": "editor-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 2592,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 5494,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 2592,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 5468,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 2220,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 5468,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 2220,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-window-min-light.png",
+      "width": 1000,
+      "height": 3441,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-window-min-light.png",
+      "width": 1000,
+      "height": 1388,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 65,
+      "ratio": 0.00008666666666666667,
+      "passed": true
+    },
+    {
+      "name": "database-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-window-min-dark.png",
+      "width": 1000,
+      "height": 3441,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-window-min-dark.png",
+      "width": 1000,
+      "height": 1388,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-laptop-light.png",
+      "width": 1920,
+      "height": 2414,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-laptop-light.png",
+      "width": 1920,
+      "height": 1348,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-laptop-dark.png",
+      "width": 1920,
+      "height": 2414,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-laptop-dark.png",
+      "width": 1920,
+      "height": 1348,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-desktop-light.png",
+      "width": 1920,
+      "height": 1931,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-desktop-dark.png",
+      "width": 1920,
+      "height": 1931,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 196,
+      "ratio": 0.0000945216049382716,
+      "passed": true
+    },
+    {
+      "name": "workspace-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1931,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 72,
+      "ratio": 0.00003472222222222222,
+      "passed": true
+    },
+    {
+      "name": "notes-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1931,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-wide-light.png",
+      "width": 2560,
+      "height": 1931,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "today-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "calendar-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "notes-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "note-detail-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "journal-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "workspace-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "database-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "settings-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "search-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "design-wide-dark.png",
+      "width": 2560,
+      "height": 1931,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "editor-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "about-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    },
+    {
+      "name": "palette-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "changed": 0,
+      "ratio": 0,
+      "passed": true
+    }
+  ]
+}

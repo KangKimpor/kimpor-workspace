@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { createRequire } from "node:module";
 import { readFile } from "node:fs/promises";
-const { zipSync, strToU8 } = createRequire(new URL("../packages/core/package.json", import.meta.url))("fflate");
+const { zipSync, strToU8, unzipSync, strFromU8 } = createRequire(new URL("../packages/core/package.json", import.meta.url))("fflate");
 test.setTimeout(90_000);
 
 test("sidebar collapse and phone back gestures retain pending edits; phone sheets resize by keyboard", async ({ page }) => {
@@ -69,4 +69,48 @@ test("a Notion ZIP opens nested pages and downloads its actual embedded file", a
   await expect(link).toBeVisible();
   const [download] = await Promise.all([page.waitForEvent("download"), link.click()]);
   expect(await readFile((await download.path())!)).toEqual(bytes);
+});
+
+test("imported timed dates display their stated day without losing the original value", async ({ page }) => {
+  const phone = page.viewportSize()!.width < 600;
+  const timestamp = "2026-12-10T23:30:00-07:00";
+  const date = "2026-10-11T09:00:00Z";
+  const databaseId = "imported-date-database";
+  const base = {
+    userId: "local", parentId: null, favorite: false, tags: [], icon: "", cover: "",
+    fullWidth: false, date: null, databaseId: null, properties: {},
+    createdAt: date, updatedAt: date, deletedAt: null,
+  };
+  const archive = {
+    format: "veloradesk", version: 1, exportedAt: date, documents: [], versions: [],
+    entities: [
+      { table: "pages", entity: { ...base, id: databaseId, type: "database", title: "Imported date database", databaseId } },
+      { table: "databases", entity: {
+        id: databaseId, userId: "local", createdAt: date, updatedAt: date, deletedAt: null,
+        properties: [{ id: "title", name: "Title", type: "title" }, { id: "due", name: "Due date", type: "date" }],
+        views: [{ id: "table", name: "Table", type: "table" }],
+      } },
+      { table: "pages", entity: { ...base, id: "imported-date-row", type: "row", title: "Imported timed task", parentId: databaseId, databaseId, properties: { due: timestamp } } },
+    ],
+  };
+  await page.goto("/");
+  const settings = async () => {
+    if (phone) await page.getByRole("button", { name: "Open sidebar", exact: true }).click();
+    await page.getByRole("button", { name: "Settings", exact: true }).click();
+  };
+  await settings();
+  const zip = zipSync({ "workspace.json": strToU8(JSON.stringify(archive)) });
+  await page.getByLabel("Import portable files", { exact: true }).setInputFiles({ name: "dated-workspace.zip", mimeType: "application/zip", buffer: Buffer.from(zip) });
+  await expect(page.getByText("File imported.", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Close Settings", exact: true }).click();
+  await page.getByRole("tree").getByRole("button", { name: "Imported date database", exact: true }).click();
+  await expect(page.getByLabel("Due date", { exact: true })).toHaveValue("2026-12-10");
+  await settings();
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    page.getByRole("button", { name: "Export full ZIP", exact: true }).click(),
+  ]);
+  const files = unzipSync(new Uint8Array(await readFile((await download.path())!)));
+  const exported = JSON.parse(strFromU8(files["workspace.json"]));
+  expect(exported.entities.find((entry: { table: string; entity: { id: string } }) => entry.table === "pages" && entry.entity.id === "imported-date-row").entity.properties.due).toBe(timestamp);
 });

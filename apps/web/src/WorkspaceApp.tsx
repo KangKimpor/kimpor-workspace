@@ -2682,7 +2682,7 @@ function PropertyInput({
                   ? "tel"
                   : "text"
       }
-      value={String(value ?? "")}
+      value={property.type === "date" ? String(value ?? "").slice(0, 10) : String(value ?? "")}
       onChange={(event) =>
         onChange(
           property.type === "number"

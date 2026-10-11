@@ -17,8 +17,8 @@
   "responsive_review": "All 30 managed-browser captures reviewed in contact sheet; no horizontal document overflow. Phone default toolbar has five controls; advanced controls open/collapse. Journal create/continue and Calendar main event action work.",
   "physical_devices_verified": false,
   "ci_browser_step": {
-    "run": 38158453661,
-    "source": "0444c75608af40dd510846862e160908837e573c",
+    "run": 38159572774,
+    "source": "07d6a5746812412b6876dbdd31228d55a073d688",
     "status": "passed",
     "cases": 76
   },
@@ -32,18 +32,27 @@
   },
   "baseline_review": "interface-baseline-review.json",
   "windows": {
-    "run": 38158453670,
+    "run": 38159572847,
+    "source": "07d6a5746812412b6876dbdd31228d55a073d688",
     "functional_checks": "passed",
-    "working_set_bytes": 402972672,
+    "working_set_bytes": 400715776,
     "memory_budget_bytes": 157286400,
     "memory_gate": "failed"
   },
   "app_startup_regression": "Confirmation guidance survives asynchronous initial account binding; successful sign-in clears it. Browser reproduction failed before the fix and passes on the configured production build after it.",
   "visual_followup": {
-    "run": 38158453661,
-    "passed": 311,
+    "run": 38159572774,
+    "status": "passed",
+    "passed": 312,
     "total": 312,
-    "capture_defect": "Calendar landscape WebKit retained previous navigation text tint during the Pressable JavaScript spring; screenshot capture now waits for navigation transform and opacity to return to rest. No baseline or threshold relaxation."
+    "threshold_unchanged": true
   },
-  "current_migration": "All 66 imported pages and 62 documents remain present in snapshots/updates; fresh pull passes. Later edits are preserved and are not overwritten by the archived source."
+  "current_migration": "All 66 imported pages and 62 documents remain present in snapshots/updates; fresh pull passes. Later edits are preserved and are not overwritten by the archived source.",
+  "unit_tests": 67,
+  "web_startup_regressions": 1,
+  "timed_imported_date_regression": {
+    "profiles": 4,
+    "status": "passed",
+    "behavior": "Timed ISO dates show their original stated day in date controls; full timestamp and offset remain unchanged in exported data."
+  }
 }

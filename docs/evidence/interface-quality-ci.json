@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-11",
+  "source_commit": "07d6a5746812412b6876dbdd31228d55a073d688",
+  "quality_run": 38159572774,
+  "quality_status": "passed",
+  "browser_cases": 76,
+  "unit_cases": 67,
+  "core_unit_cases": 66,
+  "core_line_coverage_percent": 88.29,
+  "visual_comparisons": 312,
+  "visual_passed": 312,
+  "maxChangedPixelRatio": 0.001,
+  "pixelmatch_threshold": 0.1,
+  "artifact_id": 11710295009,
+  "artifact_sha256": "5b1c845906fea2bb8b6528f19c1ad3d371197b7d2c6054e0591f3f04676c18ca",
+  "codeql_run": 38159572972,
+  "codeql_status": "passed",
+  "pages_run": 38160155200,
+  "pages_status": "passed",
+  "physical_devices_verified": false
+}
