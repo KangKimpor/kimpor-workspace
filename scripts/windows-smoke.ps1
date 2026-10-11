@@ -7,27 +7,8 @@ $candidates = @("$env:LOCALAPPDATA/Kimpor Workspace/KimporWorkspace.exe", "$env:
 $executable = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
 if (!$executable) { throw 'Installed application not found' }
 $clock = [System.Diagnostics.Stopwatch]::StartNew()
-$previousBrowserArgs = $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS
-# Use the SDK's documented per-app registry override on this disposable runner.
-# Environment overrides were absent from the actual WebView2 child flags.
-# https://learn.microsoft.com/microsoft-edge/webview2/reference/win32/webview2-idl
-$debugPolicy = 'HKCU:/Software/Policies/Microsoft/Edge/WebView2/AdditionalBrowserArguments'
-$policyExisted = Test-Path $debugPolicy
-$policyNames = @('KimporWorkspace.exe', 'com.kimpor.veloradesk')
-$policyBackup = @{}
-foreach ($name in $policyNames) {
-  $key = if ($policyExisted) { Get-Item $debugPolicy } else { $null }
-  $exists = $key -and ($key.GetValueNames() -contains $name)
-  $policyBackup[$name] = if ($exists) { @{ value = $key.GetValue($name); kind = $key.GetValueKind($name) } } else { $null }
-}
-New-Item -Path $debugPolicy -Force | Out-Null
-foreach ($name in $policyNames) {
-  New-ItemProperty -Path $debugPolicy -Name $name -PropertyType String -Value '--remote-debugging-port=9222' -Force | Out-Null
-}
-$env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS = $null
 $startInfo = [System.Diagnostics.ProcessStartInfo]::new($executable)
 $startInfo.UseShellExecute = $false
-[void]$startInfo.Environment.Remove('WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS')
 $application = $null
 $evidence = @{ runner = $env:RUNNER_OS; measured_at = [DateTime]::UtcNow.ToString('o'); installer = $installer.Name }
 try {
@@ -71,10 +52,10 @@ try {
     foreach ($item in $processes) { if ($tree.Contains([int]$item.ParentProcessId) -and $tree.Add([int]$item.ProcessId)) { $added = $true } }
   } while ($added)
   $processes | Where-Object { $tree.Contains([int]$_.ProcessId) } | Select-Object Name,CommandLine | ConvertTo-Json -Depth 4 | Set-Content 'docs/evidence/windows-webview-diagnostics.json' -Encoding utf8NoBOM
-  node scripts/windows-ui-check.mjs
-  if ($LASTEXITCODE -ne 0) { throw 'Installed workspace rendering/persistence check failed' }
+  . ./scripts/windows-ui-check.ps1
+  $application = Invoke-InstalledWorkspaceCheck $application $executable ([DateTime]::Parse($evidence.measured_at))
   $evidence.rendered_workspace = $true
-  $evidence.multilingual_note_reload = $true
+  $evidence.multilingual_note_restart = $true
   $protocol = Get-ItemProperty 'HKCU:/Software/Classes/kimpor-workspace/shell/open/command'
   if (!$protocol.'(default)') { throw 'Custom-scheme callback is not registered' }
   $second = Start-Process $executable -ArgumentList 'kimpor-workspace://auth/callback?code=smoke&state=smoke' -PassThru
@@ -139,15 +120,6 @@ try {
   $evidence.error = $_.Exception.Message
   throw
 } finally {
-  $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS = $previousBrowserArgs
-  foreach ($name in $policyNames) {
-    if ($policyBackup[$name]) {
-      New-ItemProperty -Path $debugPolicy -Name $name -PropertyType $policyBackup[$name].kind -Value $policyBackup[$name].value -Force | Out-Null
-    } else {
-      Remove-ItemProperty -Path $debugPolicy -Name $name -ErrorAction SilentlyContinue
-    }
-  }
-  if (!$policyExisted -and (Get-Item $debugPolicy).GetValueNames().Count -eq 0) { Remove-Item $debugPolicy }
   New-Item -ItemType Directory -Force 'docs/evidence' | Out-Null
   $evidence | ConvertTo-Json -Depth 5 | Set-Content 'docs/evidence/windows-smoke.json' -Encoding utf8NoBOM
   if ($application) {
