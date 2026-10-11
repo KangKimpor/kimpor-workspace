@@ -121,6 +121,7 @@ it("restores a previous rich-text snapshot as a new edit without resurrecting de
   const version = (await store.listVersions(page.id))[0]!;
   const doc = new Y.Doc();
   Y.applyUpdate(doc, (await store.loadDoc(page.id))!);
+  const vector = Y.encodeStateVector(doc);
   const fragment = doc.getXmlFragment("default");
   fragment.delete(0, fragment.length);
   const p = new Y.XmlElement("paragraph"),
@@ -128,7 +129,7 @@ it("restores a previous rich-text snapshot as a new edit without resurrecting de
   text.insert(0, "Later thought");
   p.insert(0, [text]);
   fragment.insert(0, [p]);
-  await store.saveDoc(page.id, Y.encodeStateAsUpdate(doc));
+  await store.saveDoc(page.id, Y.encodeStateAsUpdate(doc, vector));
   expect(documentToMarkdown((await store.loadDoc(page.id))!)).toContain(
     "Later thought",
   );

@@ -90,13 +90,14 @@ describe("durable local-first workspace", () => {
         return doc;
       }),
     );
+    const vectors = docs.map((doc) => Y.encodeStateVector(doc));
     docs[0]!.getText("text").insert(0, "English ");
     docs[1]!.getText("text").insert(0, "中文 ");
     docs[2]!.getText("text").insert(0, "ខ្មែរ ");
     await Promise.all([
-      a.saveDoc(page.id, Y.encodeStateAsUpdate(docs[0]!)),
-      b.saveDoc(page.id, Y.encodeStateAsUpdate(docs[1]!)),
-      c.saveDoc(page.id, Y.encodeStateAsUpdate(docs[2]!)),
+      a.saveDoc(page.id, Y.encodeStateAsUpdate(docs[0]!, vectors[0])),
+      b.saveDoc(page.id, Y.encodeStateAsUpdate(docs[1]!, vectors[1])),
+      c.saveDoc(page.id, Y.encodeStateAsUpdate(docs[2]!, vectors[2])),
       a.patchPage(page.id, { properties: { status: "Done" } }),
       b.patchPage(page.id, { properties: { score: 42 } }),
       c.patchPage(page.id, { favorite: true }),

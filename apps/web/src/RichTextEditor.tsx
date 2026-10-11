@@ -322,7 +322,11 @@ function SessionEditor({
     persist = useRef<() => Promise<void>>(() => Promise.resolve()),
     channel = useRef<BroadcastChannel | null>(null),
     mounted = useRef(true);
-  const persistedState = useRef(Y.encodeStateAsUpdate(session.doc));
+  const [saved] = useState(() => ({
+    state: Y.encodeStateAsUpdate(session.doc),
+    vector: Y.encodeStateVector(session.doc),
+    pending: true,
+  }));
   const attachmentFlight = useRef<Promise<void>>(Promise.resolve());
   menuRef.current = menu;
   onText.current = onTextChange;
@@ -580,9 +584,9 @@ function SessionEditor({
             ]);
           const state = Y.encodeStateAsUpdate(session.doc);
           if (
-            state.length === persistedState.current.length &&
+            state.length === saved.state.length &&
             state.every(
-              (value, index) => value === persistedState.current[index],
+              (value, index) => value === saved.state[index],
             )
           ) {
             if (mounted.current) setStatus("Saved on this device");
@@ -600,20 +604,28 @@ function SessionEditor({
             shards.slice(-1000).map((item) => item.id),
           );
           channel.current?.postMessage({ kind: "encrypted", envelope });
-          persistedState.current = state;
+          saved.state = state;
         } else {
-          const state = Y.encodeStateAsUpdate(session.doc);
-          if (
-            state.length === persistedState.current.length &&
-            state.every(
-              (value, index) => value === persistedState.current[index],
-            )
-          ) {
+          if (!saved.pending) {
             if (mounted.current) setStatus("Saved on this device");
             return;
           }
-          await store.saveDoc(pageId, state);
-          persistedState.current = state;
+          // Persist only changes since the last successful write. The store
+          // merges them into its durable snapshot and queues the same delta.
+          const vector = Y.encodeStateVector(session.doc);
+          const update = Y.encodeStateAsUpdate(session.doc, saved.vector);
+          saved.pending = false;
+          if (update.length === 2 && update[0] === 0 && update[1] === 0) {
+            if (mounted.current) setStatus("Saved on this device");
+            return;
+          }
+          try {
+            await store.saveDoc(pageId, update);
+          } catch (cause) {
+            saved.pending = true;
+            throw cause;
+          }
+          saved.vector = vector;
           onText.current?.(editor.getText());
         }
         if (mounted.current) setStatus("Saved on this device");
@@ -626,11 +638,12 @@ function SessionEditor({
       return next;
     };
     const schedule = (update: Uint8Array, origin: unknown) => {
+      saved.pending = true;
       if (mounted.current) setStatus("Saving…");
       clearTimeout(timer.current);
       timer.current = setTimeout(() => {
         void persist.current().catch(() => undefined);
-      }, 180);
+      }, 500);
       if (!session.key && origin !== "broadcast" && origin !== "store")
         channel.current?.postMessage({ kind: "update", update });
     };
@@ -720,7 +733,7 @@ function SessionEditor({
       channel.current = null;
       void persist.current().catch(() => undefined);
     };
-  }, [editor, pageId, session]);
+  }, [editor, pageId, saved, session]);
   function attach(files: File[]) {
     const next = attachmentFlight.current.then(() => readAttachments(files));
     attachmentFlight.current = next.catch(() => undefined);
