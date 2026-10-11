@@ -5,6 +5,9 @@ on:
     types: [published]
 permissions:
   contents: read
+concurrency:
+  group: kimpor-cloud-deployment
+  cancel-in-progress: false
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -22,7 +25,9 @@ jobs:
         with:
           node-version: 24
       - name: Require the configured project
-        run: test -n "$SUPABASE_ACCESS_TOKEN" && test -n "$SUPABASE_DB_PASSWORD" && test -n "$SUPABASE_PROJECT_REF"
+        run: |
+          test -n "$SUPABASE_ACCESS_TOKEN" && test -n "$SUPABASE_DB_PASSWORD"
+          test "$SUPABASE_PROJECT_REF" = 'nlcpjdokfvawlpzyfytx'
       - run: pnpm dlx supabase@2.120.0 link --project-ref "$SUPABASE_PROJECT_REF"
       - name: Review migration plan
         run: pnpm dlx supabase@2.120.0 db push --dry-run
