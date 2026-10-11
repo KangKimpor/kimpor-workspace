@@ -7,6 +7,8 @@ $candidates = @("$env:LOCALAPPDATA/Kimpor Workspace/KimporWorkspace.exe", "$env:
 $executable = $candidates | Where-Object { Test-Path $_ } | Select-Object -First 1
 if (!$executable) { throw 'Installed application not found' }
 $clock = [System.Diagnostics.Stopwatch]::StartNew()
+$previousBrowserArgs = $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS
+$env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS = '--remote-debugging-port=9222'
 $application = Start-Process $executable -PassThru
 $evidence = @{ runner = $env:RUNNER_OS; measured_at = [DateTime]::UtcNow.ToString('o'); installer = $installer.Name }
 try {
@@ -20,6 +22,10 @@ try {
   $evidence.native_window_ms = $clock.ElapsedMilliseconds
   if ($application.MainWindowHandle -eq 0) { throw 'No native application window appeared' }
   if ($application.MainWindowTitle -notmatch 'Kimpor Workspace') { throw 'Unexpected window title' }
+  node scripts/windows-ui-check.mjs
+  if ($LASTEXITCODE -ne 0) { throw 'Installed workspace rendering/persistence check failed' }
+  $evidence.rendered_workspace = $true
+  $evidence.multilingual_note_reload = $true
   $protocol = Get-ItemProperty 'HKCU:/Software/Classes/kimpor-workspace/shell/open/command'
   if (!$protocol.'(default)') { throw 'Custom-scheme callback is not registered' }
   $second = Start-Process $executable -ArgumentList 'kimpor-workspace://auth/callback?code=smoke&state=smoke' -PassThru
@@ -84,6 +90,7 @@ try {
   $evidence.error = $_.Exception.Message
   throw
 } finally {
+  $env:WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS = $previousBrowserArgs
   New-Item -ItemType Directory -Force 'docs/evidence' | Out-Null
   $evidence | ConvertTo-Json -Depth 5 | Set-Content 'docs/evidence/windows-smoke.json' -Encoding utf8NoBOM
   $application.Refresh()

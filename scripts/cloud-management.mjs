@@ -13,6 +13,7 @@ const reportPath = path.join(root, 'docs/evidence/cloud-deployment.json');
 export function managementApi(token, ref = projectRef, request = fetch) {
   if (ref !== projectRef) throw new Error('Refusing deployment to another project');
   if (!token) throw new Error('SUPABASE_ACCESS_TOKEN is required');
+  if (!token.startsWith('sbp_') || token.length < 40) throw new Error('SUPABASE_ACCESS_TOKEN is not a complete personal access token');
   return async (suffix = '', method = 'GET', body) => {
     if (suffix.includes('..') || suffix.includes('://') || suffix.startsWith('/'))
       throw new Error('Invalid project API path');

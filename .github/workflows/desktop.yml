@@ -70,7 +70,10 @@ jobs:
         if: always()
         with:
           name: Kimpor Workspace-windows-verification
-          path: docs/evidence/windows-smoke.json
+          path: |
+            docs/evidence/windows-smoke.json
+            docs/evidence/windows-ui.json
+            docs/evidence/windows-ui.png
           retention-days: 7
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         if: always() && steps.build.outcome == 'success' && steps.bundle.outcome == 'success'
