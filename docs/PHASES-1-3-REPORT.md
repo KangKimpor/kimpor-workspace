@@ -32,9 +32,11 @@ verified. The source workspace was not modified. Private data stays out of Git.
   backup test, seven cloud-management tests, build, bundle limits and 44 contrast pairs.
 - Ten SQL migrations and seven Deno fixtures/eight entry points passed before
   this frontend update; these backend sources are unchanged.
-- Main 36bdd59: actual Quality 38160971705 passes 67 unit cases, all 80 browser
-  cases and 312/312 pixel comparisons at the unchanged 0.1% gate. CodeQL and
-  Pages deployment 38160971910 pass. See interface-quality-ci.json.
+- Main 2aa4761: Quality 38191255405 passes 67 unit cases, all 92 browser
+  cases and 312/312 comparisons against the reviewed final CI baseline. CodeQL
+  and Pages 38191790881 pass. See notes-refresh-quality-ci.json.
+- Writing, Journal and Calendar have 42 light viewport captures, 21 dark captures
+  and 21 published-app checks. The 1280px tablet screenshot width is included.
 - Four additional browser regressions verify imported timed dates display their
   stated day while preserving the full timestamp and offset on export.
 - The eight added navigation/import cases pass Chromium, WebKit, Firefox and
@@ -43,10 +45,11 @@ verified. The source workspace was not modified. Private data stays out of Git.
   on deployment 38158472168; cross-engine title appearance was 2,558 ms in that
   sample. All four privately imported databases also open in fresh desktop
   Chromium and phone WebKit sessions; later owner edits are preserved.
-- Windows 38160971752: installed release app rendered Today, saved/reopened Khmer
-  and Chinese text, handled protocol/single-instance/normal exit/uninstall.
-  Aggregate working set was 404,180,992 bytes; the 150 MiB gate failed. CPU was 0%.
-  The UI Automation timing includes harness setup and is not a pure launch metric.
+- Windows 38191255377: installed-app multilingual input/restart, protocol,
+  single-instance, exit and uninstall pass. The harness now waits for exact
+  editor text after queued native input. Aggregate working set is 402,583,552
+  bytes, above the unchanged 150 MiB limit; CPU is 0%. UI Automation timing
+  includes harness setup and is not a pure first-render metric.
 
 ## Remaining release gates
 

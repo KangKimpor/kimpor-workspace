@@ -88,9 +88,20 @@
       "sha256": "c4a2bf0c04e8bd24772cd59ef7c77ef8c3581b69765dff9fc45ad7caa475c480",
       "crc_verified": true,
       "review": "92 browser cases pass; obsolete interface visual differences superseded by the final reviewed baseline."
+    },
+    {
+      "artifact_id": 11721147868,
+      "run_id": 38189952585,
+      "archive": "notes-final-baseline.zip",
+      "bytes": 62709711,
+      "sha256": "5043d297f748650e3d89d22d4f51dca9b7e34e3547e367a266f03a4edac80c91",
+      "crc_verified": true,
+      "review": "Approved; all 312 exact PNGs and source.json committed in 2aa4761, with all 26 contact sheets retained for delivery."
     }
   ],
   "verified_against_github_digests": true,
   "public_baselines_retained_in_git": true,
-  "unrelated_artifacts_deleted": false
+  "unrelated_artifacts_deleted": false,
+  "storage_bytes_before_final_archival": 482222689,
+  "storage_bytes_after_final_archival": 419512978
 }

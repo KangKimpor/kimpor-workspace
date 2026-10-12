@@ -27,7 +27,7 @@
   ],
   "physical_devices_verified": false,
   "migration": "Existing owner data is preserved. No migration or backend changes were performed.",
-  "ci_status": "92 browser cases passed on source run 38189952574. Approved final CI baseline now committed; full visual verification runs next.",
+  "ci_status": "Passed: 67 unit tests, 92 browser cases and all 312 pixel comparisons on 38191255405, with unchanged thresholds.",
   "rejected_baseline": {
     "run": 38188225395,
     "artifact": 11720650685,
@@ -82,5 +82,12 @@
     "run": 38189952692,
     "status": "failed",
     "reason": "UI Automation read the editor immediately after queued native input. Harness now polls for the exact text before persistence checks. No native pass is claimed until rerun."
+  },
+  "final_quality": "notes-refresh-quality-ci.json",
+  "final_windows": {
+    "run": 38191255377,
+    "functional_checks": "passed",
+    "memory_gate": "failed",
+    "working_set_bytes": 402583552
   }
 }
