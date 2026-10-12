@@ -42,16 +42,29 @@ test('changed schema bytes refuse deployment before database access', async () =
   await assert.rejects(applyReviewedSchema(() => { throw Error('Network must not run'); }, 'changed', manifest), /checksum differs/);
 });
 
-test('default free email sender keeps link templates and reports its delivery restriction', async () => {
-  let settings = { smtp_host: '', mailer_templates_magic_link_content: '{{ .ConfirmationURL }}', mailer_templates_confirmation_content: '{{ .ConfirmationURL }}' };
+test('code-only configuration refuses the restricted default sender before writes', async () => {
+  let writes = 0;
+  await assert.rejects(configureAuth(async (_path, method) => {
+    if (method === 'PATCH') writes++;
+    return { smtp_host: '' };
+  }), /custom SMTP is required/);
+  assert.equal(writes, 0);
+});
+
+test('custom sender receives token-only templates without changing Google identities', async () => {
+  let settings = { smtp_host: 'smtp.fixture.test', external_google_enabled: true,
+    mailer_templates_magic_link_content: '{{ .ConfirmationURL }}', mailer_templates_confirmation_content: '{{ .ConfirmationURL }}' };
   const report = await configureAuth(async (_path, method, body) => {
     if (method === 'PATCH') {
-      assert.equal(Object.keys(body).some(key => key.startsWith('mailer_templates_') || key.startsWith('mailer_subjects_')), false);
+      assert.equal('external_google_enabled' in body, false);
       settings = { ...settings, ...body };
     }
     return settings;
   });
-  assert.equal(report.email_mode, 'link');
-  assert.equal(report.default_sender_restricted_to_team, true);
+  assert.equal(settings.mailer_templates_confirmation_content, '{{ .Token }}');
+  assert.equal(settings.mailer_templates_magic_link_content, '{{ .Token }}');
+  assert.equal(report.email_mode, 'code');
+  assert.equal(report.google_enabled, true);
+  assert.equal(report.default_sender_restricted_to_team, false);
   assert.equal(report.delivery_tested, false);
 });

@@ -129,7 +129,7 @@ a compiled-binary notices audit is part of release verification.
 3. Once actual preview/installer URLs exist, run the relevant Phase 0 entries in
    [DEVICE-TEST.md](DEVICE-TEST.md) on iPhone/iPad/Windows and record date/OS/results.
 4. After Phase 0 gates/report, say “continue” to authorize Phase 1. It is large:
-   P1 modules, full editor, authenticated local-first sync and real auth. Phase 2
+   P1 modules, full editor, authenticated account sync and real auth. Phase 2
    and Phase 3 are also large; no completion dates or perpetual vendor guarantees.
 
 The current source, construction masters and evidence are saved. No paid service,

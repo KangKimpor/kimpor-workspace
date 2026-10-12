@@ -1,6 +1,6 @@
 # Kimpor Workspace working memory
 
-Updated 2026-10-12 UTC. Account-first redesign is in progress. Read
+Updated 2026-10-12 UTC. Account-first UI source 10aea20 is pushed; the first actual CI candidate was captured but requires a narrow Calendar/settled-paint replacement. Read
 docs/ACCOUNT-FIRST-REDESIGN.md and docs/VERIFICATION.md before editing.
 
 ## Authorization and decisions
@@ -121,10 +121,29 @@ push receipt remain unverified. No paid resources or trials were used.
 Actual Windows run 38127531039 renders Today, creates/reopens a multilingual note,
 handles protocol/single-instance/exit/uninstall, but fails aggregate resident RAM
 at 409,358,336 bytes against 150 MiB. Do not weaken this gate or call v1 complete.
-Current local core suite: 66 tests, 88.29% line coverage. Prior main 7459156 has
-successful CI (68 browser/312 visual) and Pages deployment. Current simplification
-requires fresh visual baseline review and source-specific browser evidence.
-Mobile editor tools collapse to five primary controls; Journal has Write today
-and a compact week/history; Calendar has no per-day plus controls. Sidebar
-collapse, phone edge-back/save and sheet detents have eight passing browser cases.
-Keep the original 0.1% visual threshold and record actual runner provenance.
+Current redesign: 73 core tests, 88.91% core line coverage, 219.8 KiB initial
+JS graph and 44 contrast checks pass. The final app run passes 137/138 cases; its
+Settings contrast check sampled a fade and passes after waiting for opacity 1.
+All 18 light/dark account fixtures pass. The 510-capture matrix has 15 screens,
+17 profiles and both themes, including sign-in/code, scaling and Split View.
+Actual baseline run 38223471702 records UI source 10aea20; do not approve local
+screenshots or infer CI success from dispatch. Preserve the 0.1% visual gate.
+
+The editor accepts text only after its collaboration view initializes. Formatting
+requests are queued across protection changes. Container layouts are phone <600,
+tablet 600–1023 with default 72px icons and optional expansion, desktop >=1024
+with 240px sidebar/list/detail. Missing imported type-default views are display
+only; field IDs, source schemas and document bytes are preserved. Private comparison
+at 07:52 confirms all 69 pages/four schemas/62 documents unchanged.
+
+Google project kimpor-workspace-auth exists and audience is External. Branding
+was not saved and no client was created by automation. Its included credit was
+exhausted; no paid top-up. Plugin Management found no direct Brevo/Google OAuth
+setup connector. SMTP, token-only templates, real delivery and same-owner Google
+linking remain pending. See docs/ACCOUNT-SETUP.md. The deployment helper now refuses
+the default sender, and its SMTP path writes only {{ .Token }} at six digits/600s.
+Production requires account-auth-readiness.json proof plus KIMPOR_AUTH_READY=true.
+Do not mark these booleans true from fixtures or a generated admin session. The
+GitHub tool token cannot manage repository variables. Main native builds are
+development fixtures; tagged builds require real readiness. Keep rendered Unicode
+persistence and the aggregate 150 MiB RAM gate unchanged; no v1 release claim.

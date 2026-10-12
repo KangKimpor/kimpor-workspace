@@ -29,8 +29,9 @@ and are deleted with their files after checks. These checks do not establish
 physical-device sync latency, user email delivery, Google consent or background
 push receipt.
 
-After direct HTTPS deployment and verified live ownership tests, Pages/native
-builds consume the saved public Supabase variables by default. An explicit
-KIMPOR_CLOUD_READY=false disables cloud for a local-only build. The original
+The account-first redesign requires verified SMTP code delivery and same-account
+Google linking before Pages or tagged native release. Main native builds are
+development fixtures for the unchanged rendered UI and memory gates.
+KIMPOR_CLOUD_READY=false is reserved for development/test builds and has no UI. The original
 incomplete GitHub secret is still separate from the valid private deployment
 credential. Short-lived tokens must be renewed privately before later deployments.

@@ -55,6 +55,7 @@ pnpm licenses:cargo
 bash scripts/sql-test.sh
 pnpm exec playwright install --with-deps chromium webkit firefox
 pnpm e2e
+pnpm e2e:auth
 ```
 
 The pixel comparison limit is 0.1%. Initial and additional JavaScript graphs
@@ -65,7 +66,10 @@ gate remain unchanged. Capture provenance must come from the actual CI runner.
 
 Safari: Share → Add to Home Screen. Windows uses the Tauri package.
 `pnpm build:desktop` builds embedded assets; installers are currently unsigned.
-Main publishes through free GitHub Actions and GitHub Pages after passing CI.
+Main publishes through free GitHub Actions and GitHub Pages after passing CI
+and verified account readiness. The redesigned sign-in is held until custom SMTP
+and same-account Google linking pass; the live site currently uses the previous UI.
+See [remaining secure setup](docs/ACCOUNT-SETUP.md).
 
 [Setup](docs/SETUP-CHECKLIST.md) · [free plans](docs/FREE-TIER.md) ·
 [platforms](docs/PLATFORM-DIFFERENCES.md) · [working memory](CLAUDE.md) ·

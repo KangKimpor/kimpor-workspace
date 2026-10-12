@@ -93,6 +93,9 @@ try {
         }));
         // Capture the settled compositor paint after the navigation is at rest.
         await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+        // Wait for asynchronous account-cache reads and the final WebKit paint.
+        if(screen==='today'||screen==='calendar')await expect(page.locator('main').getByText('A little time to plan',{exact:true}).first()).toBeVisible();
+        await page.waitForTimeout(350);
         const file=`docs/screenshots/${screen}-${name}-${theme}.png`;
         const overflow=await page.evaluate(()=>document.documentElement.scrollWidth > innerWidth+1);
         if(overflow) throw new Error(`Horizontal overflow: ${file}`);

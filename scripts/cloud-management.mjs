@@ -65,6 +65,7 @@ export async function applyReviewedSchema(api, schema, manifest) {
 
 export async function configureAuth(api) {
   const previous = await api('config/auth');
+  if (!previous.smtp_host) throw new Error('Verified custom SMTP is required before code-only account configuration.');
   const desired = {
     site_url: siteUrl,
     uri_allow_list: `${siteUrl}**,kimpor-workspace://auth/callback**,veloradesk://auth/callback**`,
@@ -74,18 +75,16 @@ export async function configureAuth(api) {
     mailer_otp_length: 6,
     mailer_otp_exp: 600,
   };
-  // Free projects using the default sender cannot customize email templates.
-  // Keep their PKCE sign-in links usable; codes need an existing custom sender.
-  if (previous.smtp_host) Object.assign(desired, {
-    mailer_subjects_confirmation: 'Your Kimpor Workspace code',
-    mailer_subjects_magic_link: 'Your Kimpor Workspace code',
-    mailer_templates_confirmation_content: '<h2>Kimpor Workspace</h2><p>Your sign-in code is <strong>{{ .Token }}</strong>.</p><p>This code expires in 10 minutes. Keep it private.</p>',
-    mailer_templates_magic_link_content: '<h2>Kimpor Workspace</h2><p>Your sign-in code is <strong>{{ .Token }}</strong>.</p><p>This code expires in 10 minutes. Keep it private.</p>',
+  Object.assign(desired, {
+    mailer_subjects_confirmation: 'Kimpor Workspace code',
+    mailer_subjects_magic_link: 'Kimpor Workspace code',
+    mailer_templates_confirmation_content: '{{ .Token }}',
+    mailer_templates_magic_link_content: '{{ .Token }}',
   });
   await api('config/auth', 'PATCH', desired);
   const actual = await api('config/auth');
   if (Object.entries(desired).some(([key, value]) => actual[key] !== value)) throw new Error('Saved Auth configuration differs');
-  const codeTemplates = ['mailer_templates_confirmation_content', 'mailer_templates_magic_link_content'].every(key => actual[key]?.includes('{{ .Token }}'));
+  const codeTemplates = ['mailer_templates_confirmation_content', 'mailer_templates_magic_link_content'].every(key => actual[key] === '{{ .Token }}');
   return { site_url: actual.site_url, redirects: actual.uri_allow_list.split(','), email_codes: 6, code_expiry_seconds: 600, email_confirmation: true, anonymous_signin: false, google_enabled: actual.external_google_enabled === true, custom_smtp: Boolean(actual.smtp_host), email_mode: codeTemplates ? 'code' : 'link', default_sender_restricted_to_team: !actual.smtp_host, delivery_tested: false };
 }
 
