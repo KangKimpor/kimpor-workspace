@@ -74,6 +74,7 @@ export async function configureAuth(api) {
     external_email_enabled: true,
     mailer_otp_length: 6,
     mailer_otp_exp: 600,
+    smtp_max_frequency: 30,
   };
   Object.assign(desired, {
     mailer_subjects_confirmation: 'Kimpor Workspace code',
@@ -85,7 +86,7 @@ export async function configureAuth(api) {
   const actual = await api('config/auth');
   if (Object.entries(desired).some(([key, value]) => actual[key] !== value)) throw new Error('Saved Auth configuration differs');
   const codeTemplates = ['mailer_templates_confirmation_content', 'mailer_templates_magic_link_content'].every(key => actual[key] === '{{ .Token }}');
-  return { site_url: actual.site_url, redirects: actual.uri_allow_list.split(','), email_codes: 6, code_expiry_seconds: 600, email_confirmation: true, anonymous_signin: false, google_enabled: actual.external_google_enabled === true, custom_smtp: Boolean(actual.smtp_host), email_mode: codeTemplates ? 'code' : 'link', default_sender_restricted_to_team: !actual.smtp_host, delivery_tested: false };
+  return { site_url: actual.site_url, redirects: actual.uri_allow_list.split(','), email_codes: 6, code_expiry_seconds: 600, resend_interval_seconds: 30, email_confirmation: true, anonymous_signin: false, google_enabled: actual.external_google_enabled === true, custom_smtp: Boolean(actual.smtp_host), email_mode: codeTemplates ? 'code' : 'link', default_sender_restricted_to_team: !actual.smtp_host, delivery_tested: false };
 }
 
 export async function configureServer(api) {

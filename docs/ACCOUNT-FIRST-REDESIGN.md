@@ -141,3 +141,7 @@ rendered UI, Unicode persistence and aggregate 150 MiB RAM gates. Tagged builds
 require real account readiness. Public Pages also requires live code delivery,
 code-only templates and same-owner Google linking; fixture success cannot enable
 production. Current provider configuration is incomplete, so deployment is held.
+
+## Local handover status
+
+See HANDOVER.md. Newer source7e713e1 CI38231262045 has136 expected passes, one flaky and one unexpected failure: desktop1920 dark writing reopens with an empty body instead of the fixture text; the light variant needs a retry. Fix the underlying persistence race before acceptance. Final510-image candidate38231262270/artifact11738374195 succeeded but has not been reviewed/copied. The historical312-image baseline remains committed. Native7e713e1 smoke run38231262067 fails; publishing remains held.

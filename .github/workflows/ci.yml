@@ -12,7 +12,8 @@ jobs:
   quality:
     name: Quality
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # 138 app cases, 18 auth cases and 510 pixel comparisons retain every gate.
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:

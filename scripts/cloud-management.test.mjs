@@ -61,6 +61,7 @@ test('custom sender receives token-only templates without changing Google identi
     }
     return settings;
   });
+  assert.equal(settings.smtp_max_frequency, 30);
   assert.equal(settings.mailer_templates_confirmation_content, '{{ .Token }}');
   assert.equal(settings.mailer_templates_magic_link_content, '{{ .Token }}');
   assert.equal(report.email_mode, 'code');

@@ -17,9 +17,9 @@ chat, source, tests, screenshots or artifacts.
    password, the verified sender and name **Kimpor Workspace**. Approval/sender
    verification must finish before testing delivery. No paid upgrade is needed.
 3. Supabase: confirmation and magic-link email bodies must contain only
-   `{{ .Token }}`, with six digits and 600-second expiry. The deployment helper
+   `{{ .Token }}`, with six digits and 600-second expiry; set email send frequency to 30 seconds to match Resend. The deployment helper
    now refuses the default sender and writes token-only templates after SMTP is
-   configured. The prior private management credential expires; use a fresh
+   configured, including the 30-second resend interval. The prior private management credential expires; use a fresh
    appropriately scoped credential in secrets for subsequent configuration.
 4. Verify delivery to the account and real Google consent with the same email.
    Compare the returned owner ID privately with the original account, and retain
@@ -34,3 +34,5 @@ creating a client. Plugin Management found no direct Brevo/Google OAuth setup
 connector. No paid top-up, trial or subscription was requested. Physical iPhone,
 iPad, real Google consent, email delivery and native OAuth remain unverified;
 the Windows 150 MiB gate remains strict; run 38223202981 passed rendered workspace, Unicode/restart and lifecycle checks, then exceeded its memory limit.
+
+SMTP frequency: [Management API](https://supabase.com/docs/reference/api/v1-update-auth-service-config) and [Auth limits](https://supabase.com/docs/guides/auth/rate-limits), checked 2026-10-12. The default per-address interval is 60 seconds; the configured helper uses 30.

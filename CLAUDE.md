@@ -149,3 +149,7 @@ development fixtures; tagged builds require real readiness. Keep rendered Unicod
 persistence and the aggregate 150 MiB RAM gate unchanged; no v1 release claim.
 
 Latest rendered Windows development fixture (38223202981 / 10aea20): lifecycle and Unicode restart pass, resident memory 399,253,504 bytes exceeds the unchanged 150 MiB gate. Details: docs/evidence/account-redesign-windows.json. The final narrow Calendar and backup-control corrections pass pnpm check; desktop/phone Settings accessibility also passes.
+
+## Local-session handover, 12 October 2026
+
+Read HANDOVER.md first. Actual UI-source7e713e1 CI38231262045 has136 expected passes, one flaky and one unexpected failure: desktop1920 dark editor body is empty after navigation/reopen (tests/responsive-matrix.spec.ts:45); light variant passes only on retry. Fix this before release/baseline acceptance; do not weaken persistence assertions. Final510-image candidate38231262270/artifact11738374195 succeeded but is NOT reviewed/copied; committed baselines remain historical312. Native7e run38231262067 fails smoke checks. Deployment remains held. The handover commit includes smtp_max_frequency30 and CI45-minute capacity for the larger suite, without changing any acceptance thresholds.
