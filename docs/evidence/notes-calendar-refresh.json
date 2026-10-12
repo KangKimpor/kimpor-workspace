@@ -7,8 +7,8 @@
     "document_list_hidden_while_writing": true,
     "block_handles": "Optional Reorder blocks action."
   },
-  "journal": "Today/continue card, dated searchable entries with saved text previews, optional history, date/mood in Page options.",
-  "calendar": "In-place month selection, selected-day agenda, event dots and view selector through 1366px; optional event details; source/account settings work on phones.",
+  "journal": "Today/continue card and dated searchable entry previews; week/history controls are optional inside one expandable row; date/mood in Page options.",
+  "calendar": "In-place month selection, selected-day agenda, compact phone month, event dots and view selector through 1366px; optional event details; source/account settings work on phones.",
   "local_focused_browser_cases": 16,
   "calendar_settings_reruns": 4,
   "unit_cases": 67,
@@ -25,5 +25,23 @@
   ],
   "physical_devices_verified": false,
   "migration": "Existing owner data is preserved. No migration or backend changes were performed.",
-  "ci_status": "Pending a reviewed replacement visual baseline and full Quality verification."
+  "ci_status": "Pending a reviewed replacement visual baseline and full Quality verification.",
+  "rejected_baseline": {
+    "run": 38188225395,
+    "artifact": 11720650685,
+    "source": "210e9f073de3aaa8c9e1f91acecac102a854b396",
+    "reason": "320px Calendar heading wrapped mid-word. Month density also left the first iPhone event below the bottom navigation. Both refined before replacement baseline approval."
+  },
+  "source_browser_run": {
+    "run": 38188209009,
+    "browser_step": "passed",
+    "cases": 92,
+    "overall": "Visual comparisons intentionally differed from the old interface."
+  },
+  "compact_calendar_cases": 4,
+  "local_full_attempt": {
+    "passed": 89,
+    "failed": 3,
+    "failure_details": "WebKit/Firefox accessibility analyses exceeded the existing 90-second limit while parallel local capture ran; Firefox initial editor loading exceeded its 5-second assertion. The isolated reruns and independent CI run are recorded separately."
+  }
 }

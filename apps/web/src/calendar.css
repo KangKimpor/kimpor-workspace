@@ -65,9 +65,9 @@
 /* The calendar is the primary view. Controls and day details share one rhythm. */
 .calendar-module { max-width: 1440px; padding: 28px 32px 48px; margin: 0 auto; color: var(--text); }
 .cal-heading { justify-content: space-between; margin-bottom: 26px; }
-.cal-heading h1 { font-size: 32px; letter-spacing: -.035em; }
+.cal-heading h1 { font-size: 32px; letter-spacing: -.035em; margin: 0; }
 .cal-heading .filled, .cal-dialog .button.filled { background: var(--accent-fill); color: var(--white); border-color: transparent; }
-.cal-heading .filled { border-radius: 12px; padding-inline: 18px; }
+.cal-heading .filled { border-radius: 12px; padding-inline: 18px; white-space: nowrap; }
 .cal-layout { display: block; }
 .cal-main { padding: 0; }
 .cal-toolbar { display: grid; grid-template-columns: 1fr auto auto; gap: 20px; align-items: center; margin-bottom: 20px; }
@@ -130,7 +130,7 @@
 .cal-form input, .cal-form select, .cal-form textarea { font-size: 16px; color: var(--text); }
 .cal-event-dialog .cal-form > p.caption { display: none; }
 @media (max-width: 1366px) {
-  .cal-footer { display: none; }
+  .cal-help { display: none; }
   .calendar-module { padding: 26px 24px 36px; }
   .cal-month-layout { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .cal-toolbar { grid-template-columns: 1fr auto; gap: 12px; }
@@ -155,10 +155,11 @@
   .cal-heading .filled svg { width: 16px; }
   .cal-toolbar { margin-bottom: 16px; }
   .cal-toolbar h2 { font-size: 24px; }
-  .cal-day { min-height: 60px; }
+  .cal-day { min-height: 54px; padding: 0; }
+  .cal-day-dots { height: 8px; }
   .cal-selected-day > header p { flex-basis: 100%; }
   .cal-selected-day > header > span { margin-left: 0; }
   .cal-dialog-head h2 { font-size: 22px; }
   .cal-event-dialog .cal-form > .between { bottom: -20px; }
 }
-@media (max-width: 359px) { .calendar-module { padding-inline: 5px; } .cal-heading { padding-inline: 10px; } }
+@media (max-width: 359px) { .calendar-module { padding-inline: 5px; } .cal-heading { padding-inline: 10px; } .cal-heading h1 { font-size: 24px; } .cal-heading .filled { padding-inline: 12px; } }

@@ -4,7 +4,7 @@ import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);const sharp=require('sharp');
 const dir='docs/screenshots/responsive-review';await mkdir(dir,{recursive:true});
 const results=[],images=[];
-for(const [name,width,height,engine,touch] of [['iphone15',393,852,webkit,true],['ipad-a16',820,1180,webkit,true],['ipad-a16-landscape',1180,820,webkit,true],['ipad-reference',1280,800,webkit,true],['desktop1080',1980,1080,chromium,false],['desktop1200',1980,1200,chromium,false]]){
+for(const [name,width,height,engine,touch] of [['phone-small',320,640,webkit,true],['iphone15',393,852,webkit,true],['ipad-a16',820,1180,webkit,true],['ipad-a16-landscape',1180,820,webkit,true],['ipad-reference',1280,800,webkit,true],['desktop1080',1980,1080,chromium,false],['desktop1200',1980,1200,chromium,false]]){
  const browser=await engine.launch();const context=await browser.newContext({viewport:{width,height},hasTouch:touch,isMobile:touch,deviceScaleFactor:1,reducedMotion:'reduce'});const page=await context.newPage();
  const nav=()=>page.getByRole('navigation',{name:width<600?'Bottom navigation':'Main navigation',exact:true});
  await page.goto(process.env.BASE_URL ?? 'http://127.0.0.1:4173');
@@ -25,5 +25,5 @@ for(const [name,width,height,engine,touch] of [['iphone15',393,852,webkit,true],
  await browser.close();
 }
 const thumbs=await Promise.all(images.map(file=>sharp(file).resize({width:320,height:380,fit:'contain',background:'#eeeeee'}).png().toBuffer()));
-await sharp({create:{width:1920,height:2280,channels:3,background:'#cccccc'}}).composite(thumbs.map((input,i)=>({input,left:i%6*320,top:Math.floor(i/6)*380}))).png().toFile(dir+'/contact.png');
+await sharp({create:{width:1920,height:2660,channels:3,background:'#cccccc'}}).composite(thumbs.map((input,i)=>({input,left:i%6*320,top:Math.floor(i/6)*380}))).png().toFile(dir+'/contact.png');
 await writeFile(dir+'/results.json',JSON.stringify({date:new Date().toISOString(),mode:'Managed browser viewport checks, not physical devices',checks:results},null,2));console.log(JSON.stringify({passed:results.length,contact:dir+'/contact.png'}));

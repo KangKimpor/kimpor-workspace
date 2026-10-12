@@ -3,7 +3,7 @@
   "repository": "KangKimpor/kimpor-workspace",
   "reason": "Keep the replacement visual baseline and verification artifacts within the free 500 MB allowance.",
   "storage_bytes_before": 499888028,
-  "storage_bytes_after": 356508542,
+  "storage_bytes_after": "Rechecked after candidate archival; latest count is recorded at final verification.",
   "archives": [
     {
       "artifact_id": 11701869528,
@@ -52,6 +52,15 @@
       "bytes": 15930415,
       "sha256": "e3537d5ccf47779bfbc47f7f799f0bb4f440b47745021ddc983850b13d78fb7d",
       "crc_verified": true
+    },
+    {
+      "artifact_id": 11720650685,
+      "run_id": 38188225395,
+      "archive": "notes-calendar-baseline.zip",
+      "bytes": 62880441,
+      "sha256": "df186953e668e17d71a96649d576575bf6394ad9b5218d60ba7d65cf21877178",
+      "crc_verified": true,
+      "review": "Rejected candidate: corrected phone heading and density before approval."
     }
   ],
   "verified_against_github_digests": true,

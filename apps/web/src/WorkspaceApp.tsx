@@ -1792,6 +1792,8 @@ function JournalOverview({ pages, onOpen, onWrite }: {
           <PenLine size={18} />{today ? "Continue writing" : "Write today"}
         </Pressable>
       </div>
+      <details className="ws-journal-history">
+        <summary>{streak ? `${streak} ${streak === 1 ? "day" : "days"} of writing` : "Writing history"}<span>Last 12 weeks</span></summary>
       <div className="ws-journal-week" aria-label="Journal this week">
         {days.slice(-7).map((date) => {
           const entry = pages.find((page) => page.date === date);
@@ -1804,8 +1806,6 @@ function JournalOverview({ pages, onOpen, onWrite }: {
           </Pressable>;
         })}
       </div>
-      <details className="ws-journal-history">
-        <summary>{streak ? `${streak} ${streak === 1 ? "day" : "days"} of writing` : "Writing history"}<span>Last 12 weeks</span></summary>
         <div className="ws-heatmap" aria-label="Journal entries in the last twelve weeks">
           {days.map((date) => {
             const entry = pages.find((page) => page.date === date);

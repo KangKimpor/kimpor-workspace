@@ -68,6 +68,8 @@ test("month selection shows that day's events without leaving the month", async 
   await page.clock.setFixedTime(new Date("2026-10-12T09:00:00Z"));
   await page.goto("/");
   await navigate(page, "Calendar");
+  const heading = page.getByRole("heading", { name: "Calendar", exact: true });
+  expect(await heading.evaluate(element => element.getBoundingClientRect().height <= parseFloat(getComputedStyle(element).lineHeight) + 1)).toBe(true);
   await page.getByRole("button", { name: "New event", exact: true }).click();
   const dialog = page.getByRole("dialog", { name: "New event", exact: true });
   await dialog.getByLabel("Title", { exact: true }).fill("A little time to plan");
