@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-12T00:24:45.797769+00:00",
+  "repository": "KangKimpor/kimpor-workspace",
+  "reason": "Keep the replacement visual baseline and verification artifacts within the free 500 MB allowance.",
+  "storage_bytes_before": 499888028,
+  "storage_bytes_after": 356508542,
+  "archives": [
+    {
+      "artifact_id": 11701869528,
+      "run_id": 38138849715,
+      "archive": "interface-baseline.zip",
+      "bytes": 63918111,
+      "sha256": "380c4998a39bfd3348b34b3578f1081d71bcd541a7d874c2efac86771eadbf8c",
+      "crc_verified": true
+    },
+    {
+      "artifact_id": 11709938741,
+      "run_id": 38160971705,
+      "archive": "ci-dates-final.zip",
+      "bytes": 15829969,
+      "sha256": "4db0569414639b3e10ba3dfe3a834787d99b315dab40ae76c523a2a89fbd0f4a",
+      "crc_verified": true
+    },
+    {
+      "artifact_id": 11710295009,
+      "run_id": 38159572774,
+      "archive": "ci-final-browser.zip",
+      "bytes": 15825170,
+      "sha256": "5b1c845906fea2bb8b6528f19c1ad3d371197b7d2c6054e0591f3f04676c18ca",
+      "crc_verified": true
+    },
+    {
+      "artifact_id": 11695443047,
+      "run_id": 38121052501,
+      "archive": "quality-green.zip",
+      "bytes": 15912567,
+      "sha256": "4f99f1eef5a92cbea3c0fa2bdd833baa613676a984d1afb8eff64a6dc12bd7b1",
+      "crc_verified": true
+    },
+    {
+      "artifact_id": 11694544877,
+      "run_id": 38119192050,
+      "archive": "ci-comparison-failed.zip",
+      "bytes": 15963254,
+      "sha256": "cc8a1e424a72559494672c030432b8f855f96919c5b78f04acfd1b8dbce86dea",
+      "crc_verified": true
+    },
+    {
+      "artifact_id": 11708988278,
+      "run_id": 38158453661,
+      "archive": "ci0444-browser.zip",
+      "bytes": 15930415,
+      "sha256": "e3537d5ccf47779bfbc47f7f799f0bb4f440b47745021ddc983850b13d78fb7d",
+      "crc_verified": true
+    }
+  ],
+  "verified_against_github_digests": true,
+  "public_baselines_retained_in_git": true,
+  "unrelated_artifacts_deleted": false
+}

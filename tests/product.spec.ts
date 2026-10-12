@@ -190,16 +190,21 @@ test("calendar creates a local recurring event and all views are available", asy
     .first()
     .click();
   await page.getByLabel("Title", { exact: true }).fill("Weekly review");
+  await page.getByText("More details", { exact: true }).click();
   await page.getByLabel("Custom recurrence RRULE").fill("FREQ=WEEKLY;COUNT=4");
   await page.getByRole("button", { name: "Done", exact: true }).click();
   await expect(
-    page.getByText("Weekly review", { exact: true }).first(),
+    page.getByRole("region", { name: "Selected day events", exact: true }).getByRole("button", { name: /Weekly review/ }),
   ).toBeVisible();
   for (const name of ["Day", "Week", "Month", "Agenda"]) {
-    await page.getByRole("button", { name, exact: true }).click();
-    await expect(
-      page.getByRole("button", { name, exact: true }),
-    ).toHaveAttribute("aria-pressed", "true");
+    const view = page.getByRole("combobox", { name: "Calendar view", exact: true });
+    if (await view.isVisible()) {
+      await view.selectOption(name.toLowerCase());
+      await expect(view).toHaveValue(name.toLowerCase());
+    } else {
+      await page.getByRole("button", { name, exact: true }).click();
+      await expect(page.getByRole("button", { name, exact: true })).toHaveAttribute("aria-pressed", "true");
+    }
   }
 });
 test("all modules and settings are accessible in both themes without page overflow", async ({

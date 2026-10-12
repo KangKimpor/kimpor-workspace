@@ -4,6 +4,7 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useId,
   useRef,
   useState,
 } from "react";
@@ -38,7 +39,6 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import {
   Bold,
-  MoreHorizontal,
   Check,
   Code2,
   FilePlus2,
@@ -301,6 +301,9 @@ function SessionEditor({
     [query, setQuery] = useState(""),
     [activeCommand, setActiveCommand] = useState(0);
   const [toolsExpanded, setToolsExpanded] = useState(false);
+  const [showHandles, setShowHandles] = useState(false);
+  const formatId = useId();
+  const formatButton = useRef<HTMLButtonElement>(null);
   const [find, setFind] = useState(false),
     [findText, setFindText] = useState(""),
     [findResult, setFindResult] = useState(""),
@@ -930,12 +933,38 @@ function SessionEditor({
   }
   if (!editor) return <p className="rich-hint">Opening your document…</p>;
   return (
-    <div className="rich-editor">
+    <div className="rich-editor" data-tools-open={toolsExpanded} data-handles={showHandles}>
+      <div className="rich-writing-tools">
+      <div className="rich-toolbar" role="toolbar" aria-label="Document formatting">
+        <Pressable ref={formatButton} className="icon-button rich-format-trigger"
+          aria-label={toolsExpanded ? "Less formatting" : "More formatting"}
+          aria-expanded={toolsExpanded} aria-controls={formatId}
+          onClick={() => setToolsExpanded(value => !value)}><span aria-hidden="true">Aa</span></Pressable>
+        <Pressable className="icon-button" aria-label="Checklist" aria-pressed={editor.isActive("taskList")}
+          onClick={() => editor.chain().focus().toggleTaskList().run()}><ListChecks size={20} /></Pressable>
+        <Pressable className="icon-button" aria-label="Attach file" onClick={() => fileInput.current?.click()}><FilePlus2 size={20} /></Pressable>
+        <Pressable className="icon-button" aria-label="Sketch canvas" aria-pressed={sketch} onClick={() => setSketch(value => !value)}><PenLine size={20} /></Pressable>
+        <Pressable className="icon-button" aria-label="Undo typing" onClick={() => editor.chain().focus().undo().run()}><Undo2 size={20} /></Pressable>
+      </div>
       <div
-        className={`rich-toolbar ${toolsExpanded ? "expanded" : ""}`}
-        role="toolbar"
-        aria-label="Document formatting"
+        className="rich-format-panel"
+        id={formatId}
+        hidden={!toolsExpanded}
+        role="group"
+        aria-label="Formatting options"
+        onClickCapture={(event) => {
+          if (event.target instanceof Element && event.target.closest("button")) setToolsExpanded(false);
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Escape" && !event.nativeEvent.isComposing) {
+            event.preventDefault(); event.stopPropagation();
+            setToolsExpanded(false); formatButton.current?.focus();
+          }
+        }}
       >
+        <div className="rich-format-heading"><strong>Formatting</strong>
+          <Pressable className="icon-button" aria-label="Close formatting" onClick={() => { setToolsExpanded(false); formatButton.current?.focus(); }}><X size={18} /></Pressable>
+        </div>
         <Pressable
           className="icon-button"
           aria-label="Add a block"
@@ -996,13 +1025,6 @@ function SessionEditor({
         >
           <List size={18} />
         </Pressable>
-        <Pressable
-          className="icon-button"
-          aria-label="Checklist"
-          onClick={() => editor.chain().focus().toggleTaskList().run()}
-        >
-          <ListChecks size={18} />
-        </Pressable>
         <label className="rich-color rich-tool-secondary">
           <Palette size={18} />
           <span className="sr-only">Text color</span>
@@ -1038,13 +1060,6 @@ function SessionEditor({
         </Pressable>
         <Pressable
           className="icon-button rich-tool-secondary"
-          aria-label="Attach file"
-          onClick={() => fileInput.current?.click()}
-        >
-          <FilePlus2 size={18} />
-        </Pressable>
-        <Pressable
-          className="icon-button rich-tool-secondary"
           aria-label="Add a link"
           onClick={() => setLinkPanel((value) => !value)}
         >
@@ -1065,26 +1080,11 @@ function SessionEditor({
           <Search size={18} />
         </Pressable>
         <Pressable
-          className="icon-button"
-          aria-label="Undo typing"
-          onClick={() => editor.chain().focus().undo().run()}
-        >
-          <Undo2 size={18} />
-        </Pressable>
-        <Pressable
           className="icon-button rich-tool-secondary"
           aria-label="Redo typing"
           onClick={() => editor.chain().focus().redo().run()}
         >
           <Redo2 size={18} />
-        </Pressable>
-        <Pressable
-          className="icon-button rich-tool-secondary"
-          aria-label="Sketch canvas"
-          aria-pressed={sketch}
-          onClick={() => setSketch((value) => !value)}
-        >
-          <PenLine size={18} />
         </Pressable>
         <Pressable
           className="icon-button rich-tool-secondary"
@@ -1104,14 +1104,9 @@ function SessionEditor({
         >
           <LockKeyhole size={18} />
         </Pressable>
-        <Pressable
-          className="icon-button rich-tools-toggle"
-          aria-label={toolsExpanded ? "Less formatting" : "More formatting"}
-          aria-expanded={toolsExpanded}
-          onClick={() => setToolsExpanded((value) => !value)}
-        >
-          {toolsExpanded ? <X size={18} /> : <MoreHorizontal size={18} />}
-        </Pressable>
+        <Pressable className="icon-button" aria-label={showHandles ? "Hide block handles" : "Reorder blocks"}
+          onClick={() => setShowHandles(value => !value)}><GripVertical size={18} /></Pressable>
+      </div>
       </div>
       <input
         ref={fileInput}
@@ -1322,7 +1317,7 @@ function SessionEditor({
           items={blockIds}
           strategy={verticalListSortingStrategy}
         >
-          <div ref={holder} className="rich-document-wrap">
+          <div ref={holder} className="rich-document-wrap" onFocusCapture={() => setToolsExpanded(false)} onPointerDownCapture={() => setToolsExpanded(false)}>
             <div className="rich-block-gutter">
               {blocks.map((item) => (
                 <DragHandle key={item.id} item={item} />

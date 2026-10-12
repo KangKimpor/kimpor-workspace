@@ -1,6 +1,6 @@
 # Kimpor Workspace implementation report
 
-Updated 2026-10-11. Public app: https://kangkimpor.github.io/kimpor-workspace/.
+Updated 2026-10-12. Public app: https://kangkimpor.github.io/kimpor-workspace/.
 Public main: https://github.com/KangKimpor/kimpor-workspace. Version 0.0.1.
 
 ## Delivered behavior
@@ -9,9 +9,12 @@ Today, Calendar, Notes, Journal and Workspace share durable local records and a
 Yjs editor. Five database views, typed properties, filters, templates, versions,
 search, recurrence, files, math, sketching, app lock and optional document
 protection are implemented. Navigation flushes pending titles, bodies and files.
-Mobile formatting shows five controls with expandable advanced tools. Journal
-uses one Write today/Continue writing action, a seven-day strip and optional
-history. Calendar has one primary event action and no per-day plus buttons.
+Writing shows five controls with an on-demand formatting panel. Tablet and phone
+writing hides the document list, large note icon and duplicate header actions.
+Journal has a Today card, dated entry previews, search and optional writing history.
+Calendar keeps month selection in place with a selected-day agenda, compact view
+selection on touch widths and optional event details. It has one primary event
+action and no per-day plus buttons.
 Desktop sidebar collapse, phone edge-back, sheet sizing and Today title collapse
 are implemented. Referenced Notion ZIP files are encrypted and hierarchy retained.
 

@@ -1,0 +1,258 @@
+{
+  "date": "2026-10-12T00:25:54.743Z",
+  "mode": "Managed browser viewport checks, not physical devices",
+  "checks": [
+    {
+      "name": "iphone15",
+      "screen": "today",
+      "width": 393,
+      "height": 852,
+      "overflow": false
+    },
+    {
+      "name": "iphone15",
+      "screen": "writing",
+      "width": 393,
+      "height": 852,
+      "overflow": false
+    },
+    {
+      "name": "iphone15",
+      "screen": "journal",
+      "width": 393,
+      "height": 852,
+      "overflow": false
+    },
+    {
+      "name": "iphone15",
+      "screen": "journal-entry",
+      "width": 393,
+      "height": 852,
+      "overflow": false
+    },
+    {
+      "name": "iphone15",
+      "screen": "calendar",
+      "width": 393,
+      "height": 852,
+      "overflow": false
+    },
+    {
+      "name": "iphone15",
+      "screen": "event",
+      "width": 393,
+      "height": 852,
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16",
+      "screen": "today",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16",
+      "screen": "writing",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16",
+      "screen": "journal",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16",
+      "screen": "journal-entry",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16",
+      "screen": "calendar",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16",
+      "screen": "event",
+      "width": 820,
+      "height": 1180,
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16-landscape",
+      "screen": "today",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16-landscape",
+      "screen": "writing",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16-landscape",
+      "screen": "journal",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16-landscape",
+      "screen": "journal-entry",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16-landscape",
+      "screen": "calendar",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16-landscape",
+      "screen": "event",
+      "width": 1180,
+      "height": 820,
+      "overflow": false
+    },
+    {
+      "name": "ipad-reference",
+      "screen": "today",
+      "width": 1280,
+      "height": 800,
+      "overflow": false
+    },
+    {
+      "name": "ipad-reference",
+      "screen": "writing",
+      "width": 1280,
+      "height": 800,
+      "overflow": false
+    },
+    {
+      "name": "ipad-reference",
+      "screen": "journal",
+      "width": 1280,
+      "height": 800,
+      "overflow": false
+    },
+    {
+      "name": "ipad-reference",
+      "screen": "journal-entry",
+      "width": 1280,
+      "height": 800,
+      "overflow": false
+    },
+    {
+      "name": "ipad-reference",
+      "screen": "calendar",
+      "width": 1280,
+      "height": 800,
+      "overflow": false
+    },
+    {
+      "name": "ipad-reference",
+      "screen": "event",
+      "width": 1280,
+      "height": 800,
+      "overflow": false
+    },
+    {
+      "name": "desktop1080",
+      "screen": "today",
+      "width": 1980,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "name": "desktop1080",
+      "screen": "writing",
+      "width": 1980,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "name": "desktop1080",
+      "screen": "journal",
+      "width": 1980,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "name": "desktop1080",
+      "screen": "journal-entry",
+      "width": 1980,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "name": "desktop1080",
+      "screen": "calendar",
+      "width": 1980,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "name": "desktop1080",
+      "screen": "event",
+      "width": 1980,
+      "height": 1080,
+      "overflow": false
+    },
+    {
+      "name": "desktop1200",
+      "screen": "today",
+      "width": 1980,
+      "height": 1200,
+      "overflow": false
+    },
+    {
+      "name": "desktop1200",
+      "screen": "writing",
+      "width": 1980,
+      "height": 1200,
+      "overflow": false
+    },
+    {
+      "name": "desktop1200",
+      "screen": "journal",
+      "width": 1980,
+      "height": 1200,
+      "overflow": false
+    },
+    {
+      "name": "desktop1200",
+      "screen": "journal-entry",
+      "width": 1980,
+      "height": 1200,
+      "overflow": false
+    },
+    {
+      "name": "desktop1200",
+      "screen": "calendar",
+      "width": 1980,
+      "height": 1200,
+      "overflow": false
+    },
+    {
+      "name": "desktop1200",
+      "screen": "event",
+      "width": 1980,
+      "height": 1200,
+      "overflow": false
+    }
+  ]
+}

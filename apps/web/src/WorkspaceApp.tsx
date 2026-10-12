@@ -261,15 +261,19 @@ function PageButton({
 }) {
   return (
     <Pressable
-      className={`ws-page-row ${small ? "compact" : ""}`}
+      className={`ws-page-row ${small ? "compact" : ""} ${page.type === "journal" && !small ? "ws-journal-entry" : ""}`}
       style={style}
       onClick={() => onOpen(page.id)}
     >
-      <span className="ws-page-icon" aria-hidden="true">
-        {pageIcon(page)}
-      </span>
+      {page.type === "journal" && !small ? (
+        <span className="ws-journal-date-badge" aria-hidden="true">
+          <span>{new Date(`${page.date ?? page.createdAt.slice(0, 10)}T12:00:00`).toLocaleDateString(undefined, { month: "short" })}</span>
+          <strong>{Number((page.date ?? page.createdAt.slice(0, 10)).slice(-2))}</strong>
+        </span>
+      ) : <span className="ws-page-icon" aria-hidden="true">{pageIcon(page)}</span>}
       <span className="ws-page-row-text">
         <strong>{titleOf(page)}</strong>
+        {page.type === "journal" && !small && <small className="ws-journal-preview">{page.properties.__locked ? "Protected entry" : String(page.properties.__text ?? "").trim().slice(0, 140) || "A moment from your day"}</small>}
         <span>
           {page.type === "journal" && page.date
             ? displayDate(page.date)
@@ -302,7 +306,7 @@ function useWindowedRange(
         if (row) observer.observe(row);
         observedRow = row;
       }
-      const height = row instanceof HTMLElement ? row.getBoundingClientRect().height || estimatedHeight : estimatedHeight;
+      const height = row instanceof HTMLElement ? (row.getBoundingClientRect().height + (parseFloat(getComputedStyle(row).marginBottom) || 0)) || estimatedHeight : estimatedHeight;
       const top = element.getBoundingClientRect().top;
       const viewport = window.visualViewport?.height ?? window.innerHeight;
       const start = Math.min(count, Math.max(0, Math.floor(-top / height) - 12));
@@ -336,8 +340,9 @@ function useWindowedRange(
 }
 function PageList({ pages, onOpen, gallery }: { pages: Page[]; onOpen: (id: string) => void; gallery: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
-  const range = useWindowedRange(ref, pages.length, 80, !gallery && pages.length > 100);
-  return <div ref={ref} className={`ws-page-list ${gallery ? "gallery" : ""}`} style={range.style}>
+  const journals = pages.length > 0 && pages.every(page => page.type === "journal");
+  const range = useWindowedRange(ref, pages.length, journals ? 120 : 80, !gallery && pages.length > 100);
+  return <div ref={ref} className={`ws-page-list ${gallery ? "gallery" : ""} ${journals ? "ws-journal-entries" : ""}`} style={range.style}>
     {pages.slice(range.start, range.end).map((page, index) => <PageButton key={page.id} page={page} onOpen={onOpen}
       style={range.windowed ? { position: "absolute", top: (range.start + index) * range.height, left: 0 } : undefined} />)}
   </div>;
@@ -860,6 +865,8 @@ export default function WorkspaceApp() {
   };
   return (
     <div
+      data-module={module}
+      data-writing={Boolean(selected && selected.type !== "database")}
       className={`ws-app ${focus ? "focus-mode" : ""} ${selected ? "has-detail" : ""} ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}
       style={
         {
@@ -1080,6 +1087,13 @@ export default function WorkspaceApp() {
               })
             }
           />
+        ) : module === "Journal" && !selected ? (
+          <JournalHome pages={livePages.filter(page => page.type === "journal")}
+            onOpen={openPage} onWrite={(date) => {
+              const existing = livePages.find(page => page.type === "journal" && page.date === date);
+              if (existing) openPage(existing.id);
+              else void run(() => create("journal", "", { date }));
+            }} />
         ) : (
           <div className={`ws-module-body ${selected ? "with-detail" : ""}`}>
             <section className="ws-list-pane" aria-label={`${module} list`}>
@@ -1727,6 +1741,28 @@ function Memories({
   ) : null;
 }
 
+function JournalHome({ pages, onOpen, onWrite }: {
+  pages: Page[]; onOpen: (id: string) => void; onWrite: (date: string) => void;
+}) {
+  const [query, setQuery] = useState("");
+  const entries = pages.filter(page => `${page.title} ${page.properties.__locked ? "" : page.properties.__text ?? ""}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
+    .sort((a, b) => (b.date ?? b.createdAt.slice(0, 10)).localeCompare(a.date ?? a.createdAt.slice(0, 10)));
+  return <section className="ws-journal-home" aria-label="Journal">
+    <header className="ws-journal-home-heading"><div><p className="ws-eyebrow">YOUR DAYS, IN YOUR WORDS</p><h1>Journal</h1></div>
+      <span className="ws-journal-count">{pages.length} {pages.length === 1 ? "entry" : "entries"}</span></header>
+    <div className="ws-journal-home-grid">
+      <aside className="ws-journal-home-aside"><JournalOverview pages={pages} onOpen={onOpen} onWrite={() => onWrite(localDate())} />
+        <div className="ws-journal-prompt"><PenLine size={20} /><h3>A place to pause.</h3><p>A thought, a small win, or a moment you want to keep.</p></div>
+      </aside>
+      <div className="ws-journal-entry-browser">
+        <div className="ws-journal-browser-heading"><h2>Your entries</h2></div>
+        <label className="ws-search-field"><Search size={17} /><input type="search" aria-label="Search journal" placeholder="Find an entry" value={query} onChange={event => setQuery(event.target.value)} /></label>
+        {entries.length ? <PageList pages={entries} onOpen={onOpen} gallery={false} /> : <div className="ws-journal-empty"><BookOpen size={30} /><h3>{query ? "No matching entries" : "Your story starts here"}</h3><p>{query ? "Try a different word." : "Write today. Your moments will collect here."}</p></div>}
+      </div>
+    </div>
+  </section>;
+}
+
 function JournalOverview({ pages, onOpen, onWrite }: {
   pages: Page[];
   onOpen: (id: string) => void;
@@ -1749,8 +1785,9 @@ function JournalOverview({ pages, onOpen, onWrite }: {
   return (
     <div className="ws-journal-overview">
       <div className="ws-journal-invitation">
-        <span className="ws-eyebrow">{displayDate(localDate())}</span>
-        <h2>{today ? "A moment to come back to" : "What is on your mind?"}</h2>
+        <div className="ws-journal-today-label"><span className="ws-journal-today-date">{new Date().getDate()}</span><span><strong>Today</strong><time>{new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</time></span></div>
+        <h2>{today ? "Pick up where you left off." : "A little time for yourself."}</h2>
+        <p className="ws-journal-invitation-copy">{today ? "Your words are waiting for you." : "Start with whatever is on your mind."}</p>
         <Pressable className="ws-button primary" onClick={() => today ? onOpen(today.id) : onWrite()}>
           <PenLine size={18} />{today ? "Continue writing" : "Write today"}
         </Pressable>
@@ -2079,7 +2116,7 @@ function PageDetail({
   );
   return (
     <div
-      className="ws-page-detail"
+      className="ws-page-detail" data-page-type={page.type}
       key={page.id}
       onClickCapture={(event) => {
         const link = event.target instanceof Element
@@ -2148,7 +2185,7 @@ function PageDetail({
           className="ws-page-title"
           value={page.properties.__locked ? "Locked entry" : title}
           aria-label="Page title"
-          placeholder={page.type === "journal" ? "Today…" : "Untitled"}
+          placeholder={page.type === "journal" ? "Title, if you like" : "Untitled"}
           readOnly={Boolean(page.properties.__locked)}
           onChange={(event) => saveTitle(event.target.value)}
           onBlur={() => {
@@ -2156,37 +2193,10 @@ function PageDetail({
           }}
         />
       </div>
-      {page.type === "journal" && (
-        <div className="ws-journal-meta">
-          <label>
-            Date
-            <input
-              className="ws-inline-input"
-              type="date"
-              aria-label="Journal date"
-              value={page.date ?? localDate()}
-              onChange={(event) => void onPatch({ date: event.target.value })}
-            />
-          </label>
-          <div className="ws-mood" aria-label="Mood">
-            {moodNames.map((name, index) => (
-              <Pressable
-                key={name}
-                className={page.properties.mood === index + 1 ? "selected" : ""}
-                aria-label={name}
-                aria-pressed={page.properties.mood === index + 1}
-                onClick={() =>
-                  void onPatch({
-                    properties: { ...page.properties, mood: index + 1 },
-                  })
-                }
-              >
-                {["😔", "🙁", "😐", "🙂", "😊"][index]}
-              </Pressable>
-            ))}
-          </div>
-        </div>
-      )}
+      {page.type === "journal" && <div className="ws-journal-entry-date"><CalendarDays size={15} /><time>{displayDate(page.date ?? localDate())}</time>
+        <Pressable className="ws-journal-mood-summary" aria-label="Journal date and mood" onClick={() => setMenuOpen(true)}>
+          {page.properties.mood ? ["😔", "🙁", "😐", "🙂", "😊"][Number(page.properties.mood) - 1] : "How I feel"}
+        </Pressable></div>}
       {page.tags.length > 0 && (
         <div className="ws-tags">
           {page.tags.map((tag) => (
@@ -2265,6 +2275,41 @@ function PageDetail({
       )}
       <Sheet open={menuOpen} onOpenChange={setMenuOpen} title="Page options">
         <div className="ws-page-menu">
+          <Pressable className="ws-menu-row" onClick={() => void onPatch({ favorite: !page.favorite })}>
+            <Star size={18} />{page.favorite ? "Remove from favorites" : "Add to favorites"}
+          </Pressable>
+          {page.type === "journal" && (
+        <div className="ws-journal-meta">
+          <label>
+            Date
+            <input
+              className="ws-inline-input"
+              type="date"
+              aria-label="Journal date"
+              value={page.date ?? localDate()}
+              onChange={(event) => void onPatch({ date: event.target.value })}
+            />
+          </label>
+          <div className="ws-mood" aria-label="Mood">
+            {moodNames.map((name, index) => (
+              <Pressable
+                key={name}
+                className={page.properties.mood === index + 1 ? "selected" : ""}
+                aria-label={name}
+                aria-pressed={page.properties.mood === index + 1}
+                onClick={() =>
+                  void onPatch({
+                    properties: { ...page.properties, mood: index + 1 },
+                  })
+                }
+              >
+                {["😔", "🙁", "😐", "🙂", "😊"][index]}
+              </Pressable>
+            ))}
+          </div>
+        </div>
+      )}
+
           <div className="ws-icon-picker" aria-label="Page icons">
             {icons.map((icon) => (
               <Pressable

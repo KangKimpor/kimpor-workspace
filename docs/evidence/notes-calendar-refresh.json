@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-12T00:29:37.814400+00:00",
+  "writing": {
+    "default_controls": 5,
+    "formatting": "On-demand labeled panel; dismisses after an action, document focus or Escape.",
+    "tablet_max_width": 1366,
+    "document_list_hidden_while_writing": true,
+    "block_handles": "Optional Reorder blocks action."
+  },
+  "journal": "Today/continue card, dated searchable entries with saved text previews, optional history, date/mood in Page options.",
+  "calendar": "In-place month selection, selected-day agenda, event dots and view selector through 1366px; optional event details; source/account settings work on phones.",
+  "local_focused_browser_cases": 16,
+  "calendar_settings_reruns": 4,
+  "unit_cases": 67,
+  "core_line_coverage_percent": 88.29,
+  "semantic_contrast_pairs": 44,
+  "responsive_captures": 36,
+  "responsive_profiles": [
+    "393x852 iPhone 15",
+    "820x1180 iPad A16",
+    "1180x820 iPad landscape",
+    "1280x800 screenshot reference tablet",
+    "1980x1080 desktop",
+    "1980x1200 desktop"
+  ],
+  "physical_devices_verified": false,
+  "migration": "Existing owner data is preserved. No migration or backend changes were performed.",
+  "ci_status": "Pending a reviewed replacement visual baseline and full Quality verification."
+}

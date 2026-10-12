@@ -81,13 +81,6 @@ function dayLabel(date: string, options: Intl.DateTimeFormatOptions) {
     timeZone: "UTC",
   }).format(new Date(`${date}T12:00:00Z`));
 }
-function weekNumber(date: string) {
-  const value = new Date(`${date}T12:00:00Z`);
-  value.setUTCDate(value.getUTCDate() + 4 - (value.getUTCDay() || 7));
-  return Math.ceil(
-    ((value.getTime() - Date.UTC(value.getUTCFullYear(), 0, 1)) / DAY + 1) / 7,
-  );
-}
 function inputTime(value: string, zone: string, allDay: boolean) {
   return allDay ? value.slice(0, 10) : wallTime(value, zone).slice(0, 16);
 }
@@ -152,9 +145,11 @@ export default function CalendarModule({
     date,
     -((weekday(date) - preferences.firstDay + 7) % 7),
   );
+  const monthOffset = (weekday(monthStart) - preferences.firstDay + 7) % 7;
+  const monthDays = new Date(Date.UTC(Number(date.slice(0, 4)), Number(date.slice(5, 7)), 0)).getUTCDate();
   const days =
     view === "month"
-      ? Array.from({ length: 42 }, (_, index) => addDays(monthGridStart, index))
+      ? Array.from({ length: Math.ceil((monthOffset + monthDays) / 7) * 7 }, (_, index) => addDays(monthGridStart, index))
       : view === "week"
         ? Array.from({ length: 7 }, (_, index) => addDays(weekStart, index))
         : view === "agenda"
@@ -544,12 +539,19 @@ export default function CalendarModule({
           ),
     );
   }
-  const entriesFor = (day: string) =>
-    occurrences.filter((occurrence) =>
-      occurrence.event.allDay
-        ? occurrence.start <= day && occurrence.end > day
-        : occurrenceDate(occurrence, preferences.zone) === day,
-    );
+  const dayKeys = days.join(",");
+  const entriesByDate = useMemo(() => {
+    const keys = dayKeys.split(",");
+    const result = new Map(keys.map(day => [day, [] as EventOccurrence<CalendarEvent>[]]));
+    for (const occurrence of occurrences) {
+      if (occurrence.event.allDay) {
+        for (const day of keys) if (occurrence.start <= day && occurrence.end > day) result.get(day)?.push(occurrence);
+      } else result.get(occurrenceDate(occurrence, preferences.zone))?.push(occurrence);
+    }
+    for (const entries of result.values()) entries.sort((a, b) => Number(b.event.allDay) - Number(a.event.allDay) || new Date(a.start).getTime() - new Date(b.start).getTime());
+    return result;
+  }, [dayKeys, occurrences, preferences.zone]);
+  const entriesFor = (day: string) => entriesByDate.get(day) ?? [];
   async function importFile(file: File) {
     try {
       const imported = importIcs(await file.text(), preferences.zone);
@@ -601,11 +603,7 @@ export default function CalendarModule({
     <section className="calendar-module" aria-label="Calendar">
       <header className="cal-heading">
         <div>
-          <p className="eyebrow">
-            <CalendarDays size={16} /> YOUR TIME, TOGETHER
-          </p>
           <h1>Calendar</h1>
-          <p className="muted">A little space for everything that matters.</p>
         </div>
         <div className="cal-actions">
           <Pressable
@@ -620,95 +618,7 @@ export default function CalendarModule({
           </Pressable>
         </div>
       </header>
-      <form
-        className="cal-quick"
-        onSubmit={(event) => {
-          event.preventDefault();
-          const value = naturalLanguageEvent(quick, now, preferences.zone);
-          if (!value) {
-            setError("Try “lunch with Sam tomorrow 1pm”, or choose New event.");
-            return;
-          }
-          const selected =
-            calendars.find(
-              (calendar) =>
-                calendar.id === preferences.defaultCalendar &&
-                calendar.source !== "ics",
-            ) ?? calendars.find((calendar) => calendar.source === "local");
-          setDraft({
-            fields: {
-              ...value,
-              calendarId: selected?.id,
-              startZone: preferences.zone,
-              endZone: preferences.zone,
-              recurrence: "",
-              busy: true,
-              reminderMinutes: 10,
-            },
-            startInput: inputTime(value.start, preferences.zone, value.allDay),
-            endInput: inputTime(value.end, preferences.zone, value.allDay),
-            scope: "this",
-          });
-          setQuick("");
-        }}
-      >
-        <input
-          aria-label="Quick add event"
-          value={quick}
-          onChange={(event) => setQuick(event.target.value)}
-          placeholder="Lunch with Sam tomorrow 1pm"
-        />
-        <Pressable
-          className="button tinted"
-          type="submit"
-          disabled={!quick.trim()}
-        >
-          Add
-        </Pressable>
-      </form>
       <div className="cal-layout">
-        <aside className="cal-sidebar">
-          <MiniMonth
-            date={date}
-            firstDay={preferences.firstDay}
-            onSelect={setDate}
-          />
-          <div className="cal-sources">
-            <h2>Calendars</h2>
-            {calendars.map((calendar) => (
-              <div className="cal-source-row" key={calendar.id}>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={calendar.visible}
-                    onChange={(event) => {
-                      void store.saveCalendar({
-                        id: calendar.id,
-                        visible: event.target.checked,
-                      });
-                    }}
-                  />
-                  <span
-                    className={`cal-dot cal-color-${colors.includes(calendar.color) ? calendar.color : "blue"}`}
-                  />
-                  {calendar.title}
-                </label>
-                <span className="caption muted">
-                  {calendar.source === "local"
-                    ? "On device"
-                    : calendar.source === "ics"
-                      ? "Read-only"
-                      : calendar.source}
-                </span>
-              </div>
-            ))}
-          </div>
-          <p className="caption muted">
-            {pending
-              ? `${pending} calendar change${pending === 1 ? "" : "s"} waiting to sync.`
-              : "Your local calendars work offline."}
-          </p>
-        </aside>
         <div className="cal-main">
           <div className="cal-toolbar">
             <div className="cal-actions">
@@ -740,6 +650,9 @@ export default function CalendarModule({
                 ...(view === "day" ? { day: "numeric" } : {}),
               })}
             </h2>
+            <select className="cal-view-select" aria-label="Calendar view" value={view} onChange={event => setView(event.target.value as View)}>
+              {(["day", "week", "month", "agenda"] as const).map(option => <option key={option} value={option}>{option.charAt(0).toUpperCase() + option.slice(1)}</option>)}
+            </select>
             <div className="cal-views" aria-label="Calendar view">
               {(["day", "week", "month", "agenda"] as const).map((option) => (
                 <Pressable
@@ -754,16 +667,16 @@ export default function CalendarModule({
             </div>
           </div>
           {view === "month" ? (
-            <div className="cal-month">
+            <div className="cal-month-layout"><div className="cal-month">
               <div className="cal-month-head" aria-hidden="true">
                 {days.slice(0, 7).map((day) => (
                   <span key={day}>{dayLabel(day, { weekday: "short" })}</span>
                 ))}
               </div>
               <div className="cal-month-grid">
-                {days.map((day, index) => (
+                {days.map((day) => (
                   <div
-                    className={`cal-day ${day.slice(0, 7) !== date.slice(0, 7) ? "outside" : ""} ${day === dateInZone(now, preferences.zone) ? "today" : ""}`}
+                    className={`cal-day ${day.slice(0, 7) !== date.slice(0, 7) ? "outside" : ""} ${day === dateInZone(now, preferences.zone) ? "today" : ""} ${day === date ? "selected-day" : ""}`}
                     key={day}
                   >
                     <div className="cal-day-header">
@@ -772,22 +685,15 @@ export default function CalendarModule({
                         aria-label={`Open ${dayLabel(day, { weekday: "long", month: "long", day: "numeric", year: "numeric" })}`}
                         onClick={() => {
                           setDate(day);
-                          setView("day");
                         }}
                       >
-                        {Number(day.slice(-2))}
+                        <span>{Number(day.slice(-2))}</span>
                       </Pressable>
-                      {index % 7 === 0 && (
-                        <span
-                          className="cal-week-number"
-                          aria-label={`Week ${weekNumber(day)}`}
-                        >
-                          W{weekNumber(day)}
-                        </span>
-                      )}
                     </div>
+                    <span className="cal-day-dots" aria-hidden="true">{entriesFor(day).slice(0, 3).map(occurrence => <i key={occurrence.key} className={`cal-color-${calendars.find(calendar => calendar.id === occurrence.event.calendarId)?.color ?? "blue"}`} />)}</span>
+                    <div className="cal-day-events">
                     {entriesFor(day)
-                      .slice(0, 3)
+                      .slice(0, 2)
                       .map((occurrence) => (
                         <EventChip
                           key={occurrence.key}
@@ -802,7 +708,7 @@ export default function CalendarModule({
                           onOpen={() => openOccurrence(occurrence)}
                         />
                       ))}
-                    {entriesFor(day).length > 3 && (
+                    {entriesFor(day).length > 2 && (
                       <Pressable
                         className="cal-more"
                         onClick={() => {
@@ -810,13 +716,20 @@ export default function CalendarModule({
                           setView("agenda");
                         }}
                       >
-                        +{entriesFor(day).length - 3} more
+                        {entriesFor(day).length - 2} more
                       </Pressable>
                     )}
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
+            <section className="cal-selected-day" aria-label="Selected day events">
+              <header><p>{dayLabel(date, { weekday: "long" })}</p><h2>{dayLabel(date, { month: "long", day: "numeric" })}</h2><span>{entriesFor(date).length ? `${entriesFor(date).length} ${entriesFor(date).length === 1 ? "event" : "events"}` : "Your day is clear"}</span></header>
+              {entriesFor(date).length ? entriesFor(date).map(occurrence => <EventChip key={occurrence.key} occurrence={occurrence}
+                color={calendars.find(calendar => calendar.id === occurrence.event.calendarId)?.color ?? "blue"} time={time} onOpen={() => openOccurrence(occurrence)} />)
+                : <div className="cal-day-empty"><CalendarDays size={24} /><p>No events for this day.</p></div>}
+            </section></div>
           ) : view === "agenda" ? (
             <div className="cal-agenda">
               {occurrences.length ? (
@@ -879,9 +792,6 @@ export default function CalendarModule({
           )}
           <p className="cal-help caption muted">
             {preferences.zone} · {preferences.hour12 ? "12" : "24"}-hour clock
-            {view === "day" || view === "week"
-              ? " · Drag with 15-minute snap. On touch, hold first. Alt + ↑/↓ moves a focused event; add Shift to resize."
-              : ""}
           </p>
         </div>
       </div>
@@ -942,7 +852,7 @@ export default function CalendarModule({
       >
         <Dialog.Portal>
           <Dialog.Overlay className="cal-overlay" />
-          <Dialog.Content className="cal-dialog">
+          <Dialog.Content className="cal-dialog cal-event-dialog">
             <div className="cal-dialog-head">
               <Dialog.Title>
                 {draft?.occurrence ? "Event details" : "New event"}
@@ -953,7 +863,7 @@ export default function CalendarModule({
                 </Pressable>
               </Dialog.Close>
             </div>
-            <Dialog.Description className="caption muted">
+            <Dialog.Description className={draft?.fields.source === "ics" ? "caption muted" : "sr-only"}>
               {draft?.fields.source === "ics"
                 ? "Subscribed events are read-only."
                 : "Changes are saved on this device first."}
@@ -1032,6 +942,16 @@ export default function CalendarModule({
                     />
                   </label>
                 </div>
+                <label>
+                  Location
+                  <input
+                    value={draft.fields.location ?? ""}
+                    onChange={(event) =>
+                      patchDraft({ location: event.target.value })
+                    }
+                  />
+                </label>
+                <details className="cal-event-more" open={Boolean(draft.occurrence?.event.recurrence)}><summary>More details</summary>
                 {!draft.fields.allDay && (
                   <div className="cal-form-pair">
                     <label>
@@ -1056,15 +976,6 @@ export default function CalendarModule({
                     </label>
                   </div>
                 )}
-                <label>
-                  Location
-                  <input
-                    value={draft.fields.location ?? ""}
-                    onChange={(event) =>
-                      patchDraft({ location: event.target.value })
-                    }
-                  />
-                </label>
                 <label>
                   Notes
                   <textarea
@@ -1211,6 +1122,7 @@ export default function CalendarModule({
                     </select>
                   </label>
                 )}
+                </details>
                 {error && (
                   <p role="alert" className="cal-error">
                     {error}
@@ -1262,7 +1174,85 @@ export default function CalendarModule({
             <Dialog.Description className="caption muted">
               Choose how you see your time and which calendars belong here.
             </Dialog.Description>
-            <div className="cal-form">
+            <div className="cal-form">          <div className="cal-sources">
+            <h3>Shown calendars</h3>
+            {pending > 0 && <p className="caption muted">{pending} {pending === 1 ? "change waiting" : "changes waiting"} to sync.</p>}
+            {calendars.map((calendar) => (
+              <div className="cal-source-row" key={calendar.id}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={calendar.visible}
+                    onChange={(event) => {
+                      void store.saveCalendar({
+                        id: calendar.id,
+                        visible: event.target.checked,
+                      });
+                    }}
+                  />
+                  <span
+                    className={`cal-dot cal-color-${colors.includes(calendar.color) ? calendar.color : "blue"}`}
+                  />
+                  {calendar.title}
+                </label>
+                <span className="caption muted">
+                  {calendar.source === "local"
+                    ? "On device"
+                    : calendar.source === "ics"
+                      ? "Read-only"
+                      : calendar.source}
+                </span>
+              </div>
+            ))}
+          </div>
+              <details className="cal-quick-entry"><summary>Quick add</summary>      <form
+        className="cal-quick"
+        onSubmit={(event) => {
+          event.preventDefault();
+          const value = naturalLanguageEvent(quick, now, preferences.zone);
+          if (!value) {
+            setError("Try “lunch with Sam tomorrow 1pm”, or choose New event.");
+            return;
+          }
+          const selected =
+            calendars.find(
+              (calendar) =>
+                calendar.id === preferences.defaultCalendar &&
+                calendar.source !== "ics",
+            ) ?? calendars.find((calendar) => calendar.source === "local");
+          setDraft({
+            fields: {
+              ...value,
+              calendarId: selected?.id,
+              startZone: preferences.zone,
+              endZone: preferences.zone,
+              recurrence: "",
+              busy: true,
+              reminderMinutes: 10,
+            },
+            startInput: inputTime(value.start, preferences.zone, value.allDay),
+            endInput: inputTime(value.end, preferences.zone, value.allDay),
+            scope: "this",
+          });
+          setQuick("");
+          setSettings(false);
+        }}
+      >
+        <input
+          aria-label="Quick add event"
+          value={quick}
+          onChange={(event) => setQuick(event.target.value)}
+          placeholder="Lunch with Sam tomorrow 1pm"
+        />
+        <Pressable
+          className="button tinted"
+          type="submit"
+          disabled={!quick.trim()}
+        >
+          Add
+        </Pressable>
+      </form>
+              </details>
               <label>
                 Default calendar
                 <select
@@ -1437,42 +1427,6 @@ export default function CalendarModule({
   );
 }
 
-function MiniMonth({
-  date,
-  firstDay,
-  onSelect,
-}: {
-  date: string;
-  firstDay: number;
-  onSelect: (date: string) => void;
-}) {
-  const start = `${date.slice(0, 7)}-01`;
-  const first = addDays(start, -((weekday(start) - firstDay + 7) % 7));
-  const days = Array.from({ length: 42 }, (_, index) => addDays(first, index));
-  return (
-    <div className="cal-mini">
-      <h3>{dayLabel(date, { month: "long", year: "numeric" })}</h3>
-      <div className="cal-mini-grid">
-        {days.slice(0, 7).map((day) => (
-          <span className="caption muted" key={`label-${day}`}>
-            {dayLabel(day, { weekday: "narrow" })}
-          </span>
-        ))}
-        {days.map((day) => (
-          <Pressable
-            key={day}
-            aria-label={`Go to ${day}`}
-            aria-pressed={day === date}
-            className={`${day === date ? "selected" : ""} ${day.slice(0, 7) !== date.slice(0, 7) ? "muted" : ""}`}
-            onClick={() => onSelect(day)}
-          >
-            {Number(day.slice(-2))}
-          </Pressable>
-        ))}
-      </div>
-    </div>
-  );
-}
 function EventChip({
   occurrence,
   color,

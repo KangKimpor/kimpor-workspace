@@ -1,6 +1,6 @@
 # Verification ledger
 
-Updated 2026-10-11. “Tested” describes the stated automated/local evidence, not a
+Updated 2026-10-12. “Tested” describes the stated automated/local evidence, not a
 completed physical release. The physical **Verified by user** column is
 intentionally blank: no confirmed device results have been supplied.
 
@@ -11,7 +11,7 @@ intentionally blank: no confirmed device results have been supplied.
 | Browser profiles | Foundation + product + feature suites; Chromium, WebKit, Firefox, 320px phone WebKit | Tested locally; final totals in report | |
 | Phone tabs and capture | Five bottom tabs, capture sheet, 44px targets, safe-area CSS | Tested/emulated | |
 | Collapsing titles, edge-swipe back, sheet detents | Today title collapse, phone edge-back flush, 56/92dvh sheets | Eight browser checks pass; touch on physical devices pending | |
-| Sidebar and three panes | Sidebar from 600px, three panes from 1024px, drag resizing | Captured/tested; desktop collapse toggle added/tested | |
+| Sidebar and three panes | Sidebar from 600px; writing uses one content pane through 1366px; desktop drag resizing | Captured/tested; desktop collapse toggle added/tested | |
 | Command palette and shortcuts | Ctrl/Cmd+K, local results, IME/keyCode229 guard, modal focus return | Browser-tested; physical keyboards/IME pending | |
 | Today date/events/journal/recents | Seeded screenshots and navigation/reload test | Tested locally | |
 | Today tasks and pinned pages | Built-in Tasks schema, completion, favorites | Implemented; dedicated task UI coverage pending | |
@@ -29,7 +29,7 @@ intentionally blank: no confirmed device results have been supplied.
 | Code highlighting | Lazy six-language highlighter | Implemented; dedicated highlighting cases pending | |
 | Inline formatting/color/Markdown shortcuts | TipTap marks and command controls | Implemented; not exhaustive formatting round-trip | |
 | Slash menu and IME guard | Block menu and composing suppression | Browser-tested (synthetic IME) | |
-| Editor drag / long press | dnd-kit mouse/touch/keyboard sensors | Keyboard study tested; real touch block drag pending | |
+| Editor drag / long press | Optional Reorder blocks controls; dnd-kit mouse/touch/keyboard sensors | Keyboard study tested; real touch block drag pending | |
 | Undo/redo/find | Yjs history and local find controls | Implemented; exhaustive undo cases pending | |
 | Files and images | Compressed image/file picker, encrypted bytes, local blob URLs and sync metadata | File protection/reload browser-tested; camera/paste hardware pending | |
 | Columns | Two/three columns; narrow screens stack | Browser-tested (two columns) | |
@@ -37,7 +37,7 @@ intentionally blank: no confirmed device results have been supplied.
 | Editor save-before-navigation | Registered body/title/file/protection flushes | Browser navigation/reload evidence | |
 | PWA offline edit/reload | Real SW controls, cached reload, text retained after reconnect | Four browser profiles; physical eviction pending | |
 | Calendar day/week/month/agenda | Local views and switching | Browser-tested/captured | |
-| Mini month/week number/first day/clock | Calendar preferences and navigator | Implemented; preference UI matrix pending | |
+| Month selection/first day/clock | Selected-day agenda and Calendar preferences | Implemented; preference UI matrix pending | |
 | All-day/current-time line | Date-only events and timed grid | Captured; physical timezone scenarios pending | |
 | Event fields and linked notes | Title/times/zones/location/notes/reminder/color/calendar/busy/URL/page | Local creation tested; exhaustive field UI pending | |
 | RRULE recurrence | COUNT/UNTIL/BYDAY/EXDATE, daily/week/month/year, DST | Integration tests and recurring UI creation | |
