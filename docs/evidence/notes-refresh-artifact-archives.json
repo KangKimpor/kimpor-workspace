@@ -70,6 +70,24 @@
       "sha256": "40e3297b325c1ce8c7e77241b8c47edf754d9b2212053f66814673878302b52c",
       "crc_verified": true,
       "review": "Superseded by explicit Journal history disclosure indicator."
+    },
+    {
+      "artifact_id": 11720970222,
+      "run_id": 38188209009,
+      "archive": "notes-source1-browser.zip",
+      "bytes": 22996600,
+      "sha256": "8323bcc7288201db12fce2b671cf6163bda05eab808d641e1de9b646d15eb4a6",
+      "crc_verified": true,
+      "review": "92 browser cases pass; obsolete interface visual differences superseded by the final reviewed baseline."
+    },
+    {
+      "artifact_id": 11720638249,
+      "run_id": 38189184335,
+      "archive": "notes-source2-browser.zip",
+      "bytes": 22938450,
+      "sha256": "c4a2bf0c04e8bd24772cd59ef7c77ef8c3581b69765dff9fc45ad7caa475c480",
+      "crc_verified": true,
+      "review": "92 browser cases pass; obsolete interface visual differences superseded by the final reviewed baseline."
     }
   ],
   "verified_against_github_digests": true,

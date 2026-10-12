@@ -1,0 +1,8 @@
+{
+  "installer": "Kimpor Workspace_0.0.1_x64-setup.exe",
+  "runner": "Windows",
+  "result": "failed",
+  "measured_at": "2026-10-12T01:01:38.8066663Z",
+  "error": "Installed editor did not accept multilingual input",
+  "native_window_ms": 248
+}

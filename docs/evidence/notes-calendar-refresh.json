@@ -27,7 +27,7 @@
   ],
   "physical_devices_verified": false,
   "migration": "Existing owner data is preserved. No migration or backend changes were performed.",
-  "ci_status": "Pending a reviewed replacement visual baseline and full Quality verification.",
+  "ci_status": "92 browser cases passed on source run 38189952574. Approved final CI baseline now committed; full visual verification runs next.",
   "rejected_baseline": {
     "run": 38188225395,
     "artifact": 11720650685,
@@ -73,5 +73,14 @@
     "artifact": 11720534924,
     "source": "521033cfa5fc96ecaa12ec41d99f28ad6ca408d4",
     "reason": "Final Journal disclosure affordance and standard attachment icon captured in the next candidate."
+  },
+  "app_source_commit": "5384f413c4c78591f6026a4fbe0e5b5df4eef22b",
+  "baseline_review": "notes-refresh-baseline-review.json",
+  "live_cases": 21,
+  "live_deployment_run": 38190132921,
+  "windows_initial_run": {
+    "run": 38189952692,
+    "status": "failed",
+    "reason": "UI Automation read the editor immediately after queued native input. Harness now polls for the exact text before persistence checks. No native pass is claimed until rerun."
   }
 }

@@ -71,6 +71,16 @@ function Get-WorkspaceText($Element) {
   }
   throw 'Visible editor has no accessible text or value pattern'
 }
+function Wait-WorkspaceText($Root, [string]$Name, [string]$Expected) {
+  # SendInput queues native messages; UI Automation's text cache can lag them.
+  # Wait for the exact input in the editor, rather than the sidebar's always-saved label.
+  for ($attempt = 0; $attempt -lt 60; $attempt++) {
+    $element = Get-WorkspaceControl $Root $Name
+    if ($element -and (Get-WorkspaceText $element).Contains($Expected)) { return $element }
+    Start-Sleep -Milliseconds 250
+  }
+  throw "Installed editor did not expose the expected text: $Name"
+}
 function Invoke-InstalledWorkspaceCheck($Application, [string]$Executable, [DateTime]$StartedAt) {
   $button = [System.Windows.Automation.ControlType]::Button
   $root = [System.Windows.Automation.AutomationElement]::FromHandle($Application.MainWindowHandle)
@@ -81,8 +91,8 @@ function Invoke-InstalledWorkspaceCheck($Application, [string]$Executable, [Date
   Set-WorkspaceText (Wait-WorkspaceControl $root 'Page title') 'Windows verification note' $Application
   $text = 'Saved in the installed app · ខ្មែរ · 中文'
   Set-WorkspaceText (Wait-WorkspaceControl $root 'Document editor') $text $Application
+  $null = Wait-WorkspaceText $root 'Document editor' $text
   $null = Wait-WorkspaceControl $root 'Saved on this device'
-  if (!(Get-WorkspaceText (Wait-WorkspaceControl $root 'Document editor')).Contains($text)) { throw 'Installed editor did not accept multilingual input' }
   Invoke-WorkspaceControl (Wait-WorkspaceControl $root 'Today' $button)
   $null = Wait-WorkspaceControl $root "Today's agenda"
   if (!$Application.CloseMainWindow() -or !$Application.WaitForExit(10000) -or $Application.ExitCode -ne 0) { throw 'Installed app did not close normally before persistence check' }
@@ -98,8 +108,7 @@ function Invoke-InstalledWorkspaceCheck($Application, [string]$Executable, [Date
     $null = Wait-WorkspaceControl $root "Today's agenda"
     Invoke-WorkspaceControl (Wait-WorkspaceControl $root 'Notes' $button)
     Invoke-WorkspaceControl (Wait-WorkspaceControl $root 'Windows verification note' $button -Contains)
-    $editor = Wait-WorkspaceControl $root 'Document editor'
-    if (!(Get-WorkspaceText $editor).Contains($text)) { throw 'Multilingual document did not survive installed app restart' }
+    $null = Wait-WorkspaceText $root 'Document editor' $text
     $null = Wait-WorkspaceControl $root 'Saved on this device'
     @{
       date = [DateTime]::UtcNow.ToString('o'); source_commit = $env:GITHUB_SHA
