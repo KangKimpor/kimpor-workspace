@@ -1,39 +1,54 @@
 # Account-first redesign
 
-Requested 2026-10-12. Work directly on main, in verified phases, free services only.
+Source phases were pushed directly to main on 2026-10-12 after `pnpm check`.
+The original imported account remains intact: private read-only comparison found
+69 pages, four database schemas and 62 document bodies unchanged, including all
+original fields and body bytes. Project defaults are presentation views, not a
+rewrite of the imported databases. See the aggregate integrity receipt.
 
-1. Account entry: persistent sessions, code-only email entry, same-window Google
-   start, invisible cache/outbox and additive adoption after the account pull.
-   Preserve the existing sync engine and account ownership.
-2. Projects: task names first, type defaults and metadata-only mapping of existing
-   databases. Preserve all task records and document bytes. Fixtures only in Git.
-3. Layout: container breakpoints below 600, 600–1023 and 1024+; phone tabs,
-   tablet/sidebar splits, keyboard-aware writing, simpler Calendar and Journal.
-4. Feedback and verification: transform/opacity transitions, reduced motion,
-   device profiles, reviewed actual-runner baselines and unchanged budgets.
-5. Documentation and deployment: source-specific evidence, passing phase checks,
-   direct main commits, free deployment and explicit hardware/access limits.
+Account entry uses persistent sessions, SDK email code verification and same-window
+Google start. The existing sync engine retains its invisible cache and outbox.
+First sign-in pulls account data before safely adopting guest drafts. Fixtures
+cover first launch, wrong code, paste, resend, success, Google start and session
+persistence; fixtures do not prove real email delivery or Google account linking.
 
-## Fixed gates
+The shell uses container widths with phone tabs, tablet sidebar expansion and
+landscape list/detail, plus a 240px desktop sidebar. Writing hides navigation,
+properties and status; five controls follow the simulated keyboard. Journal has
+Write/Continue and History; Calendar has one view control and no per-day plus.
+Task names lead Today, project views, Calendar and Search. Backup controls use
+Export ZIP and Import, with JSON controls under More.
 
-`pnpm check` must pass before every phase commit. Pixel changed ratio ≤0.001,
-contrast and 250 KiB gzip graph budgets are unchanged. Windows aggregate resident
-memory must remain ≤150 MiB; the previous rendered-app run failed this gate.
+Local checks: 73 core cases, 88.91% core line coverage, 44 semantic contrast pairs,
+and all initial/additional graphs below 250 KiB gzip. The final pre-baseline full
+browser run passed 137 of 138 cases; its Settings contrast sample hit the opening
+fade. Waiting for the sheet to settle passed the remaining case without changing
+contrast rules. All 18 account fixtures passed. Final source-specific CI results
+and the reviewed 510-image baseline receipt are recorded separately.
 
-## Account configuration
+The first 510-image actual CI candidate (38223471702) was not approved: review
+caught a narrow Calendar heading wrap and unsettled WebKit paint. The corrected
+candidate waits for selected-day data and settled painting. The visual threshold
+remains 0.001 changed pixels with pixelmatch threshold 0.1.
 
-Read-only API and browser audit confirm six-digit/600-second email settings,
-one confirmed account, no Google identity, Google disabled and no custom SMTP.
-Templates still contain confirmation links and cannot be edited with the default
-sender. Google Cloud opened signed out. No identity setting was changed.
+Installed Windows CI source 10aea20 passed render, multilingual note restart,
+callback forwarding, normal exit and uninstall, then failed resident memory:
+399,253,504 bytes versus the unchanged 157,286,400-byte budget. Idle CPU was 0%.
+See `evidence/account-redesign-windows.json`. No release tag or v1 completion is
+claimed. The Windows memory issue needs native profiling; physical iPhone/iPad,
+IME, accessibility hardware and native OAuth remain unverified.
 
-Brevo's current free pricing lists 300 emails/day, subject to sender verification
-and account approval: https://www.brevo.com/pricing/ (checked 2026-10-12).
-Custom SMTP and OAuth secrets must stay in secure provider settings. Real Google
-linking must be checked against the existing confirmed account before identity
-changes. These steps remain pending access; fixture tests cannot prove them.
+Publishing the account-required UI remains held until verified SMTP, token-only
+email templates, real code delivery and same-owner Google linking pass. The older
+working deployment remains live. Follow [the secure setup checklist](ACCOUNT-SETUP.md).
+No paid plan, top-up, trial or billing account was added. Actual task content,
+account emails, exports and credentials were excluded from Git and screenshots.
 
-## Evidence
+## Phase history
+
+The following checks predate the final baseline; they are retained as phase evidence.
+
+## Phase 1
 
 Phase 1 passes `pnpm check`: 68 unit cases, 88.51% core line coverage,
 217.1 KiB initial gzip graph and all 44 contrast pairs. Nine configured-auth

@@ -88,7 +88,7 @@ intentionally blank: no confirmed device results have been supplied.
 | Daily keepalive | Secret-protected real database health RPC | SQL/typechecked; unconfigured schedule, no availability guarantee | |
 | Windows tray/autostart/hotkey/notifications | Scoped Tauri plugins and native commands | Actual MSVC/NSIS builds pass; native extras need physical-device checks | |
 | Windows updater | Signature verification, explicit consent, flush and pending-sync restart guard | Adapter tests; actual N→N+1/device verification absent | |
-| NSIS/checksum/release | Real Windows MSVC/NSIS build; install/window/forwarding/exit/uninstall checks; new rendered-UI/note-reload gate | Memory varied: repeated failures then 143.9 MiB pass; stronger rendered-app result recorded separately. Candidates/checksums retained; no tagged release | |
+| NSIS/checksum/release | Real Windows MSVC/NSIS build; install/window/forwarding/exit/uninstall checks; new rendered-UI/note-reload gate | Rendered source 10aea20 passes functional checks then uses 399,253,504 resident bytes, exceeding 150 MiB. Development fixture only; no tagged release | |
 | Original brand/privacy | Derived A, SVG/PNG/ICO/NSIS assets; original JPEG excluded | Traced/reviewed; OS icon scaling pending | |
 | Accessibility/feedback | Axe both themes on modules/settings, focus/targets/motion tests and 44 contrast pairs | Automated evidence; VoiceOver/Narrator/haptics pending | |
 | Screenshot matrix | 15 screens × 17 profiles × 2 themes; 510 captures and 30 contact sheets | Captured locally with fixtures, no page overflow; actual CI baseline review pending; emulation is not hardware | |
@@ -98,7 +98,7 @@ intentionally blank: no confirmed device results have been supplied.
 | JS/Rust licenses | Locked inventories; KaTeX/font notices; Windows-resolved Cargo expressions | Audited locally; final binary notice audit needs native bundle | |
 | Workflow/secret checks | actionlint, staged/history gitleaks; six deployment safety tests; real Actions | 73 core cases, all 44 contrast pairs and actionlint pass; source-specific CI status tracked separately | |
 | Historical CI pixel baselines | Previous baseline: actual run 38189952585, source 5384f41, 312 captures/26 reviewed contacts; notes-refresh-baseline-review.json | All 92 browser cases and 312/312 comparisons pass in 38191255405 with unchanged 0.1% gate | |
-| GitHub main push/hosting | UI source 10aea20 pushed directly; CI baseline run 38223471702 | Previous UI remains live; account-readiness guard blocks new deployment until SMTP/delivery/linking pass | |
+| GitHub main push/hosting | UI phases pushed directly; first CI candidate 38223471702 rejected after review; replacement recording pending | Previous UI remains live; account-readiness guard blocks new deployment until SMTP/delivery/linking pass | |
 | Physical device acceptance | DEVICE-TEST.md with dates/OS/results | Unverified; no connected hardware | |
 | Free signing/v1.0.0 | Unsigned fallback; SignPath requirements documented | No application/release; blocked by account/device/reputation gates | |
 

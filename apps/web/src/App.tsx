@@ -245,7 +245,7 @@ export function App() {
           <ShieldCheck size={19} />
           <div>
             <strong>Yours, by design</strong>
-            <p>Local first. A little more peace of mind.</p>
+            <p>Your workspace.</p>
           </div>
         </div>
         <Pressable className="nav-item" onClick={() => setSheet(true)}>
@@ -427,7 +427,7 @@ export function App() {
                         ))}
                       </div>
                       <p className="caption muted">
-                        Auto follows your device, from sunrise to winding down.
+                        System appearance
                       </p>
                     </div>
                     <div className="card detail-card">
@@ -591,7 +591,7 @@ export function App() {
                         </span>
                         <span>
                           <strong>Your space stays yours</strong>
-                          <small>Local first, with privacy at its heart</small>
+                          <small>Privacy built in</small>
                         </span>
                         <ChevronRight size={18} />
                       </Pressable>

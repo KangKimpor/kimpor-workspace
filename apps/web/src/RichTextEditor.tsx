@@ -1673,7 +1673,7 @@ export default function RichTextEditor({
           <h2>Protect document</h2>
           <p>
             Encrypt text, sketches and files. Titles, dates and tags remain
-            visible. Existing unencrypted local copies are deleted.
+            visible. Unencrypted copies are deleted.
           </p>
           <label>
             New passphrase

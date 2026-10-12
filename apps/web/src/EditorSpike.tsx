@@ -239,12 +239,7 @@ function StudyEditor({ doc }: { doc: Y.Doc }) {
           </SortableContext>
         </DndContext>
       </section>
-      <p className="spike-disclaimer">
-        This study tests a local editor, Yjs binding and separate drag handles.
-        It is not yet the full workspace editor or cross-device sync. System
-        keyboard composition, selection and dragging still need checks on your
-        iPhone and iPad.
-      </p>
+
     </>
   );
 }
@@ -282,7 +277,7 @@ export default function EditorSpike() {
       {doc ? (
         <StudyEditor doc={doc} />
       ) : (
-        <div className="card skeleton" aria-label="Loading local draft" />
+        <div className="card skeleton" aria-label="Loading draft" />
       )}
     </>
   );

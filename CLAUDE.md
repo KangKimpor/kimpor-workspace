@@ -1,6 +1,6 @@
 # Kimpor Workspace working memory
 
-Updated 2026-10-12 UTC. Account-first UI source 10aea20 is pushed; the first actual CI candidate was captured but requires a narrow Calendar/settled-paint replacement. Read
+Updated 2026-10-12 UTC. Account-first UI phases are pushed; the first actual CI candidate was rejected for narrow Calendar wrapping and unsettled WebKit paints. The corrected source requires a replacement recording. Read
 docs/ACCOUNT-FIRST-REDESIGN.md and docs/VERIFICATION.md before editing.
 
 ## Authorization and decisions
@@ -147,3 +147,5 @@ Do not mark these booleans true from fixtures or a generated admin session. The
 GitHub tool token cannot manage repository variables. Main native builds are
 development fixtures; tagged builds require real readiness. Keep rendered Unicode
 persistence and the aggregate 150 MiB RAM gate unchanged; no v1 release claim.
+
+Latest rendered Windows development fixture (38223202981 / 10aea20): lifecycle and Unicode restart pass, resident memory 399,253,504 bytes exceeds the unchanged 150 MiB gate. Details: docs/evidence/account-redesign-windows.json. The final narrow Calendar and backup-control corrections pass pnpm check; desktop/phone Settings accessibility also passes.

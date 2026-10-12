@@ -1,0 +1,24 @@
+{
+  "runner": "Windows",
+  "measured_at": "2026-10-12T08:30:00.4967333Z",
+  "rendered_workspace": true,
+  "multilingual_note_restart": true,
+  "callback_registration": true,
+  "single_instance": true,
+  "normal_exit": true,
+  "uninstall": true,
+  "functional_checks": "passed",
+  "idle_working_set_bytes": 399253504,
+  "idle_private_committed_bytes": 154976256,
+  "idle_cpu_percent": 0.0,
+  "budgets": {
+    "idle_working_set_bytes": 157286400,
+    "native_window_ms": 2000,
+    "idle_cpu_percent": 2
+  },
+  "result": "failed",
+  "error": "App and WebView2 idle RAM exceed the 150 MiB budget.",
+  "run_id": 38223202981,
+  "source_commit": "10aea20af22c45496b31566705cd3ac518b7a6f5",
+  "mode": "Installed disposable Windows CI development fixture; not production account or physical-device evidence"
+}
