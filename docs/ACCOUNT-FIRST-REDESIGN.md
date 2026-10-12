@@ -45,3 +45,24 @@ save-status waits cannot substitute for that assertion. No release budget change
 The preceding
 92 browser/312 visual result is historical, not proof of this redesign. Physical
 phones/tablets/Windows scaling, real consent and real code delivery are unverified.
+
+## Phase 2
+
+Projects replaces Workspace in navigation. New project opens five type choices;
+quick add starts with focused Task name and collapses project/date/notes under
+Details. Today groups by time and completion moves tasks to Done. New weekly
+checklist tasks roll to the next week on completion. Project views keep title
+first and show at most three secondary fields; remaining properties stay in the
+row's Details and project More controls.
+
+The existing four databases map deterministically to two weekly-report and two
+rework views. Mapping uses account records for presentation and preserves source
+field IDs, schemas, task fields and Yjs bytes. An independent private API comparison
+confirmed all 62 tasks and 69 current pages unchanged. Only aggregate evidence is
+public in evidence/account-redesign-integrity.json.
+
+Twenty Projects/editor-protection/app-lock browser cases pass across Chromium,
+WebKit, Firefox and narrow phone WebKit. Google Cloud project creation succeeded
+without billing, but its consent wizard stalled twice before client creation.
+Google remains disabled, real identity linking untested. Brevo opened signed out;
+SMTP setup is pending secure access. No identity or task records were rewritten.

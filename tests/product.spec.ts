@@ -34,7 +34,7 @@ test("a multilingual note persists through navigation and an offline reload", as
   await note(page);
   const editor = page.getByRole("textbox", { name: "Document editor" });
   await editor.fill("A thought in English · ខ្មែរ · 中文");
-  await navigate(page, "Today");
+  await navigate(page, "Notes");
   await page
     .locator("main")
     .getByRole("button", { name: /My note/ })
@@ -59,6 +59,7 @@ test("a multilingual note persists through navigation and an offline reload", as
   await expect(editor).toContainText("Offline addition");
   await navigate(page, "Today");
   await page.reload();
+  await navigate(page, "Notes");
   await page
     .locator("main")
     .getByRole("button", { name: /My note/ })
@@ -216,7 +217,7 @@ test("all modules and settings are accessible in both themes without page overfl
       localStorage.setItem("velora-theme", value);
       document.documentElement.dataset.theme = value;
     }, theme);
-    for (const name of ["Today", "Calendar", "Notes", "Journal", "Workspace"]) {
+    for (const name of ["Today", "Calendar", "Notes", "Journal", "Projects"]) {
       await page.getByRole("button", { name, exact: true }).first().click();
       await expect(page.locator("main")).toBeVisible();
       await page.waitForTimeout(120);

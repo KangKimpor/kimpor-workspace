@@ -84,7 +84,7 @@ function Wait-WorkspaceText($Root, [string]$Name, [string]$Expected) {
 function Invoke-InstalledWorkspaceCheck($Application, [string]$Executable, [DateTime]$StartedAt) {
   $button = [System.Windows.Automation.ControlType]::Button
   $root = [System.Windows.Automation.AutomationElement]::FromHandle($Application.MainWindowHandle)
-  $null = Wait-WorkspaceControl $root "Today's agenda"
+  $null = Wait-WorkspaceControl $root 'Agenda'
   $renderedMs = ([DateTime]::UtcNow - $StartedAt).TotalMilliseconds
   Invoke-WorkspaceControl (Wait-WorkspaceControl $root 'Notes' $button)
   Invoke-WorkspaceControl (Wait-WorkspaceControl $root 'New note' $button)
@@ -93,7 +93,7 @@ function Invoke-InstalledWorkspaceCheck($Application, [string]$Executable, [Date
   Set-WorkspaceText (Wait-WorkspaceControl $root 'Document editor') $text $Application
   $null = Wait-WorkspaceText $root 'Document editor' $text
   Invoke-WorkspaceControl (Wait-WorkspaceControl $root 'Today' $button)
-  $null = Wait-WorkspaceControl $root "Today's agenda"
+  $null = Wait-WorkspaceControl $root 'Agenda'
   if (!$Application.CloseMainWindow() -or !$Application.WaitForExit(10000) -or $Application.ExitCode -ne 0) { throw 'Installed app did not close normally before persistence check' }
   $next = Start-Process $Executable -PassThru
   try {
@@ -104,7 +104,7 @@ function Invoke-InstalledWorkspaceCheck($Application, [string]$Executable, [Date
       Start-Sleep -Milliseconds 200
     }
     $root = [System.Windows.Automation.AutomationElement]::FromHandle($next.MainWindowHandle)
-    $null = Wait-WorkspaceControl $root "Today's agenda"
+    $null = Wait-WorkspaceControl $root 'Agenda'
     Invoke-WorkspaceControl (Wait-WorkspaceControl $root 'Notes' $button)
     Invoke-WorkspaceControl (Wait-WorkspaceControl $root 'Windows verification note' $button -Contains)
     $null = Wait-WorkspaceText $root 'Document editor' $text

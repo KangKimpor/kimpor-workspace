@@ -22,7 +22,6 @@ import {
   Download,
   FileText,
   Folder,
-  Heart,
   Home,
   LayoutGrid,
   List,
@@ -54,6 +53,7 @@ import type {
   PropertyValue,
 } from "@veloradesk/core/model";
 import { store } from "@veloradesk/core/store";
+import { completeProjectTask, inferProjectTypes, projectPresets, projectPreset, projectDefinition, projectType, taskDone, taskDue, visibleProjectFields, weekNumber, type ProjectType, type ProjectTypes } from "@veloradesk/core/projects";
 import { compareOrder, orderBetween } from "@veloradesk/core/order";
 import { saveAppearance, startAppearance } from "./appearance";
 import { platform } from "@veloradesk/core/platform";
@@ -69,15 +69,15 @@ const InstallSettings = lazy(() => import("./InstallSettings"));
 
 const RichTextEditor = lazy(() => import("./RichTextEditor"));
 const CalendarModule = lazy(() => import("./CalendarModule"));
-type Module = "Today" | "Calendar" | "Notes" | "Journal" | "Workspace";
+type Module = "Today" | "Calendar" | "Notes" | "Journal" | "Projects";
 type Toast = { message: string; undo?: () => Promise<void> };
 const modules: { name: Module; icon: typeof Home }[] = [
   { name: "Today", icon: Home },
+  { name: "Projects", icon: LayoutGrid },
   { name: "Calendar", icon: CalendarDays },
   { name: "Notes", icon: FileText },
   { name: "Journal", icon: BookOpen },
-  { name: "Workspace", icon: LayoutGrid },
-];
+ ];
 const localDate = (date = new Date()) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 const displayDate = (value: string) =>
@@ -430,6 +430,8 @@ export default function WorkspaceApp() {
   const [pages, setPages] = useState<Page[]>([]);
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [databases, setDatabases] = useState<DatabaseDefinition[]>([]);
+  const [projectTypes, setProjectTypes] = useState<ProjectTypes>({});
+  const [projectOpen, setProjectOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -459,14 +461,16 @@ export default function WorkspaceApp() {
   }, [selectedId]);
   const refresh = useCallback(async () => {
     try {
-      const [nextPages, nextEvents, nextDatabases] = await Promise.all([
+      const [nextPages, nextEvents, nextDatabases, nextProjectTypes] = await Promise.all([
         store.listPages(true),
         store.listEvents(),
         store.listDatabases(),
+        store.getSetting<ProjectTypes>("project-types-v1", {}),
       ]);
       setPages(nextPages);
       setEvents(nextEvents);
       setDatabases(nextDatabases);
+      setProjectTypes({ ...inferProjectTypes(nextPages, nextDatabases), ...nextProjectTypes });
       setLoaded(true);
     } catch (cause) {
       setError(
@@ -599,7 +603,7 @@ export default function WorkspaceApp() {
               ? "Notes"
               : page.type === "journal"
                 ? "Journal"
-                : "Workspace",
+                : "Projects",
           );
           setSelectedId(id);
           setSidebarOpen(false);
@@ -615,7 +619,7 @@ export default function WorkspaceApp() {
     await flushEditors();
     const page = await store.createPage(type, title, extras);
     setModule(
-      type === "note" ? "Notes" : type === "journal" ? "Journal" : "Workspace",
+      type === "note" ? "Notes" : type === "journal" ? "Journal" : "Projects",
     );
     setSelectedId(page.id);
     setCaptureOpen(false);
@@ -767,6 +771,33 @@ export default function WorkspaceApp() {
     if (tasks)
       await store.patchPage(page.id, { properties: { __tasks: true } });
   };
+  const createProject = async (type: ProjectType, title = projectPreset(type)!.label) => {
+    const page = await create("database", title, { icon: "▦", properties: { __projectType: type, __tasks: true } });
+    const definition = projectDefinition(page, type);
+    await store.saveDatabase(definition);
+    const preset = projectPreset(type)!;
+    for (const title of preset.checklist ?? []) await store.createPage("row", title, {
+      databaseId: page.id, parentId: page.id,
+      properties: { due: localDate(), completed: false, week: weekNumber(new Date()), status: "To do", cadence: "Weekly", __weekly: type === "weekly" || type === "model" },
+    });
+    setProjectOpen(false);
+    return page;
+  };
+  const addTask = async (title: string, projectId: string, due: string, notes: string) => {
+    let project = livePages.find(page => page.type === "database" && page.id === projectId)
+      ?? livePages.find(page => page.type === "database" && page.properties.__tasks);
+    project ??= await createProject("app", "Inbox");
+    const definition = store.listDatabases().find(database => database.id === project!.id);
+    const status = definition?.properties.find(property => property.type === "status");
+    const date = definition?.properties.find(property => property.type === "date");
+    const task = await store.createPage("row", title, { databaseId: project.databaseId ?? project.id, parentId: project.id,
+      properties: { ...(status ? { [status.id]: status.options?.[0] ?? "To do" } : {}), ...(due ? { [date?.id ?? "due"]: due } : {}) } });
+    if (notes.trim()) {
+      const { markdownToDocument } = await import("@veloradesk/core/export");
+      await store.saveDoc(task.id, markdownToDocument(notes));
+    }
+    setCaptureOpen(false); setSelectedId(null); setModule("Today");
+  };
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (
@@ -781,7 +812,6 @@ export default function WorkspaceApp() {
       }
       if (
         (event.metaKey || event.ctrlKey) &&
-        event.shiftKey &&
         event.key.toLowerCase() === "n"
       ) {
         event.preventDefault();
@@ -1004,13 +1034,13 @@ export default function WorkspaceApp() {
                 >
                   <Search size={20} />
                 </Pressable>
-                <Pressable
+                {module === "Today" && !selected && livePages.some(page => page.type === "row") &&                 <Pressable
                   className="ws-button ws-filled ws-capture-desktop"
                   onClick={() => setCaptureOpen(true)}
                 >
                   <Plus size={16} />
-                  Capture
-                </Pressable>
+                  New task
+                </Pressable>}
               </>
             )}
           </div>
@@ -1039,16 +1069,12 @@ export default function WorkspaceApp() {
             events={events}
             onOpen={openPage}
             onCapture={() => setCaptureOpen(true)}
-            onCreateJournal={() =>
-              void run(() => create("journal", "", { date: localDate() }))
-            }
-            onCreateTasks={() => void run(() => createDatabase(true))}
+            databases={databases}
+            onCalendar={() => navigate("Calendar")}
             onComplete={(page) =>
               void run(async () => {
                 const previous = { ...page.properties };
-                await store.patchPage(page.id, {
-                  properties: { ...previous, completed: true, status: "Done" },
-                });
+                await completeProjectTask(store, page, databases.find(database => database.id === page.databaseId));
                 notify("Task completed", () =>
                   store
                     .patchPage(page.id, { properties: previous })
@@ -1081,8 +1107,8 @@ export default function WorkspaceApp() {
                 {module !== "Journal" && (
                 <Pressable
                   className="ws-icon ws-tinted"
-                  aria-label={`New ${module === "Notes" ? "note" : "page"}`}
-                  onClick={() =>
+                  aria-label={`New ${module === "Notes" ? "note" : "project"}`}
+                  onClick={() => module === "Projects" ? setProjectOpen(true) :
                     void run(() =>
                       create(
                         module === "Notes" ? "note" : "page",
@@ -1182,23 +1208,6 @@ export default function WorkspaceApp() {
                   </Pressable>
                 </div>
               )}
-              {module === "Workspace" && (
-                <div className="ws-workspace-create">
-                  <Pressable
-                    className="ws-button ws-tinted"
-                    onClick={() => void run(() => createDatabase())}
-                  >
-                    <Table2 size={16} />
-                    New database
-                  </Pressable>
-                  <Pressable
-                    className="ws-button"
-                    onClick={() => setTemplatesOpen(true)}
-                  >
-                    Templates
-                  </Pressable>
-                </div>
-              )}
               {listPages.length ? (
                 <PageList pages={listPages} onOpen={openPage} gallery={listView === "gallery"} />
               ) : (
@@ -1238,6 +1247,7 @@ export default function WorkspaceApp() {
                     page={selected}
                     pages={livePages}
                     databases={databases}
+                    projectTypes={projectTypes}
                     onOpen={openPage}
                     onPatch={(patch) =>
                       run(() => store.patchPage(selected.id, patch))
@@ -1259,13 +1269,13 @@ export default function WorkspaceApp() {
       </main>
       {!focus && (
         <>
-          <Pressable
+          {(module === "Today" || module === "Projects") && !selected && <Pressable
             className="ws-quick-capture"
-            aria-label="Quick capture"
+            aria-label="New task"
             onClick={() => setCaptureOpen(true)}
           >
             <Plus size={24} />
-          </Pressable>
+          </Pressable>}
           <nav className="ws-tabbar" aria-label="Bottom navigation">
             {modules.map(({ name, icon: Icon }) => (
               <Pressable
@@ -1291,17 +1301,14 @@ export default function WorkspaceApp() {
       <Sheet
         open={captureOpen}
         onOpenChange={setCaptureOpen}
-        title="Quick capture"
+        title="New task"
       >
-        <Capture
-          onCreate={(type, title) =>
-            run(() =>
-              create(type, title, {
-                date: type === "journal" ? localDate() : null,
-              }),
-            )
-          }
-        />
+        <Capture projects={livePages.filter(page => page.type === "database")}
+          onCreate={(title, projectId, due, notes) => run(() => addTask(title, projectId, due, notes))} />
+      </Sheet>
+      <Sheet open={projectOpen} onOpenChange={setProjectOpen} title="New project">
+        <div className="ws-project-types">{projectPresets.map(preset => <Pressable key={preset.type} className="ws-page-row"
+          onClick={() => void run(() => createProject(preset.type))}><LayoutGrid size={20} /><strong>{preset.label}</strong><ChevronRight size={18} /></Pressable>)}</div>
       </Sheet>
       <Sheet
         open={searchOpen}
@@ -1447,261 +1454,58 @@ export default function WorkspaceApp() {
   );
 }
 
-function Today({
-  pages,
-  events,
-  onOpen,
-  onCapture,
-  onCreateJournal,
-  onCreateTasks,
-  onComplete,
-}: {
-  pages: Page[];
-  events: CalendarEvent[];
-  onOpen: (id: string) => void;
-  onCapture: () => void;
-  onCreateJournal: () => void;
-  onCreateTasks: () => void;
-  onComplete: (page: Page) => void;
+function TaskRow({ task, project, definition, onOpen, onComplete }: { task: Page; project?: Page;
+  definition?: DatabaseDefinition; onOpen: (id: string) => void; onComplete?: (page: Page) => void;
 }) {
-  const today = localDate();
-  const dailyEvents = events
-    .filter(
-      (event) =>
-        !event.deletedAt &&
-        event.start.slice(0, 10) <= today &&
-        event.end.slice(0, 10) >= today,
-    )
-    .sort((a, b) => a.start.localeCompare(b.start));
-  const journals = pages.filter(
-    (page) => page.type === "journal" && page.date === today,
-  );
-  const tasks = pages.filter(
-    (page) =>
-      page.type === "row" &&
-      !page.properties.completed &&
-      page.properties.status !== "Done" &&
-      typeof page.properties.due === "string" &&
-      page.properties.due <= today,
-  );
-  const favorites = pages.filter((page) => page.favorite);
-  const recent = [...pages]
-    .filter((page) => !page.properties.__template && page.type !== "row")
-    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
-    .slice(0, 5);
-  return (
-    <div className="ws-today">
-      <div className="ws-today-heading">
-        <div>
-          <p className="ws-eyebrow">
-            {new Date().toLocaleDateString(undefined, {
-              weekday: "long",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
-          <h1>Today</h1>
-        </div>
-        <div className="ws-today-illustration" aria-hidden="true">
-          <span>☀</span>
-          <div className="ws-illustration-page">
-            <span />
-            <span />
-            <span />
-            <Check size={24} />
-          </div>
-        </div>
-      </div>
-      <div className="ws-today-grid">
-        <section className="ws-card">
-          <div className="ws-card-heading">
-            <h2>
-              <CalendarDays size={19} />
-              Today's agenda
-            </h2>
-            <span className="ws-count">{dailyEvents.length}</span>
-          </div>
-          {dailyEvents.length ? (
-            dailyEvents.map((event) => (
-              <div className="ws-agenda-row" key={event.id}>
-                <span className="ws-event-line" />
-                <time>
-                  {event.allDay
-                    ? "All day"
-                    : new Date(event.start).toLocaleTimeString(undefined, {
-                        hour: "numeric",
-                        minute: "2-digit",
-                      })}
-                </time>
-                <span>
-                  <strong>{event.title || "Untitled event"}</strong>
-                  {event.location && <small>{event.location}</small>}
-                </span>
-                {event.pageId && (
-                  <Pressable
-                    className="ws-icon"
-                    aria-label={`Open notes for ${event.title}`}
-                    onClick={() => onOpen(event.pageId!)}
-                  >
-                    <FileText size={18} />
-                  </Pressable>
-                )}
-              </div>
-            ))
-          ) : (
-            <div className="ws-quiet-empty">
-              <CalendarDays size={28} />
-              <p>Your day has room to breathe.</p>
-              <span>Events you add to Calendar appear here.</span>
-            </div>
-          )}
-        </section>
-        <section className="ws-card">
-          <div className="ws-card-heading">
-            <h2>
-              <Check size={19} />
-              Due tasks
-            </h2>
-            <span className="ws-count">{tasks.length}</span>
-          </div>
-          {tasks.length ? (
-            tasks.map((task) => (
-              <div className="ws-task-row" key={task.id}>
-                <Pressable
-                  className="ws-task-check"
-                  aria-label={`Complete ${titleOf(task)}`}
-                  onClick={() => onComplete(task)}
-                >
-                  <span />
-                </Pressable>
-                <Pressable
-                  className="ws-task-title"
-                  onClick={() => onOpen(task.id)}
-                >
-                  {titleOf(task)}
-                  <small>
-                    {typeof task.properties.due === "string"
-                      ? displayDate(task.properties.due)
-                      : ""}
-                  </small>
-                </Pressable>
-              </div>
-            ))
-          ) : (
-            <div className="ws-quiet-empty">
-              <Check size={28} />
-              <p>Nothing due right now.</p>
-              <Pressable
-                className="ws-button ws-tinted"
-                onClick={onCreateTasks}
-              >
-                Create a Tasks database
-              </Pressable>
-            </div>
-          )}
-        </section>
-        <section className="ws-card ws-journal-card">
-          <span className="ws-tile">
-            <BookOpen size={24} />
-          </span>
-          <div>
-            <h2>A moment for yourself</h2>
-            <p>
-              {journals.length
-                ? `${journals.length} ${journals.length === 1 ? "entry" : "entries"} today. You can always write a little more.`
-                : "How are you feeling today? A few words are enough."}
-            </p>
-            <Pressable
-              className="ws-button ws-tinted"
-              onClick={
-                journals.length
-                  ? () => onOpen(journals[0]!.id)
-                  : onCreateJournal
-              }
-            >
-              {journals.length
-                ? "Continue your journal"
-                : "Write in your journal"}
-              <ChevronRight size={16} />
-            </Pressable>
-          </div>
-        </section>
-        <section className="ws-card ws-capture-card">
-          <Plus size={26} />
-          <h2>Catch a thought</h2>
-          <p>A note, a plan, a page. Keep it before it slips away.</p>
-          <Pressable className="ws-button ws-filled" onClick={onCapture}>
-            Quick capture
-          </Pressable>
-        </section>
-      </div>
-      {favorites.length > 0 && (
-        <section className="ws-today-section">
-          <h2>
-            <Star size={18} />
-            Pinned pages
-          </h2>
-          <div className="ws-recent-grid">
-            {favorites.map((page) => (
-              <PageButton key={page.id} page={page} onOpen={onOpen} />
-            ))}
-          </div>
-        </section>
-      )}
-      <section className="ws-today-section">
-        <h2>
-          <Clock3 size={18} />
-          Recently opened
-        </h2>
-        <div className="ws-card">
-          {recent.length ? (
-            recent.map((page) => (
-              <PageButton key={page.id} page={page} onOpen={onOpen} />
-            ))
-          ) : (
-            <div className="ws-quiet-empty">
-              <p>Your workspace is a clean slate.</p>
-              <Pressable className="ws-button ws-tinted" onClick={onCapture}>
-                <Plus size={16} />
-                Create your first item
-              </Pressable>
-            </div>
-          )}
-        </div>
-      </section>
-      <Memories pages={pages} onOpen={onOpen} />
-    </div>
-  );
+  const [completing, setCompleting] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
+  const due = taskDue(task, definition);
+  const status = definition?.properties.find(property => property.type === "status");
+  return <div className={`ws-task-row${completing ? " completing" : ""}`}>
+    {onComplete && <Pressable className="ws-task-check" role="checkbox" aria-checked={completing} aria-label={`Complete ${titleOf(task)}`}
+      onClick={() => { if (completing) return; setCompleting(true); timer.current = setTimeout(() => onComplete(task), 200); }}>
+      <span>{completing && <Check size={16} />}</span>
+    </Pressable>}
+    <Pressable className="ws-task-title" onClick={() => onOpen(task.id)}><strong>{titleOf(task)}</strong>
+      <small>{[project && titleOf(project), due && displayDate(due), status && task.properties[status.id]].filter(Boolean).join(" · ")}</small>
+    </Pressable>
+  </div>;
 }
 
-function Memories({
-  pages,
-  onOpen,
-}: {
-  pages: Page[];
-  onOpen: (id: string) => void;
+function Today({ pages, events, databases, onOpen, onCapture, onCalendar, onComplete }: {
+  pages: Page[]; events: CalendarEvent[]; databases: DatabaseDefinition[];
+  onOpen: (id: string) => void; onCapture: () => void; onCalendar: () => void; onComplete: (page: Page) => void;
 }) {
   const today = localDate();
-  const memories = pages.filter(
-    (page) =>
-      page.type === "journal" &&
-      page.date &&
-      page.date.slice(5) === today.slice(5) &&
-      page.date < today,
-  );
-  return memories.length ? (
-    <section className="ws-today-section">
-      <h2>
-        <Heart size={18} />
-        On this day
-      </h2>
-      <div className="ws-card">
-        {memories.map((page) => (
-          <PageButton key={page.id} page={page} onOpen={onOpen} />
-        ))}
-      </div>
-    </section>
-  ) : null;
+  const definitions = new Map(databases.map(database => [database.id, database]));
+  const tasks = pages.filter(page => page.type === "row");
+  const open = tasks.filter(task => !taskDone(task, definitions.get(task.databaseId ?? "")));
+  const groups = [
+    { label: "Earlier", items: open.filter(task => { const due = taskDue(task, definitions.get(task.databaseId ?? "")); return due && due < today; }) },
+    { label: "Today", items: open.filter(task => taskDue(task, definitions.get(task.databaseId ?? ""))?.slice(0,10) === today) },
+    { label: "Upcoming", items: open.filter(task => { const due = taskDue(task, definitions.get(task.databaseId ?? "")); return due && due > today; }).sort((a,b) => (taskDue(a, definitions.get(a.databaseId ?? "")) ?? "").localeCompare(taskDue(b, definitions.get(b.databaseId ?? "")) ?? "")) },
+    { label: "Anytime", items: open.filter(task => !taskDue(task, definitions.get(task.databaseId ?? ""))) },
+  ];
+  const dailyEvents = events.filter(event => !event.deletedAt && event.start.slice(0,10) <= today && event.end.slice(0,10) >= today).sort((a,b) => a.start.localeCompare(b.start));
+  const done = tasks.filter(task => taskDone(task, definitions.get(task.databaseId ?? "")));
+  const project = (task: Page) => pages.find(page => page.type === "database" && (page.id === task.databaseId || page.databaseId === task.databaseId));
+  return <div className="ws-today ws-task-today">
+    <header className="ws-today-hero"><div><p className="ws-eyebrow">{new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</p><h1>Today</h1></div></header>
+    <div className="ws-today-grid">
+      <section className="ws-card ws-today-tasks" aria-label="Tasks">
+        {open.length ? groups.filter(group => group.items.length).map(group => <section className="ws-task-group" key={group.label}>
+          <h2>{group.label}</h2>{group.items.map(task => <TaskRow key={task.id} task={task} project={project(task)} definition={definitions.get(task.databaseId ?? "")} onOpen={onOpen} onComplete={onComplete} />)}
+        </section>) : <div className="ws-quiet-empty"><Check size={28} /><Pressable className="ws-button ws-tinted" onClick={onCapture}>Add task</Pressable></div>}
+        {done.length > 0 && <details className="ws-done-tasks"><summary>Done <span className="ws-count">{done.length}</span></summary>{done.map(task => <TaskRow key={task.id} task={task} project={project(task)} definition={definitions.get(task.databaseId ?? "")} onOpen={onOpen} />)}</details>}
+      </section>
+      <section className="ws-card" aria-label="Agenda"><div className="ws-card-heading"><h2>Agenda</h2></div>
+        {dailyEvents.length ? dailyEvents.map(event => <div className="ws-agenda-row" key={event.id}><span className="ws-event-dot" /><span><strong>{event.title || "Untitled"}</strong><small>{event.allDay ? "All day" : new Date(event.start).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}{event.location ? ` · ${event.location}` : ""}</small></span>
+          {event.pageId && <Pressable className="ws-icon" aria-label={`Open ${event.title}`} onClick={() => onOpen(event.pageId!)}><ChevronRight size={18} /></Pressable>}
+        </div>) : <div className="ws-quiet-empty"><CalendarDays size={28} /><Pressable className="ws-button" onClick={onCalendar}>Calendar</Pressable></div>}
+      </section>
+    </div>
+  </div>;
 }
 
 function JournalHome({ pages, onOpen, onWrite }: {
@@ -1782,53 +1586,26 @@ function JournalOverview({ pages, onOpen, onWrite }: {
   );
 }
 
-function Capture({
-  onCreate,
-}: {
-  onCreate: (type: PageType, title: string) => Promise<void>;
+function Capture({ projects, onCreate }: { projects: Page[];
+  onCreate: (title: string, projectId: string, due: string, notes: string) => Promise<void>;
 }) {
-  const [type, setType] = useState<PageType>("note");
   const [title, setTitle] = useState("");
+  const [projectId, setProjectId] = useState("");
+  const [due, setDue] = useState("");
+  const [notes, setNotes] = useState("");
   const [busy, setBusy] = useState(false);
-  return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        if (busy) return;
-        setBusy(true);
-        void onCreate(type, title.trim()).finally(() => setBusy(false));
-      }}
-    >
-      <div className="ws-segment" aria-label="Capture type">
-        {(["note", "page", "journal"] as const).map((value) => (
-          <Pressable
-            key={value}
-            className={type === value ? "selected" : ""}
-            aria-pressed={type === value}
-            onClick={() => setType(value)}
-          >
-            {value === "note" ? "Note" : value === "page" ? "Page" : "Journal"}
-          </Pressable>
-        ))}
-      </div>
-      <label className="ws-field-label">
-        {type === "journal" ? "A title, if you like" : "What is on your mind?"}
-        <input
-          className="ws-input"
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-          placeholder={
-            type === "journal" ? "Today…" : "A thought worth keeping…"
-          }
-        />
-      </label>
-
-      <Pressable type="submit" className="ws-button ws-filled" disabled={busy}>
-        {busy ? "Creating…" : "Create and write"}
-        <ChevronRight size={16} />
-      </Pressable>
-    </form>
-  );
+  return <form className="ws-task-capture" onSubmit={event => {
+    event.preventDefault(); if (busy || !title.trim()) return; setBusy(true);
+    void onCreate(title.trim(), projectId, due, notes).finally(() => setBusy(false));
+  }}>
+    <input className="ws-input ws-task-name-input" aria-label="Task name" placeholder="Task name" autoFocus required value={title} onChange={event => setTitle(event.target.value)} />
+    <details><summary>Details</summary>
+      <label className="ws-field-label">Project<select className="ws-input" value={projectId} onChange={event => setProjectId(event.target.value)}><option value="">Inbox</option>{projects.map(project => <option value={project.id} key={project.id}>{titleOf(project)}</option>)}</select></label>
+      <label className="ws-field-label">Date<input className="ws-input" type="date" value={due} onChange={event => setDue(event.target.value)} /></label>
+      <label className="ws-field-label">Notes<textarea className="ws-input" value={notes} onChange={event => setNotes(event.target.value)} /></label>
+    </details>
+    <Pressable type="submit" className="ws-button ws-filled" disabled={busy || !title.trim()}>Add task</Pressable>
+  </form>;
 }
 
 function SearchPanel({
@@ -1986,6 +1763,7 @@ function PageDetail({
   page,
   pages,
   databases,
+  projectTypes,
   onOpen,
   onPatch,
   onTrash,
@@ -1998,6 +1776,7 @@ function PageDetail({
   page: Page;
   pages: Page[];
   databases: DatabaseDefinition[];
+  projectTypes: ProjectTypes;
   onOpen: (id: string) => void;
   onPatch: (patch: Partial<Page>) => Promise<void>;
   onTrash: () => void;
@@ -2163,7 +1942,7 @@ function PageDetail({
           ))}
         </div>
       )}
-      {page.type === "row" && (
+      {page.type === "row" && (<details className="ws-task-details"><summary>Details</summary>
         <RowProperties
           page={page}
           definition={databases.find(
@@ -2171,7 +1950,7 @@ function PageDetail({
           )}
           pages={pages}
           onPatch={onPatch}
-        />
+        /></details>
       )}
       {page.type === "database" ? (
         definition ? (
@@ -2179,6 +1958,7 @@ function PageDetail({
             definition={definition}
             pages={pages}
             databases={databases}
+            projectType={projectType(page, projectTypes)}
             onOpen={onOpen}
             onError={onError}
           />
@@ -2704,16 +2484,20 @@ function DatabaseEditor({
   definition,
   pages,
   databases,
+  projectType: type,
   onOpen,
   onError,
 }: {
   definition: DatabaseDefinition;
   pages: Page[];
   databases: DatabaseDefinition[];
+  projectType?: ProjectType;
   onOpen: (id: string) => void;
   onError: (message: string) => void;
 }) {
-  const [viewId, setViewId] = useState(definition.views[0]?.id ?? "");
+  const preset = projectPreset(type);
+  const [viewId, setViewId] = useState(definition.views.find(view => view.type === preset?.view)?.id ?? definition.views[0]?.id ?? "");
+  const visibleFields = visibleProjectFields(definition, type);
   const [configOpen, setConfigOpen] = useState(false);
   const [propertyOpen, setPropertyOpen] = useState(false);
   const [newPropertyName, setNewPropertyName] = useState("");
@@ -2762,12 +2546,14 @@ function DatabaseEditor({
         item.id === view.id ? { ...item, ...patch } : item,
       ),
     });
+  const completeRow = (row: Page) => completeProjectTask(store, row, definition);
   const addRow = async (properties: Record<string, PropertyValue> = {}) => {
     try {
       const row = await store.createPage("row", "", {
         databaseId: definition.id,
         parentId: definition.id,
-        properties,
+        properties: { ...(preset?.type === "rework" ? { item: Math.max(0, ...rawRows.map(row => Number(row.properties.item) || 0)) + 1, status: "Open" } : {}),
+          ...(preset?.type === "app" ? { status: "Idea" } : {}), ...properties },
       });
       onOpen(row.id);
     } catch (cause) {
@@ -2784,6 +2570,7 @@ function DatabaseEditor({
       )
       .catch((cause) => onError(String(cause)));
   const grouping =
+    (preset?.group === "area" ? definition.properties.find(property => /room|area/i.test(property.name)) : undefined) ??
     definition.properties.find((property) => property.id === view.groupBy) ??
     definition.properties.find(
       (property) => property.type === "status" || property.type === "select",
@@ -2803,47 +2590,22 @@ function DatabaseEditor({
   return (
     <div className="ws-database">
       <div className="ws-database-toolbar">
-        <div
-          className="ws-view-tabs"
-          role="tablist"
-          aria-label="Database views"
-        >
-          {definition.views.map((item) => {
-            const Icon = viewIcons[item.type];
-            return (
-              <Pressable
-                key={item.id}
-                role="tab"
-                aria-selected={view.id === item.id}
-                className={view.id === item.id ? "selected" : ""}
-                onClick={() => setViewId(item.id)}
-              >
-                <Icon size={16} />
-                {item.name}
-              </Pressable>
-            );
-          })}
-        </div>
+        <select aria-label="Project view" className="ws-view-picker" value={view.id} onChange={event => setViewId(event.target.value)}>
+          {definition.views.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
+        </select>
         <div className="ws-database-actions">
           <Pressable className="ws-button" onClick={() => setConfigOpen(true)}>
-            Filter & sort
+            More
             {view.filter || view.sort?.length ? (
               <span className="ws-status-dot" />
             ) : null}
-          </Pressable>
-          <Pressable
-            className="ws-button"
-            onClick={() => setPropertyOpen(true)}
-          >
-            <Plus size={14} />
-            Property
           </Pressable>
           <Pressable
             className="ws-button ws-tinted"
             onClick={() => void addRow()}
           >
             <Plus size={16} />
-            New row
+            New task
           </Pressable>
         </div>
       </div>
@@ -2856,7 +2618,7 @@ function DatabaseEditor({
           <table className="ws-db-table">
             <thead>
               <tr>
-                {definition.properties.map((property) => (
+                {visibleFields.map((property) => (
                   <th key={property.id} scope="col">
                     {property.name}
                   </th>
@@ -2866,7 +2628,7 @@ function DatabaseEditor({
             <tbody>
               {rows.map((row) => (
                 <tr key={row.id}>
-                  {definition.properties.map((property) => (
+                  {visibleFields.map((property) => (
                     <td key={property.id}>
                       {property.type === "title" ? (
                         <div className="ws-db-title">
@@ -2907,9 +2669,14 @@ function DatabaseEditor({
       )}
       {view.type === "list" && (
         <div className="ws-db-list">
-          {rows.map((row) => (
-            <PageButton key={row.id} page={row} onOpen={onOpen} />
-          ))}
+          {((preset?.group === "area" || preset?.group === "week") ? groups : [""]).map(group => <section key={group}>
+            {group && <h3>{preset?.group === "week" ? `Week ${group}` : group}</h3>}
+            {rows.filter(row => !taskDone(row, definition) && (!group || String(row.properties[grouping?.id ?? ""] ?? "No group") === group)).map(row => <div className="ws-project-task" key={row.id}>
+              <TaskRow task={row} definition={definition} onOpen={onOpen} onComplete={row => void completeRow(row).catch(cause => onError(String(cause)))} />
+              <div className="ws-task-secondary">{visibleFields.filter(property => property.type !== "title" && property.type !== "status" && property.type !== "date").map(property => <span key={property.id}>{row.properties[property.id] == null ? null : `${property.name} ${String(row.properties[property.id])}`}</span>)}</div>
+            </div>)}
+          </section>)}
+          {rows.some(row => taskDone(row, definition)) && <details className="ws-done-tasks"><summary>Done</summary>{rows.filter(row => taskDone(row, definition)).map(row => <TaskRow key={row.id} task={row} definition={definition} onOpen={onOpen} />)}</details>}
         </div>
       )}
       {view.type === "board" && (
@@ -2979,7 +2746,7 @@ function DatabaseEditor({
                 }
               >
                 <Plus size={16} />
-                Add item
+                Add task
               </Pressable>
             </section>
           ))}
@@ -2995,7 +2762,7 @@ function DatabaseEditor({
             >
               <span className="ws-gallery-cover">{pageIcon(row)}</span>
               <strong>{titleOf(row)}</strong>
-              <span>{row.tags.join(" · ") || "Open to add details"}</span>
+              {row.tags.length > 0 && <small>{row.tags.join(" · ")}</small>}
             </Pressable>
           ))}
         </div>
@@ -3060,6 +2827,7 @@ function DatabaseEditor({
             ))}
           </select>
         </label>
+        <Pressable className="ws-button" onClick={() => setPropertyOpen(true)}>Add property</Pressable>
         <h3>Filters</h3>
         <FilterEditor
           filter={view.filter ?? { operator: "and", children: [] }}
@@ -3765,7 +3533,7 @@ function SettingsPanel({
             Search / command palette<kbd>Ctrl / ⌘ K</kbd>
           </span>
           <span>
-            Quick capture<kbd>Ctrl / ⌘ Shift N</kbd>
+            New task<kbd>Ctrl / ⌘ N</kbd>
           </span>
           <span>
             Leave focus mode<kbd>Esc</kbd>

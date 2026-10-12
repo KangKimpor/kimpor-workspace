@@ -14,7 +14,8 @@
     "./export": "./src/export.ts",
     "./crypto": "./src/crypto.ts",
     "./cloud": "./src/cloud.ts",
-    "./cloud-auth": "./src/cloud-auth.ts"
+    "./cloud-auth": "./src/cloud-auth.ts",
+    "./projects": "./src/projects.ts"
   },
   "dependencies": {
     "@supabase/auth-js": "2.117.3",

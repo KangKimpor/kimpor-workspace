@@ -39,13 +39,14 @@ try {
       await page.getByRole('button',{name:'New note',exact:true}).click();
       await page.getByRole('textbox',{name:'Page title'}).fill('A little room for ideas');
       await page.getByRole('textbox',{name:'Document editor'}).fill('A quiet place to think.\n\nខ្មែរ · 中文 · English\n\nSmall ideas become good days.');
-      await navigate('Workspace');
+      await navigate('Projects');
       await seedTime(-3000);
-      await page.getByRole('button',{name:'New database',exact:true}).click();
+      await page.getByRole('button',{name:'New project',exact:true}).click();
+      await page.getByRole('dialog',{name:'New project',exact:true}).getByRole('button',{name:'Coursework',exact:true}).click();
       await page.getByRole('textbox',{name:'Page title'}).fill('Projects');
       await expect(page.getByRole('textbox',{name:'Page title'})).toHaveValue('Projects');
       await seedTime(-2000);
-      await page.getByRole('button',{name:'New row',exact:true}).click();
+      await page.getByRole('button',{name:'New task',exact:true}).click();
       await page.getByRole('textbox',{name:'Document editor'}).waitFor();
       await page.getByRole('textbox',{name:'Page title'}).fill('Make room for a small idea');
       await page.getByRole('textbox',{name:'Document editor'}).fill('One small step, every day.');
@@ -61,7 +62,7 @@ try {
       await page.getByRole('dialog',{name:'New event',exact:true}).locator('select').first().selectOption({label:'Personal'});
       await page.getByRole('button',{name:'Done',exact:true}).click();
       await expect(page.getByRole('dialog')).toHaveCount(0,{timeout:15000});
-      const product=[['today','Today'],['calendar','Calendar'],['notes','Notes'],['note-detail','Notes'],['journal','Journal'],['workspace','Workspace'],['database','Workspace'],['settings','Today'],['search','Today']];
+      const product=[['today','Today'],['calendar','Calendar'],['notes','Notes'],['note-detail','Notes'],['journal','Journal'],['workspace','Projects'],['database','Projects'],['settings','Today'],['search','Today']];
       for (const [screen,route] of [...product,['design','/design'],['editor','/spikes/editor'],['about','/design'],['palette','/design']]) {
         if(selectedScreens&&!selectedScreens.includes(screen))continue;
         console.log(`Capture ${name} ${theme}: ${screen}`);
@@ -72,7 +73,7 @@ try {
           await expect(tab).toHaveAttribute('aria-current','page');
           await expect(page.getByRole('region',{name:'Page detail',exact:true})).toHaveCount(0);
           if(screen==='note-detail'){await page.locator('main').getByRole('button',{name:/A little room for ideas/}).first().click();await page.getByRole('textbox',{name:'Document editor'}).waitFor();}
-          if(screen==='database'){await page.locator('main').getByRole('button',{name:/Projects/}).first().click();await page.getByRole('button',{name:'New row',exact:true}).waitFor();}
+          if(screen==='database'){await page.locator('main').getByRole('button',{name:/Projects/}).first().click();await page.getByRole('button',{name:'New task',exact:true}).waitFor();}
           if(screen==='settings'){if(!await page.getByRole('button',{name:'Settings',exact:true}).first().isVisible())await page.getByRole('button',{name:'Open sidebar',exact:true}).click();await page.getByRole('button',{name:'Settings',exact:true}).first().click();await page.getByRole('button',{name:'Export full ZIP'}).waitFor();}
           if(screen==='search')await page.getByRole('button',{name:'Search workspace',exact:true}).click();
         }

@@ -11,6 +11,7 @@ async function module(page: Page, name: string) {
   await expect(page.getByRole("region", { name: "Page detail", exact: true })).toHaveCount(0);
 }
 async function settings(page: Page) {
+  await expect(page.getByRole("heading", { name: "Today", exact: true })).toBeVisible();
   if (
     !(await page
       .getByRole("button", { name: "Settings", exact: true })
@@ -103,6 +104,7 @@ test("file bytes survive protection and reload, and equations and columns render
   expect(disk.mime).toBe("application/octet-stream");
   await module(page, "Today");
   await page.reload();
+  await module(page, "Notes");
   await page
     .locator("main")
     .getByRole("button", { name: /Attachment proof|Locked entry/ })
@@ -126,10 +128,11 @@ test("database rows persist in all five views and journal entries use the same e
   page,
 }) => {
   await page.goto("/");
-  await module(page, "Workspace");
-  await page.getByRole("button", { name: "New database", exact: true }).click();
+  await module(page, "Projects");
+  await page.getByRole("button", { name: "New project", exact: true }).click();
+  await page.getByRole("dialog", { name: "New project", exact: true }).getByRole("button", { name: "Coursework", exact: true }).click();
   await page.getByRole("textbox", { name: "Page title" }).fill("Reading list");
-  await page.getByRole("button", { name: "New row", exact: true }).click();
+  await page.getByRole("button", { name: "New task", exact: true }).click();
   await expect(
     page.getByRole("textbox", { name: "Document editor" }),
   ).toBeVisible();
@@ -139,18 +142,15 @@ test("database rows persist in all five views and journal entries use the same e
   await page
     .getByRole("textbox", { name: "Document editor" })
     .fill("A row can hold a full page.");
-  await module(page, "Workspace");
+  await module(page, "Projects");
   await page
     .locator("main")
     .getByRole("button", { name: /Reading list/ })
     .first()
     .click();
   for (const name of ["Table", "List", "Board", "Calendar", "Gallery"]) {
-    await page.getByRole("tab", { name, exact: true }).click();
-    await expect(page.getByRole("tab", { name, exact: true })).toHaveAttribute(
-      "aria-selected",
-      "true",
-    );
+    await page.getByRole("combobox", { name: "Project view" }).selectOption({ label: name });
+    await expect(page.getByRole("combobox", { name: "Project view" }).locator("option:checked")).toHaveText(name);
     await expect(page.locator(".ws-db-count")).toContainText("1 item");
   }
   await module(page, "Journal");
@@ -163,10 +163,8 @@ test("database rows persist in all five views and journal entries use the same e
     .fill("I made room for one small thing.");
   await module(page, "Today");
   await page.reload();
-  await expect(page.getByText("1 entry today", { exact: false })).toBeVisible();
-  await page
-    .getByRole("button", { name: "Continue your journal", exact: true })
-    .click();
+  await module(page, "Journal");
+  await page.getByRole("button", { name: "Continue writing", exact: true }).click();
   await expect(
     page.getByRole("textbox", { name: "Document editor" }),
   ).toContainText("one small thing");

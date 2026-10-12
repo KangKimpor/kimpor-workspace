@@ -23,7 +23,7 @@ try {
   page.on('pageerror', error => errors.push(error.message));
   const nav = page.getByRole('navigation', { name: 'Main navigation', exact: true });
   await expect(nav.getByRole('button', { name: 'Today', exact: true })).toHaveAttribute('aria-current', 'page', { timeout: 30000 });
-  await expect(page.getByText("Today's agenda", { exact: true })).toBeVisible();
+  await expect(page.getByText("Agenda", { exact: true })).toBeVisible();
   await nav.getByRole('button', { name: 'Notes', exact: true }).click();
   await page.getByRole('button', { name: 'New note', exact: true }).click();
   await page.getByRole('textbox', { name: 'Page title' }).fill('Windows verification note');
@@ -34,6 +34,7 @@ try {
   await expect(nav.getByRole('button', { name: 'Today', exact: true })).toHaveAttribute('aria-current', 'page');
   await expect(page.getByRole('textbox', { name: 'Page title' })).toHaveCount(0);
   await page.reload();
+  await nav.getByRole('button', { name: 'Notes', exact: true }).click();
   await page.locator('main').getByRole('button', { name: /Windows verification note/ }).first().click();
   await expect(editor).toContainText('ខ្មែរ · 中文');
   assertNoErrors(errors);

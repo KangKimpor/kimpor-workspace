@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-12T05:43:35.389Z",
+  "mode": "Read-only management API; private comparisons, no account export or content in this report",
+  "databases": 4,
+  "tasks": 62,
+  "existing_pages": 69,
+  "task_records_unchanged": true,
+  "database_schemas_unchanged": true,
+  "document_bytes_unchanged": true,
+  "mapping": "Deterministic presentation only; two weekly reports and two rework lists. Account type overrides can live in settings without changing task records.",
+  "real_google_linking": "Not verified; provider remains disabled",
+  "smtp": "Not configured",
+  "presentation_types": {
+    "rework": 2,
+    "weekly": 2
+  }
+}
