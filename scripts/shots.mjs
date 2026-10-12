@@ -9,12 +9,15 @@ const matrix = [
   ['ipad-landscape',1180,820,2,'webkit'], ['ipad-split-narrow',375,820,2,'webkit'],
   ['ipad-split-half',580,820,2,'webkit'], ['window-min',800,600,1.25,'chromium'],
   ['laptop',1536,864,1.25,'chromium'], ['desktop',1920,1080,1,'chromium'],
-  ['desktop-firefox',1920,1080,1,'firefox'], ['wide',2560,1440,1,'chromium']
+  ['desktop-firefox',1920,1080,1,'firefox'], ['wide',2560,1440,1,'chromium'],
+  ['windows1366',1366,768,1,'chromium'], ['windows1366-150',911,512,1.5,'chromium'],
+  ['windows1920-150',1280,720,1.5,'chromium'],
+  ['desktop1980',1980,1080,1,'chromium'], ['desktop1980-tall',1980,1200,1,'chromium']
 ];
 await mkdir('docs/screenshots', {recursive:true});
 const browsers = {};
 const selectedScreens=process.env.SHOT_SCREENS?.split(',').filter(Boolean);
-const screenNames=['today','calendar','notes','note-detail','journal','workspace','database','settings','search','design','editor','about','palette'];
+const screenNames=['today','calendar','notes','note-detail','journal','workspace','database','settings','search','design','editor','about','palette','sign-in','email-code'];
 if(selectedScreens?.some(screen=>!screenNames.includes(screen)))throw new Error('Unknown screenshot screen.');
 const report=selectedScreens
   ? JSON.parse(await readFile('docs/evidence/screenshot-matrix.json','utf8')).captures.filter(row=>!selectedScreens.includes(row.screen))
@@ -69,13 +72,11 @@ try {
         console.log(`Capture ${name} ${theme}: ${screen}`);
         if(route.startsWith('/'))await page.goto(`${url}${route}`,{waitUntil:'networkidle'});
         else{
-          const tab=page.getByRole('navigation',{name:width<600?'Bottom navigation':'Main navigation',exact:true}).getByRole('button',{name:route,exact:true});
-          await tab.click();
-          await expect(tab).toHaveAttribute('aria-current','page');
+          await navigate(route);
           await expect(page.getByRole('region',{name:'Page detail',exact:true})).toHaveCount(0);
-          if(screen==='note-detail'){await page.locator('main').getByRole('button',{name:/A little room for ideas/}).first().click();await page.getByRole('textbox',{name:'Document editor'}).waitFor();}
+          if(screen==='note-detail'){await page.locator('main').getByRole('button',{name:/A little room for ideas/}).first().click();await page.getByRole('textbox',{name:'Document editor'}).waitFor();await page.getByRole('textbox',{name:'Document editor'}).focus();}
           if(screen==='database'){await page.locator('main').getByRole('button',{name:/Projects/}).first().click();await page.getByRole('button',{name:'New task',exact:true}).waitFor();}
-          if(screen==='settings'){if(!await page.getByRole('button',{name:'Settings',exact:true}).first().isVisible())await page.getByRole('button',{name:'Open sidebar',exact:true}).click();await page.getByRole('button',{name:'Settings',exact:true}).first().click();await page.getByRole('button',{name:'Export full ZIP'}).waitFor();}
+          if(screen==='settings'){if(!await page.getByRole('button',{name:'Settings',exact:true}).first().isVisible())await page.getByRole('button',{name:'Open sidebar',exact:true}).click();await page.getByRole('button',{name:'Settings',exact:true}).first().click();await page.getByRole('button',{name:'Export ZIP'}).waitFor();}
           if(screen==='search')await page.getByRole('button',{name:'Search workspace',exact:true}).click();
         }
         await page.waitForFunction(()=>document.fonts.status==='loaded',undefined,{timeout:10000});
@@ -102,6 +103,31 @@ try {
         }
         report.push({screen,name,theme,file,width,height,dpr,engine,overflow,capturedAt:new Date().toISOString()});
         if(screen==='settings'||screen==='search'){await page.keyboard.press('Escape');if(await page.getByRole('button',{name:'Close sidebar',exact:true}).first().isVisible())await page.getByRole('button',{name:'Close sidebar',exact:true}).first().click();}
+      }
+      if (!selectedScreens || selectedScreens.some(screen => screen === 'sign-in' || screen === 'email-code')) {
+        const auth = await browsers[engine].newContext({ viewport:{width,height}, deviceScaleFactor:dpr, hasTouch:engine==='webkit', isMobile:engine==='webkit', colorScheme:theme, reducedMotion:'reduce', locale:'en-US', timezoneId:'UTC', serviceWorkers:'block' });
+        const entry = await auth.newPage();
+        await entry.clock.setFixedTime(new Date(fixtureTime));
+        await entry.addInitScript(value=>localStorage.setItem('velora-theme',value),theme);
+        await entry.route('https://auth.example.test/**', route => route.fulfill({contentType:'application/json',body:'{}'}));
+        await entry.goto(process.env.AUTH_BASE_URL ?? 'http://127.0.0.1:4174');
+        await expect(entry.getByRole('main',{name:'Sign in',exact:true})).toBeVisible();
+        for(const screen of ['sign-in','email-code']) {
+          if(screen==='email-code') {
+            await entry.getByRole('textbox',{name:'Email',exact:true}).fill('fixture@example.test');
+            await entry.getByRole('button',{name:'Continue',exact:true}).click();
+            await entry.getByRole('textbox',{name:'Email code',exact:true}).fill('123');
+          }
+          if(selectedScreens&&!selectedScreens.includes(screen))continue;
+          await entry.evaluate(()=>document.fonts.ready);
+          await entry.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+          const file=`docs/screenshots/${screen}-${name}-${theme}.png`;
+          const overflow=await entry.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1);
+          if(overflow)throw new Error(`Horizontal overflow: ${file}`);
+          await entry.screenshot({path:file,animations:'disabled'});
+          report.push({screen,name,theme,file,width,height,dpr,engine,overflow,capturedAt:new Date().toISOString()});
+        }
+        await auth.close();
       }
       await context.close();
     }

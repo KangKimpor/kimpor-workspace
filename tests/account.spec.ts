@@ -6,6 +6,7 @@ const session = {
 };
 async function service(page: Page, rejectCode = false) {
   const sent: unknown[] = [];
+  await page.route("https://**", route => route.abort("blockedbyclient"));
   await page.route("https://auth.example.test/**", async route => {
     const path = new URL(route.request().url()).pathname;
     let body: unknown = {};

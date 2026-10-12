@@ -1456,10 +1456,10 @@ function EventChip({
       className={`cal-event-chip cal-color-${colors.includes(color) ? color : "blue"}`}
       onClick={onOpen}
     >
+      <strong>{occurrence.event.title}</strong>
       <span>
         {occurrence.event.allDay ? "All day" : time(occurrence.start)}
       </span>
-      <strong>{occurrence.event.title}</strong>
       {occurrence.event.recurrence && <span aria-label="Recurring">↻</span>}
     </Pressable>
   );

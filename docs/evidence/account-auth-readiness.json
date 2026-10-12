@@ -1,0 +1,12 @@
+{
+  "project_ref": "nlcpjdokfvawlpzyfytx",
+  "checked_at": "2026-10-12T07:24:00Z",
+  "custom_smtp": false,
+  "code_templates_only": false,
+  "otp_length": 6,
+  "otp_expiry_seconds": 600,
+  "google_enabled": false,
+  "google_existing_account_link_verified": false,
+  "email_code_delivery_verified": false,
+  "mode": "Read-only Management API and signed-in browser audit. Fixture tests do not establish live delivery or identity linking."
+}

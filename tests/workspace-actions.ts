@@ -8,6 +8,7 @@ export async function leaveWriting(page: Page) {
 }
 
 export async function formatting(page: Page) {
+  await expect(page.getByRole('textbox', { name: 'Document editor', exact: true })).toBeEditable();
   const more = page.getByRole('button', { name: 'More formatting', exact: true });
   if (!await more.isVisible()) {
     await page.getByRole('button', { name: 'Page options', exact: true }).click();

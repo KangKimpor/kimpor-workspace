@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-11T02:29:17.400Z",
+  "date": "2026-10-12T08:05:55.571Z",
   "fixture_time": "2026-10-11T09:00:00Z",
   "locale": "en-US",
   "time_zone": "UTC",
@@ -14,7 +14,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:49.269Z"
+      "capturedAt": "2026-10-12T07:53:55.202Z"
     },
     {
       "screen": "calendar",
@@ -26,7 +26,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:49.615Z"
+      "capturedAt": "2026-10-12T07:53:57.057Z"
     },
     {
       "screen": "notes",
@@ -38,7 +38,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:49.783Z"
+      "capturedAt": "2026-10-12T07:53:59.058Z"
     },
     {
       "screen": "note-detail",
@@ -50,7 +50,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:50.059Z"
+      "capturedAt": "2026-10-12T07:54:00.447Z"
     },
     {
       "screen": "journal",
@@ -62,7 +62,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:50.305Z"
+      "capturedAt": "2026-10-12T07:54:01.348Z"
     },
     {
       "screen": "workspace",
@@ -74,7 +74,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:50.453Z"
+      "capturedAt": "2026-10-12T07:54:01.800Z"
     },
     {
       "screen": "database",
@@ -86,7 +86,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:50.653Z"
+      "capturedAt": "2026-10-12T07:54:02.687Z"
     },
     {
       "screen": "settings",
@@ -98,7 +98,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:51.228Z"
+      "capturedAt": "2026-10-12T07:54:04.614Z"
     },
     {
       "screen": "search",
@@ -110,7 +110,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:51.662Z"
+      "capturedAt": "2026-10-12T07:54:06.211Z"
     },
     {
       "screen": "design",
@@ -122,7 +122,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:53.124Z"
+      "capturedAt": "2026-10-12T07:54:08.488Z"
     },
     {
       "screen": "editor",
@@ -134,7 +134,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:54.243Z"
+      "capturedAt": "2026-10-12T07:54:10.556Z"
     },
     {
       "screen": "about",
@@ -146,7 +146,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:55.454Z"
+      "capturedAt": "2026-10-12T07:54:12.860Z"
     },
     {
       "screen": "palette",
@@ -158,7 +158,31 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:22:56.805Z"
+      "capturedAt": "2026-10-12T07:54:15.157Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "phone-small",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-phone-small-light.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:54:18.159Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "phone-small",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-phone-small-light.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:54:18.978Z"
     },
     {
       "screen": "today",
@@ -170,7 +194,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:03.330Z"
+      "capturedAt": "2026-10-12T07:54:34.697Z"
     },
     {
       "screen": "calendar",
@@ -182,7 +206,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:03.837Z"
+      "capturedAt": "2026-10-12T07:54:35.683Z"
     },
     {
       "screen": "notes",
@@ -194,7 +218,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:04.106Z"
+      "capturedAt": "2026-10-12T07:54:36.610Z"
     },
     {
       "screen": "note-detail",
@@ -206,7 +230,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:04.408Z"
+      "capturedAt": "2026-10-12T07:54:37.811Z"
     },
     {
       "screen": "journal",
@@ -218,7 +242,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:04.900Z"
+      "capturedAt": "2026-10-12T07:54:38.799Z"
     },
     {
       "screen": "workspace",
@@ -230,7 +254,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:05.088Z"
+      "capturedAt": "2026-10-12T07:54:39.696Z"
     },
     {
       "screen": "database",
@@ -242,7 +266,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:05.307Z"
+      "capturedAt": "2026-10-12T07:54:40.095Z"
     },
     {
       "screen": "settings",
@@ -254,7 +278,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:05.993Z"
+      "capturedAt": "2026-10-12T07:54:42.003Z"
     },
     {
       "screen": "search",
@@ -266,7 +290,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:06.409Z"
+      "capturedAt": "2026-10-12T07:54:43.066Z"
     },
     {
       "screen": "design",
@@ -278,7 +302,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:07.796Z"
+      "capturedAt": "2026-10-12T07:54:45.266Z"
     },
     {
       "screen": "editor",
@@ -290,7 +314,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:09.131Z"
+      "capturedAt": "2026-10-12T07:54:47.779Z"
     },
     {
       "screen": "about",
@@ -302,7 +326,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:10.398Z"
+      "capturedAt": "2026-10-12T07:54:50.791Z"
     },
     {
       "screen": "palette",
@@ -314,7 +338,31 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:11.614Z"
+      "capturedAt": "2026-10-12T07:54:53.306Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "phone-small",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-phone-small-dark.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:54:55.508Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "phone-small",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-phone-small-dark.png",
+      "width": 320,
+      "height": 640,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:54:56.201Z"
     },
     {
       "screen": "today",
@@ -326,7 +374,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:20.347Z"
+      "capturedAt": "2026-10-12T07:55:14.473Z"
     },
     {
       "screen": "calendar",
@@ -338,7 +386,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:21.224Z"
+      "capturedAt": "2026-10-12T07:55:15.958Z"
     },
     {
       "screen": "notes",
@@ -350,7 +398,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:21.854Z"
+      "capturedAt": "2026-10-12T07:55:16.770Z"
     },
     {
       "screen": "note-detail",
@@ -362,7 +410,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:22.723Z"
+      "capturedAt": "2026-10-12T07:55:17.995Z"
     },
     {
       "screen": "journal",
@@ -374,7 +422,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:23.124Z"
+      "capturedAt": "2026-10-12T07:55:20.084Z"
     },
     {
       "screen": "workspace",
@@ -386,7 +434,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:23.371Z"
+      "capturedAt": "2026-10-12T07:55:21.808Z"
     },
     {
       "screen": "database",
@@ -398,7 +446,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:23.845Z"
+      "capturedAt": "2026-10-12T07:55:22.993Z"
     },
     {
       "screen": "settings",
@@ -410,7 +458,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:24.952Z"
+      "capturedAt": "2026-10-12T07:55:26.297Z"
     },
     {
       "screen": "search",
@@ -422,7 +470,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:25.766Z"
+      "capturedAt": "2026-10-12T07:55:29.296Z"
     },
     {
       "screen": "design",
@@ -434,7 +482,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:27.537Z"
+      "capturedAt": "2026-10-12T07:55:32.316Z"
     },
     {
       "screen": "editor",
@@ -446,7 +494,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:28.752Z"
+      "capturedAt": "2026-10-12T07:55:35.473Z"
     },
     {
       "screen": "about",
@@ -458,7 +506,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:30.336Z"
+      "capturedAt": "2026-10-12T07:55:38.747Z"
     },
     {
       "screen": "palette",
@@ -470,7 +518,31 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:31.758Z"
+      "capturedAt": "2026-10-12T07:55:42.951Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "iphone15-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-iphone15-portrait-light.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:55:46.961Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "iphone15-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-iphone15-portrait-light.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:55:48.756Z"
     },
     {
       "screen": "today",
@@ -482,7 +554,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:41.574Z"
+      "capturedAt": "2026-10-12T07:56:07.987Z"
     },
     {
       "screen": "calendar",
@@ -494,7 +566,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:42.500Z"
+      "capturedAt": "2026-10-12T07:56:09.685Z"
     },
     {
       "screen": "notes",
@@ -506,7 +578,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:42.780Z"
+      "capturedAt": "2026-10-12T07:56:10.788Z"
     },
     {
       "screen": "note-detail",
@@ -518,7 +590,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:43.210Z"
+      "capturedAt": "2026-10-12T07:56:12.370Z"
     },
     {
       "screen": "journal",
@@ -530,7 +602,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:43.703Z"
+      "capturedAt": "2026-10-12T07:56:13.580Z"
     },
     {
       "screen": "workspace",
@@ -542,7 +614,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:44.119Z"
+      "capturedAt": "2026-10-12T07:56:14.368Z"
     },
     {
       "screen": "database",
@@ -554,7 +626,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:44.430Z"
+      "capturedAt": "2026-10-12T07:56:15.469Z"
     },
     {
       "screen": "settings",
@@ -566,7 +638,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:45.760Z"
+      "capturedAt": "2026-10-12T07:56:19.069Z"
     },
     {
       "screen": "search",
@@ -578,7 +650,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:47.216Z"
+      "capturedAt": "2026-10-12T07:56:22.348Z"
     },
     {
       "screen": "design",
@@ -590,7 +662,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:48.950Z"
+      "capturedAt": "2026-10-12T07:56:26.493Z"
     },
     {
       "screen": "editor",
@@ -602,7 +674,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:50.390Z"
+      "capturedAt": "2026-10-12T07:56:29.486Z"
     },
     {
       "screen": "about",
@@ -614,7 +686,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:52.103Z"
+      "capturedAt": "2026-10-12T07:56:33.215Z"
     },
     {
       "screen": "palette",
@@ -626,7 +698,31 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:23:53.780Z"
+      "capturedAt": "2026-10-12T07:56:36.557Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "iphone15-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-iphone15-portrait-dark.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:56:39.504Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "iphone15-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-iphone15-portrait-dark.png",
+      "width": 393,
+      "height": 852,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:56:40.311Z"
     },
     {
       "screen": "today",
@@ -638,7 +734,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:01.381Z"
+      "capturedAt": "2026-10-12T07:56:56.694Z"
     },
     {
       "screen": "calendar",
@@ -650,7 +746,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:02.531Z"
+      "capturedAt": "2026-10-12T07:56:57.784Z"
     },
     {
       "screen": "notes",
@@ -662,7 +758,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:03.482Z"
+      "capturedAt": "2026-10-12T07:56:58.905Z"
     },
     {
       "screen": "note-detail",
@@ -674,7 +770,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:04.166Z"
+      "capturedAt": "2026-10-12T07:57:01.147Z"
     },
     {
       "screen": "journal",
@@ -686,7 +782,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:05.126Z"
+      "capturedAt": "2026-10-12T07:57:03.150Z"
     },
     {
       "screen": "workspace",
@@ -698,7 +794,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:05.578Z"
+      "capturedAt": "2026-10-12T07:57:04.153Z"
     },
     {
       "screen": "database",
@@ -710,7 +806,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:06.213Z"
+      "capturedAt": "2026-10-12T07:57:05.556Z"
     },
     {
       "screen": "settings",
@@ -722,7 +818,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:06.984Z"
+      "capturedAt": "2026-10-12T07:57:08.704Z"
     },
     {
       "screen": "search",
@@ -734,7 +830,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:07.665Z"
+      "capturedAt": "2026-10-12T07:57:10.468Z"
     },
     {
       "screen": "design",
@@ -746,7 +842,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:09.998Z"
+      "capturedAt": "2026-10-12T07:57:17.664Z"
     },
     {
       "screen": "editor",
@@ -758,7 +854,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:11.855Z"
+      "capturedAt": "2026-10-12T07:57:21.898Z"
     },
     {
       "screen": "about",
@@ -770,7 +866,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:13.477Z"
+      "capturedAt": "2026-10-12T07:57:25.112Z"
     },
     {
       "screen": "palette",
@@ -782,7 +878,31 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:15.156Z"
+      "capturedAt": "2026-10-12T07:57:28.984Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "iphone15-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-iphone15-landscape-light.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:57:32.091Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "iphone15-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-iphone15-landscape-light.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:57:33.384Z"
     },
     {
       "screen": "today",
@@ -794,7 +914,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:23.225Z"
+      "capturedAt": "2026-10-12T07:57:52.152Z"
     },
     {
       "screen": "calendar",
@@ -806,7 +926,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:24.072Z"
+      "capturedAt": "2026-10-12T07:57:53.998Z"
     },
     {
       "screen": "notes",
@@ -818,7 +938,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:24.589Z"
+      "capturedAt": "2026-10-12T07:57:55.147Z"
     },
     {
       "screen": "note-detail",
@@ -830,7 +950,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:25.334Z"
+      "capturedAt": "2026-10-12T07:57:56.699Z"
     },
     {
       "screen": "journal",
@@ -842,7 +962,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:25.843Z"
+      "capturedAt": "2026-10-12T07:57:57.959Z"
     },
     {
       "screen": "workspace",
@@ -854,7 +974,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:26.397Z"
+      "capturedAt": "2026-10-12T07:58:00.148Z"
     },
     {
       "screen": "database",
@@ -866,7 +986,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:26.771Z"
+      "capturedAt": "2026-10-12T07:58:01.876Z"
     },
     {
       "screen": "settings",
@@ -878,7 +998,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:27.339Z"
+      "capturedAt": "2026-10-12T07:58:04.668Z"
     },
     {
       "screen": "search",
@@ -890,7 +1010,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:27.896Z"
+      "capturedAt": "2026-10-12T07:58:06.606Z"
     },
     {
       "screen": "design",
@@ -902,7 +1022,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:29.821Z"
+      "capturedAt": "2026-10-12T07:58:11.492Z"
     },
     {
       "screen": "editor",
@@ -914,7 +1034,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:31.440Z"
+      "capturedAt": "2026-10-12T07:58:14.802Z"
     },
     {
       "screen": "about",
@@ -926,7 +1046,7 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:32.812Z"
+      "capturedAt": "2026-10-12T07:58:17.065Z"
     },
     {
       "screen": "palette",
@@ -938,7 +1058,31 @@
       "dpr": 3,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:34.768Z"
+      "capturedAt": "2026-10-12T07:58:19.885Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "iphone15-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-iphone15-landscape-dark.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:58:23.513Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "iphone15-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-iphone15-landscape-dark.png",
+      "width": 852,
+      "height": 393,
+      "dpr": 3,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:58:25.067Z"
     },
     {
       "screen": "today",
@@ -950,7 +1094,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:42.493Z"
+      "capturedAt": "2026-10-12T07:58:40.301Z"
     },
     {
       "screen": "calendar",
@@ -962,7 +1106,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:42.976Z"
+      "capturedAt": "2026-10-12T07:58:41.796Z"
     },
     {
       "screen": "notes",
@@ -974,7 +1118,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:43.343Z"
+      "capturedAt": "2026-10-12T07:58:43.715Z"
     },
     {
       "screen": "note-detail",
@@ -986,7 +1130,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:43.790Z"
+      "capturedAt": "2026-10-12T07:58:45.469Z"
     },
     {
       "screen": "journal",
@@ -998,7 +1142,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:44.178Z"
+      "capturedAt": "2026-10-12T07:58:46.762Z"
     },
     {
       "screen": "workspace",
@@ -1010,7 +1154,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:44.470Z"
+      "capturedAt": "2026-10-12T07:58:48.884Z"
     },
     {
       "screen": "database",
@@ -1022,7 +1166,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:44.881Z"
+      "capturedAt": "2026-10-12T07:58:49.864Z"
     },
     {
       "screen": "settings",
@@ -1034,7 +1178,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:45.908Z"
+      "capturedAt": "2026-10-12T07:58:52.194Z"
     },
     {
       "screen": "search",
@@ -1046,7 +1190,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:47.025Z"
+      "capturedAt": "2026-10-12T07:58:54.863Z"
     },
     {
       "screen": "design",
@@ -1058,7 +1202,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:48.930Z"
+      "capturedAt": "2026-10-12T07:58:59.108Z"
     },
     {
       "screen": "editor",
@@ -1070,7 +1214,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:50.416Z"
+      "capturedAt": "2026-10-12T07:59:01.506Z"
     },
     {
       "screen": "about",
@@ -1082,7 +1226,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:52.220Z"
+      "capturedAt": "2026-10-12T07:59:04.760Z"
     },
     {
       "screen": "palette",
@@ -1094,7 +1238,31 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:24:53.755Z"
+      "capturedAt": "2026-10-12T07:59:08.084Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "ipad-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-ipad-portrait-light.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:59:11.464Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "ipad-portrait",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-ipad-portrait-light.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:59:13.305Z"
     },
     {
       "screen": "today",
@@ -1106,7 +1274,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:00.872Z"
+      "capturedAt": "2026-10-12T07:59:30.686Z"
     },
     {
       "screen": "calendar",
@@ -1118,7 +1286,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:01.388Z"
+      "capturedAt": "2026-10-12T07:59:31.816Z"
     },
     {
       "screen": "notes",
@@ -1130,7 +1298,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:01.706Z"
+      "capturedAt": "2026-10-12T07:59:32.758Z"
     },
     {
       "screen": "note-detail",
@@ -1142,7 +1310,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:02.449Z"
+      "capturedAt": "2026-10-12T07:59:34.797Z"
     },
     {
       "screen": "journal",
@@ -1154,7 +1322,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:03.002Z"
+      "capturedAt": "2026-10-12T07:59:36.563Z"
     },
     {
       "screen": "workspace",
@@ -1166,7 +1334,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:03.461Z"
+      "capturedAt": "2026-10-12T07:59:38.071Z"
     },
     {
       "screen": "database",
@@ -1178,7 +1346,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:04.099Z"
+      "capturedAt": "2026-10-12T07:59:39.685Z"
     },
     {
       "screen": "settings",
@@ -1190,7 +1358,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:05.293Z"
+      "capturedAt": "2026-10-12T07:59:41.496Z"
     },
     {
       "screen": "search",
@@ -1202,7 +1370,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:05.982Z"
+      "capturedAt": "2026-10-12T07:59:43.168Z"
     },
     {
       "screen": "design",
@@ -1214,7 +1382,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:07.653Z"
+      "capturedAt": "2026-10-12T07:59:46.406Z"
     },
     {
       "screen": "editor",
@@ -1226,7 +1394,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:09.525Z"
+      "capturedAt": "2026-10-12T07:59:49.680Z"
     },
     {
       "screen": "about",
@@ -1238,7 +1406,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:11.297Z"
+      "capturedAt": "2026-10-12T07:59:53.073Z"
     },
     {
       "screen": "palette",
@@ -1250,7 +1418,31 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:13.070Z"
+      "capturedAt": "2026-10-12T07:59:55.192Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "ipad-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-ipad-portrait-dark.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:59:56.497Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "ipad-portrait",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-ipad-portrait-dark.png",
+      "width": 820,
+      "height": 1180,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T07:59:56.892Z"
     },
     {
       "screen": "today",
@@ -1262,7 +1454,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:20.298Z"
+      "capturedAt": "2026-10-12T08:00:03.881Z"
     },
     {
       "screen": "calendar",
@@ -1274,7 +1466,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:20.837Z"
+      "capturedAt": "2026-10-12T08:00:04.499Z"
     },
     {
       "screen": "notes",
@@ -1286,7 +1478,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:21.178Z"
+      "capturedAt": "2026-10-12T08:00:04.846Z"
     },
     {
       "screen": "note-detail",
@@ -1298,7 +1490,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:21.713Z"
+      "capturedAt": "2026-10-12T08:00:05.381Z"
     },
     {
       "screen": "journal",
@@ -1310,7 +1502,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:22.202Z"
+      "capturedAt": "2026-10-12T08:00:05.809Z"
     },
     {
       "screen": "workspace",
@@ -1322,7 +1514,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:22.524Z"
+      "capturedAt": "2026-10-12T08:00:06.166Z"
     },
     {
       "screen": "database",
@@ -1334,7 +1526,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:22.956Z"
+      "capturedAt": "2026-10-12T08:00:06.567Z"
     },
     {
       "screen": "settings",
@@ -1346,7 +1538,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:23.925Z"
+      "capturedAt": "2026-10-12T08:00:07.532Z"
     },
     {
       "screen": "search",
@@ -1358,7 +1550,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:25.012Z"
+      "capturedAt": "2026-10-12T08:00:08.278Z"
     },
     {
       "screen": "design",
@@ -1370,7 +1562,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:27.311Z"
+      "capturedAt": "2026-10-12T08:00:10.019Z"
     },
     {
       "screen": "editor",
@@ -1382,7 +1574,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:29.199Z"
+      "capturedAt": "2026-10-12T08:00:11.398Z"
     },
     {
       "screen": "about",
@@ -1394,7 +1586,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:30.826Z"
+      "capturedAt": "2026-10-12T08:00:12.855Z"
     },
     {
       "screen": "palette",
@@ -1406,7 +1598,31 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:32.336Z"
+      "capturedAt": "2026-10-12T08:00:14.365Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "ipad-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-ipad-landscape-light.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:00:15.549Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "ipad-landscape",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-ipad-landscape-light.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:00:15.955Z"
     },
     {
       "screen": "today",
@@ -1418,7 +1634,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:39.486Z"
+      "capturedAt": "2026-10-12T08:00:21.629Z"
     },
     {
       "screen": "calendar",
@@ -1430,7 +1646,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:40.067Z"
+      "capturedAt": "2026-10-12T08:00:22.152Z"
     },
     {
       "screen": "notes",
@@ -1442,7 +1658,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:40.405Z"
+      "capturedAt": "2026-10-12T08:00:22.497Z"
     },
     {
       "screen": "note-detail",
@@ -1454,7 +1670,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:41.049Z"
+      "capturedAt": "2026-10-12T08:00:23.007Z"
     },
     {
       "screen": "journal",
@@ -1466,7 +1682,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:41.703Z"
+      "capturedAt": "2026-10-12T08:00:23.536Z"
     },
     {
       "screen": "workspace",
@@ -1478,7 +1694,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:42.101Z"
+      "capturedAt": "2026-10-12T08:00:23.881Z"
     },
     {
       "screen": "database",
@@ -1490,7 +1706,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:42.526Z"
+      "capturedAt": "2026-10-12T08:00:24.291Z"
     },
     {
       "screen": "settings",
@@ -1502,7 +1718,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:43.205Z"
+      "capturedAt": "2026-10-12T08:00:25.190Z"
     },
     {
       "screen": "search",
@@ -1514,7 +1730,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:43.808Z"
+      "capturedAt": "2026-10-12T08:00:25.649Z"
     },
     {
       "screen": "design",
@@ -1526,7 +1742,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:45.838Z"
+      "capturedAt": "2026-10-12T08:00:27.345Z"
     },
     {
       "screen": "editor",
@@ -1538,7 +1754,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:47.409Z"
+      "capturedAt": "2026-10-12T08:00:28.703Z"
     },
     {
       "screen": "about",
@@ -1550,7 +1766,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:48.923Z"
+      "capturedAt": "2026-10-12T08:00:30.131Z"
     },
     {
       "screen": "palette",
@@ -1562,7 +1778,31 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:50.982Z"
+      "capturedAt": "2026-10-12T08:00:31.555Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "ipad-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-ipad-landscape-dark.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:00:32.702Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "ipad-landscape",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-ipad-landscape-dark.png",
+      "width": 1180,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:00:33.067Z"
     },
     {
       "screen": "today",
@@ -1574,7 +1814,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:56.364Z"
+      "capturedAt": "2026-10-12T08:00:37.417Z"
     },
     {
       "screen": "calendar",
@@ -1586,7 +1826,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:56.693Z"
+      "capturedAt": "2026-10-12T08:00:37.739Z"
     },
     {
       "screen": "notes",
@@ -1598,7 +1838,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:56.909Z"
+      "capturedAt": "2026-10-12T08:00:37.941Z"
     },
     {
       "screen": "note-detail",
@@ -1610,7 +1850,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:57.208Z"
+      "capturedAt": "2026-10-12T08:00:38.286Z"
     },
     {
       "screen": "journal",
@@ -1622,7 +1862,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:57.522Z"
+      "capturedAt": "2026-10-12T08:00:38.568Z"
     },
     {
       "screen": "workspace",
@@ -1634,7 +1874,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:57.852Z"
+      "capturedAt": "2026-10-12T08:00:38.771Z"
     },
     {
       "screen": "database",
@@ -1646,7 +1886,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:58.158Z"
+      "capturedAt": "2026-10-12T08:00:38.989Z"
     },
     {
       "screen": "settings",
@@ -1658,7 +1898,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:25:59.536Z"
+      "capturedAt": "2026-10-12T08:00:39.766Z"
     },
     {
       "screen": "search",
@@ -1670,7 +1910,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:00.115Z"
+      "capturedAt": "2026-10-12T08:00:40.197Z"
     },
     {
       "screen": "design",
@@ -1682,7 +1922,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:01.665Z"
+      "capturedAt": "2026-10-12T08:00:41.570Z"
     },
     {
       "screen": "editor",
@@ -1694,7 +1934,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:03.847Z"
+      "capturedAt": "2026-10-12T08:00:42.780Z"
     },
     {
       "screen": "about",
@@ -1706,7 +1946,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:05.329Z"
+      "capturedAt": "2026-10-12T08:00:44.020Z"
     },
     {
       "screen": "palette",
@@ -1718,7 +1958,31 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:06.743Z"
+      "capturedAt": "2026-10-12T08:00:45.310Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "ipad-split-narrow",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-ipad-split-narrow-light.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:00:46.164Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "ipad-split-narrow",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-ipad-split-narrow-light.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:00:46.403Z"
     },
     {
       "screen": "today",
@@ -1730,7 +1994,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:13.931Z"
+      "capturedAt": "2026-10-12T08:00:50.785Z"
     },
     {
       "screen": "calendar",
@@ -1742,7 +2006,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:14.811Z"
+      "capturedAt": "2026-10-12T08:00:51.105Z"
     },
     {
       "screen": "notes",
@@ -1754,7 +2018,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:15.027Z"
+      "capturedAt": "2026-10-12T08:00:51.310Z"
     },
     {
       "screen": "note-detail",
@@ -1766,7 +2030,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:15.664Z"
+      "capturedAt": "2026-10-12T08:00:51.633Z"
     },
     {
       "screen": "journal",
@@ -1778,7 +2042,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:16.041Z"
+      "capturedAt": "2026-10-12T08:00:52.052Z"
     },
     {
       "screen": "workspace",
@@ -1790,7 +2054,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:16.287Z"
+      "capturedAt": "2026-10-12T08:00:52.245Z"
     },
     {
       "screen": "database",
@@ -1802,7 +2066,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:16.627Z"
+      "capturedAt": "2026-10-12T08:00:52.455Z"
     },
     {
       "screen": "settings",
@@ -1814,7 +2078,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:17.461Z"
+      "capturedAt": "2026-10-12T08:00:53.234Z"
     },
     {
       "screen": "search",
@@ -1826,7 +2090,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:18.203Z"
+      "capturedAt": "2026-10-12T08:00:53.679Z"
     },
     {
       "screen": "design",
@@ -1838,7 +2102,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:19.657Z"
+      "capturedAt": "2026-10-12T08:00:55.084Z"
     },
     {
       "screen": "editor",
@@ -1850,7 +2114,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:21.409Z"
+      "capturedAt": "2026-10-12T08:00:56.317Z"
     },
     {
       "screen": "about",
@@ -1862,7 +2126,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:23.218Z"
+      "capturedAt": "2026-10-12T08:00:57.580Z"
     },
     {
       "screen": "palette",
@@ -1874,7 +2138,31 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:24.586Z"
+      "capturedAt": "2026-10-12T08:00:58.871Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "ipad-split-narrow",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-ipad-split-narrow-dark.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:00:59.727Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "ipad-split-narrow",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-ipad-split-narrow-dark.png",
+      "width": 375,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:00:59.977Z"
     },
     {
       "screen": "today",
@@ -1886,7 +2174,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:30.218Z"
+      "capturedAt": "2026-10-12T08:01:04.780Z"
     },
     {
       "screen": "calendar",
@@ -1898,7 +2186,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:30.641Z"
+      "capturedAt": "2026-10-12T08:01:05.116Z"
     },
     {
       "screen": "notes",
@@ -1910,7 +2198,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:30.858Z"
+      "capturedAt": "2026-10-12T08:01:05.336Z"
     },
     {
       "screen": "note-detail",
@@ -1922,7 +2210,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:31.148Z"
+      "capturedAt": "2026-10-12T08:01:05.709Z"
     },
     {
       "screen": "journal",
@@ -1934,7 +2222,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:31.498Z"
+      "capturedAt": "2026-10-12T08:01:06.013Z"
     },
     {
       "screen": "workspace",
@@ -1946,7 +2234,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:31.684Z"
+      "capturedAt": "2026-10-12T08:01:06.228Z"
     },
     {
       "screen": "database",
@@ -1958,7 +2246,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:31.960Z"
+      "capturedAt": "2026-10-12T08:01:06.486Z"
     },
     {
       "screen": "settings",
@@ -1970,7 +2258,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:32.698Z"
+      "capturedAt": "2026-10-12T08:01:07.340Z"
     },
     {
       "screen": "search",
@@ -1982,7 +2270,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:33.361Z"
+      "capturedAt": "2026-10-12T08:01:07.795Z"
     },
     {
       "screen": "design",
@@ -1994,7 +2282,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:35.177Z"
+      "capturedAt": "2026-10-12T08:01:09.382Z"
     },
     {
       "screen": "editor",
@@ -2006,7 +2294,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:36.604Z"
+      "capturedAt": "2026-10-12T08:01:10.626Z"
     },
     {
       "screen": "about",
@@ -2018,7 +2306,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:37.909Z"
+      "capturedAt": "2026-10-12T08:01:11.933Z"
     },
     {
       "screen": "palette",
@@ -2030,7 +2318,31 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:39.610Z"
+      "capturedAt": "2026-10-12T08:01:13.253Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "ipad-split-half",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-ipad-split-half-light.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:01:14.292Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "ipad-split-half",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-ipad-split-half-light.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:01:14.574Z"
     },
     {
       "screen": "today",
@@ -2042,7 +2354,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:45.813Z"
+      "capturedAt": "2026-10-12T08:01:19.249Z"
     },
     {
       "screen": "calendar",
@@ -2054,7 +2366,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:46.600Z"
+      "capturedAt": "2026-10-12T08:01:19.627Z"
     },
     {
       "screen": "notes",
@@ -2066,7 +2378,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:46.837Z"
+      "capturedAt": "2026-10-12T08:01:19.865Z"
     },
     {
       "screen": "note-detail",
@@ -2078,7 +2390,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:47.364Z"
+      "capturedAt": "2026-10-12T08:01:20.228Z"
     },
     {
       "screen": "journal",
@@ -2090,7 +2402,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:47.709Z"
+      "capturedAt": "2026-10-12T08:01:20.585Z"
     },
     {
       "screen": "workspace",
@@ -2102,7 +2414,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:47.956Z"
+      "capturedAt": "2026-10-12T08:01:20.817Z"
     },
     {
       "screen": "database",
@@ -2114,7 +2426,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:48.246Z"
+      "capturedAt": "2026-10-12T08:01:21.080Z"
     },
     {
       "screen": "settings",
@@ -2126,7 +2438,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:49.613Z"
+      "capturedAt": "2026-10-12T08:01:21.929Z"
     },
     {
       "screen": "search",
@@ -2138,7 +2450,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:50.445Z"
+      "capturedAt": "2026-10-12T08:01:22.397Z"
     },
     {
       "screen": "design",
@@ -2150,7 +2462,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:52.156Z"
+      "capturedAt": "2026-10-12T08:01:23.940Z"
     },
     {
       "screen": "editor",
@@ -2162,7 +2474,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:53.124Z"
+      "capturedAt": "2026-10-12T08:01:25.199Z"
     },
     {
       "screen": "about",
@@ -2174,7 +2486,7 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:54.440Z"
+      "capturedAt": "2026-10-12T08:01:26.528Z"
     },
     {
       "screen": "palette",
@@ -2186,7 +2498,31 @@
       "dpr": 2,
       "engine": "webkit",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:26:55.786Z"
+      "capturedAt": "2026-10-12T08:01:27.844Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "ipad-split-half",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-ipad-split-half-dark.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:01:28.803Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "ipad-split-half",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-ipad-split-half-dark.png",
+      "width": 580,
+      "height": 820,
+      "dpr": 2,
+      "engine": "webkit",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:01:29.043Z"
     },
     {
       "screen": "today",
@@ -2198,7 +2534,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:00.856Z"
+      "capturedAt": "2026-10-12T08:01:31.811Z"
     },
     {
       "screen": "calendar",
@@ -2210,7 +2546,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:01.132Z"
+      "capturedAt": "2026-10-12T08:01:31.974Z"
     },
     {
       "screen": "notes",
@@ -2222,7 +2558,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:01.256Z"
+      "capturedAt": "2026-10-12T08:01:32.122Z"
     },
     {
       "screen": "note-detail",
@@ -2234,7 +2570,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:01.460Z"
+      "capturedAt": "2026-10-12T08:01:32.378Z"
     },
     {
       "screen": "journal",
@@ -2246,7 +2582,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:01.667Z"
+      "capturedAt": "2026-10-12T08:01:32.538Z"
     },
     {
       "screen": "workspace",
@@ -2258,7 +2594,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:01.857Z"
+      "capturedAt": "2026-10-12T08:01:32.671Z"
     },
     {
       "screen": "database",
@@ -2270,7 +2606,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:02.042Z"
+      "capturedAt": "2026-10-12T08:01:32.836Z"
     },
     {
       "screen": "settings",
@@ -2282,7 +2618,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:02.589Z"
+      "capturedAt": "2026-10-12T08:01:33.308Z"
     },
     {
       "screen": "search",
@@ -2294,7 +2630,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:02.793Z"
+      "capturedAt": "2026-10-12T08:01:33.493Z"
     },
     {
       "screen": "design",
@@ -2306,7 +2642,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:03.827Z"
+      "capturedAt": "2026-10-12T08:01:34.376Z"
     },
     {
       "screen": "editor",
@@ -2318,7 +2654,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:04.720Z"
+      "capturedAt": "2026-10-12T08:01:35.154Z"
     },
     {
       "screen": "about",
@@ -2330,7 +2666,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:05.720Z"
+      "capturedAt": "2026-10-12T08:01:35.969Z"
     },
     {
       "screen": "palette",
@@ -2342,7 +2678,31 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:06.615Z"
+      "capturedAt": "2026-10-12T08:01:36.790Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "window-min",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-window-min-light.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:01:37.382Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "window-min",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-window-min-light.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:01:37.536Z"
     },
     {
       "screen": "today",
@@ -2354,7 +2714,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:10.482Z"
+      "capturedAt": "2026-10-12T08:01:40.861Z"
     },
     {
       "screen": "calendar",
@@ -2366,7 +2726,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:11.082Z"
+      "capturedAt": "2026-10-12T08:01:41.026Z"
     },
     {
       "screen": "notes",
@@ -2378,7 +2738,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:11.264Z"
+      "capturedAt": "2026-10-12T08:01:41.159Z"
     },
     {
       "screen": "note-detail",
@@ -2390,7 +2750,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:11.521Z"
+      "capturedAt": "2026-10-12T08:01:41.426Z"
     },
     {
       "screen": "journal",
@@ -2402,7 +2762,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:11.688Z"
+      "capturedAt": "2026-10-12T08:01:41.573Z"
     },
     {
       "screen": "workspace",
@@ -2414,7 +2774,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:11.851Z"
+      "capturedAt": "2026-10-12T08:01:41.710Z"
     },
     {
       "screen": "database",
@@ -2426,7 +2786,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:12.033Z"
+      "capturedAt": "2026-10-12T08:01:41.872Z"
     },
     {
       "screen": "settings",
@@ -2438,7 +2798,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:12.554Z"
+      "capturedAt": "2026-10-12T08:01:42.369Z"
     },
     {
       "screen": "search",
@@ -2450,7 +2810,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:12.768Z"
+      "capturedAt": "2026-10-12T08:01:42.578Z"
     },
     {
       "screen": "design",
@@ -2462,7 +2822,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:13.818Z"
+      "capturedAt": "2026-10-12T08:01:43.471Z"
     },
     {
       "screen": "editor",
@@ -2474,7 +2834,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:14.629Z"
+      "capturedAt": "2026-10-12T08:01:44.253Z"
     },
     {
       "screen": "about",
@@ -2486,7 +2846,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:15.748Z"
+      "capturedAt": "2026-10-12T08:01:45.070Z"
     },
     {
       "screen": "palette",
@@ -2498,7 +2858,31 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:17.088Z"
+      "capturedAt": "2026-10-12T08:01:45.891Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "window-min",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-window-min-dark.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:01:46.469Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "window-min",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-window-min-dark.png",
+      "width": 800,
+      "height": 600,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:01:46.616Z"
     },
     {
       "screen": "today",
@@ -2510,7 +2894,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:20.542Z"
+      "capturedAt": "2026-10-12T08:01:49.306Z"
     },
     {
       "screen": "calendar",
@@ -2522,7 +2906,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:20.817Z"
+      "capturedAt": "2026-10-12T08:01:49.523Z"
     },
     {
       "screen": "notes",
@@ -2534,7 +2918,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:20.990Z"
+      "capturedAt": "2026-10-12T08:01:49.685Z"
     },
     {
       "screen": "note-detail",
@@ -2546,7 +2930,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:21.229Z"
+      "capturedAt": "2026-10-12T08:01:49.965Z"
     },
     {
       "screen": "journal",
@@ -2558,7 +2942,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:21.417Z"
+      "capturedAt": "2026-10-12T08:01:50.149Z"
     },
     {
       "screen": "workspace",
@@ -2570,7 +2954,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:21.557Z"
+      "capturedAt": "2026-10-12T08:01:50.333Z"
     },
     {
       "screen": "database",
@@ -2582,7 +2966,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:21.739Z"
+      "capturedAt": "2026-10-12T08:01:50.549Z"
     },
     {
       "screen": "settings",
@@ -2594,7 +2978,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:22.309Z"
+      "capturedAt": "2026-10-12T08:01:51.093Z"
     },
     {
       "screen": "search",
@@ -2606,7 +2990,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:22.685Z"
+      "capturedAt": "2026-10-12T08:01:51.340Z"
     },
     {
       "screen": "design",
@@ -2618,7 +3002,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:23.618Z"
+      "capturedAt": "2026-10-12T08:01:52.280Z"
     },
     {
       "screen": "editor",
@@ -2630,7 +3014,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:24.424Z"
+      "capturedAt": "2026-10-12T08:01:53.078Z"
     },
     {
       "screen": "about",
@@ -2642,7 +3026,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:25.357Z"
+      "capturedAt": "2026-10-12T08:01:53.974Z"
     },
     {
       "screen": "palette",
@@ -2654,7 +3038,31 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:26.528Z"
+      "capturedAt": "2026-10-12T08:01:54.842Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "laptop",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-laptop-light.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:01:55.455Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "laptop",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-laptop-light.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:01:55.642Z"
     },
     {
       "screen": "today",
@@ -2666,7 +3074,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:31.046Z"
+      "capturedAt": "2026-10-12T08:02:02.087Z"
     },
     {
       "screen": "calendar",
@@ -2678,7 +3086,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:31.346Z"
+      "capturedAt": "2026-10-12T08:02:03.091Z"
     },
     {
       "screen": "notes",
@@ -2690,7 +3098,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:31.578Z"
+      "capturedAt": "2026-10-12T08:02:03.679Z"
     },
     {
       "screen": "note-detail",
@@ -2702,7 +3110,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:31.832Z"
+      "capturedAt": "2026-10-12T08:02:04.567Z"
     },
     {
       "screen": "journal",
@@ -2714,7 +3122,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:32.021Z"
+      "capturedAt": "2026-10-12T08:02:05.387Z"
     },
     {
       "screen": "workspace",
@@ -2726,7 +3134,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:32.173Z"
+      "capturedAt": "2026-10-12T08:02:05.949Z"
     },
     {
       "screen": "database",
@@ -2738,7 +3146,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:32.366Z"
+      "capturedAt": "2026-10-12T08:02:06.813Z"
     },
     {
       "screen": "settings",
@@ -2750,7 +3158,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:32.929Z"
+      "capturedAt": "2026-10-12T08:02:08.112Z"
     },
     {
       "screen": "search",
@@ -2762,7 +3170,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:33.314Z"
+      "capturedAt": "2026-10-12T08:02:09.088Z"
     },
     {
       "screen": "design",
@@ -2774,7 +3182,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:34.596Z"
+      "capturedAt": "2026-10-12T08:02:11.090Z"
     },
     {
       "screen": "editor",
@@ -2786,7 +3194,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:35.545Z"
+      "capturedAt": "2026-10-12T08:02:13.056Z"
     },
     {
       "screen": "about",
@@ -2798,7 +3206,7 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:36.472Z"
+      "capturedAt": "2026-10-12T08:02:14.798Z"
     },
     {
       "screen": "palette",
@@ -2810,7 +3218,31 @@
       "dpr": 1.25,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:37.337Z"
+      "capturedAt": "2026-10-12T08:02:16.597Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "laptop",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-laptop-dark.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:02:18.304Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "laptop",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-laptop-dark.png",
+      "width": 1536,
+      "height": 864,
+      "dpr": 1.25,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:02:19.208Z"
     },
     {
       "screen": "today",
@@ -2822,7 +3254,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:41.528Z"
+      "capturedAt": "2026-10-12T08:02:28.100Z"
     },
     {
       "screen": "calendar",
@@ -2834,7 +3266,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:41.793Z"
+      "capturedAt": "2026-10-12T08:02:28.699Z"
     },
     {
       "screen": "notes",
@@ -2846,7 +3278,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:41.962Z"
+      "capturedAt": "2026-10-12T08:02:29.159Z"
     },
     {
       "screen": "note-detail",
@@ -2858,7 +3290,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:42.264Z"
+      "capturedAt": "2026-10-12T08:02:30.093Z"
     },
     {
       "screen": "journal",
@@ -2870,7 +3302,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:42.547Z"
+      "capturedAt": "2026-10-12T08:02:30.607Z"
     },
     {
       "screen": "workspace",
@@ -2882,7 +3314,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:42.678Z"
+      "capturedAt": "2026-10-12T08:02:30.999Z"
     },
     {
       "screen": "database",
@@ -2894,7 +3326,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:42.877Z"
+      "capturedAt": "2026-10-12T08:02:31.647Z"
     },
     {
       "screen": "settings",
@@ -2906,7 +3338,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:43.502Z"
+      "capturedAt": "2026-10-12T08:02:32.570Z"
     },
     {
       "screen": "search",
@@ -2918,7 +3350,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:43.832Z"
+      "capturedAt": "2026-10-12T08:02:33.592Z"
     },
     {
       "screen": "design",
@@ -2930,7 +3362,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:44.864Z"
+      "capturedAt": "2026-10-12T08:02:36.411Z"
     },
     {
       "screen": "editor",
@@ -2942,7 +3374,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:45.828Z"
+      "capturedAt": "2026-10-12T08:02:37.479Z"
     },
     {
       "screen": "about",
@@ -2954,7 +3386,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:46.806Z"
+      "capturedAt": "2026-10-12T08:02:38.355Z"
     },
     {
       "screen": "palette",
@@ -2966,7 +3398,31 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:47.909Z"
+      "capturedAt": "2026-10-12T08:02:39.206Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "desktop",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:02:39.812Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "desktop",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:02:39.989Z"
     },
     {
       "screen": "today",
@@ -2978,7 +3434,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:51.632Z"
+      "capturedAt": "2026-10-12T08:02:42.903Z"
     },
     {
       "screen": "calendar",
@@ -2990,7 +3446,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:51.983Z"
+      "capturedAt": "2026-10-12T08:02:43.145Z"
     },
     {
       "screen": "notes",
@@ -3002,7 +3458,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:52.118Z"
+      "capturedAt": "2026-10-12T08:02:43.302Z"
     },
     {
       "screen": "note-detail",
@@ -3014,7 +3470,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:52.334Z"
+      "capturedAt": "2026-10-12T08:02:43.621Z"
     },
     {
       "screen": "journal",
@@ -3026,7 +3482,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:52.547Z"
+      "capturedAt": "2026-10-12T08:02:43.825Z"
     },
     {
       "screen": "workspace",
@@ -3038,7 +3494,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:52.700Z"
+      "capturedAt": "2026-10-12T08:02:43.982Z"
     },
     {
       "screen": "database",
@@ -3050,7 +3506,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:52.885Z"
+      "capturedAt": "2026-10-12T08:02:44.226Z"
     },
     {
       "screen": "settings",
@@ -3062,7 +3518,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:53.536Z"
+      "capturedAt": "2026-10-12T08:02:44.793Z"
     },
     {
       "screen": "search",
@@ -3074,7 +3530,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:53.866Z"
+      "capturedAt": "2026-10-12T08:02:45.054Z"
     },
     {
       "screen": "design",
@@ -3086,7 +3542,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:54.759Z"
+      "capturedAt": "2026-10-12T08:02:45.941Z"
     },
     {
       "screen": "editor",
@@ -3098,7 +3554,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:55.673Z"
+      "capturedAt": "2026-10-12T08:02:46.730Z"
     },
     {
       "screen": "about",
@@ -3110,7 +3566,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:56.650Z"
+      "capturedAt": "2026-10-12T08:02:47.655Z"
     },
     {
       "screen": "palette",
@@ -3122,7 +3578,31 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:27:57.469Z"
+      "capturedAt": "2026-10-12T08:02:48.511Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "desktop",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:02:49.130Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "desktop",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:02:49.307Z"
     },
     {
       "screen": "today",
@@ -3134,7 +3614,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:05.145Z"
+      "capturedAt": "2026-10-12T08:02:55.011Z"
     },
     {
       "screen": "calendar",
@@ -3146,7 +3626,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:05.692Z"
+      "capturedAt": "2026-10-12T08:02:55.289Z"
     },
     {
       "screen": "notes",
@@ -3158,7 +3638,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:06.116Z"
+      "capturedAt": "2026-10-12T08:02:55.464Z"
     },
     {
       "screen": "note-detail",
@@ -3170,7 +3650,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:06.740Z"
+      "capturedAt": "2026-10-12T08:02:55.824Z"
     },
     {
       "screen": "journal",
@@ -3182,7 +3662,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:07.042Z"
+      "capturedAt": "2026-10-12T08:02:56.397Z"
     },
     {
       "screen": "workspace",
@@ -3194,7 +3674,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:07.240Z"
+      "capturedAt": "2026-10-12T08:02:56.600Z"
     },
     {
       "screen": "database",
@@ -3206,7 +3686,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:07.623Z"
+      "capturedAt": "2026-10-12T08:02:56.862Z"
     },
     {
       "screen": "settings",
@@ -3218,7 +3698,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:08.376Z"
+      "capturedAt": "2026-10-12T08:02:57.496Z"
     },
     {
       "screen": "search",
@@ -3230,7 +3710,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:08.858Z"
+      "capturedAt": "2026-10-12T08:02:57.798Z"
     },
     {
       "screen": "design",
@@ -3242,7 +3722,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:09.946Z"
+      "capturedAt": "2026-10-12T08:02:58.815Z"
     },
     {
       "screen": "editor",
@@ -3254,7 +3734,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:10.803Z"
+      "capturedAt": "2026-10-12T08:02:59.892Z"
     },
     {
       "screen": "about",
@@ -3266,7 +3746,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:11.942Z"
+      "capturedAt": "2026-10-12T08:03:00.887Z"
     },
     {
       "screen": "palette",
@@ -3278,7 +3758,31 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:12.905Z"
+      "capturedAt": "2026-10-12T08:03:01.872Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "desktop-firefox",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:02.798Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "desktop-firefox",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:03.135Z"
     },
     {
       "screen": "today",
@@ -3290,7 +3794,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:21.334Z"
+      "capturedAt": "2026-10-12T08:03:08.064Z"
     },
     {
       "screen": "calendar",
@@ -3302,7 +3806,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:22.716Z"
+      "capturedAt": "2026-10-12T08:03:08.387Z"
     },
     {
       "screen": "notes",
@@ -3314,7 +3818,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:23.173Z"
+      "capturedAt": "2026-10-12T08:03:08.569Z"
     },
     {
       "screen": "note-detail",
@@ -3326,7 +3830,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:23.662Z"
+      "capturedAt": "2026-10-12T08:03:09.049Z"
     },
     {
       "screen": "journal",
@@ -3338,7 +3842,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:24.381Z"
+      "capturedAt": "2026-10-12T08:03:09.553Z"
     },
     {
       "screen": "workspace",
@@ -3350,7 +3854,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:24.629Z"
+      "capturedAt": "2026-10-12T08:03:09.732Z"
     },
     {
       "screen": "database",
@@ -3362,7 +3866,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:25.087Z"
+      "capturedAt": "2026-10-12T08:03:10.190Z"
     },
     {
       "screen": "settings",
@@ -3374,7 +3878,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:25.830Z"
+      "capturedAt": "2026-10-12T08:03:10.830Z"
     },
     {
       "screen": "search",
@@ -3386,7 +3890,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:26.289Z"
+      "capturedAt": "2026-10-12T08:03:11.325Z"
     },
     {
       "screen": "design",
@@ -3398,7 +3902,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:27.578Z"
+      "capturedAt": "2026-10-12T08:03:12.335Z"
     },
     {
       "screen": "editor",
@@ -3410,7 +3914,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:29.367Z"
+      "capturedAt": "2026-10-12T08:03:13.245Z"
     },
     {
       "screen": "about",
@@ -3422,7 +3926,7 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:30.580Z"
+      "capturedAt": "2026-10-12T08:03:14.225Z"
     },
     {
       "screen": "palette",
@@ -3434,7 +3938,31 @@
       "dpr": 1,
       "engine": "firefox",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:31.709Z"
+      "capturedAt": "2026-10-12T08:03:15.205Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "desktop-firefox",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:16.161Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "desktop-firefox",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "firefox",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:16.397Z"
     },
     {
       "screen": "today",
@@ -3446,7 +3974,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:36.604Z"
+      "capturedAt": "2026-10-12T08:03:19.321Z"
     },
     {
       "screen": "calendar",
@@ -3458,7 +3986,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:36.889Z"
+      "capturedAt": "2026-10-12T08:03:19.595Z"
     },
     {
       "screen": "notes",
@@ -3470,7 +3998,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:37.051Z"
+      "capturedAt": "2026-10-12T08:03:19.778Z"
     },
     {
       "screen": "note-detail",
@@ -3482,7 +4010,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:37.377Z"
+      "capturedAt": "2026-10-12T08:03:20.120Z"
     },
     {
       "screen": "journal",
@@ -3494,7 +4022,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:37.581Z"
+      "capturedAt": "2026-10-12T08:03:20.319Z"
     },
     {
       "screen": "workspace",
@@ -3506,7 +4034,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:37.753Z"
+      "capturedAt": "2026-10-12T08:03:20.502Z"
     },
     {
       "screen": "database",
@@ -3518,7 +4046,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:37.971Z"
+      "capturedAt": "2026-10-12T08:03:20.708Z"
     },
     {
       "screen": "settings",
@@ -3530,7 +4058,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:38.539Z"
+      "capturedAt": "2026-10-12T08:03:21.291Z"
     },
     {
       "screen": "search",
@@ -3542,7 +4070,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:38.811Z"
+      "capturedAt": "2026-10-12T08:03:21.593Z"
     },
     {
       "screen": "design",
@@ -3554,7 +4082,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:39.788Z"
+      "capturedAt": "2026-10-12T08:03:22.533Z"
     },
     {
       "screen": "editor",
@@ -3566,7 +4094,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:40.748Z"
+      "capturedAt": "2026-10-12T08:03:23.348Z"
     },
     {
       "screen": "about",
@@ -3578,7 +4106,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:41.729Z"
+      "capturedAt": "2026-10-12T08:03:24.265Z"
     },
     {
       "screen": "palette",
@@ -3590,7 +4118,31 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:42.786Z"
+      "capturedAt": "2026-10-12T08:03:25.157Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "wide",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:25.791Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "wide",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:25.979Z"
     },
     {
       "screen": "today",
@@ -3602,7 +4154,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:46.995Z"
+      "capturedAt": "2026-10-12T08:03:28.808Z"
     },
     {
       "screen": "calendar",
@@ -3614,7 +4166,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:47.341Z"
+      "capturedAt": "2026-10-12T08:03:29.063Z"
     },
     {
       "screen": "notes",
@@ -3626,7 +4178,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:47.523Z"
+      "capturedAt": "2026-10-12T08:03:29.249Z"
     },
     {
       "screen": "note-detail",
@@ -3638,7 +4190,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:47.780Z"
+      "capturedAt": "2026-10-12T08:03:29.551Z"
     },
     {
       "screen": "journal",
@@ -3650,7 +4202,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:47.991Z"
+      "capturedAt": "2026-10-12T08:03:29.756Z"
     },
     {
       "screen": "workspace",
@@ -3662,7 +4214,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:48.150Z"
+      "capturedAt": "2026-10-12T08:03:29.943Z"
     },
     {
       "screen": "database",
@@ -3674,7 +4226,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:48.378Z"
+      "capturedAt": "2026-10-12T08:03:30.172Z"
     },
     {
       "screen": "settings",
@@ -3686,7 +4238,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:48.935Z"
+      "capturedAt": "2026-10-12T08:03:30.724Z"
     },
     {
       "screen": "search",
@@ -3698,7 +4250,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:49.210Z"
+      "capturedAt": "2026-10-12T08:03:30.969Z"
     },
     {
       "screen": "design",
@@ -3710,7 +4262,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:50.115Z"
+      "capturedAt": "2026-10-12T08:03:31.897Z"
     },
     {
       "screen": "editor",
@@ -3722,7 +4274,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:50.981Z"
+      "capturedAt": "2026-10-12T08:03:32.688Z"
     },
     {
       "screen": "about",
@@ -3734,7 +4286,7 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:52.044Z"
+      "capturedAt": "2026-10-12T08:03:33.568Z"
     },
     {
       "screen": "palette",
@@ -3746,7 +4298,1831 @@
       "dpr": 1,
       "engine": "chromium",
       "overflow": false,
-      "capturedAt": "2026-10-11T02:28:52.976Z"
+      "capturedAt": "2026-10-12T08:03:34.484Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "wide",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:35.097Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "wide",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:35.281Z"
+    },
+    {
+      "screen": "today",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/today-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:38.758Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:38.924Z"
+    },
+    {
+      "screen": "notes",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/notes-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:39.058Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:39.308Z"
+    },
+    {
+      "screen": "journal",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/journal-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:39.504Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:39.622Z"
+    },
+    {
+      "screen": "database",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/database-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:39.790Z"
+    },
+    {
+      "screen": "settings",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/settings-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:40.281Z"
+    },
+    {
+      "screen": "search",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/search-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:40.485Z"
+    },
+    {
+      "screen": "design",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/design-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:41.333Z"
+    },
+    {
+      "screen": "editor",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/editor-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:42.133Z"
+    },
+    {
+      "screen": "about",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/about-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:42.956Z"
+    },
+    {
+      "screen": "palette",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/palette-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:43.739Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:44.319Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "windows1366",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:44.468Z"
+    },
+    {
+      "screen": "today",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/today-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:47.143Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:47.311Z"
+    },
+    {
+      "screen": "notes",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:47.445Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:47.680Z"
+    },
+    {
+      "screen": "journal",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:47.844Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:47.978Z"
+    },
+    {
+      "screen": "database",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/database-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:48.142Z"
+    },
+    {
+      "screen": "settings",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:48.636Z"
+    },
+    {
+      "screen": "search",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/search-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:48.932Z"
+    },
+    {
+      "screen": "design",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/design-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:49.814Z"
+    },
+    {
+      "screen": "editor",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/editor-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:50.706Z"
+    },
+    {
+      "screen": "about",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/about-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:51.594Z"
+    },
+    {
+      "screen": "palette",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/palette-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:52.394Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:53.023Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "windows1366",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:53.187Z"
+    },
+    {
+      "screen": "today",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/today-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:56.026Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:56.193Z"
+    },
+    {
+      "screen": "notes",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/notes-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:56.338Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:56.607Z"
+    },
+    {
+      "screen": "journal",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/journal-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:56.789Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:56.939Z"
+    },
+    {
+      "screen": "database",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/database-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:57.121Z"
+    },
+    {
+      "screen": "settings",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/settings-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:57.631Z"
+    },
+    {
+      "screen": "search",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/search-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:57.938Z"
+    },
+    {
+      "screen": "design",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/design-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:58.995Z"
+    },
+    {
+      "screen": "editor",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/editor-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:03:59.832Z"
+    },
+    {
+      "screen": "about",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/about-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:00.636Z"
+    },
+    {
+      "screen": "palette",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/palette-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:01.471Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:02.083Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "windows1366-150",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-windows1366-150-light.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:02.253Z"
+    },
+    {
+      "screen": "today",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/today-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:05.093Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:05.261Z"
+    },
+    {
+      "screen": "notes",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:05.408Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:05.678Z"
+    },
+    {
+      "screen": "journal",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:05.851Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:05.990Z"
+    },
+    {
+      "screen": "database",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/database-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:06.208Z"
+    },
+    {
+      "screen": "settings",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:06.739Z"
+    },
+    {
+      "screen": "search",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/search-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:07.081Z"
+    },
+    {
+      "screen": "design",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/design-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:09.017Z"
+    },
+    {
+      "screen": "editor",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/editor-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:10.383Z"
+    },
+    {
+      "screen": "about",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/about-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:12.134Z"
+    },
+    {
+      "screen": "palette",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/palette-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:13.753Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:14.783Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "windows1366-150",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-windows1366-150-dark.png",
+      "width": 911,
+      "height": 512,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:15.552Z"
+    },
+    {
+      "screen": "today",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/today-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:20.051Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:20.276Z"
+    },
+    {
+      "screen": "notes",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/notes-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:20.521Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:20.896Z"
+    },
+    {
+      "screen": "journal",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/journal-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:21.156Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:21.400Z"
+    },
+    {
+      "screen": "database",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/database-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:21.662Z"
+    },
+    {
+      "screen": "settings",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/settings-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:22.284Z"
+    },
+    {
+      "screen": "search",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/search-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:22.622Z"
+    },
+    {
+      "screen": "design",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/design-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:24.195Z"
+    },
+    {
+      "screen": "editor",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/editor-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:25.376Z"
+    },
+    {
+      "screen": "about",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/about-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:26.345Z"
+    },
+    {
+      "screen": "palette",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/palette-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:27.406Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:28.420Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "windows1920-150",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-windows1920-150-light.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:28.674Z"
+    },
+    {
+      "screen": "today",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/today-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:32.514Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:32.700Z"
+    },
+    {
+      "screen": "notes",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:32.863Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:33.170Z"
+    },
+    {
+      "screen": "journal",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:33.348Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:33.512Z"
+    },
+    {
+      "screen": "database",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/database-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:33.718Z"
+    },
+    {
+      "screen": "settings",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:34.747Z"
+    },
+    {
+      "screen": "search",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/search-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:35.123Z"
+    },
+    {
+      "screen": "design",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/design-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:36.085Z"
+    },
+    {
+      "screen": "editor",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/editor-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:37.044Z"
+    },
+    {
+      "screen": "about",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/about-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:37.903Z"
+    },
+    {
+      "screen": "palette",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/palette-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:38.760Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:39.484Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "windows1920-150",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-windows1920-150-dark.png",
+      "width": 1280,
+      "height": 720,
+      "dpr": 1.5,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:39.766Z"
+    },
+    {
+      "screen": "today",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/today-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:42.793Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:43.106Z"
+    },
+    {
+      "screen": "notes",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/notes-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:43.245Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:43.508Z"
+    },
+    {
+      "screen": "journal",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/journal-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:43.694Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:43.870Z"
+    },
+    {
+      "screen": "database",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/database-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:44.064Z"
+    },
+    {
+      "screen": "settings",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/settings-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:44.567Z"
+    },
+    {
+      "screen": "search",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/search-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:44.804Z"
+    },
+    {
+      "screen": "design",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/design-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:45.673Z"
+    },
+    {
+      "screen": "editor",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/editor-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:46.417Z"
+    },
+    {
+      "screen": "about",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/about-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:47.231Z"
+    },
+    {
+      "screen": "palette",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/palette-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:48.122Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:48.736Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "desktop1980",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:48.960Z"
+    },
+    {
+      "screen": "today",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/today-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:52.670Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:52.957Z"
+    },
+    {
+      "screen": "notes",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:53.251Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:53.644Z"
+    },
+    {
+      "screen": "journal",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:53.870Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:54.237Z"
+    },
+    {
+      "screen": "database",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/database-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:54.719Z"
+    },
+    {
+      "screen": "settings",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:55.303Z"
+    },
+    {
+      "screen": "search",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/search-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:55.535Z"
+    },
+    {
+      "screen": "design",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/design-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:56.457Z"
+    },
+    {
+      "screen": "editor",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/editor-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:57.226Z"
+    },
+    {
+      "screen": "about",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/about-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:58.052Z"
+    },
+    {
+      "screen": "palette",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/palette-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:59.029Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:59.616Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "desktop1980",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:04:59.927Z"
+    },
+    {
+      "screen": "today",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/today-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:03.628Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/calendar-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:03.812Z"
+    },
+    {
+      "screen": "notes",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/notes-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:04.037Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/note-detail-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:04.301Z"
+    },
+    {
+      "screen": "journal",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/journal-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:04.487Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/workspace-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:04.636Z"
+    },
+    {
+      "screen": "database",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/database-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:04.880Z"
+    },
+    {
+      "screen": "settings",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/settings-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:05.427Z"
+    },
+    {
+      "screen": "search",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/search-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:05.672Z"
+    },
+    {
+      "screen": "design",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/design-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:06.577Z"
+    },
+    {
+      "screen": "editor",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/editor-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:07.451Z"
+    },
+    {
+      "screen": "about",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/about-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:08.342Z"
+    },
+    {
+      "screen": "palette",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/palette-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:09.265Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/sign-in-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:09.835Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "desktop1980-tall",
+      "theme": "light",
+      "file": "docs/screenshots/email-code-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:10.002Z"
+    },
+    {
+      "screen": "today",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/today-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:13.727Z"
+    },
+    {
+      "screen": "calendar",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/calendar-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:14.074Z"
+    },
+    {
+      "screen": "notes",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/notes-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:14.214Z"
+    },
+    {
+      "screen": "note-detail",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/note-detail-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:14.500Z"
+    },
+    {
+      "screen": "journal",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/journal-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:14.686Z"
+    },
+    {
+      "screen": "workspace",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/workspace-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:14.889Z"
+    },
+    {
+      "screen": "database",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/database-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:15.062Z"
+    },
+    {
+      "screen": "settings",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/settings-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:15.787Z"
+    },
+    {
+      "screen": "search",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/search-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:16.027Z"
+    },
+    {
+      "screen": "design",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/design-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:17.039Z"
+    },
+    {
+      "screen": "editor",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/editor-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:17.830Z"
+    },
+    {
+      "screen": "about",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/about-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:18.784Z"
+    },
+    {
+      "screen": "palette",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/palette-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:19.635Z"
+    },
+    {
+      "screen": "sign-in",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/sign-in-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:20.233Z"
+    },
+    {
+      "screen": "email-code",
+      "name": "desktop1980-tall",
+      "theme": "dark",
+      "file": "docs/screenshots/email-code-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "dpr": 1,
+      "engine": "chromium",
+      "overflow": false,
+      "capturedAt": "2026-10-12T08:05:20.400Z"
     }
   ]
 }

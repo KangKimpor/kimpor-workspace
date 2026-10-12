@@ -53,7 +53,7 @@ import type {
   PropertyValue,
 } from "@veloradesk/core/model";
 import { store } from "@veloradesk/core/store";
-import { completeProjectTask, inferProjectTypes, projectPresets, projectPreset, projectDefinition, projectType, taskDone, taskDue, visibleProjectFields, weekNumber, type ProjectType, type ProjectTypes } from "@veloradesk/core/projects";
+import { completeProjectTask, inferProjectTypes, projectPresets, projectPreset, projectDefinition, projectType, taskDone, taskDue, visibleProjectFields, projectViews, weekNumber, type ProjectType, type ProjectTypes } from "@veloradesk/core/projects";
 import { compareOrder, orderBetween } from "@veloradesk/core/order";
 import { saveAppearance, startAppearance } from "./appearance";
 import { platform } from "@veloradesk/core/platform";
@@ -405,6 +405,7 @@ export default function WorkspaceApp() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [captureOpen, setCaptureOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [tabletExpanded, setTabletExpanded] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(readSetting("velora-sidebar-collapsed", "false") === "true");
   const [trashOpen, setTrashOpen] = useState(false);
   const [templatesOpen, setTemplatesOpen] = useState(false);
@@ -563,11 +564,14 @@ export default function WorkspaceApp() {
     })
       .catch(cause => setError(String(cause)));
   }, []);
-  const toggleSidebar = () => setSidebarCollapsed(previous => {
+  const toggleSidebar = () => {
+    if (layout.tablet) { setTabletExpanded(previous => !previous); return; }
+    setSidebarCollapsed(previous => {
     const next = !previous;
     localStorage.setItem("velora-sidebar-collapsed", String(next));
     return next;
-  });
+    });
+  };
   const openPage = (id: string) => {
     void flushEditors()
       .then(() => {
@@ -857,7 +861,7 @@ export default function WorkspaceApp() {
       data-layout={layout.phone ? "phone" : layout.tablet ? "tablet" : "desktop"}
       onFocusCapture={event => setEditing(event.target instanceof Element && !!event.target.closest(".rich-editor,.ws-page-title"))}
       onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setEditing(false); }}
-      className={`ws-app ${focus ? "focus-mode" : ""} ${selected ? "has-detail" : ""} ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}
+      className={`ws-app ${focus ? "focus-mode" : ""} ${selected ? "has-detail" : ""} ${sidebarCollapsed ? "sidebar-collapsed" : ""} ${tabletExpanded ? "tablet-expanded" : ""}`}
       style={
         {
           "--ws-sidebar-width": `${sidebarWidth}px`,
@@ -894,7 +898,7 @@ export default function WorkspaceApp() {
               <span>Search anything</span>
               <kbd>⌘ K</kbd>
             </Pressable>
-            <Pressable className="ws-icon ws-sidebar-collapse" aria-label={sidebarCollapsed ? "Expand sidebar" : "Compact sidebar"} onClick={toggleSidebar}>{sidebarCollapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}</Pressable>
+            <Pressable className="ws-icon ws-sidebar-collapse" aria-label={layout.tablet ? tabletExpanded ? "Compact sidebar" : "Expand sidebar" : sidebarCollapsed ? "Expand sidebar" : "Compact sidebar"} onClick={toggleSidebar}>{sidebarCollapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}</Pressable>
             <nav aria-label="Main navigation">
               {modules.map(({ name, icon: Icon }) => (
                 <Pressable
@@ -972,11 +976,6 @@ export default function WorkspaceApp() {
         {selected && <EdgeBack main={mainRef} onBack={back} />}
         <header className="ws-topbar">
           <div className="ws-topbar-leading">
-            {!focus && <Pressable className="ws-icon ws-sidebar-toggle"
-              aria-label={sidebarCollapsed ? "Open sidebar" : "Collapse sidebar"}
-              aria-expanded={!sidebarCollapsed} onClick={toggleSidebar}>
-              {sidebarCollapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}
-            </Pressable>}
             {!focus && (
               <Pressable
                 className="ws-icon ws-menu-button"
@@ -1267,7 +1266,7 @@ export default function WorkspaceApp() {
       <Sheet
         open={searchOpen}
         onOpenChange={setSearchOpen}
-        title="Search your workspace"
+        title="Search"
         wide
       >
         <SearchPanel
@@ -1623,7 +1622,7 @@ function SearchPanel({
         <input
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search pages, notes, journal, and events"
+          placeholder="Search"
           aria-label="Search query"
         />
       </label>
@@ -1638,7 +1637,7 @@ function SearchPanel({
           <option value="note">Notes</option>
           <option value="journal">Journal</option>
           <option value="event">Events</option>
-          <option value="row">Database rows</option>
+          <option value="row">Tasks</option>
         </select>
         <input
           type="date"
@@ -1823,7 +1822,7 @@ function PageDetail({
           className="ws-page-title"
           value={page.properties.__locked ? "Locked entry" : title}
           aria-label="Page title"
-          placeholder={page.type === "journal" ? "Title, if you like" : "Untitled"}
+          placeholder="Untitled"
           readOnly={Boolean(page.properties.__locked)}
           onChange={(event) => saveTitle(event.target.value)}
           onBlur={() => {
@@ -1920,7 +1919,7 @@ function PageDetail({
         {page.type !== "database" && <Pressable className="ws-button" onClick={() => { openFormatting.current = true; setMenuOpen(false); }}>Formatting</Pressable>}
         <div className="ws-page-menu">
           <Pressable className="ws-menu-row" onClick={() => void onPatch({ favorite: !page.favorite })}>
-            <Star size={18} />{page.favorite ? "Remove from favorites" : "Add to favorites"}
+            <Star size={18} />{page.favorite ? "Unfavorite" : "Favorite"}
           </Pressable>
           {page.type === "journal" && (
         <div className="ws-journal-meta">
@@ -2401,7 +2400,8 @@ function DatabaseEditor({
   onError: (message: string) => void;
 }) {
   const preset = projectPreset(type);
-  const [viewId, setViewId] = useState(definition.views.find(view => view.type === preset?.view)?.id ?? definition.views[0]?.id ?? "");
+  const views = projectViews(definition, type);
+  const [viewId, setViewId] = useState(views.find(view => view.type === preset?.view)?.id ?? views[0]?.id ?? "");
   const visibleFields = visibleProjectFields(definition, type);
   const [configOpen, setConfigOpen] = useState(false);
   const [propertyOpen, setPropertyOpen] = useState(false);
@@ -2411,8 +2411,8 @@ function DatabaseEditor({
   const [newPropertyOptions, setNewPropertyOptions] = useState("");
   const [relationDatabase, setRelationDatabase] = useState("");
   const [rollupProperty, setRollupProperty] = useState("");
-  const view = definition.views.find((item) => item.id === viewId) ??
-    definition.views[0] ?? {
+  const view = views.find((item) => item.id === viewId) ??
+    views[0] ?? {
       id: "table",
       name: "Table",
       type: "table" as const,
@@ -2447,7 +2447,7 @@ function DatabaseEditor({
   const patchView = (patch: Partial<DatabaseView>) =>
     void save({
       ...definition,
-      views: definition.views.map((item) =>
+      views: views.map((item) =>
         item.id === view.id ? { ...item, ...patch } : item,
       ),
     });
@@ -2480,14 +2480,10 @@ function DatabaseEditor({
     definition.properties.find(
       (property) => property.type === "status" || property.type === "select",
     );
-  const groups = [
-    ...new Set([
-      ...(grouping?.options ?? []),
-      ...rows.map((row) =>
-        String(row.properties[grouping?.id ?? ""] ?? "No group"),
-      ),
-    ]),
-  ];
+  const groupKey = (row: Page) => preset?.group === "week"
+    ? String(row.properties.week ?? (taskDue(row, definition) ? weekNumber(new Date(`${taskDue(row, definition)}T12:00:00`)) : "Anytime"))
+    : String(row.properties[grouping?.id ?? ""] ?? "No group");
+  const groups = [...new Set([...(preset?.group === "week" ? [] : grouping?.options ?? []), ...rows.map(groupKey)])];
   if (!groups.length) groups.push("No group");
   const dateProperty = definition.properties.find(
     (property) => property.type === "date",
@@ -2496,7 +2492,7 @@ function DatabaseEditor({
     <div className="ws-database">
       <div className="ws-database-toolbar">
         <select aria-label="Project view" className="ws-view-picker" value={view.id} onChange={event => setViewId(event.target.value)}>
-          {definition.views.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
+          {views.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
         </select>
         <div className="ws-database-actions">
           <Pressable className="ws-button" onClick={() => setConfigOpen(true)}>
@@ -2575,8 +2571,8 @@ function DatabaseEditor({
       {view.type === "list" && (
         <div className="ws-db-list">
           {((preset?.group === "area" || preset?.group === "week") ? groups : [""]).map(group => <section key={group}>
-            {group && <h3>{preset?.group === "week" ? `Week ${group}` : group}</h3>}
-            {rows.filter(row => !taskDone(row, definition) && (!group || String(row.properties[grouping?.id ?? ""] ?? "No group") === group)).map(row => <div className="ws-project-task" key={row.id}>
+            {group && <h3>{preset?.group === "week" && group !== "Anytime" ? `Week ${group}` : group}</h3>}
+            {rows.filter(row => !taskDone(row, definition) && (!group || groupKey(row) === group)).map(row => <div className="ws-project-task" key={row.id}>
               <TaskRow task={row} definition={definition} onOpen={onOpen} onComplete={row => void completeRow(row).catch(cause => onError(String(cause)))} />
               <div className="ws-task-secondary">{visibleFields.filter(property => property.type !== "title" && property.type !== "status" && property.type !== "date").map(property => <span key={property.id}>{row.properties[property.id] == null ? null : `${property.name} ${String(row.properties[property.id])}`}</span>)}</div>
             </div>)}

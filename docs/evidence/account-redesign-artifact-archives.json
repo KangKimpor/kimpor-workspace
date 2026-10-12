@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-12T07:25:41.787885+00:00",
+  "repository": "KangKimpor/kimpor-workspace",
+  "reason": "Make space for the replacement visual baseline within the free 500 MB allowance. ZIP copied and SHA-256/CRC verified before deleting the redundant remote artifact.",
+  "archives": [
+    {
+      "artifact_id": 11732417476,
+      "run_id": 38215026480,
+      "source_commit": "c6d5efc5e043012bc5b9306e7b8260a144874dc3",
+      "archive": "phase3-browser-evidence.zip",
+      "bytes": 33138441,
+      "sha256": "462cc625f7d3c573e130a73ec5169e915f8d8edcbad578f17ffb98bf7755e80c",
+      "crc_verified": true,
+      "files": 312
+    }
+  ]
+}

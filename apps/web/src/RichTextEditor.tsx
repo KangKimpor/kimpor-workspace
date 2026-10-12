@@ -288,13 +288,20 @@ function SessionEditor({
   onTextChange,
   onLock,
   onEnableEncryption,
+  toolsRequest,
+  toolsAck,
+  onToolsOpened,
 }: {
   pageId: string;
   session: Session;
   onTextChange?: (text: string) => void;
   onLock: () => void;
   onEnableEncryption: () => void;
+  toolsRequest: number;
+  toolsAck: number;
+  onToolsOpened: (request: number) => void;
 }) {
+  const [editorReady, setEditorReady] = useState(false);
   const [status, setStatus] = useState(""),
     [menu, setMenu] = useState<Menu | null>(null),
     [query, setQuery] = useState(""),
@@ -340,6 +347,10 @@ function SessionEditor({
   onText.current = onTextChange;
   const editor = useEditor(
     {
+      editable: false,
+      onCreate: ({ editor: instance }) => queueMicrotask(() => {
+        if (!instance.isDestroyed) { instance.setEditable(true); setEditorReady(true); }
+      }),
       extensions: [
         StarterKit.configure({
           undoRedo: false,
@@ -593,13 +604,17 @@ function SessionEditor({
     editor.on("selectionUpdate", schedule); editor.on("update", schedule);
     document.addEventListener("focusin", schedule); document.addEventListener("focusout", schedule);
     window.visualViewport?.addEventListener("resize", schedule);
-    const openTools = () => { editor.view.focus(); setToolsExpanded(true); };
-    window.addEventListener("kimpor-editor-tools", openTools);
     schedule();
     return () => { cancelAnimationFrame(frame); editor.off("selectionUpdate", schedule); editor.off("update", schedule);
       document.removeEventListener("focusin", schedule); document.removeEventListener("focusout", schedule);
-      window.visualViewport?.removeEventListener("resize", schedule); window.removeEventListener("kimpor-editor-tools", openTools); };
+      window.visualViewport?.removeEventListener("resize", schedule); };
   }, [editor, layout.desktop]);
+  useEffect(() => {
+    if (!editor || !editorReady || toolsRequest <= toolsAck) return;
+    editor.view.focus();
+    setToolsExpanded(true);
+    onToolsOpened(toolsRequest);
+  }, [editor, editorReady, toolsRequest, toolsAck, onToolsOpened]);
   useEffect(() => {
     if (!editor) return;
     mounted.current = true;
@@ -972,7 +987,7 @@ function SessionEditor({
   if (!editor) return <div className="ws-skeleton" role="status" aria-label="Loading" />;
   return (
     <div className="rich-editor" data-tools-open={toolsExpanded} data-handles={showHandles}>
-      <div ref={tools} className="rich-writing-tools" data-visible={toolsExpanded || (layout.desktop ? focused && !!selectionPosition : focused)}
+      <div ref={tools} className="rich-writing-tools" data-visible={editorReady && (toolsExpanded || (layout.desktop ? focused && !!selectionPosition : focused))}
         style={layout.desktop && selectionPosition ? { left: selectionPosition.left, top: selectionPosition.top } : undefined}
         onPointerDownCapture={event => { if (event.target instanceof Element && event.target.closest("button")) event.preventDefault(); }}>
       <div className="rich-toolbar" role="toolbar" aria-label="Document formatting">
@@ -1357,7 +1372,7 @@ function SessionEditor({
           items={blockIds}
           strategy={verticalListSortingStrategy}
         >
-          <div ref={holder} className="rich-document-wrap" onFocusCapture={() => setToolsExpanded(false)} onPointerDownCapture={() => setToolsExpanded(false)}>
+          <div ref={holder} hidden={!editorReady} className="rich-document-wrap" onFocusCapture={() => setToolsExpanded(false)} onPointerDownCapture={() => setToolsExpanded(false)}>
             <div className="rich-block-gutter">
               {blocks.map((item) => (
                 <DragHandle key={item.id} item={item} />
@@ -1423,6 +1438,13 @@ export default function RichTextEditor({
   pageId: string;
   onTextChange?: (text: string) => void;
 }) {
+  const [toolsRequest, setToolsRequest] = useState(0);
+  const [toolsAck, setToolsAck] = useState(0);
+  useEffect(() => {
+    const open = () => setToolsRequest(previous => previous + 1);
+    window.addEventListener("kimpor-editor-tools", open);
+    return () => window.removeEventListener("kimpor-editor-tools", open);
+  }, []);
   const [session, setSession] = useState<Session | null>(null),
     [envelopes, setEnvelopes] = useState<EncryptedEnvelope[] | null>(null),
     [loading, setLoading] = useState(true),
@@ -1712,6 +1734,9 @@ export default function RichTextEditor({
             pageId={pageId}
             session={session}
             onTextChange={onTextChange}
+            toolsRequest={toolsRequest}
+            toolsAck={toolsAck}
+            onToolsOpened={setToolsAck}
             onEnableEncryption={() => {
               setRecoveryKey(createRecoveryKey());
               setCredential("");

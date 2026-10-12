@@ -203,3 +203,8 @@
 @container workspace (width < 360px) { .calendar-module { padding-inline:var(--space-1); } .cal-heading,.cal-toolbar { padding-inline:var(--space-3); } }
 
 @container workspace (width >= 1024px) { .cal-day { min-height:88px; } }
+.cal-event-chip { display:flex; flex-direction:column; align-items:flex-start; gap:var(--space-1); text-align:left; }
+.cal-event-chip > strong { font-size:var(--text-headline); font-weight:600; }
+.cal-event-chip > span { font-size:var(--text-caption); color:var(--secondary); }
+.cal-selected-day .cal-event-chip { flex-direction:column; align-items:flex-start; }
+.cal-selected-day .cal-event-chip > strong { font-size:var(--text-headline); }

@@ -55,21 +55,16 @@ export default function ImportExportPanel({
             })
           }
         >
-          Export full ZIP
+          Export ZIP
         </Pressable>
         <Pressable
           className="ws-button"
           disabled={busy}
           onClick={() => input.current?.click()}
         >
-          Import Markdown, CSV or Notion ZIP
+          Import
         </Pressable>
       </div>
-      <p className="ws-muted">
-        ZIP exports contain JSON, Markdown and files. Encrypted document bodies
-        stay encrypted. Notion imports support exported Markdown and CSV;
-        proprietary embeds are preserved as text.
-      </p>
       <input
         ref={input}
         className="ws-sr-only"
@@ -103,7 +98,7 @@ export default function ImportExportPanel({
         }}
       />
       <label className="ws-field-label">
-        Export a page as Markdown
+        Export page
         <select
           className="ws-input"
           defaultValue=""

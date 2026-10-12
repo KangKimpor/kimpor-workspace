@@ -56,7 +56,7 @@ export function SheetHandle({ content, open }: {
       element.style.removeProperty("translate");
       element.style.setProperty("--ws-sheet-height", large ? "92dvh" : "56dvh");
       const offset = before - element.getBoundingClientRect().top;
-      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) element.animate(
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches && document.documentElement.dataset.reduceMotion !== "true") element.animate(
         [{ translate: `0 ${offset}px` }, { translate: "0 -4px", offset: .8 }, { translate: "0 0" }],
         { duration: 250, easing: "cubic-bezier(.2,.8,.2,1)" },
       );

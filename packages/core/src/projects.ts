@@ -14,7 +14,7 @@ export const projectPresets: ProjectPreset[] = [
   { type: "weekly", label: "Weekly report", view: "list", group: "week", visible: ["week", "due", "completed"],
     fields: [field("week", "Week", "number"), field("due", "Due", "date"), field("completed", "Done", "checkbox")],
     checklist: ["Update report number and dates", "Refresh Excel links", "Update photos", "Export PDF"] },
-  { type: "rework", label: "Rework list", view: "list", group: "area", visible: ["area", "item", "status"],
+  { type: "rework", label: "Rework list", view: "list", group: "area", visible: ["item", "photo", "status"],
     fields: [field("area", "Area", "text"), field("item", "Item", "number"), status(["Open", "Redo", "Done"]), field("photo", "Photo", "files")] },
   { type: "app", label: "App build", view: "board", group: "status", visible: ["repo", "deploy", "version"],
     fields: [status(["Idea", "Building", "Testing", "Shipped"]), field("repo", "Repo", "url"), field("deploy", "Deploy", "url"), field("version", "Version", "text")] },
@@ -80,9 +80,23 @@ export function visibleProjectFields(definition: DatabaseDefinition, type?: Proj
   const preset = projectPreset(type);
   const title = definition.properties.filter(property => property.type === "title");
   if (!preset) return [...title, ...definition.properties.filter(property => property.type !== "title").slice(0, 3)];
-  const selected = preset.visible.map(id => definition.properties.find(property => property.id === id || property.name.toLowerCase() === id));
+  const semantic = (id: string) => definition.properties.find(property =>
+    id === "due" ? property.type === "date" :
+    id === "week" ? /week/i.test(property.name) :
+    id === "item" ? property.type === "number" && /item|number|no\b/i.test(property.name) :
+    id === "photo" ? property.type === "files" || /photo|image|picture/i.test(property.name) :
+    id === "completed" ? property.type === "checkbox" && /done|complete|finish/i.test(property.name) : false);
+  const selected = preset.visible.map(id => definition.properties.find(property => property.id === id || property.name.toLowerCase() === id) ?? semantic(id) ?? (id === "completed" ? definition.properties.find(property => property.type === "status") : undefined));
   const matching = selected.filter((property): property is PropertyDefinition => !!property);
   return [...title, ...(matching.length ? matching : definition.properties.filter(property => property.type !== "title").slice(0, 3))];
+}
+/** Supply a missing default view for display without writing the source schema. */
+export function projectViews(definition: DatabaseDefinition, type?: ProjectType): DatabaseView[] {
+  const preset = projectPreset(type);
+  if (!preset || definition.views.some(view => view.type === preset.view)) return definition.views;
+  const date = definition.properties.find(property => property.type === "date");
+  return [...definition.views, { id: `presentation:${type}`, name: preset.view[0]!.toUpperCase() + preset.view.slice(1), type: preset.view,
+    groupBy: preset.group, sort: date ? [{ property: date.id, direction: "asc" }] : undefined }];
 }
 export async function completeProjectTask(workspace: Pick<WorkspaceStore, "patchPage" | "createPage">, task: Page, definition?: DatabaseDefinition) {
   const checkbox = definition?.properties.find(property => property.type === "checkbox" && /done|complete|finish/i.test(property.name));

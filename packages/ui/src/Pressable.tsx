@@ -9,7 +9,7 @@ export const Pressable = forwardRef<HTMLButtonElement, PressableProps>(function 
     onPointerLeave={e => { setPressed(false); onPointerLeave?.(e); }}
     onKeyDown={e => { if (e.key === ' ' || e.key === 'Enter') setPressed(true); onKeyDown?.(e); }}
     onKeyUp={e => { setPressed(false); onKeyUp?.(e); }} onBlur={e => { setPressed(false); onBlur?.(e); }}
-    animate={{ scale: pressed ? .97 : 1, opacity: pressed ? .78 : 1 }} transition={{ type: 'spring', stiffness: 500, damping: 30 }}>
+    animate={{ scale: pressed ? .97 : 1, opacity: pressed ? .78 : 1 }} transition={{ type: 'spring', duration: .25, bounce: .1 }}>
     {children}
   </motion.button>;
 });

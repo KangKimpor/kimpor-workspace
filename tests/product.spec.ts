@@ -244,7 +244,8 @@ test("all modules and settings are accessible in both themes without page overfl
       .first()
       .click();
     await expect(page.getByRole("dialog", { name: "Settings" })).toBeVisible();
-    await page.getByRole("button", { name: "Export full ZIP" }).waitFor();
+    await page.getByRole("button", { name: "Export ZIP" }).waitFor();
+    await expect(page.getByRole("dialog", { name: "Settings", exact: true })).toHaveCSS("opacity", "1");
     const result = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
       .analyze();

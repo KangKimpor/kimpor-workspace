@@ -23,6 +23,9 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium webkit firefox
       - name: Capture the CI baseline candidate
         run: |
+          node scripts/auth-test.mjs --build-only
+          pnpm --filter @veloradesk/web exec vite preview --outDir dist-auth --host 127.0.0.1 --port 4174 > /tmp/kimpor-auth-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl --fail --silent http://127.0.0.1:4174/ > /dev/null && break; sleep 1; done
           pnpm --filter @veloradesk/web preview --port 4173 > /tmp/veloradesk-preview.log 2>&1 &
           for i in $(seq 1 30); do curl --fail --silent http://127.0.0.1:4173/ > /dev/null && break; sleep 1; done
           pnpm shots

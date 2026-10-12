@@ -12,6 +12,12 @@ test('layout uses its container width inside a wider desktop window', async ({ p
     } else {
       await expect(page.getByRole('navigation', { name: 'Main navigation', exact: true })).toBeVisible();
       await expect.poll(async () => (await page.locator('.ws-sidebar').boundingBox())!.width).toBe(sidebar);
+      if (width === 820) {
+        await page.getByRole('button', { name: 'Expand sidebar', exact: true }).click();
+        await expect.poll(async () => (await page.locator('.ws-sidebar').boundingBox())!.width).toBe(240);
+        await page.getByRole('button', { name: 'Compact sidebar', exact: true }).click();
+        await expect.poll(async () => (await page.locator('.ws-sidebar').boundingBox())!.width).toBe(72);
+      }
       await page.getByRole('button', { name: 'Settings', exact: true }).click();
       await expect(page.getByRole('dialog', { name: 'Settings', exact: true })).toBeVisible();
       await page.getByRole('button', { name: 'Close Settings', exact: true }).click();

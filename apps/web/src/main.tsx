@@ -1,5 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
+import { MotionConfig } from "motion/react";
 import "./font.css";
 import "@veloradesk/ui/tokens.css";
 import "./style.css";
@@ -25,6 +26,16 @@ document.documentElement.dataset.theme =
     : matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
+
+function MotionPolicy({ children }: { children: React.ReactNode }) {
+  const [reduced, setReduced] = React.useState(() => { try { return localStorage.getItem("velora-reduce-motion") === "true"; } catch { return false; } });
+  React.useEffect(() => {
+    const update = () => setReduced(document.documentElement.dataset.reduceMotion === "true");
+    window.addEventListener("velora-appearance", update);
+    return () => window.removeEventListener("velora-appearance", update);
+  }, []);
+  return <MotionConfig reducedMotion={reduced ? "always" : "user"}>{children}</MotionConfig>;
+}
 
 function Router() {
   const [path, setPath] = React.useState(location.pathname);
@@ -57,7 +68,7 @@ function Router() {
 }
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Router />
+    <MotionPolicy><Router /></MotionPolicy>
   </React.StrictMode>,
 );
 if (!platform.desktop && "serviceWorker" in navigator && import.meta.env.PROD) {

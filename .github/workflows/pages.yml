@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success') && vars.KIMPOR_AUTH_READY == 'true'
     runs-on: ubuntu-latest
     outputs:
       commit: ${{ steps.source.outputs.sha }}
@@ -29,13 +29,14 @@ jobs:
           node-version: 24
       - run: pnpm install --frozen-lockfile
       - run: pnpm brand:build
-      - run: pnpm build && node scripts/pages.mjs
+      - run: node scripts/account-release-check.mjs && pnpm build && node scripts/pages.mjs
         env:
+          KIMPOR_CLOUD_READY: ${{ vars.KIMPOR_CLOUD_READY }}
           BASE_PATH: /kimpor-workspace/
-          # Live owner isolation and private Storage passed after migrations 9/10.
-          # Keep an explicit false as the deployment switch for local-only builds.
-          VITE_SUPABASE_URL: ${{ vars.KIMPOR_CLOUD_READY != 'false' && vars.VITE_SUPABASE_URL || '' }}
-          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.KIMPOR_CLOUD_READY != 'false' && vars.VITE_SUPABASE_PUBLISHABLE_KEY || '' }}
+          # Account entry needs verified code delivery and same-account Google linking.
+          # Unconfigured builds are development fixtures, never public deployment.
+          VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY }}
           VITE_VAPID_PUBLIC_KEY: ${{ vars.VITE_VAPID_PUBLIC_KEY || 'BDUcFBWQAJcPeiuPcWNoDeLDPee6-gAnXwezubAT437DBU4znP0bgaQz72164Ia3l2gho2K3x_rb3pFifvEfZ_0' }}
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:

@@ -1,7 +1,7 @@
 import "fake-indexeddb/auto";
 import { expect, it } from "vitest";
 import type { Page } from "./model";
-import { completeProjectTask, inferProjectTypes, projectDefinition, projectPreset, projectPresets, projectType, taskDone, taskDue, visibleProjectFields, weekNumber } from "./projects";
+import { completeProjectTask, inferProjectTypes, projectDefinition, projectPreset, projectPresets, projectType, projectViews, taskDone, taskDue, visibleProjectFields, weekNumber } from "./projects";
 import { WorkspaceStore } from "./store";
 const page: Page = { id: "fixture-project", userId: "fixture-owner", title: "Project", type: "database", parentId: null,
   favorite: false, tags: [], icon: "", cover: "", fullWidth: false, date: null, databaseId: null, properties: {},
@@ -64,4 +64,21 @@ it("infers presentation types for imported databases without modifying source re
   const generic = { ...page, title: "Project" };
   expect(inferProjectTypes([generic, { ...page, id: "fixture-task", type: "row", title: "Rework item", databaseId: generic.id }], [projectDefinition(generic, "app")])[generic.id]).toBe("rework");
   expect(inferProjectTypes([generic], [projectDefinition(generic, "app")])[generic.id]).toBe("app");
+});
+
+it("supplies migrated default views and photo/item fields without rewriting schemas", () => {
+  const definition = projectDefinition(page, "app");
+  definition.views = [{ id: "source-table", name: "Source", type: "table" }];
+  definition.properties = [
+    { id: "source-name", name: "Name", type: "title" },
+    { id: "source-number", name: "Item number", type: "number" },
+    { id: "source-photos", name: "Images", type: "files" },
+    { id: "source-status", name: "Status", type: "status", options: ["Open", "Redo", "Done"] },
+  ];
+  const original = structuredClone(definition);
+  expect(projectViews(definition, "rework").map(view => view.type)).toEqual(["table", "list"]);
+  expect(visibleProjectFields(definition, "rework").map(field => field.id)).toEqual(["source-name", "source-number", "source-photos", "source-status"]);
+  expect(projectViews(definition)).toBe(definition.views);
+  expect(projectViews(projectDefinition(page, "weekly"), "weekly")[0]?.type).toBe("list");
+  expect(definition).toEqual(original);
 });

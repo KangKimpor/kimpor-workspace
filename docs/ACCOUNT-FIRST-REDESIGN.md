@@ -98,3 +98,31 @@ issue (the two encryption cases were rerun on the final build). Earlier fixture
 checks cover attachments, journal resume, calendar selection, sheet detents,
 cache persistence and accessibility. Full final cross-engine and visual evidence
 belongs to Phase 4, not these development checks.
+
+## Phase 4 source and fixtures
+
+The five requested viewport profiles now run in light and dark, alongside the
+original Chromium, WebKit, Firefox and narrow-phone suites. The matrix contains
+138 app cases and 18 account-entry fixtures. The final app run passed 137 cases;
+the Settings contrast check sampled the opening fade and passed when rerun after
+waiting for opacity 1. All contrast assertions and 44 semantic-pair checks remain
+unchanged. The editor now waits for its collaboration view to initialize before
+accepting text, and formatting requests survive editor protection changes.
+
+The screenshot matrix is 15 screens × 17 profiles × 2 themes = 510 captures,
+including sign-in/code entry, the requested sizes, Split View, 1366/1920 desktop
+scaling and 1980×1080/1200. All captures use fixtures and have no horizontal
+page overflow. Local review is not an approved CI baseline. Actual-runner
+recording/review and the unchanged 0.1% comparisons remain required.
+
+Imported projects receive missing type-default views only for display. Source
+field IDs and schema objects remain unchanged; week groups use existing dates or
+Anytime. A second private read-only comparison confirms all 69 pages, four schemas
+and 62 document byte sequences unchanged. Aggregate evidence is in
+account-redesign-final-integrity.json; no exports or user contents are public.
+
+Main Windows builds are explicitly development fixtures for the unchanged
+rendered UI, Unicode persistence and aggregate 150 MiB RAM gates. Tagged builds
+require real account readiness. Public Pages also requires live code delivery,
+code-only templates and same-owner Google linking; fixture success cannot enable
+production. Current provider configuration is incomplete, so deployment is held.
