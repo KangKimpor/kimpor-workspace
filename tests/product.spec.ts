@@ -14,6 +14,7 @@ async function navigate(page: Page, name: string) {
   const button = navigation.getByRole("button", { name, exact: true });
   await button.click();
   await expect(button).toHaveAttribute("aria-current", "page");
+  await expect(page.getByRole("textbox", { name: "Page title" })).toHaveCount(0);
 }
 async function note(page: Page, title = "My note") {
   await page.goto("/");

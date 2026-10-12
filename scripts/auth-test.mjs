@@ -4,6 +4,6 @@ for (const args of [
   ['--filter', '@veloradesk/web', 'exec', 'vite', 'build', '--mode', 'auth-test', '--outDir', 'dist-auth'],
   ...(process.argv.includes('--build-only') ? [] : [['exec', 'playwright', 'test', '--config', 'playwright.auth.config.ts']]),
 ]) {
-  const result = spawnSync('pnpm', args, { env: fixture, stdio: 'inherit' });
+  const result = spawnSync(process.platform === 'win32' ? 'pnpm.cmd' : 'pnpm', args, { shell: process.platform === 'win32', env: fixture, stdio: 'inherit' });
   if (result.status !== 0) process.exit(result.status ?? 1);
 }

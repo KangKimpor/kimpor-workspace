@@ -8,7 +8,7 @@ intentionally blank: no confirmed device results have been supplied.
 | --- | --- | --- | --- |
 | Build, lint and strict types | Frozen dependency graph; pnpm check | Tested locally | |
 | Core coverage | 73 Vitest tests; 88.91% core line coverage; whole packages/core source line coverage above 85% | Tested; not whole-app/native/backend coverage | |
-| Browser profiles | 138 app cases across original four profiles and five requested sizes in both themes; 18 account fixtures | Earlier local137 plus Settings fade rerun and18 auth fixtures pass. Newer actual source7e713e1 CI:136 expected, one flaky, one failed desktop body persistence; auth/visual steps skipped | |
+| Browser profiles | 138 app cases across original four profiles and five requested sizes in both themes; 18 account fixtures | Local continuation: 132/138, five Windows Firefox resize timeouts reproduce on a blank page; one WebKit caret case passes in isolation. Desktop navigation/reload reproduction now passes 16/16 with stronger assertions; 18 auth fixtures pass. Fresh full CI required | |
 | Phone tabs and capture | Five bottom tabs, capture sheet, 44px targets, safe-area CSS | Tested/emulated | |
 | Collapsing titles, edge-swipe back, sheet detents | Today title collapse, phone edge-back flush, 56/92dvh sheets | Eight browser checks pass; touch on physical devices pending | |
 | Sidebar and three panes | 72px tablet sidebar, optional expansion; 240px desktop sidebar; portrait single pane and landscape list/detail; keyboard-aware editor | Container resize, sidebar collapse/expansion and simulated keyboard/caret bounds pass | |
@@ -91,7 +91,7 @@ intentionally blank: no confirmed device results have been supplied.
 | NSIS/checksum/release | Real Windows MSVC/NSIS build; install/window/forwarding/exit/uninstall checks; new rendered-UI/note-reload gate | Rendered source 10aea20 passes functional checks then uses 399,253,504 resident bytes, exceeding 150 MiB. Development fixture only; no tagged release | |
 | Original brand/privacy | Derived A, SVG/PNG/ICO/NSIS assets; original JPEG excluded | Traced/reviewed; OS icon scaling pending | |
 | Accessibility/feedback | Axe both themes on modules/settings, focus/targets/motion tests and 44 contrast pairs | Automated evidence; VoiceOver/Narrator/haptics pending | |
-| Screenshot matrix | 15 screens × 17 profiles × 2 themes; 510 captures and 30 contact sheets | Captured locally with fixtures, no page overflow; actual final CI candidate38231262270 succeeded; review/copy pending; emulation is not hardware | |
+| Screenshot matrix | 15 screens × 17 profiles × 2 themes; 510 captures and 30 contact sheets | Final actual CI candidate 38231262270 reviewed; detailed iPhone notes show missing Khmer glyphs. Bundled font passes four browser checks; fresh actual CI capture/review required. Emulation is not hardware | |
 | Bundle budgets | Initial graph 219.8 KiB gzip; initial/additional lazy graphs each ≤250KiB gzip | Tested; SW precache downloads lazy assets separately | |
 | Lighthouse | Local desktop / and /design measurements | Local evidence only; physical Safari/native timing unverified | |
 | Large-data performance | 2k notes + 365 journals, 20k blocks, 5k events; 5k-block note; windowed regular lists/tree/handles | Functional stress assertions pass; typing exceeds 16 ms; editor body, galleries and database bodies not fully virtualized | |

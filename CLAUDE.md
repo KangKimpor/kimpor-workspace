@@ -1,6 +1,6 @@
 # Kimpor Workspace working memory
 
-Updated 2026-10-12 UTC. Account-first UI phases are pushed; the first actual CI candidate was rejected for narrow Calendar wrapping and unsettled WebKit paints. The corrected source requires a replacement recording. Read
+Updated 2026-10-12 UTC. The local continuation reproduced the desktop reload race and found missing Khmer glyphs in the final CI candidate. A bundled Khmer font requires a fresh actual CI recording. Read
 docs/ACCOUNT-FIRST-REDESIGN.md and docs/VERIFICATION.md before editing.
 
 ## Authorization and decisions
@@ -153,3 +153,22 @@ Latest rendered Windows development fixture (38223202981 / 10aea20): lifecycle a
 ## Local-session handover, 12 October 2026
 
 Read HANDOVER.md first. Actual UI-source7e713e1 CI38231262045 has136 expected passes, one flaky and one unexpected failure: desktop1920 dark editor body is empty after navigation/reopen (tests/responsive-matrix.spec.ts:45); light variant passes only on retry. Fix this before release/baseline acceptance; do not weaken persistence assertions. Final510-image candidate38231262270/artifact11738374195 succeeded but is NOT reviewed/copied; committed baselines remain historical312. Native7e run38231262067 fails smoke checks. Deployment remains held. The handover commit includes smtp_max_frequency30 and CI45-minute capacity for the larger suite, without changing any acceptance thresholds.
+
+Local continuation, 12 October: all three failing CI traces reload while still in Notes,
+before the navigation flush finishes. The desktop reproduction failed 13/16; requiring
+completed navigation and the entire reopened body passes 16/16, without changing store,
+encryption, retries or budgets. The 30 final CI contacts were reviewed; detailed iPhone
+notes expose missing Khmer glyphs, so that candidate is held for replacement. Bundled
+Noto Sans Khmer passes font-load/IME checks in all four browser profiles. pnpm check,
+18 auth fixtures and Windows license auditing pass. The earlier full local run passes
+132/138; five Firefox resize timeouts also reproduce on a blank page, and the WebKit
+caret case passes in isolation. Require full actual CI before acceptance. Latest native
+artifact reports 399,159,296 aggregate resident bytes, including 367,689,728 in WebView2;
+the 150 MiB gate is unchanged. Built-in Chrome replaces Tinyfish; provider credential
+creation awaits specific approval. See docs/evidence/local-continuation.json.
+
+The final navigation subset then passed 77/78 and exposed a same-module helper race:
+aria-current was already set before the preceding document closed, so the next title
+could be typed into that editor. The helper now requires the title field to close;
+PageDetail is also keyed by page ID to isolate title/document-wrapper state at selection.
+The three repeated WebKit mention flows pass. Core store/encryption code is unchanged.

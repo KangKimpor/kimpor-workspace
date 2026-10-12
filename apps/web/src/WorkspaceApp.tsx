@@ -1197,6 +1197,7 @@ export default function WorkspaceApp() {
                   aria-label="Page detail"
                 >
                   <PageDetail
+                    key={selected.id}
                     page={selected}
                     pages={livePages}
                     databases={databases}

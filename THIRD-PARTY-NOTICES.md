@@ -11,6 +11,9 @@ Source-path fields describe the audit machine, not application runtime paths.
   https://github.com/web-push-libs/web-push
 - Inter Variable, Rasmus Andersson: SIL Open Font License 1.1.
   https://github.com/rsms/inter/blob/master/LICENSE.txt
+- Noto Sans Khmer, The Noto Project Authors: SIL Open Font License 1.1.
+  Bundled Khmer subset; license in docs/licenses/noto-sans-khmer-OFL-1.1.txt.
+  https://github.com/notofonts/khmer
 - Lucide icons, Lucide contributors: ISC license; original Feather icons by
   Cole Bemis: MIT license. https://lucide.dev/license
 - caniuse-lite compatibility data: CC BY 4.0, caniuse contributors.

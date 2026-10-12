@@ -91,6 +91,9 @@ test('multilingual text persists and composition does not open the slash menu', 
   const editor = page.getByRole('textbox', { name: 'Multilingual editor study' });
   await expect(editor).toBeVisible();
   await editor.fill('My thought ខ្មែរ 中文');
+  await expect.poll(() => page.evaluate(() => [...document.fonts].some(font =>
+    font.family.includes('Noto Sans Khmer') && font.status === 'loaded',
+  ))).toBe(true);
   await persistedStudy(page, 'My thought ខ្មែរ 中文');
   await editor.dispatchEvent('keydown', { key: '/', keyCode: 229, isComposing: true, bubbles: true });
   await expect(page.locator('.slash-menu')).toHaveCount(0);

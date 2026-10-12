@@ -4,6 +4,7 @@ import { randomBytes } from 'node:crypto';
 import { mkdtemp, readFile, writeFile, rm, access } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
 
 test('backup CLI round-trips without plaintext artifacts and rejects altered bytes and wrong keys', async () => {
@@ -16,7 +17,7 @@ test('backup CLI round-trips without plaintext artifacts and rejects altered byt
     const environment = { ...process.env, BACKUP_ENCRYPTION_KEY: key, BACKUP_SECRET: 'fixture-only', BACKUP_SOURCE_URL: 'https://fixture.supabase.co/functions/v1/backup' };
     const encrypted = join(directory, 'workspace.enc'), restored = join(directory, 'workspace.json');
     const run = (args, env = environment) => spawnSync(process.execPath, args, { env, encoding: 'utf8' });
-    const created = run(['--import', preload, 'scripts/cloud-backup.mjs', 'backup', encrypted]);
+    const created = run(['--import', pathToFileURL(preload).href, 'scripts/cloud-backup.mjs', 'backup', encrypted]);
     assert.equal(created.status, 0, created.stderr);
     const bytes = await readFile(encrypted);
     assert.ok(!bytes.includes(Buffer.from('Private fixture')));

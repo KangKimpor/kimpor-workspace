@@ -145,3 +145,27 @@ production. Current provider configuration is incomplete, so deployment is held.
 ## Local handover status
 
 See HANDOVER.md. Newer source7e713e1 CI38231262045 has136 expected passes, one flaky and one unexpected failure: desktop1920 dark writing reopens with an empty body instead of the fixture text; the light variant needs a retry. Fix the underlying persistence race before acceptance. Final510-image candidate38231262270/artifact11738374195 succeeded but has not been reviewed/copied. The historical312-image baseline remains committed. Native7e713e1 smoke run38231262067 fails; publishing remains held.
+
+## Local continuation
+
+The three failing CI traces reload while the application is still in Notes, before
+the navigation save has completed. The unchanged case fails13/16 in the local desktop
+reproduction. Waiting for the actual Today state and closed editor before reload, then
+requiring the complete multilingual body, passes 16/16. No persistence or encryption
+code, retry count or acceptance threshold changed.
+
+All 30 contact sheets from final CI candidate 38231262270 were reviewed. The iPhone note
+captures show unreadable Khmer glyphs on close inspection. The candidate is held for
+replacement; its SHA-256 and ZIP CRC were verified, and its remote artifact is retained.
+A locally bundled Noto Sans Khmer subset renders correctly and passes font-load/IME
+checks in Chromium, WebKit, Firefox and phone WebKit. Fresh CI capture and review remain
+required. Local checks pass 73 core cases, 88.91% core line coverage, 44 contrast pairs,
+all 250 KiB graph limits and 18 account fixtures. Windows CLI tests and license auditing
+now launch correctly. See evidence/local-continuation.json for the local browser limits
+and the latest native memory breakdown. Provider readiness and deployment remain held.
+
+The final navigation subset exposed a second helper race: same-module aria-current
+was already set before the preceding editor closed. The product helper now also waits
+for the old title field to close before the next note is created. Page details are keyed
+by page ID to isolate title and document-wrapper state across selections. Three repeated
+WebKit mention flows pass after these changes; the core store and encryption are unchanged.

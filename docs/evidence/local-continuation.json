@@ -1,0 +1,79 @@
+{
+  "checked_at": "2026-10-12T14:52:00Z",
+  "base_commit": "fbbf0c3fad8ecc5bea9741af4882b409f8c9e993",
+  "mode": "Local Windows development fixtures; CI and physical evidence remain separate",
+  "toolchain": { "node": "24.15.0", "pnpm": "11.19.0", "playwright": "1.64.0" },
+  "navigation_reload": {
+    "reference_ci_run": 38231262045,
+    "before": { "cases": 16, "passed": 3, "failed": 13 },
+    "after": { "cases": 16, "passed": 16, "failed": 0 },
+    "finding": "All three failing CI traces reload while the app is still in Notes, 26-36 ms after the Today click. Reload can abort the in-flight IndexedDB transaction. The test now requires completed navigation before reload and the complete multilingual body after reopening.",
+    "core_store_and_encryption_code_changed": false,
+    "retries_or_thresholds_changed": false
+  },
+  "page_selection": {
+    "final_navigation_subset_before_followup": { "passed": 77, "failed": 1 },
+    "finding": "Same-module navigation already has aria-current=page before its asynchronous document close finishes. The test could type the next note title into the preceding editor. The shared product test helper now also requires the old title field to close.",
+    "detail_state_keyed_by_page_id": true,
+    "reason": "Give each page its own title and document-wrapper state instead of rendering a new page ID with the preceding state before effects reset it.",
+    "webkit_mention_reproduction_after": { "passed": 3, "failed": 0 }
+  },
+  "checks": {
+    "pnpm_check": "passed",
+    "core_cases": 73,
+    "core_line_coverage_percent": 88.91,
+    "contrast_pairs": 44,
+    "initial_graph_gzip_kib": 219.6,
+    "all_graphs_within_250_kib": true,
+    "auth_fixtures": { "passed": 18, "failed": 0 },
+    "bundled_khmer_font_and_ime": { "passed": 4, "failed": 0 },
+    "license_inventory": "passed on Windows",
+    "git_history_secret_scan": "passed; 54 commits, no leaks"
+  },
+  "earlier_full_local_browser_run": {
+    "passed": 132,
+    "failed": 6,
+    "firefox_resize_timeouts": 5,
+    "firefox_blank_page_resize_reproduction": "1280x720 to 820x1180 stalls for 10 seconds without loading the app",
+    "webkit_caret_case": "Failed in the parallel run; isolated rerun on the font build passes. Full CI must still pass."
+  },
+  "baseline_review": {
+    "run_id": 38231262270,
+    "artifact_id": 11738374195,
+    "source_commit": "7e713e1fcf30e3dcacf639f5450e968d6f682fbe",
+    "archive_bytes": 66803700,
+    "archive_sha256": "481441e79572fc1c3c1ccc8559ad37fa3fa9873b6264ad8b05882992b80128ba",
+    "zip_crc_verified": true,
+    "contact_sheets_reviewed": 30,
+    "captures_on_contact_sheets": 510,
+    "individual_zoom_review": ["note-detail-iphone15-portrait-light.png", "note-detail-iphone15-portrait-dark.png", "calendar-phone-small-light.png", "calendar-phone-small-dark.png"],
+    "decision": "replacement required",
+    "reason": "The detailed iPhone note captures show unreadable Khmer glyphs. A bundled Khmer font now loads in all four browser engines/profiles and renders correctly in a local fixture. A fresh actual CI candidate must be reviewed before installation.",
+    "installed": false,
+    "remote_artifact_deleted": false
+  },
+  "windows_memory": {
+    "run_id": 38231262067,
+    "artifact_id": 11739171597,
+    "artifact_sha256": "1b5771211d739f3725d91b2e5c47ac32f207569f8eec73247cc959b88cd6a2bc",
+    "source_commit": "7e713e1fcf30e3dcacf639f5450e968d6f682fbe",
+    "functional_checks": "passed",
+    "aggregate_resident_bytes": 399159296,
+    "host_resident_bytes": 31469568,
+    "webview2_aggregate_resident_bytes": 367689728,
+    "budget_bytes": 157286400,
+    "budget_met": false,
+    "idle_cpu_percent": 0,
+    "memory_calculation_changed": false
+  },
+  "account_setup": {
+    "browser_alternative": "Built-in Chrome automation; no Tinyfish credits used",
+    "google_branding": "Existing saved name and contact fields present",
+    "google_web_client": "Prepared with production origin and Supabase callback; creation awaits specific credential approval",
+    "brevo": "Signed in; free 300-email daily allowance; no SMTP key exists",
+    "supabase": "Signed-in dashboard accessible; custom SMTP still required before template editing",
+    "connected_supabase_api": "Permission denied; no database writes attempted",
+    "delivery_and_same_owner_google_link_verified": false,
+    "production_published": false
+  }
+}

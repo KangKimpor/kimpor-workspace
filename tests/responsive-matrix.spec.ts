@@ -39,10 +39,13 @@ test('writing uses compact or selection controls and preserves the body', async 
   await expect(editor).toContainText('ខ្មែរ · 中文');
   await leaveWriting(page);
   await nav.getByRole('button', { name: 'Today', exact: true }).click();
+  // Navigation waits for the durable save; a click alone can reload mid-transaction.
+  await expect(nav.getByRole('button', { name: 'Today', exact: true })).toHaveAttribute('aria-current', 'page');
+  await expect(page.getByRole('textbox', { name: 'Page title' })).toHaveCount(0);
   await page.reload();
   await nav.getByRole('button', { name: 'Notes', exact: true }).click();
   await page.locator('.ws-page-list').getByRole('button', { name: /Matrix note/ }).first().click();
-  await expect(editor).toContainText('ខ្មែរ · 中文');
+  await expect(editor).toHaveText('A clear place to write · ខ្មែរ · 中文');
 });
 
 test('task names lead Today, project rows, Calendar and search', async ({ page }) => {
