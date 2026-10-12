@@ -5,17 +5,19 @@
     "formatting": "On-demand labeled panel; dismisses after an action, document focus or Escape.",
     "tablet_max_width": 1366,
     "document_list_hidden_while_writing": true,
-    "block_handles": "Optional Reorder blocks action."
+    "block_handles": "Optional Reorder blocks action.",
+    "attachment_icon": "Standard paperclip"
   },
-  "journal": "Today/continue card and dated searchable entry previews; week/history controls are optional inside one expandable row; date/mood in Page options.",
+  "journal": "Today/continue card and dated searchable entry previews; explicit Writing history disclosure with optional week and heatmap; date/mood in Page options.",
   "calendar": "In-place month selection, selected-day agenda, compact phone month, event dots and view selector through 1366px; optional event details; source/account settings work on phones.",
   "local_focused_browser_cases": 16,
   "calendar_settings_reruns": 4,
   "unit_cases": 67,
   "core_line_coverage_percent": 88.29,
   "semantic_contrast_pairs": 44,
-  "responsive_captures": 36,
+  "responsive_captures": 42,
   "responsive_profiles": [
+    "320x640 narrow phone",
     "393x852 iPhone 15",
     "820x1180 iPad A16",
     "1180x820 iPad landscape",
@@ -43,5 +45,33 @@
     "passed": 89,
     "failed": 3,
     "failure_details": "WebKit/Firefox accessibility analyses exceeded the existing 90-second limit while parallel local capture ran; Firefox initial editor loading exceeded its 5-second assertion. The isolated reruns and independent CI run are recorded separately."
+  },
+  "dark_captures": 21,
+  "responsive_source_commit": "521033cfa5fc96ecaa12ec41d99f28ad6ca408d4",
+  "isolated_reruns": {
+    "accessibility": {
+      "passed": 2,
+      "engines": [
+        "WebKit",
+        "Firefox"
+      ]
+    },
+    "offline_editor": {
+      "passed": 1,
+      "engine": "Firefox"
+    }
+  },
+  "journal_history_cases": 4,
+  "source_browser_run_compact": {
+    "run": 38189184335,
+    "browser_step": "passed",
+    "cases": 92,
+    "overall": "Intentional interface pixel differences remain until the final baseline is committed."
+  },
+  "superseded_baseline": {
+    "run": 38189184674,
+    "artifact": 11720534924,
+    "source": "521033cfa5fc96ecaa12ec41d99f28ad6ca408d4",
+    "reason": "Final Journal disclosure affordance and standard attachment icon captured in the next candidate."
   }
 }

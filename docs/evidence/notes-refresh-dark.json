@@ -1,0 +1,194 @@
+{
+  "mode": "Managed browser checks, not physical devices",
+  "checks": [
+    {
+      "name": "iphone15",
+      "width": 393,
+      "height": 852,
+      "screen": "writing",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/iphone15-writing.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "iphone15",
+      "width": 393,
+      "height": 852,
+      "screen": "formatting",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/iphone15-formatting.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "iphone15",
+      "width": 393,
+      "height": 852,
+      "screen": "journal",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/iphone15-journal.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "iphone15",
+      "width": 393,
+      "height": 852,
+      "screen": "calendar",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/iphone15-calendar.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "iphone15",
+      "width": 393,
+      "height": 852,
+      "screen": "event",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/iphone15-event.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16",
+      "width": 820,
+      "height": 1180,
+      "screen": "writing",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/ipad-a16-writing.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16",
+      "width": 820,
+      "height": 1180,
+      "screen": "formatting",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/ipad-a16-formatting.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16",
+      "width": 820,
+      "height": 1180,
+      "screen": "journal",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/ipad-a16-journal.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16",
+      "width": 820,
+      "height": 1180,
+      "screen": "calendar",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/ipad-a16-calendar.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "ipad-a16",
+      "width": 820,
+      "height": 1180,
+      "screen": "event",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/ipad-a16-event.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "ipad-reference",
+      "width": 1280,
+      "height": 800,
+      "screen": "writing",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/ipad-reference-writing.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "ipad-reference",
+      "width": 1280,
+      "height": 800,
+      "screen": "formatting",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/ipad-reference-formatting.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "ipad-reference",
+      "width": 1280,
+      "height": 800,
+      "screen": "scrolled-formatting",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/ipad-reference-scrolled-formatting.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "ipad-reference",
+      "width": 1280,
+      "height": 800,
+      "screen": "journal",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/ipad-reference-journal.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "ipad-reference",
+      "width": 1280,
+      "height": 800,
+      "screen": "calendar",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/ipad-reference-calendar.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "ipad-reference",
+      "width": 1280,
+      "height": 800,
+      "screen": "event",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/ipad-reference-event.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "desktop",
+      "width": 1980,
+      "height": 1080,
+      "screen": "writing",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/desktop-writing.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "desktop",
+      "width": 1980,
+      "height": 1080,
+      "screen": "formatting",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/desktop-formatting.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "desktop",
+      "width": 1980,
+      "height": 1080,
+      "screen": "journal",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/desktop-journal.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "desktop",
+      "width": 1980,
+      "height": 1080,
+      "screen": "calendar",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/desktop-calendar.png",
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "name": "desktop",
+      "width": 1980,
+      "height": 1080,
+      "screen": "event",
+      "file": "/workspace/veloradesk/docs/screenshots/notes-dark-review/desktop-event.png",
+      "theme": "dark",
+      "overflow": false
+    }
+  ]
+}

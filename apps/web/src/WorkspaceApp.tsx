@@ -1793,7 +1793,8 @@ function JournalOverview({ pages, onOpen, onWrite }: {
         </Pressable>
       </div>
       <details className="ws-journal-history">
-        <summary>{streak ? `${streak} ${streak === 1 ? "day" : "days"} of writing` : "Writing history"}<span>Last 12 weeks</span></summary>
+        <summary>Writing history<ChevronDown size={16} aria-hidden="true" /></summary>
+        <p className="ws-journal-history-caption">Last 12 weeks{streak ? ` · ${streak} ${streak === 1 ? "day" : "days"} of writing` : ""}</p>
       <div className="ws-journal-week" aria-label="Journal this week">
         {days.slice(-7).map((date) => {
           const entry = pages.find((page) => page.date === date);

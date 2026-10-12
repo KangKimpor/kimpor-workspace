@@ -41,7 +41,7 @@ import {
   Bold,
   Check,
   Code2,
-  FilePlus2,
+  Paperclip,
   GripVertical,
   Heading2,
   Highlighter,
@@ -942,7 +942,7 @@ function SessionEditor({
           onClick={() => setToolsExpanded(value => !value)}><span aria-hidden="true">Aa</span></Pressable>
         <Pressable className="icon-button" aria-label="Checklist" aria-pressed={editor.isActive("taskList")}
           onClick={() => editor.chain().focus().toggleTaskList().run()}><ListChecks size={20} /></Pressable>
-        <Pressable className="icon-button" aria-label="Attach file" onClick={() => fileInput.current?.click()}><FilePlus2 size={20} /></Pressable>
+        <Pressable className="icon-button" aria-label="Attach file" onClick={() => fileInput.current?.click()}><Paperclip size={20} /></Pressable>
         <Pressable className="icon-button" aria-label="Sketch canvas" aria-pressed={sketch} onClick={() => setSketch(value => !value)}><PenLine size={20} /></Pressable>
         <Pressable className="icon-button" aria-label="Undo typing" onClick={() => editor.chain().focus().undo().run()}><Undo2 size={20} /></Pressable>
       </div>

@@ -61,6 +61,15 @@
       "sha256": "df186953e668e17d71a96649d576575bf6394ad9b5218d60ba7d65cf21877178",
       "crc_verified": true,
       "review": "Rejected candidate: corrected phone heading and density before approval."
+    },
+    {
+      "artifact_id": 11720534924,
+      "run_id": 38189184674,
+      "archive": "notes-compact-baseline.zip",
+      "bytes": 62753229,
+      "sha256": "40e3297b325c1ce8c7e77241b8c47edf754d9b2212053f66814673878302b52c",
+      "crc_verified": true,
+      "review": "Superseded by explicit Journal history disclosure indicator."
     }
   ],
   "verified_against_github_digests": true,

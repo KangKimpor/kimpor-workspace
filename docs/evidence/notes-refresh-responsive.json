@@ -1,7 +1,49 @@
 {
-  "date": "2026-10-12T00:25:54.743Z",
+  "date": "2026-10-12T00:44:55.658Z",
   "mode": "Managed browser viewport checks, not physical devices",
   "checks": [
+    {
+      "name": "phone-small",
+      "screen": "today",
+      "width": 320,
+      "height": 640,
+      "overflow": false
+    },
+    {
+      "name": "phone-small",
+      "screen": "writing",
+      "width": 320,
+      "height": 640,
+      "overflow": false
+    },
+    {
+      "name": "phone-small",
+      "screen": "journal",
+      "width": 320,
+      "height": 640,
+      "overflow": false
+    },
+    {
+      "name": "phone-small",
+      "screen": "journal-entry",
+      "width": 320,
+      "height": 640,
+      "overflow": false
+    },
+    {
+      "name": "phone-small",
+      "screen": "calendar",
+      "width": 320,
+      "height": 640,
+      "overflow": false
+    },
+    {
+      "name": "phone-small",
+      "screen": "event",
+      "width": 320,
+      "height": 640,
+      "overflow": false
+    },
     {
       "name": "iphone15",
       "screen": "today",

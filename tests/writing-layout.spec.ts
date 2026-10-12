@@ -58,6 +58,13 @@ test("journal resumes today's entry and shows its saved words in the library", a
   await expect(editor).toContainText("Grateful for a little quiet.");
   await navigate(page, "Journal");
   await expect(page.locator(".ws-journal-entry")).toHaveCount(1);
+  await expect(page.locator(".ws-journal-week")).toBeHidden();
+  const history = page.locator(".ws-journal-history > summary");
+  await history.click();
+  await expect(page.locator(".ws-journal-week")).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+  await history.click();
+  await expect(page.locator(".ws-journal-week")).toBeHidden();
   await page.getByRole("searchbox", { name: "Search journal", exact: true }).fill("quiet");
   await expect(page.locator(".ws-journal-entry")).toHaveCount(1);
   await page.getByRole("searchbox", { name: "Search journal", exact: true }).fill("unmatched phrase");
