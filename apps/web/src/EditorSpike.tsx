@@ -56,7 +56,7 @@ function SortableBlock({ id }: { id: string }) {
 }
 function StudyEditor({ doc }: { doc: Y.Doc }) {
   const [slash, setSlash] = useState(false);
-  const [status, setStatus] = useState("Saved on this device");
+  const [saveError, setSaveError] = useState(false);
   const [blocks, setBlocks] = useState([
     "An English thought",
     "គំនិតជាភាសាខ្មែរ",
@@ -97,14 +97,9 @@ function StudyEditor({ doc }: { doc: Y.Doc }) {
   useEffect(() => {
     if (!editor) return;
     const save = () => {
-      setStatus("Saving on this device…");
       void saveStudy(Y.encodeStateAsUpdate(doc))
-        .then(() => setStatus("Saved on this device"))
-        .catch(() =>
-          setStatus(
-            "Storage unavailable — keep this tab open and copy your text.",
-          ),
-        );
+        .then(() => setSaveError(false))
+        .catch(() => setSaveError(true));
     };
     const channel =
       typeof BroadcastChannel === "undefined"
@@ -218,9 +213,7 @@ function StudyEditor({ doc }: { doc: Y.Doc }) {
             </Pressable>
           </div>
         )}
-        <div className="editor-status" role="status">
-          {status}
-        </div>
+        {saveError && <div className="editor-status" role="alert">Retry</div>}
       </div>
       <section className="section">
         <span className="section-number">TOUCH & KEYBOARD STUDY</span>

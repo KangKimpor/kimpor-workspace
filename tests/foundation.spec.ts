@@ -1,5 +1,26 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { createRequire } from 'node:module';
+import type { Page } from '@playwright/test';
+const Y = createRequire(new URL('../packages/core/package.json', import.meta.url))('yjs');
+async function persistedStudy(page: Page, text: string) {
+  await expect.poll(async () => {
+    const bytes = await page.evaluate(async () => {
+      const db = await new Promise<IDBDatabase>((resolve, reject) => {
+        const request = indexedDB.open('veloradesk-foundation-study');
+        request.onsuccess = () => resolve(request.result); request.onerror = () => reject(request.error);
+      });
+      const value = await new Promise<{ update: Uint8Array } | undefined>((resolve, reject) => {
+        const request = db.transaction('drafts').objectStore('drafts').get('editor');
+        request.onsuccess = () => resolve(request.result); request.onerror = () => reject(request.error);
+      });
+      db.close(); return [...(value?.update ?? [])];
+    });
+    const doc = new Y.Doc();
+    Y.applyUpdate(doc, new Uint8Array(bytes));
+    const body = doc.getXmlFragment('default').toString(); doc.destroy(); return body;
+  }).toContain(text);
+}
 
 test('theme persists, command palette supports keyboard and modal focus returns', async ({ page }) => {
   await page.goto('/design');
@@ -70,14 +91,14 @@ test('multilingual text persists and composition does not open the slash menu', 
   const editor = page.getByRole('textbox', { name: 'Multilingual editor study' });
   await expect(editor).toBeVisible();
   await editor.fill('My thought ខ្មែរ 中文');
-  await expect(page.getByText('Saved on this device', { exact: true })).toBeVisible();
+  await persistedStudy(page, 'My thought ខ្មែរ 中文');
   await editor.dispatchEvent('keydown', { key: '/', keyCode: 229, isComposing: true, bubbles: true });
   await expect(page.locator('.slash-menu')).toHaveCount(0);
   await editor.press('End'); await editor.press('/');
   await expect(page.locator('.slash-menu')).toBeVisible();
   await page.locator('.slash-menu').getByRole('button', { name: 'Heading', exact: true }).click();
   await expect(editor.locator('h2')).toContainText('My thought');
-  await expect(page.getByText('Saved on this device', { exact: true })).toBeVisible();
+  await persistedStudy(page, 'My thought ខ្មែរ 中文');
   await page.reload();
   await expect(editor).toContainText('My thought ខ្មែរ 中文');
   expect(errors).toEqual([]);
@@ -93,7 +114,7 @@ test('cached PWA shell and already visited editor survive offline reload', async
   await context.setOffline(true);
   await page.reload(); await expect(editor).toContainText('Before going offline');
   await editor.fill('Offline idea ខ្មែរ 中文');
-  await expect(page.getByText('Saved on this device', { exact: true })).toBeVisible();
+  await persistedStudy(page, 'Offline idea ខ្មែរ 中文');
   await context.setOffline(false);
   await page.reload(); await expect(editor).toContainText('Offline idea ខ្មែរ 中文');
 });
@@ -131,7 +152,7 @@ test('two local tabs exchange Yjs changes and keyboard handles reorder sample ro
   const editor = page.getByRole('textbox', { name: 'Multilingual editor study' });
   await expect(editor).toBeVisible();
   await editor.fill('From the first tab ខ្មែរ');
-  await expect(page.getByText('Saved on this device', { exact: true })).toBeVisible();
+  await persistedStudy(page, 'From the first tab ខ្មែរ');
   const second = await context.newPage();
   await second.goto('/spikes/editor');
   const other = second.getByRole('textbox', { name: 'Multilingual editor study' });

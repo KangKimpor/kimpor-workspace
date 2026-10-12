@@ -22,6 +22,7 @@ import { Pressable } from "@veloradesk/ui";
 import { store } from "@veloradesk/core/store";
 import { platform } from "@veloradesk/core/platform";
 import type { CalendarEvent } from "@veloradesk/core/model";
+import { taskDone, taskDue } from "@veloradesk/core/projects";
 import {
   addDays,
   dateInZone,
@@ -135,7 +136,16 @@ export default function CalendarModule({
   const upload = useRef<HTMLInputElement>(null);
   const changedAccount = useRef("");
   const calendars = store.listCalendars();
-  const events = store.listEvents();
+  const definitions = store.listDatabases();
+  const tasks = store.listPages().filter(page => page.type === "row" && !taskDone(page, definitions.find(definition => definition.id === page.databaseId)));
+  const taskEvents: CalendarEvent[] = tasks.flatMap(task => {
+    const due = taskDue(task, definitions.find(definition => definition.id === task.databaseId));
+    if (!due) return [];
+    return [{ id: `task:${task.id}`, userId: task.userId, calendarId: "__tasks", title: task.title || "Untitled", start: due, end: addDays(due,1), allDay: true,
+      startZone: preferences.zone, endZone: preferences.zone, location: "", notes: "", url: "", busy: false, reminderMinutes: 0, recurrence: "", exceptions: [], pageId: task.id,
+      source: "local", createdAt: task.createdAt, updatedAt: task.updatedAt, deletedAt: null }];
+  });
+  const events = [...store.listEvents(), ...taskEvents];
   const monthStart = `${date.slice(0, 7)}-01`;
   const monthGridStart = addDays(
     monthStart,
@@ -159,7 +169,7 @@ export default function CalendarModule({
     () =>
       safeOccurrenceEvents(
         events.filter((event) =>
-          calendars.some(
+          event.calendarId === "__tasks" || calendars.some(
             (calendar) => calendar.id === event.calendarId && calendar.visible,
           ),
         ),
@@ -289,6 +299,7 @@ export default function CalendarModule({
     });
   }
   function openOccurrence(occurrence: EventOccurrence<CalendarEvent>) {
+    if (occurrence.event.calendarId === "__tasks" && occurrence.event.pageId) { onOpenPage?.(occurrence.event.pageId); return; }
     setError("");
     setDraft({
       fields: { ...occurrence.event },
@@ -494,6 +505,12 @@ export default function CalendarModule({
     start: string,
     end: string,
   ) {
+    if (occurrence.event.calendarId === "__tasks") {
+      const task = tasks.find(task => task.id === occurrence.event.pageId);
+      const property = definitions.find(definition => definition.id === task?.databaseId)?.properties.find(property => property.type === "date");
+      if (task) void store.patchPage(task.id, { properties: { ...task.properties, [property?.id ?? "due"]: inputTime(start, preferences.zone, true).slice(0,10) } }).catch(cause => notify(String(cause)));
+      return;
+    }
     if (occurrence.event.source === "ics") return;
     if (occurrence.event.recurrence) {
       openOccurrence(occurrence);
@@ -613,9 +630,7 @@ export default function CalendarModule({
           >
             <Settings2 size={20} />
           </Pressable>
-          <Pressable className="button filled" onClick={() => newDraft()}>
-            <Plus size={18} /> New event
-          </Pressable>
+          {((view !== "month" && view !== "agenda") || (view === "month" ? entriesFor(date).length > 0 : occurrences.length > 0)) && <Pressable className="button filled" onClick={() => newDraft()}><Plus size={18} />New event</Pressable>}
         </div>
       </header>
       <div className="cal-layout">
@@ -725,10 +740,10 @@ export default function CalendarModule({
               </div>
             </div>
             <section className="cal-selected-day" aria-label="Selected day events">
-              <header><p>{dayLabel(date, { weekday: "long" })}</p><h2>{dayLabel(date, { month: "long", day: "numeric" })}</h2><span>{entriesFor(date).length ? `${entriesFor(date).length} ${entriesFor(date).length === 1 ? "event" : "events"}` : "Your day is clear"}</span></header>
+              <header><h2>{dayLabel(date, { month: "long", day: "numeric" })}</h2></header>
               {entriesFor(date).length ? entriesFor(date).map(occurrence => <EventChip key={occurrence.key} occurrence={occurrence}
                 color={calendars.find(calendar => calendar.id === occurrence.event.calendarId)?.color ?? "blue"} time={time} onOpen={() => openOccurrence(occurrence)} />)
-                : <div className="cal-day-empty"><CalendarDays size={24} /><p>No events for this day.</p></div>}
+                : <div className="cal-day-empty"><CalendarDays size={28} /><Pressable className="button plain" onClick={() => newDraft(date)}>New event</Pressable></div>}
             </section></div>
           ) : view === "agenda" ? (
             <div className="cal-agenda">
@@ -763,13 +778,11 @@ export default function CalendarModule({
               ) : (
                 <div className="cal-empty">
                   <CalendarDays size={36} />
-                  <h3>A clear calendar</h3>
-                  <p>Make room for your next plan.</p>
                   <Pressable
                     className="button tinted"
                     onClick={() => newDraft()}
                   >
-                    Create an event
+                    New event
                   </Pressable>
                 </div>
               )}
@@ -850,7 +863,7 @@ export default function CalendarModule({
           if (!open) setDraft(null);
         }}
       >
-        <Dialog.Portal>
+        <Dialog.Portal container={document.getElementById("root")}>
           <Dialog.Overlay className="cal-overlay" />
           <Dialog.Content className="cal-dialog cal-event-dialog">
             <div className="cal-dialog-head">
@@ -866,7 +879,7 @@ export default function CalendarModule({
             <Dialog.Description className={draft?.fields.source === "ics" ? "caption muted" : "sr-only"}>
               {draft?.fields.source === "ics"
                 ? "Subscribed events are read-only."
-                : "Changes are saved on this device first."}
+                : "Event"}
             </Dialog.Description>
             {draft && (
               <form
@@ -1157,7 +1170,7 @@ export default function CalendarModule({
         </Dialog.Portal>
       </Dialog.Root>
       <Dialog.Root open={settings} onOpenChange={setSettings}>
-        <Dialog.Portal>
+        <Dialog.Portal container={document.getElementById("root")}>
           <Dialog.Overlay className="cal-overlay" />
           <Dialog.Content className="cal-dialog">
             <div className="cal-dialog-head">
@@ -1197,7 +1210,7 @@ export default function CalendarModule({
                 </label>
                 <span className="caption muted">
                   {calendar.source === "local"
-                    ? "On device"
+                    ? "Calendar"
                     : calendar.source === "ics"
                       ? "Read-only"
                       : calendar.source}
@@ -1386,7 +1399,7 @@ export default function CalendarModule({
                   });
                 }}
               >
-                <Plus size={16} /> Local calendar
+                <Plus size={16} /> New calendar
               </Pressable>
               <div className="cal-actions">
                 <Pressable
@@ -2004,12 +2017,7 @@ function TimeGrid({
                     onOpen={() => onOpen(occurrence)}
                   />
                 ))}
-              <Pressable
-                className="button plain"
-                onClick={() => onCreate(day, 9 * 60, 10 * 60)}
-              >
-                Add event
-              </Pressable>
+
             </section>
           ))}
         </div>

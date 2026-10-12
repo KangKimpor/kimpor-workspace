@@ -1,7 +1,9 @@
+import { leaveWriting, formatting } from './workspace-actions';
 import { test, expect, type Page } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 test.setTimeout(90_000);
 async function navigate(page: Page, name: string) {
+  await leaveWriting(page);
   const navigation = page.getByRole("navigation", {
     name:
       page.viewportSize()!.width < 600
@@ -76,10 +78,7 @@ test("the command palette searches local mixed-language bodies and suppresses IM
   await page
     .getByRole("textbox", { name: "Document editor" })
     .fill("សួស្តី 中文 hello");
-  await page
-    .getByRole("button", { name: "Today", exact: true })
-    .first()
-    .click();
+  await navigate(page, "Today");
   await page.evaluate(() => {
     window.dispatchEvent(
       new KeyboardEvent("keydown", {
@@ -121,11 +120,13 @@ test("page mentions open after typing and persist through navigation and reload"
   await expect(editor.locator("a[data-page-mention]")).toHaveText("↗ Mention destination 中文");
   await navigate(page, "Today");
   await page.reload();
-  await page.locator("main").getByRole("button", { name: /Mention source/ }).first().click();
+  await navigate(page, "Notes");
+  await page.locator(".ws-page-list").getByRole("button", { name: /Mention source/ }).first().click();
   await expect(editor.locator("a[data-page-mention]")).toHaveText("↗ Mention destination 中文");
   await editor.getByRole("link", { name: "↗ Mention destination 中文", exact: true }).click();
   await expect(page.getByRole("textbox", { name: "Page title" })).toHaveValue("Mention destination 中文");
   await expect(editor).toContainText("Destination body");
+  await page.locator(".ws-page-details > summary").click();
   await expect(page.getByRole("heading", { name: "Backlinks", exact: true })).toBeVisible();
 });
 test("encryption rejects a wrong passphrase and keeps content after reload", async ({
@@ -135,7 +136,7 @@ test("encryption rejects a wrong passphrase and keeps content after reload", asy
   await page
     .getByRole("textbox", { name: "Document editor" })
     .fill("Secret journal content ខ្មែរ 中文");
-  if (await page.getByRole("button", { name: "More formatting", exact: true }).isVisible()) await page.getByRole("button", { name: "More formatting", exact: true }).click();
+  await formatting(page);
   await page
     .getByRole("button", { name: "Protect document", exact: true })
     .click();
@@ -146,21 +147,15 @@ test("encryption rejects a wrong passphrase and keeps content after reload", asy
   await page
     .getByRole("button", { name: "Enable encryption", exact: true })
     .click();
-  await expect(page.getByRole("toolbar", { name: "Document formatting", exact: true })).toBeVisible();
-  if (await page.getByRole("button", { name: "More formatting", exact: true }).isVisible()) await page.getByRole("button", { name: "More formatting", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Enable encryption", exact: true })).toHaveCount(0);
+  await formatting(page);
   await expect(
     page.getByRole("button", { name: "Lock document", exact: true }),
   ).toBeVisible();
-  await page
-    .getByRole("button", { name: "Today", exact: true })
-    .first()
-    .click();
+  await navigate(page, "Today");
   await page.reload();
-  await page
-    .locator("main")
-    .getByRole("button", { name: /Private body|Locked entry/ })
-    .first()
-    .click();
+  await navigate(page, "Notes");
+  await page.locator(".ws-page-list").getByRole("button", { name: /Private body|Locked entry/ }).first().click();
   await expect(
     page.getByRole("region", { name: "Locked document" }),
   ).toBeVisible();

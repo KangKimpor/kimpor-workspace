@@ -27,6 +27,7 @@ try {
       const page=await context.newPage();
       const seedTime = offset => page.clock.setFixedTime(new Date(Date.parse(fixtureTime) + offset));
       const navigate = async route => {
+        if(width<600 && await page.locator('.ws-app[data-editing="true"]').count())await page.locator('.ws-detail-back').click();
         const tab = page.getByRole('navigation',{name:width<600?'Bottom navigation':'Main navigation',exact:true}).getByRole('button',{name:route,exact:true});
         await tab.click();
         await expect(tab).toHaveAttribute('aria-current','page');
@@ -52,7 +53,7 @@ try {
       await page.getByRole('textbox',{name:'Document editor'}).fill('One small step, every day.');
       await navigate('Journal');
       await seedTime(-1000);
-      await page.getByRole('button',{name:'Write today',exact:true}).click();
+      await page.getByRole('button',{name:'Write',exact:true}).click();
       await page.getByRole('textbox',{name:'Page title'}).fill('A moment for myself');
       await page.getByRole('textbox',{name:'Document editor'}).fill('Today I am grateful for a little quiet.\n\nអរគុណ · 谢谢 · Thank you');
       await navigate('Calendar');

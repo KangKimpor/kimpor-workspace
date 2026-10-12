@@ -24,7 +24,6 @@ import {
   ShieldCheck,
   SlidersHorizontal,
   Sun,
-  WifiOff,
   X,
 } from "lucide-react";
 import { BrandMark, Pressable } from "@veloradesk/ui";
@@ -142,7 +141,6 @@ export function App() {
   const [name, setName] = useState("A little space of my own");
   const [checked, setChecked] = useState(true);
   const [inspector, setInspector] = useState(false);
-  const [offline, setOffline] = useState(!navigator.onLine);
   const [route, setRoute] = useState(
     location.pathname.includes("/spikes/") ? "editor" : "design",
   );
@@ -169,15 +167,6 @@ export function App() {
     document.documentElement.dataset.reduceMotion = String(reduced);
     saveSetting("velora-reduce-motion", String(reduced));
   }, [reduced]);
-  useEffect(() => {
-    const update = () => setOffline(!navigator.onLine);
-    window.addEventListener("online", update);
-    window.addEventListener("offline", update);
-    return () => {
-      window.removeEventListener("online", update);
-      window.removeEventListener("offline", update);
-    };
-  }, []);
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (
@@ -301,10 +290,6 @@ export function App() {
               </strong>
             </div>
             <div className="row">
-              <span className="top-status">
-                <span className="status-dot" />
-                {offline ? "Offline · on this device" : "On this device"}
-              </span>
               <Pressable
                 className="icon-button"
                 aria-label="Open command palette"
@@ -719,12 +704,6 @@ export function App() {
           <p>
             A space for your days, notes and ideas.
           </p>
-          <div className="notice">
-            <ShieldCheck size={20} />
-            <p>
-              This design gallery stays on this device.
-            </p>
-          </div>
           <p className="caption muted">
             The monogram comes from Kimpor’s handwritten signature. The full
             signature remains private.
@@ -790,12 +769,7 @@ export function App() {
               </Pressable>
             </div>
           )}
-          {offline && (
-            <div className="offline-banner">
-              <WifiOff size={14} />
-              Offline · your local preview is available
-            </div>
-          )}
+
         </div>
       </div>
     </MotionConfig>

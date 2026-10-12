@@ -21,10 +21,11 @@ test("sidebar collapse and phone back gestures retain pending edits; phone sheet
     await edge.dispatchEvent("pointermove", { ...pointer, clientX: 160 });
     await edge.dispatchEvent("pointerup", { ...pointer, clientX: 160 });
   } else {
-    await page.getByRole("button", { name: "Collapse sidebar", exact: true }).click();
-    await expect(page.getByRole("navigation", { name: "Main navigation", exact: true })).toHaveCount(0);
+    await page.getByRole("button", { name: "Compact sidebar", exact: true }).click();
+    await expect(nav).toBeVisible();
+    await expect(page.locator(".ws-sidebar")).toHaveCSS("width", "72px");
     await expect(editor).toContainText("ខ្មែរ · 中文");
-    await page.getByRole("button", { name: "Open sidebar", exact: true }).click();
+    await page.getByRole("button", { name: "Expand sidebar", exact: true }).click();
     await expect(nav).toBeVisible();
     await nav.getByRole("button", { name: "Notes", exact: true }).click();
   }
@@ -35,6 +36,7 @@ test("sidebar collapse and phone back gestures retain pending edits; phone sheet
   await expect(title).toHaveValue("Navigation saved note");
   await expect(editor).toContainText("Pending edit · ខ្មែរ · 中文");
   if (phone) {
+    await page.locator(".ws-detail-back").click();
     await page.getByRole("button", { name: "Open sidebar", exact: true }).click();
     await page.getByRole("button", { name: "Settings", exact: true }).click();
     const handle = page.getByRole("button", { name: "Resize sheet", exact: true });
@@ -95,6 +97,7 @@ test("imported timed dates display their stated day without losing the original 
   };
   await page.goto("/");
   const settings = async () => {
+    if (phone && await page.locator(".ws-detail-back").isVisible()) await page.locator(".ws-detail-back").click();
     if (phone) await page.getByRole("button", { name: "Open sidebar", exact: true }).click();
     await page.getByRole("button", { name: "Settings", exact: true }).click();
   };

@@ -85,6 +85,7 @@ import {
 } from "./editor-nodes";
 const SketchCanvas = lazy(() => import("./SketchCanvas"));
 import { flushEditors, registerEditorFlush } from "./editor-lifecycle";
+import { useWorkspaceSize } from "./WorkspaceChrome";
 import "./rich-editor.css";
 
 interface Session {
@@ -300,6 +301,10 @@ function SessionEditor({
     [activeCommand, setActiveCommand] = useState(0);
   const [toolsExpanded, setToolsExpanded] = useState(false);
   const [showHandles, setShowHandles] = useState(false);
+  const layout = useWorkspaceSize();
+  const [focused, setFocused] = useState(false);
+  const [selectionPosition, setSelectionPosition] = useState<{ left: number; top: number } | null>(null);
+  const tools = useRef<HTMLDivElement>(null);
   const formatId = useId();
   const formatButton = useRef<HTMLButtonElement>(null);
   const [find, setFind] = useState(false),
@@ -472,6 +477,7 @@ function SessionEditor({
     [session.doc],
   );
   const refreshHandles = useCallback(() => {
+    if (!showHandles) { setBlocks(previous => previous.length ? [] : previous); return; }
     if (!editor || !holder.current) return;
     const rect = holder.current.getBoundingClientRect();
     const offsets: number[] = [];
@@ -532,9 +538,9 @@ function SessionEditor({
         return current && item.id === current.id && item.top === current.top && item.label === current.label;
       }) ? previous : next,
     );
-  }, [editor]);
+  }, [editor, showHandles]);
   useEffect(() => {
-    if (!editor) return;
+    if (!editor || !showHandles) { setBlocks(previous => previous.length ? [] : previous); return; }
     let frame = 0;
     const scheduleHandles = () => {
       if (!frame) frame = requestAnimationFrame(() => {
@@ -559,7 +565,41 @@ function SessionEditor({
       window.removeEventListener("resize", scheduleHandles);
       window.visualViewport?.removeEventListener("resize", scheduleHandles);
     };
-  }, [editor, refreshHandles]);
+  }, [editor, refreshHandles, showHandles]);
+  useEffect(() => {
+    if (!editor) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      if (editor.isDestroyed) return;
+      const active = document.activeElement;
+      const writing = !!active && (editor.view.dom.contains(active) || !!tools.current?.contains(active));
+      setFocused(writing);
+      if (editor.state.selection.empty || !writing) setSelectionPosition(null);
+      else {
+        const root = document.getElementById("root")!.getBoundingClientRect();
+        const from = editor.view.coordsAtPos(editor.state.selection.from);
+        const to = editor.view.coordsAtPos(editor.state.selection.to);
+        setSelectionPosition({ left: Math.max(16, Math.min(root.width - 480, (from.left + to.right) / 2 - root.left - 140)), top: Math.max(56, from.top - root.top - 56) });
+      }
+      if (!writing || layout.desktop || !editor.isFocused) return;
+      const caret = editor.view.coordsAtPos(editor.state.selection.to);
+      const viewport = window.visualViewport;
+      const bottom = (viewport?.offsetTop ?? 0) + (viewport?.height ?? innerHeight) - 72;
+      const main = editor.view.dom.closest<HTMLElement>(".ws-main");
+      if (caret.bottom > bottom) main?.scrollBy({ top: caret.bottom - bottom, behavior: "instant" });
+    };
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    editor.on("selectionUpdate", schedule); editor.on("update", schedule);
+    document.addEventListener("focusin", schedule); document.addEventListener("focusout", schedule);
+    window.visualViewport?.addEventListener("resize", schedule);
+    const openTools = () => { editor.view.focus(); setToolsExpanded(true); };
+    window.addEventListener("kimpor-editor-tools", openTools);
+    schedule();
+    return () => { cancelAnimationFrame(frame); editor.off("selectionUpdate", schedule); editor.off("update", schedule);
+      document.removeEventListener("focusin", schedule); document.removeEventListener("focusout", schedule);
+      window.visualViewport?.removeEventListener("resize", schedule); window.removeEventListener("kimpor-editor-tools", openTools); };
+  }, [editor, layout.desktop]);
   useEffect(() => {
     if (!editor) return;
     mounted.current = true;
@@ -867,8 +907,8 @@ function SessionEditor({
   // Visible handles keep their index in the complete document while scrolling.
   const blockCount = editor?.state.doc.childCount ?? 0;
   const blockIds = useMemo(
-    () => Array.from({ length: blockCount }, (_, index) => `block-${index}`),
-    [blockCount],
+    () => showHandles ? Array.from({ length: blockCount }, (_, index) => `block-${index}`) : [],
+    [blockCount, showHandles],
   );
   function moveBlock(event: DragEndEvent) {
     if (!editor || !event.over || event.active.id === event.over.id) return;
@@ -929,10 +969,12 @@ function SessionEditor({
       setNotice("Wait until the document saves before locking.");
     }
   }
-  if (!editor) return <p className="rich-hint">Opening your document…</p>;
+  if (!editor) return <div className="ws-skeleton" role="status" aria-label="Loading" />;
   return (
     <div className="rich-editor" data-tools-open={toolsExpanded} data-handles={showHandles}>
-      <div className="rich-writing-tools">
+      <div ref={tools} className="rich-writing-tools" data-visible={toolsExpanded || (layout.desktop ? focused && !!selectionPosition : focused)}
+        style={layout.desktop && selectionPosition ? { left: selectionPosition.left, top: selectionPosition.top } : undefined}
+        onPointerDownCapture={event => { if (event.target instanceof Element && event.target.closest("button")) event.preventDefault(); }}>
       <div className="rich-toolbar" role="toolbar" aria-label="Document formatting">
         <Pressable ref={formatButton} className="icon-button rich-format-trigger"
           aria-label={toolsExpanded ? "Less formatting" : "More formatting"}
@@ -1325,7 +1367,7 @@ function SessionEditor({
           </div>
         </SortableContext>
       </DndContext>
-      {editor.isActive("table") && (
+      {toolsExpanded && editor.isActive("table") && (
         <div className="rich-inline-panel">
           <Pressable
             className="button plain"

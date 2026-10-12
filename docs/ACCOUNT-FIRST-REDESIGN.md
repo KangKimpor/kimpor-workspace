@@ -66,3 +66,35 @@ WebKit, Firefox and narrow phone WebKit. Google Cloud project creation succeeded
 without billing, but its consent wizard stalled twice before client creation.
 Google remains disabled, real identity linking untested. Brevo opened signed out;
 SMTP setup is pending secure access. No identity or task records were rewritten.
+
+## Phase 3
+
+The workspace switches by its own container width: phone below 600px, compact
+72px tablet sidebar from 600–1023px, and 240px desktop sidebar from 1024px.
+The editor presents a title and body, with properties in Details. Phone and
+portrait tablet use five writing controls above the visual viewport keyboard;
+desktop uses a selection toolbar or Formatting from the page menu. Hidden block
+handles no longer allocate scroll/resize observers. Navigation retains pending
+multilingual edits and restores the preceding pane.
+
+Journal has one Write/Continue action, entry previews, Search and optional History.
+Month Calendar has one view selector, selectable 44px dates and a selected-day
+list without daily add buttons. Due tasks appear by their original task name;
+opening them opens their task, and moving one changes its existing due field.
+Sheets use transform-based drag feedback and spring between the two detents.
+The 4pt spacing tokens, safe-area padding, full-height scroll area and compact
+sidebar Settings access were checked at all five requested viewport sizes.
+
+Keyboard tests simulate visualViewport changes; these are not physical keyboard,
+safe-area or Dynamic Island verification. The Google browser was signed in but
+exhausted its included credit before saving Branding or creating a client.
+Audience is External; Google remains disabled. Custom SMTP is still unconfigured.
+No account identities, task records or export bytes were changed by dashboard work.
+
+Phase 3 final `pnpm check` passes: 72 unit cases, 88.86% core line coverage,
+219.3 KiB initial graph and all 44 contrast pairs. The 16 targeted product and
+responsive cases passed after correcting the final phone formatting/navigation
+issue (the two encryption cases were rerun on the final build). Earlier fixture
+checks cover attachments, journal resume, calendar selection, sheet detents,
+cache persistence and accessibility. Full final cross-engine and visual evidence
+belongs to Phase 4, not these development checks.

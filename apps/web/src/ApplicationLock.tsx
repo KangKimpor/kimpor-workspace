@@ -167,7 +167,7 @@ export function ApplicationLock({ children }: { children: ReactNode }) {
   return (
     <>
       {
-        <div hidden={locked} inert={locked}>
+        <div className="ws-lock-boundary" hidden={locked} inert={locked}>
           {children}
         </div>
       }
@@ -175,7 +175,6 @@ export function ApplicationLock({ children }: { children: ReactNode }) {
         <main className="ws-app-lock">
           <div className="ws-card">
             <h1>Welcome back</h1>
-            <p>Unlock Kimpor Workspace on this device.</p>
             <form
               onSubmit={(event) => {
                 event.preventDefault();

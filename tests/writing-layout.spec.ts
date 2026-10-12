@@ -1,8 +1,10 @@
+import { leaveWriting } from './workspace-actions';
 import { test, expect, type Page } from "@playwright/test";
 test.setTimeout(90_000);
 test.use({ actionTimeout: 20_000 });
 
 async function navigate(page: Page, module: string) {
+  await leaveWriting(page);
   const navigation = page.getByRole("navigation", {
     name: page.viewportSize()!.width < 600 ? "Bottom navigation" : "Main navigation",
     exact: true,
@@ -11,7 +13,7 @@ async function navigate(page: Page, module: string) {
 }
 
 test("tablet writing stays uncluttered and formatting remains usable", async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.setViewportSize({ width: 820, height: 1180 });
   await page.goto("/");
   await navigate(page, "Notes");
   await page.getByRole("button", { name: "New note", exact: true }).click();
@@ -44,17 +46,17 @@ test("tablet writing stays uncluttered and formatting remains usable", async ({ 
 test("journal resumes today's entry and shows its saved words in the library", async ({ page }) => {
   await page.goto("/");
   await navigate(page, "Journal");
-  await page.getByRole("button", { name: "Write today", exact: true }).click();
+  await page.getByRole("button", { name: "Write", exact: true }).click();
   await page.getByRole("textbox", { name: "Page title" }).fill("A small moment");
   const editor = page.getByRole("textbox", { name: "Document editor", exact: true });
   await editor.fill("Grateful for a little quiet.");
-  await page.getByRole("button", { name: "Journal date and mood", exact: true }).click();
+  await page.getByRole("button", { name: "Page options", exact: true }).click();
   await expect(page.getByRole("dialog", { name: "Page options", exact: true })).toBeVisible();
   await page.keyboard.press("Escape");
   await navigate(page, "Journal");
   await expect(page.locator(".ws-journal-entry")).toHaveCount(1);
   await expect(page.locator(".ws-journal-preview")).toContainText("Grateful for a little quiet.");
-  await page.getByRole("button", { name: "Continue writing", exact: true }).click();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
   await expect(editor).toContainText("Grateful for a little quiet.");
   await navigate(page, "Journal");
   await expect(page.locator(".ws-journal-entry")).toHaveCount(1);
@@ -68,7 +70,7 @@ test("journal resumes today's entry and shows its saved words in the library", a
   await page.getByRole("searchbox", { name: "Search journal", exact: true }).fill("quiet");
   await expect(page.locator(".ws-journal-entry")).toHaveCount(1);
   await page.getByRole("searchbox", { name: "Search journal", exact: true }).fill("unmatched phrase");
-  await expect(page.getByText("No matching entries", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Clear", exact: true })).toBeVisible();
 });
 
 test("month selection shows that day's events without leaving the month", async ({ page }) => {
@@ -86,7 +88,7 @@ test("month selection shows that day's events without leaving the month", async 
   await expect(selected.getByRole("button", { name: /A little time to plan/ })).toBeVisible();
   await page.getByRole("button", { name: "Open Tuesday, October 13, 2026", exact: true }).click();
   await expect(selected.getByRole("heading", { name: "October 13", exact: true })).toBeVisible();
-  await expect(selected.getByText("No events for this day.", { exact: true })).toBeVisible();
+  await expect(selected.getByRole("button", { name: "New event", exact: true })).toBeVisible();
   await expect(page.locator(".cal-month-grid")).toBeVisible();
   await expect(page.locator(".cal-day-add")).toHaveCount(0);
   const dateTarget = await page.locator(".cal-day-number").first().boundingBox();

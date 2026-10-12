@@ -1,7 +1,9 @@
+import { leaveWriting, formatting } from './workspace-actions';
 import { test, expect, type Page } from "@playwright/test";
 test.setTimeout(90_000);
 test.use({ actionTimeout: 20_000 });
 async function module(page: Page, name: string) {
+  await leaveWriting(page);
   const tab = page
     .getByRole("button", { name, exact: true })
     .filter({ visible: true })
@@ -46,7 +48,7 @@ test("file bytes survive protection and reload, and equations and columns render
   });
   const file = page.getByRole("link", { name: /proof\.txt/ });
   await expect(file).toHaveAttribute("href", /^blob:/);
-  if (await page.getByRole("button", { name: "More formatting", exact: true }).isVisible()) await page.getByRole("button", { name: "More formatting", exact: true }).click();
+  await formatting(page);
   await page.getByRole("button", { name: "Add equation", exact: true }).click();
   await page.getByLabel("Equation expression").fill("\\frac{a}{b} + \\sqrt{c}");
   await page
@@ -59,7 +61,7 @@ test("file bytes survive protection and reload, and equations and columns render
   await page.getByLabel("Filter block commands").fill("Columns");
   await page.getByRole("button", { name: /Columns.*Two columns/ }).click();
   await expect(page.locator("[data-columns] [data-column]")).toHaveCount(2);
-  if (await page.getByRole("button", { name: "More formatting", exact: true }).isVisible()) await page.getByRole("button", { name: "More formatting", exact: true }).click();
+  await formatting(page);
   await page
     .getByRole("button", { name: "Protect document", exact: true })
     .click();
@@ -70,8 +72,8 @@ test("file bytes survive protection and reload, and equations and columns render
   await page
     .getByRole("button", { name: "Enable encryption", exact: true })
     .click();
-  await expect(page.getByRole("toolbar", { name: "Document formatting", exact: true })).toBeVisible();
-  if (await page.getByRole("button", { name: "More formatting", exact: true }).isVisible()) await page.getByRole("button", { name: "More formatting", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Enable encryption", exact: true })).toHaveCount(0);
+  await formatting(page);
   await expect(
     page.getByRole("button", { name: "Lock document", exact: true }),
   ).toBeVisible();
@@ -155,7 +157,7 @@ test("database rows persist in all five views and journal entries use the same e
   }
   await module(page, "Journal");
   await page
-    .getByRole("button", { name: "Write today", exact: true })
+    .getByRole("button", { name: "Write", exact: true })
     .click();
   await page.getByRole("textbox", { name: "Page title" }).fill("A good day");
   await page
@@ -164,7 +166,7 @@ test("database rows persist in all five views and journal entries use the same e
   await module(page, "Today");
   await page.reload();
   await module(page, "Journal");
-  await page.getByRole("button", { name: "Continue writing", exact: true }).click();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
   await expect(
     page.getByRole("textbox", { name: "Document editor" }),
   ).toContainText("one small thing");

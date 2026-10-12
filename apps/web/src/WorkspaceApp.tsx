@@ -39,7 +39,7 @@ import {
   X,
 } from "lucide-react";
 import { BrandMark, Pressable } from "@veloradesk/ui";
-import { EdgeBack, SheetHandle, useCollapsingTitle } from "./WorkspaceChrome";
+import { EdgeBack, SheetHandle, useCollapsingTitle, useKeyboardViewport, useWorkspaceSize } from "./WorkspaceChrome";
 import { SyncRetry } from "./AccountGate";
 import type {
   CalendarEvent,
@@ -148,49 +148,11 @@ function Loading() {
       <span className="ws-skeleton" />
       <span className="ws-skeleton" />
       <span className="ws-skeleton short" />
-      <span className="ws-muted">Opening your workspace…</span>
     </div>
   );
 }
-function Empty({
-  title,
-  children,
-  action,
-}: {
-  title: string;
-  children: ReactNode;
-  action?: ReactNode;
-}) {
-  return (
-    <div className="ws-empty">
-      <svg width="96" height="88" viewBox="0 0 96 88" aria-hidden="true">
-        <rect
-          x="24"
-          y="10"
-          width="48"
-          height="64"
-          rx="12"
-          fill="var(--surface)"
-          stroke="var(--line)"
-        />
-        <path
-          d="M36 30h24M36 40h18M36 50h24"
-          stroke="var(--accent)"
-          strokeWidth="3"
-          strokeLinecap="round"
-        />
-        <path
-          d="M17 62l-5 4m68-43 5-3M77 72l5 5"
-          stroke="var(--accent)"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
-      <h2>{title}</h2>
-      <p>{children}</p>
-      {action}
-    </div>
-  );
+function Empty({ title, action }: { title: string; children: ReactNode; action?: ReactNode; }) {
+  return <div className="ws-empty" aria-label={title}><FileText size={32} />{action ?? <Pressable className="ws-button" onClick={() => document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }))}>Done</Pressable>}</div>;
 }
 function Sheet({
   open,
@@ -198,18 +160,20 @@ function Sheet({
   title,
   children,
   wide = false,
+  onAfterClose,
 }: {
   open: boolean;
   onOpenChange: (value: boolean) => void;
   title: string;
   children: ReactNode;
   wide?: boolean;
+  onAfterClose?: () => void;
 }) {
   const opener = useRef<HTMLElement | null>(null),
     content = useRef<HTMLDivElement | null>(null);
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
-      <Dialog.Portal>
+      <Dialog.Portal container={document.getElementById("root")}>
         <Dialog.Overlay className="ws-overlay" />
         <Dialog.Content
           ref={content}
@@ -229,6 +193,7 @@ function Sheet({
           onCloseAutoFocus={(event) => {
             event.preventDefault();
             if (opener.current?.isConnected) opener.current.focus();
+            onAfterClose?.();
           }}
         >
           <SheetHandle content={content} open={open} />
@@ -426,6 +391,8 @@ function Tree({ pages, onOpen, onMove, selected }: {
 }
 
 export default function WorkspaceApp() {
+  const layout = useWorkspaceSize();
+  useKeyboardViewport();
   const [module, setModule] = useState<Module>("Today");
   const [pages, setPages] = useState<Page[]>([]);
   const [events, setEvents] = useState<CalendarEvent[]>([]);
@@ -448,8 +415,10 @@ export default function WorkspaceApp() {
   const [listView, setListView] = useState<"list" | "gallery">("list");
   const [filter, setFilter] = useState("");
   const [focus, setFocus] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const history = useRef<{ module: Module; selected: string | null; scroll: number }[]>([]);
   const [sidebarWidth, setSidebarWidth] = useState(
-    Number(readSetting("velora-sidebar-width", "232")),
+    240,
   );
   const [listWidth, setListWidth] = useState(
     Number(readSetting("velora-list-width", "320")),
@@ -575,6 +544,7 @@ export default function WorkspaceApp() {
   const navigate = useCallback((next: Module) => {
     void flushEditors()
       .then(() => {
+        history.current = [];
         setModule(next);
         setSelectedId(null);
         setSidebarOpen(false);
@@ -585,7 +555,12 @@ export default function WorkspaceApp() {
       .catch((cause) => setError(String(cause)));
   }, []);
   const back = useCallback(() => {
-    void flushEditors().then(() => { setSelectedId(null); mainRef.current?.focus(); })
+    void flushEditors().then(() => {
+      const previous = history.current.pop();
+      setSelectedId(previous?.selected ?? null);
+      if (previous) setModule(previous.module);
+      requestAnimationFrame(() => { if (mainRef.current) mainRef.current.scrollTop = previous?.scroll ?? 0; mainRef.current?.focus(); });
+    })
       .catch(cause => setError(String(cause)));
   }, []);
   const toggleSidebar = () => setSidebarCollapsed(previous => {
@@ -598,6 +573,7 @@ export default function WorkspaceApp() {
       .then(() => {
         const page = store.listPages().find((item) => item.id === id);
         if (page) {
+          if (selectedId !== id) history.current.push({ module, selected: selectedId, scroll: mainRef.current?.scrollTop ?? 0 });
           setModule(
             page.type === "note"
               ? "Notes"
@@ -607,6 +583,8 @@ export default function WorkspaceApp() {
           );
           setSelectedId(id);
           setSidebarOpen(false);
+          setEditing(false);
+          requestAnimationFrame(() => { if (mainRef.current) mainRef.current.scrollTop = 0; mainRef.current?.focus(); });
         }
       })
       .catch((cause) => setError(String(cause)));
@@ -617,6 +595,7 @@ export default function WorkspaceApp() {
     extras: Partial<Page> = {},
   ) => {
     await flushEditors();
+    history.current.push({ module, selected: selectedId, scroll: mainRef.current?.scrollTop ?? 0 });
     const page = await store.createPage(type, title, extras);
     setModule(
       type === "note" ? "Notes" : type === "journal" ? "Journal" : "Projects",
@@ -624,7 +603,6 @@ export default function WorkspaceApp() {
     setSelectedId(page.id);
     setCaptureOpen(false);
     setTemplatesOpen(false);
-    notify(type === "journal" ? "Journal entry created" : "Ready when you are");
     return page;
   };
   const movePage = async (
@@ -875,6 +853,10 @@ export default function WorkspaceApp() {
     <div
       data-module={module}
       data-writing={Boolean(selected && selected.type !== "database")}
+      data-editing={editing}
+      data-layout={layout.phone ? "phone" : layout.tablet ? "tablet" : "desktop"}
+      onFocusCapture={event => setEditing(event.target instanceof Element && !!event.target.closest(".rich-editor,.ws-page-title"))}
+      onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setEditing(false); }}
       className={`ws-app ${focus ? "focus-mode" : ""} ${selected ? "has-detail" : ""} ${sidebarCollapsed ? "sidebar-collapsed" : ""}`}
       style={
         {
@@ -888,6 +870,8 @@ export default function WorkspaceApp() {
           <aside
             className={`ws-sidebar ${sidebarOpen ? "open" : ""}`}
             aria-label="Sidebar"
+            aria-hidden={layout.phone && !sidebarOpen}
+            inert={layout.phone && !sidebarOpen}
           >
             <div className="ws-brand">
               <span className="logo">
@@ -910,12 +894,14 @@ export default function WorkspaceApp() {
               <span>Search anything</span>
               <kbd>⌘ K</kbd>
             </Pressable>
+            <Pressable className="ws-icon ws-sidebar-collapse" aria-label={sidebarCollapsed ? "Expand sidebar" : "Compact sidebar"} onClick={toggleSidebar}>{sidebarCollapsed ? <PanelLeftOpen size={20} /> : <PanelLeftClose size={20} />}</Pressable>
             <nav aria-label="Main navigation">
               {modules.map(({ name, icon: Icon }) => (
                 <Pressable
                   key={name}
                   className={`ws-nav ${module === name ? "selected" : ""}`}
                   aria-current={module === name ? "page" : undefined}
+                  aria-label={name}
                   onClick={() => navigate(name)}
                 >
                   <Icon size={20} />
@@ -944,6 +930,7 @@ export default function WorkspaceApp() {
               />
               <Pressable
                 className="ws-sidebar-link"
+                aria-label="Templates"
                 onClick={() => setTemplatesOpen(true)}
               >
                 <LayoutGrid size={16} />
@@ -953,20 +940,22 @@ export default function WorkspaceApp() {
             <div className="ws-sidebar-footer">
               <Pressable
                 className="ws-sidebar-link"
+                aria-label="Trash"
                 onClick={() => setTrashOpen(true)}
               >
                 <Trash2 size={17} />
-                Trash
+                <span>Trash</span>
                 <span className="ws-count">
                   {pages.filter((page) => page.deletedAt).length || ""}
                 </span>
               </Pressable>
               <Pressable
                 className="ws-sidebar-link"
+                aria-label="Settings"
                 onClick={() => setSettingsOpen(true)}
               >
                 <Settings size={17} />
-                Settings
+                <span>Settings</span>
               </Pressable>
             </div>
           </aside>
@@ -979,7 +968,7 @@ export default function WorkspaceApp() {
           />
         </>
       )}
-      <main className="ws-main" ref={mainRef} tabIndex={-1}>
+      <main className="ws-main" ref={mainRef} tabIndex={-1} inert={layout.phone && sidebarOpen}>
         {selected && <EdgeBack main={mainRef} onBack={back} />}
         <header className="ws-topbar">
           <div className="ws-topbar-leading">
@@ -1001,7 +990,7 @@ export default function WorkspaceApp() {
               <>
                 <Pressable
                   className="ws-icon ws-detail-back"
-                  aria-label={`Back to ${module}`}
+                  aria-label={`Back to ${history.current.at(-1)?.module ?? module}`}
                   onClick={back}
                 >
                   <ChevronLeft size={20} />
@@ -1013,37 +1002,15 @@ export default function WorkspaceApp() {
                 </span>
               </>
             ) : (
-              <span className="ws-breadcrumb">Your personal workspace</span>
+              <span className="ws-breadcrumb"></span>
             )}
           </div>
-          <div className="ws-topbar-actions">
-            {focus ? (
-              <Pressable
-                className="ws-button ws-tinted"
-                onClick={() => setFocus(false)}
-              >
-                Leave focus
-              </Pressable>
-            ) : (
-              <>
-                <SyncRetry />
-                <Pressable
-                  className="ws-icon"
-                  aria-label="Search workspace"
-                  onClick={() => setSearchOpen(true)}
-                >
-                  <Search size={20} />
-                </Pressable>
-                {module === "Today" && !selected && livePages.some(page => page.type === "row") &&                 <Pressable
-                  className="ws-button ws-filled ws-capture-desktop"
-                  onClick={() => setCaptureOpen(true)}
-                >
-                  <Plus size={16} />
-                  New task
-                </Pressable>}
-              </>
-            )}
-          </div>
+          <div className="ws-topbar-actions">{selected ? <>
+            <SyncRetry /><Pressable className="ws-icon" aria-label="Page options" onClick={() => window.dispatchEvent(new CustomEvent("kimpor-page-options", { detail: selected.id }))}><MoreHorizontal size={20} /></Pressable>
+          </> : <>
+            <SyncRetry /><Pressable className="ws-icon" aria-label="Search workspace" onClick={() => setSearchOpen(true)}><Search size={20} /></Pressable>
+            {module === "Today" && livePages.some(page => page.type === "row") && <Pressable className="ws-button ws-filled ws-capture-desktop" onClick={() => setCaptureOpen(true)}><Plus size={16} />New task</Pressable>}
+          </>}</div>
         </header>
         {error && (
           <div role="alert" className="ws-error">
@@ -1095,16 +1062,9 @@ export default function WorkspaceApp() {
             <section className="ws-list-pane" aria-label={`${module} list`}>
               <div className="ws-list-heading">
                 <div>
-                  <p className="ws-eyebrow">
-                    {module === "Journal"
-                      ? "A little space for yourself"
-                      : module === "Notes"
-                        ? "Catch a thought"
-                        : "Make room for ideas"}
-                  </p>
                   <h1>{module}</h1>
                 </div>
-                {module !== "Journal" && (
+                {module !== "Journal" && listPages.length > 0 && (
                 <Pressable
                   className="ws-icon ws-tinted"
                   aria-label={`New ${module === "Notes" ? "note" : "project"}`}
@@ -1125,13 +1085,6 @@ export default function WorkspaceApp() {
                 </Pressable>
                 )}
               </div>
-              {module === "Journal" && (
-                <JournalOverview
-                  pages={livePages.filter((page) => page.type === "journal")}
-                  onOpen={openPage}
-                  onWrite={() => void run(() => create("journal", "", { date: localDate() }))}
-                />
-              )}
               <div className="ws-list-tools">
                 <label className="ws-search-field">
                   <Search size={16} />
@@ -1218,6 +1171,7 @@ export default function WorkspaceApp() {
                         ? "No matching items"
                         : `Your ${module.toLowerCase()} starts here`
                     }
+                    action={<Pressable className="ws-button ws-tinted" onClick={() => filter ? setFilter("") : module === "Projects" ? setProjectOpen(true) : void run(() => create("note"))}>{filter ? "Clear" : module === "Projects" ? "New project" : "New note"}</Pressable>}
                   >
                     {filter
                       ? "Try a different word or tag."
@@ -1225,7 +1179,7 @@ export default function WorkspaceApp() {
                         ? "Write a few words, keep a memory, or simply check in."
                         : module === "Notes"
                           ? "Ideas, checklists, and everything you want to keep."
-                          : "Create a page or database. Everything is saved on your device."}
+                          : ""}
                   </Empty>
                 </div>
               )}
@@ -1342,7 +1296,7 @@ export default function WorkspaceApp() {
         <SettingsPanel onNotify={notify} onError={setError} />
       </Sheet>
       <Sheet open={trashOpen} onOpenChange={setTrashOpen} title="Trash">
-        <p className="ws-muted">Deleted items can be restored here.</p>
+
         {pages.filter((page) => page.deletedAt).length ? (
           pages
             .filter((page) => page.deletedAt)
@@ -1508,29 +1462,21 @@ function Today({ pages, events, databases, onOpen, onCapture, onCalendar, onComp
   </div>;
 }
 
-function JournalHome({ pages, onOpen, onWrite }: {
-  pages: Page[]; onOpen: (id: string) => void; onWrite: (date: string) => void;
-}) {
+function JournalHome({ pages, onOpen, onWrite }: { pages: Page[]; onOpen: (id: string) => void; onWrite: (date: string) => void; }) {
   const [query, setQuery] = useState("");
   const entries = pages.filter(page => `${page.title} ${page.properties.__locked ? "" : page.properties.__text ?? ""}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
-    .sort((a, b) => (b.date ?? b.createdAt.slice(0, 10)).localeCompare(a.date ?? a.createdAt.slice(0, 10)));
+    .sort((a,b) => (b.date ?? b.createdAt.slice(0,10)).localeCompare(a.date ?? a.createdAt.slice(0,10)));
+  const today = pages.find(page => page.date === localDate());
+  const write = () => today ? onOpen(today.id) : onWrite(localDate());
   return <section className="ws-journal-home" aria-label="Journal">
-    <header className="ws-journal-home-heading"><div><p className="ws-eyebrow">YOUR DAYS, IN YOUR WORDS</p><h1>Journal</h1></div>
-      <span className="ws-journal-count">{pages.length} {pages.length === 1 ? "entry" : "entries"}</span></header>
-    <div className="ws-journal-home-grid">
-      <aside className="ws-journal-home-aside"><JournalOverview pages={pages} onOpen={onOpen} onWrite={() => onWrite(localDate())} />
-        <div className="ws-journal-prompt"><PenLine size={20} /><h3>A place to pause.</h3><p>A thought, a small win, or a moment you want to keep.</p></div>
-      </aside>
-      <div className="ws-journal-entry-browser">
-        <div className="ws-journal-browser-heading"><h2>Your entries</h2></div>
-        <label className="ws-search-field"><Search size={17} /><input type="search" aria-label="Search journal" placeholder="Find an entry" value={query} onChange={event => setQuery(event.target.value)} /></label>
-        {entries.length ? <PageList pages={entries} onOpen={onOpen} gallery={false} /> : <div className="ws-journal-empty"><BookOpen size={30} /><h3>{query ? "No matching entries" : "Your story starts here"}</h3><p>{query ? "Try a different word." : "Write today. Your moments will collect here."}</p></div>}
-      </div>
-    </div>
+    <header className="ws-journal-home-heading"><h1>Journal</h1>{pages.length > 0 && <Pressable className="ws-button ws-tinted" aria-label={today ? "Continue" : "Write"} onClick={write}><PenLine size={18} />{today ? "Continue" : "Write"}</Pressable>}</header>
+    {pages.length > 0 && <label className="ws-search-field"><Search size={18} /><input type="search" aria-label="Search journal" placeholder="Search" value={query} onChange={event => setQuery(event.target.value)} /></label>}
+    {entries.length ? <PageList pages={entries} onOpen={onOpen} gallery={false} /> : <div className="ws-journal-empty"><BookOpen size={32} /><Pressable className="ws-button ws-tinted" aria-label={query ? "Clear" : "Write"} onClick={() => query ? setQuery("") : write()}>{query ? "Clear" : "Write"}</Pressable></div>}
+    {pages.length > 0 && <JournalOverview pages={pages} onOpen={onOpen} onWrite={() => onWrite(localDate())} />}
   </section>;
 }
 
-function JournalOverview({ pages, onOpen, onWrite }: {
+function JournalOverview({ pages, onOpen }: {
   pages: Page[];
   onOpen: (id: string) => void;
   onWrite: () => void;
@@ -1548,19 +1494,10 @@ function JournalOverview({ pages, onOpen, onWrite }: {
     if (!dates.has(localDate(date))) break;
     streak++;
   }
-  const today = pages.find((page) => page.date === localDate());
   return (
     <div className="ws-journal-overview">
-      <div className="ws-journal-invitation">
-        <div className="ws-journal-today-label"><span className="ws-journal-today-date">{new Date().getDate()}</span><span><strong>Today</strong><time>{new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</time></span></div>
-        <h2>{today ? "Pick up where you left off." : "A little time for yourself."}</h2>
-        <p className="ws-journal-invitation-copy">{today ? "Your words are waiting for you." : "Start with whatever is on your mind."}</p>
-        <Pressable className="ws-button primary" onClick={() => today ? onOpen(today.id) : onWrite()}>
-          <PenLine size={18} />{today ? "Continue writing" : "Write today"}
-        </Pressable>
-      </div>
       <details className="ws-journal-history">
-        <summary>Writing history<ChevronDown size={16} aria-hidden="true" /></summary>
+        <summary>History<ChevronDown size={16} aria-hidden="true" /></summary>
         <p className="ws-journal-history-caption">Last 12 weeks{streak ? ` · ${streak} ${streak === 1 ? "day" : "days"} of writing` : ""}</p>
       <div className="ws-journal-week" aria-label="Journal this week">
         {days.slice(-7).map((date) => {
@@ -1787,6 +1724,12 @@ function PageDetail({
   onError: (message: string) => void;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const openFormatting = useRef(false);
+  useEffect(() => {
+    const open = (event: Event) => { if ((event as CustomEvent).detail === page.id) setMenuOpen(true); };
+    window.addEventListener("kimpor-page-options", open);
+    return () => window.removeEventListener("kimpor-page-options", open);
+  }, [page.id]);
   const [versionsOpen, setVersionsOpen] = useState(false);
   const [title, setTitle] = useState(page.title);
   const [titleState, setTitleState] = useState("");
@@ -1837,16 +1780,6 @@ function PageDetail({
       void persistTitle().catch((cause) => onError(String(cause)));
     }, 300);
   };
-  const ancestors: Page[] = [];
-  let parent = page.parentId;
-  const visited = new Set<string>();
-  while (parent && !visited.has(parent)) {
-    visited.add(parent);
-    const item = pages.find((candidate) => candidate.id === parent);
-    if (!item) break;
-    ancestors.unshift(item);
-    parent = item.parentId;
-  }
   const definition = databases.find((database) => database.id === page.id);
   const backlinks = pages.filter(
     (candidate) =>
@@ -1876,40 +1809,7 @@ function PageDetail({
           className={`ws-page-cover ${["blue", "purple", "warm"].includes(page.cover) ? page.cover : ""}`}
         />
       )}
-      {ancestors.length > 0 && (
-        <nav className="ws-ancestors" aria-label="Page breadcrumbs">
-          {ancestors.map((item) => (
-            <span key={item.id}>
-              <Pressable onClick={() => onOpen(item.id)}>
-                {titleOf(item)}
-              </Pressable>
-              <ChevronRight size={14} />
-            </span>
-          ))}
-        </nav>
-      )}
-      <div className="ws-page-detail-toolbar">
-        {titleState && <Pressable className="ws-sync-retry" aria-label="Retry title" onClick={() => void persistTitle().catch(cause => onError(String(cause)))}><span className="ws-status-dot" />Retry</Pressable>}
-        <div>
-          <Pressable
-            className="ws-icon"
-            aria-label={
-              page.favorite ? "Remove from favorites" : "Add to favorites"
-            }
-            aria-pressed={page.favorite}
-            onClick={() => void onPatch({ favorite: !page.favorite })}
-          >
-            <Star size={18} fill={page.favorite ? "currentColor" : "none"} />
-          </Pressable>
-          <Pressable
-            className="ws-icon"
-            aria-label="Page options"
-            onClick={() => setMenuOpen(true)}
-          >
-            <MoreHorizontal size={20} />
-          </Pressable>
-        </div>
-      </div>
+      {titleState && <Pressable className="ws-sync-retry" aria-label="Retry title" onClick={() => void persistTitle().catch(cause => onError(String(cause)))}><span className="ws-status-dot" />Retry</Pressable>}
       <div className="ws-page-title-row">
         <Pressable
           className="ws-page-emoji"
@@ -1931,27 +1831,6 @@ function PageDetail({
           }}
         />
       </div>
-      {page.type === "journal" && <div className="ws-journal-entry-date"><CalendarDays size={15} /><time>{displayDate(page.date ?? localDate())}</time>
-        <Pressable className="ws-journal-mood-summary" aria-label="Journal date and mood" onClick={() => setMenuOpen(true)}>
-          {page.properties.mood ? ["😔", "🙁", "😐", "🙂", "😊"][Number(page.properties.mood) - 1] : "How I feel"}
-        </Pressable></div>}
-      {page.tags.length > 0 && (
-        <div className="ws-tags">
-          {page.tags.map((tag) => (
-            <span key={tag}>#{tag}</span>
-          ))}
-        </div>
-      )}
-      {page.type === "row" && (<details className="ws-task-details"><summary>Details</summary>
-        <RowProperties
-          page={page}
-          definition={databases.find(
-            (database) => database.id === page.databaseId,
-          )}
-          pages={pages}
-          onPatch={onPatch}
-        /></details>
-      )}
       {page.type === "database" ? (
         definition ? (
           <DatabaseEditor
@@ -1963,7 +1842,7 @@ function PageDetail({
             onError={onError}
           />
         ) : (
-          <p className="ws-muted">Preparing database…</p>
+          <Loading />
         )
       ) : (
         <Suspense fallback={<Loading />}>
@@ -1980,7 +1859,29 @@ function PageDetail({
           />
         </Suspense>
       )}
-      {page.type !== "database" && (page.type === "page" || pages.some((child) => child.parentId === page.id) || backlinks.length > 0) && (
+      {page.type !== "database" && <details className="ws-page-details"><summary>Details</summary>
+      {page.type === "journal" && <div className="ws-journal-entry-date"><CalendarDays size={15} /><time>{displayDate(page.date ?? localDate())}</time>
+        <Pressable className="ws-journal-mood-summary" aria-label="Journal date and mood" onClick={() => setMenuOpen(true)}>
+          {page.properties.mood ? ["😔", "🙁", "😐", "🙂", "😊"][Number(page.properties.mood) - 1] : "How I feel"}
+        </Pressable></div>}
+      {page.tags.length > 0 && (
+        <div className="ws-tags">
+          {page.tags.map((tag) => (
+            <span key={tag}>#{tag}</span>
+          ))}
+        </div>
+      )}
+      {page.type === "row" && (
+        <RowProperties
+          page={page}
+          definition={databases.find(
+            (database) => database.id === page.databaseId,
+          )}
+          pages={pages}
+          onPatch={onPatch}
+        />
+      )}
+      {(page.type === "page" || pages.some((child) => child.parentId === page.id) || backlinks.length > 0) && (
         <div className="ws-page-links">
           <div className="ws-page-links-heading">
             <h3>Inside this page</h3>
@@ -2012,7 +1913,11 @@ function PageDetail({
           )}
         </div>
       )}
-      <Sheet open={menuOpen} onOpenChange={setMenuOpen} title="Page options">
+      </details>}
+      <Sheet open={menuOpen} onOpenChange={setMenuOpen} title="Page options" onAfterClose={() => {
+        if (openFormatting.current) { openFormatting.current = false; requestAnimationFrame(() => window.dispatchEvent(new Event("kimpor-editor-tools"))); }
+      }}>
+        {page.type !== "database" && <Pressable className="ws-button" onClick={() => { openFormatting.current = true; setMenuOpen(false); }}>Formatting</Pressable>}
         <div className="ws-page-menu">
           <Pressable className="ws-menu-row" onClick={() => void onPatch({ favorite: !page.favorite })}>
             <Star size={18} />{page.favorite ? "Remove from favorites" : "Add to favorites"}
@@ -2166,7 +2071,7 @@ function PageDetail({
               onNotify(
                 page.properties.__template
                   ? "Template removed"
-                  : "Saved as a template",
+                  : "Template added",
               );
             }}
           >
@@ -2447,7 +2352,7 @@ function PropertyInput({
         </label>
         {Array.isArray(value) &&
           value.map((name) => <span key={name}>{name}</span>)}
-        <small>File names only. Add actual files in the row editor.</small>
+        <small></small>
       </span>
     );
   return (

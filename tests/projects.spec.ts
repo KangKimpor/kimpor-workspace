@@ -1,5 +1,7 @@
+import { leaveWriting } from './workspace-actions';
 import { test, expect, type Page } from "@playwright/test";
 async function navigate(page: Page, name: string) {
+  await leaveWriting(page);
   const nav = page.getByRole("navigation", { name: page.viewportSize()!.width < 600 ? "Bottom navigation" : "Main navigation", exact: true });
   await nav.getByRole("button", { name, exact: true }).click();
 }

@@ -30,7 +30,7 @@ export function saveAppearance(key: string, value: string): void {
       window.dispatchEvent(
         new CustomEvent("velora-appearance-error", {
           detail:
-            "Appearance is saved on this device, but could not be queued for sync.",
+            "Try again",
         }),
       ),
     );

@@ -34,6 +34,9 @@ function Router() {
     return () => window.removeEventListener("popstate", change);
   }, []);
   const foundation = path.includes("/design") || path.includes("/spikes/");
+  React.useLayoutEffect(() => {
+    document.getElementById("root")!.dataset.workspace = String(!foundation);
+  }, [foundation]);
   return (
     <Suspense
       fallback={

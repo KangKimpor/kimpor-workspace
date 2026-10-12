@@ -65,7 +65,7 @@ export function calendarTransport(): CalendarTransport {
   if (!config)
     return async () => {
       throw new Error(
-        "Connected calendars need cloud setup. Local calendars work offline.",
+        "Calendar unavailable",
       );
     };
   return authenticatedCalendarTransport(
