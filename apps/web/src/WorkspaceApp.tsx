@@ -3350,10 +3350,8 @@ function SettingsPanel({
       </section>
       <section>
         <h3>Import and export</h3>
-        <p>
-          Export the complete workspace, including document snapshots. Encrypted
-          entries remain encrypted.
-        </p>
+        <ImportExportSettings onNotify={onNotify} onError={onError} />
+        <details><summary>More</summary>
         <div className="ws-settings-actions">
           <Pressable
             className="ws-button ws-tinted"
@@ -3391,14 +3389,10 @@ function SettingsPanel({
               });
           }}
         />
-        <ImportExportSettings onNotify={onNotify} onError={onError} />
+        </details>
       </section>
       <section>
         <h3>Notifications</h3>
-        <p>
-          In-app reminders appear while Kimpor Workspace is open. Background reminders
-          require an installed web app and configured cloud notifications.
-        </p>
         <div className="ws-settings-actions">
           <Pressable
             className="ws-button"
@@ -3408,7 +3402,7 @@ function SettingsPanel({
                 .catch((cause) => onError(String(cause)))
             }
           >
-            Enable notifications
+            Enable
           </Pressable>
           <Pressable
             className="ws-button"
@@ -3418,7 +3412,7 @@ function SettingsPanel({
                 .catch((cause) => onError(String(cause)))
             }
           >
-            Disable background notifications
+            Disable
           </Pressable>
         </div>
       </section>

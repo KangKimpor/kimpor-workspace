@@ -94,7 +94,8 @@ try {
         // Capture the settled compositor paint after the navigation is at rest.
         await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
         // Wait for asynchronous account-cache reads and the final WebKit paint.
-        if(screen==='today'||screen==='calendar')await expect(page.locator('main').getByText('A little time to plan',{exact:true}).first()).toBeVisible();
+        if(screen==='today')await expect(page.locator('main').getByText('A little time to plan',{exact:true}).first()).toBeVisible();
+        if(screen==='calendar')await expect(page.locator('.cal-selected-day').getByText('A little time to plan',{exact:true})).toBeVisible();
         await page.waitForTimeout(350);
         const file=`docs/screenshots/${screen}-${name}-${theme}.png`;
         const overflow=await page.evaluate(()=>document.documentElement.scrollWidth > innerWidth+1);
