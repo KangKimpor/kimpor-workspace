@@ -92,7 +92,6 @@ function Invoke-InstalledWorkspaceCheck($Application, [string]$Executable, [Date
   $text = 'Saved in the installed app · ខ្មែរ · 中文'
   Set-WorkspaceText (Wait-WorkspaceControl $root 'Document editor') $text $Application
   $null = Wait-WorkspaceText $root 'Document editor' $text
-  $null = Wait-WorkspaceControl $root 'Saved on this device'
   Invoke-WorkspaceControl (Wait-WorkspaceControl $root 'Today' $button)
   $null = Wait-WorkspaceControl $root "Today's agenda"
   if (!$Application.CloseMainWindow() -or !$Application.WaitForExit(10000) -or $Application.ExitCode -ne 0) { throw 'Installed app did not close normally before persistence check' }
@@ -109,8 +108,7 @@ function Invoke-InstalledWorkspaceCheck($Application, [string]$Executable, [Date
     Invoke-WorkspaceControl (Wait-WorkspaceControl $root 'Notes' $button)
     Invoke-WorkspaceControl (Wait-WorkspaceControl $root 'Windows verification note' $button -Contains)
     $null = Wait-WorkspaceText $root 'Document editor' $text
-    $null = Wait-WorkspaceControl $root 'Saved on this device'
-    @{
+      @{
       date = [DateTime]::UtcNow.ToString('o'); source_commit = $env:GITHUB_SHA
       mode = 'Installed Windows release app through UI Automation; synthetic Unicode input, no physical-device, IME or screen-reader claim'
       rendered = $true; rendered_today_ms = [Math]::Round($renderedMs)

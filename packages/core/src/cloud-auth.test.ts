@@ -10,6 +10,8 @@ const session = {
   access_token: "test-access",
   refresh_token: "test-refresh",
   expires_at: Math.floor(Date.now() / 1000) + 3600,
+  expires_in: 3600,
+  token_type: "bearer",
   user: {
     id: "11111111-1111-4111-8111-111111111111",
     email: "owner@example.test",
@@ -52,7 +54,7 @@ function response(body: unknown, status = 200) {
 it("clears invitation bearer fragments without adopting an unsolicited account", async () => {
   const auth = await import("./cloud-auth");
   await expect(auth.consumeAuthRedirect("https://workspace.example.test/#access_token=untrusted&refresh_token=untrusted"))
-    .rejects.toThrow("Settings → Account");
+    .rejects.toThrow("Start sign-in");
   expect(history.replaceState).toHaveBeenCalledWith({}, "", "/");
   expect(fetcher).not.toHaveBeenCalled();
   expect(saved.size).toBe(0);
@@ -89,12 +91,10 @@ it("uses six-digit email codes and propagates provider failures", async () => {
   expect(JSON.parse(fetcher.mock.calls[0]![1].body)).toMatchObject({
     email: "me@example.test",
     create_user: true,
-    code_challenge_method: "s256",
   });
-  const pending = JSON.parse(saved.get("velora-pkce-v1")!);
-  const sent = new URL(fetcher.mock.calls[0]![0]);
-  expect(sent.searchParams.get("redirect_to")).toBe(pending.redirect);
-  expect(JSON.parse(fetcher.mock.calls[0]![1].body).code_challenge).not.toBe(pending.verifier);
+  expect(JSON.parse(fetcher.mock.calls[0]![1].body).code_challenge).toBeNull();
+  expect(new URL(fetcher.mock.calls[0]![0]).searchParams.has("redirect_to")).toBe(false);
+  expect(saved.has("velora-pkce-v1")).toBe(false);
   const listener = vi.fn();
   const cleanup = auth.onSessionChange(listener);
   fetcher.mockResolvedValueOnce(response(session));
@@ -118,15 +118,14 @@ it("uses six-digit email codes and propagates provider failures", async () => {
     auth.verifyEmailCode("me@example.test", "123456"),
   ).rejects.toThrow("Invalid sign-in");
 });
-it("accepts a state-bound PKCE email link and reports enabled providers", async () => {
+it("accepts a state-bound PKCE OAuth return and reports enabled providers", async () => {
   const auth = await import("./cloud-auth");
-  fetcher.mockResolvedValueOnce(response({}));
-  await auth.sendEmailCode("me@example.test");
+  await auth.signInGoogle();
   const pending = JSON.parse(saved.get("velora-pkce-v1")!);
   await expect(auth.consumeAuthRedirect(`${pending.redirect}&code=email-code&state=wrong`)).rejects.toThrow();
   fetcher.mockResolvedValueOnce(response(session));
   expect(await auth.consumeAuthRedirect(`${pending.redirect}&code=email-code`)).toEqual(session);
-  expect(JSON.parse(fetcher.mock.calls[1]![1].body)).toEqual({ auth_code: "email-code", code_verifier: pending.verifier });
+  expect(JSON.parse(fetcher.mock.calls[0]![1].body)).toEqual({ auth_code: "email-code", code_verifier: pending.verifier });
   fetcher.mockResolvedValueOnce(response({ external: { google: false } }));
   expect(await auth.availableAuthProviders()).toEqual({ google: false });
   fetcher.mockResolvedValueOnce(response({ external: { google: true } }));
@@ -180,6 +179,9 @@ it("retains an offline session on transient refresh failure and clears revoked o
   await expect(auth.currentSession()).rejects.toThrow();
   expect(saved.has("velora-cloud-session-v1")).toBe(true);
   vi.stubGlobal("navigator", { onLine: true });
+  fetcher.mockResolvedValueOnce(response({ msg: "Unavailable" }, 503));
+  await expect(auth.currentSession()).rejects.toThrow("Unavailable");
+  expect(saved.has("velora-cloud-session-v1")).toBe(true);
   fetcher.mockResolvedValueOnce(response({ msg: "Revoked" }, 401));
   await expect(auth.currentSession()).rejects.toThrow("Revoked");
   expect(saved.has("velora-cloud-session-v1")).toBe(false);

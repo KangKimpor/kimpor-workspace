@@ -33,7 +33,8 @@
     "visual:record": "node scripts/visual.mjs --record",
     "visual:check": "node scripts/visual.mjs",
     "licenses:cargo": "node scripts/licenses-cargo.mjs",
-    "licenses:deno": "node scripts/licenses-deno.mjs"
+    "licenses:deno": "node scripts/licenses-deno.mjs",
+    "e2e:auth": "node scripts/auth-test.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",

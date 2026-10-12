@@ -43,7 +43,7 @@ try {
       await seedTime(-3000);
       await page.getByRole('button',{name:'New database',exact:true}).click();
       await page.getByRole('textbox',{name:'Page title'}).fill('Projects');
-      await expect(page.locator('.ws-page-detail .ws-save-state')).toHaveText('Saved');
+      await expect(page.getByRole('textbox',{name:'Page title'})).toHaveValue('Projects');
       await seedTime(-2000);
       await page.getByRole('button',{name:'New row',exact:true}).click();
       await page.getByRole('textbox',{name:'Document editor'}).waitFor();

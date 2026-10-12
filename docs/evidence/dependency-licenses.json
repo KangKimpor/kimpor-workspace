@@ -2043,6 +2043,19 @@
       "description": "Utilities for all Sentry JavaScript SDKs"
     },
     {
+      "name": "@supabase/auth-js",
+      "versions": [
+        "2.117.3"
+      ],
+      "paths": [
+        "/workspace/veloradesk/node_modules/.pnpm/@supabase+auth-js@2.117.3/node_modules/@supabase/auth-js"
+      ],
+      "license": "MIT",
+      "author": "Supabase",
+      "homepage": "https://github.com/supabase/supabase-js/tree/master/packages/core/auth-js",
+      "description": "Official SDK for Supabase Auth"
+    },
+    {
       "name": "@tailwindcss/node",
       "versions": [
         "4.3.3"

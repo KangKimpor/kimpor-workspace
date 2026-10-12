@@ -39,7 +39,6 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import {
   Bold,
-  Check,
   Code2,
   Paperclip,
   GripVertical,
@@ -55,7 +54,6 @@ import {
   Plus,
   Redo2,
   Search,
-  ShieldCheck,
   Underline,
   Undo2,
   X,
@@ -86,7 +84,7 @@ import {
   Toggle,
 } from "./editor-nodes";
 const SketchCanvas = lazy(() => import("./SketchCanvas"));
-import { registerEditorFlush } from "./editor-lifecycle";
+import { flushEditors, registerEditorFlush } from "./editor-lifecycle";
 import "./rich-editor.css";
 
 interface Session {
@@ -296,7 +294,7 @@ function SessionEditor({
   onLock: () => void;
   onEnableEncryption: () => void;
 }) {
-  const [status, setStatus] = useState("Saved on this device"),
+  const [status, setStatus] = useState(""),
     [menu, setMenu] = useState<Menu | null>(null),
     [query, setQuery] = useState(""),
     [activeCommand, setActiveCommand] = useState(0);
@@ -594,7 +592,7 @@ function SessionEditor({
               (value, index) => value === saved.state[index],
             )
           ) {
-            if (mounted.current) setStatus("Saved on this device");
+            if (mounted.current) setStatus("");
             return;
           }
           const envelope = await encryptWithKey(
@@ -612,7 +610,7 @@ function SessionEditor({
           saved.state = state;
         } else {
           if (!saved.pending) {
-            if (mounted.current) setStatus("Saved on this device");
+            if (mounted.current) setStatus("");
             return;
           }
           // Persist only changes since the last successful write. The store
@@ -621,7 +619,7 @@ function SessionEditor({
           const update = Y.encodeStateAsUpdate(session.doc, saved.vector);
           saved.pending = false;
           if (update.length === 2 && update[0] === 0 && update[1] === 0) {
-            if (mounted.current) setStatus("Saved on this device");
+            if (mounted.current) setStatus("");
             return;
           }
           try {
@@ -633,7 +631,7 @@ function SessionEditor({
           saved.vector = vector;
           onText.current?.(editor.getText());
         }
-        if (mounted.current) setStatus("Saved on this device");
+        if (mounted.current) setStatus("");
       };
       const next = saveQueue.current.then(action);
       saveQueue.current = next.catch(() => {
@@ -644,7 +642,7 @@ function SessionEditor({
     };
     const schedule = (update: Uint8Array, origin: unknown) => {
       saved.pending = true;
-      if (mounted.current) setStatus("Saving…");
+      if (mounted.current) setStatus("");
       clearTimeout(timer.current);
       timer.current = setTimeout(() => {
         void persist.current().catch(() => undefined);
@@ -1372,11 +1370,7 @@ function SessionEditor({
           </Pressable>
         </p>
       )}
-      <div className="rich-save-status" role="status">
-        {session.key ? <ShieldCheck size={15} /> : <Check size={15} />} {status}
-        {session.key && " · Encrypted"}
-        <span>Type / for blocks · @ for pages</span>
-      </div>
+      {status && <Pressable className="ws-sync-retry" aria-label="Retry document" onClick={() => void flushEditors().catch(() => {})}><span className="ws-status-dot" />Retry</Pressable>}
     </div>
   );
 }
@@ -1438,7 +1432,7 @@ export default function RichTextEditor({
       .catch(() => {
         if (active)
           setError(
-            "Could not open local storage. Your document has not been changed.",
+            "Could not open document.",
           );
       })
       .finally(() => {

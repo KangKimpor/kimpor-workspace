@@ -995,6 +995,40 @@ export class WorkspaceStore {
     await this.initialized;
     if (archive) await this.importData(archive);
   }
+  /** Adopt a guest cache after the initial account pull; account fields win. */
+  async mergeCacheArchive(json: string): Promise<void> {
+    const user = this.user;
+    const archive = JSON.parse(json) as WorkspaceArchive;
+    const existing = await this.entities.where("userId").equals(user).toArray();
+    const existingPages = new Map(existing.filter(row => row.table === "pages").map(row => [row.id, row]));
+    const keys = new Set(existing.map(row => `${row.table}:${row.id}`));
+    const freshPages = new Set(archive.entities.filter(row => row.table === "pages" && !existingPages.has(row.entity.id)).map(row => row.entity.id));
+    const attachments = new Set((await this.attachments.where("userId").equals(user).toArray()).map(row => row.id));
+    const settings = new Set((await this.meta.where("key").startsWith(`setting:${user}:`).toArray()).map(row => row.key));
+    archive.entities = archive.entities.filter(row => !keys.has(`${row.table}:${row.entity.id}`));
+    const sharedDocuments = archive.documents.filter(row => {
+      const page = existingPages.get(row.pageId);
+      return page && !page.fields.deletedAt?.value && !recordProperties(page).__encrypted && !recordProperties(page).__locked;
+    });
+    for (const row of sharedDocuments) validateUpdate(base64ToBytes(row.update));
+    archive.documents = archive.documents.filter(row => freshPages.has(row.pageId));
+    archive.versions = archive.versions.filter(row => freshPages.has(row.pageId));
+    archive.encryptedDocuments = archive.encryptedDocuments?.filter(row => freshPages.has(row.pageId));
+    const sharedPageIds = new Set(sharedDocuments.map(row => row.pageId));
+    const sharedAttachments = archive.attachments?.filter(row => !attachments.has(row.id) && sharedPageIds.has(row.pageId)) ?? [];
+    archive.attachments = archive.attachments?.filter(row => !attachments.has(row.id) && freshPages.has(row.pageId));
+    archive.settings = archive.settings?.filter(row => !settings.has(`setting:${user}:${row.key}`));
+    if (this.user !== user) throw new Error("Account changed during cache adoption");
+    await this.importData(JSON.stringify(archive));
+    for (const row of sharedDocuments) {
+      if (this.user !== user) throw new Error("Account changed during cache adoption");
+      await this.saveDoc(row.pageId, base64ToBytes(row.update));
+    }
+    for (const row of sharedAttachments) {
+      if (this.user !== user) throw new Error("Account changed during cache adoption");
+      await this.saveAttachmentBytes(row.pageId, base64ToBytes(row.bytes), row.name, row.id, row.mime);
+    }
+  }
   async pendingChanges(limit = 100): Promise<SyncChange[]> {
     return (await this.outbox.where("userId").equals(this.user).toArray())
       .sort(

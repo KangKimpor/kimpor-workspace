@@ -1,7 +1,7 @@
 # Kimpor Workspace working memory
 
-Updated 2026-10-11 UTC. Phase 1–3 local implementation is ready for continued
-verification and deployment. Read docs/PHASES-1-3-REPORT.md and docs/VERIFICATION.md.
+Updated 2026-10-12 UTC. Account-first redesign is in progress. Read
+docs/ACCOUNT-FIRST-REDESIGN.md and docs/VERIFICATION.md before editing.
 
 ## Authorization and decisions
 
@@ -11,8 +11,8 @@ and PR-before-merge rules. Do not request the same authorization again.
 
 Kimpor Workspace, public MIT, KangKimpor/kimpor-workspace, derived A monogram, unsigned Windows
 initially. Original signature and updater key/password are private and ignored.
-Only current free plans, no cards, paid trials or subscriptions. Local work never
-requires cloud. Free-service availability and storage are finite.
+Only current free plans, no cards, paid trials or subscriptions. Unconfigured
+builds are for development and fixture tests. Service capacity is finite.
 
 ## Commands
 
@@ -57,7 +57,10 @@ after the environment restart; set LD_LIBRARY_PATH to its usr/lib/x86_64-linux-g
 when running local WebKit. CI uses normal installed dependencies.
 
 
-IndexedDB is authoritative. Lists are cached synchronous reads; writes and cursor
+The account is authoritative. IndexedDB is an invisible cache and outbox.
+First sign-in pulls the account before additive cache adoption; account fields
+win collisions and compatible Yjs documents merge. Never restore an older export
+over account data. Lists are cached synchronous reads; writes and cursor
 application are transactional. Capture owner before awaits and recheck after
 network calls. patchPage(properties) replaces properties; pass existing keys
 when changing one value. Per-property HLCs preserve concurrent independent edits.
@@ -104,7 +107,7 @@ The dedicated Supabase Free/NANO project kimpor-workspace
 (nlcpjdokfvawlpzyfytx, Singapore) is deployed: ten migrations, eight active Edge
 functions, owner RLS/private Storage, Auth redirects and maintenance cron verified.
 Public Pages has cloud configured by default; KIMPOR_CLOUD_READY=false is the
-explicit local-only switch. Default free email sign-in is restricted to project
+development/test flag, with no UI control. Default free email sign-in is restricted to project
 team addresses. One real owner account was created and confirmed during the
 requested private Notion migration. Do not put its email, tasks or exports in Git.
 Private migration files and deployment token are in .private; never archive them

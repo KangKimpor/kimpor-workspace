@@ -13,11 +13,13 @@ import {
 } from "@veloradesk/core/cloud-auth";
 import { flushEditors } from "./editor-lifecycle";
 interface CloudState {
+  ready: boolean;
   session: CloudSession | null;
   status: SyncStatus;
   error: string;
 }
 let state: CloudState = {
+  ready: false,
   session: null,
   status: { state: "local", pending: 0, lastSyncedAt: null, error: null },
   error: "",
@@ -28,6 +30,9 @@ let stopNudges: (() => void) | undefined;
 let transition = Promise.resolve();
 let references = 0;
 let dispose: (() => void) | undefined;
+let cacheArchive: string | null = null;
+let cacheOwner: string | null = null;
+let adoptionFlight: Promise<void> | null = null;
 const emit = () => listeners.forEach((listener) => listener());
 export const cloudState = {
   subscribe(listener: () => void) {
@@ -40,16 +45,20 @@ export const cloudState = {
   sync: async () => engine?.run(),
 };
 async function bind(session: CloudSession | null) {
+  await adoptionFlight;
   await flushEditors();
   engine?.stop();
   engine = null;
   stopNudges?.();
   stopNudges = undefined;
-  const adopt =
-    session && localStorage.getItem("velora-adopt-next-account") === "true";
-  if (session) localStorage.removeItem("velora-adopt-next-account");
-  await store.bindAccount(session?.user.id ?? null, { adoptLocal: !!adopt });
+  if (session && store.accountId === "local" && !localStorage.getItem("velora-cache-adopted-v1")) {
+    const owner = localStorage.getItem("velora-cache-adoption-owner-v1") ?? session.user.id;
+    localStorage.setItem("velora-cache-adoption-owner-v1", owner);
+    if (owner === session.user.id) { cacheOwner = owner; cacheArchive = await store.exportData(); }
+  }
+  await store.bindAccount(session?.user.id ?? null, { adoptLocal: false });
   state = {
+    ready: true,
     session,
     status: {
       state: session ? "syncing" : "local",
@@ -65,17 +74,28 @@ async function bind(session: CloudSession | null) {
   if (!session) return;
   engine = new SyncEngine(store, new SupabaseTransport());
   const current = engine;
+  const adoptCache = () => {
+    if (!cacheArchive || cacheOwner !== session.user.id || adoptionFlight || engine !== current || current.getSnapshot().state !== "synced") return;
+    const archive = cacheArchive;
+    adoptionFlight = store.mergeCacheArchive(archive).then(() => {
+      if (engine !== current) return;
+      cacheArchive = null;
+      localStorage.setItem("velora-cache-adopted-v1", "true");
+      return current.run();
+    }).catch(error => {
+      if (engine === current) { state = { ...state, error: String(error) }; emit(); }
+    }).finally(() => { adoptionFlight = null; });
+  };
   current.subscribe(() => {
     if (engine === current) {
-      state = { ...state, status: current.getSnapshot() };
+      const status = current.getSnapshot();
+      state = { ...state, status, error: status.state === "synced" ? "" : state.error };
       emit();
+      adoptCache();
     }
   });
   current.start();
   stopNudges = await subscribeCloudNudges(() => void current.run());
-}
-export function adoptLocalOnNextSignIn(value: boolean) {
-  localStorage.setItem("velora-adopt-next-account", String(value));
 }
 export function startCloud(): () => void {
   references++;
@@ -88,6 +108,7 @@ export function startCloud(): () => void {
         .catch((error) => {
           state = {
             ...state,
+            ready: true,
             error: String(error),
             status: {
               ...state.status,
@@ -102,7 +123,7 @@ export function startCloud(): () => void {
     void currentSession()
       .then(enqueue)
       .catch((error) => {
-        state = { ...state, error: String(error) };
+        state = { ...state, ready: true, error: String(error) };
         emit();
       });
     void initializeCloudAuth((error) => {

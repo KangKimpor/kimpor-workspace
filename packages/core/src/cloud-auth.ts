@@ -1,5 +1,6 @@
 import { parseDesktopCallback } from "./auth";
 import { platform } from "./platform";
+import type { GoTrueClient } from "@supabase/auth-js";
 
 export interface CloudConfig {
   url: string;
@@ -16,6 +17,10 @@ const PKCE_KEY = "velora-pkce-v1";
 type Listener = (session: CloudSession | null) => void;
 const listeners = new Set<Listener>();
 let refreshFlight: Promise<CloudSession | null> | undefined;
+let emailAuthFlight: Promise<GoTrueClient> | undefined;
+class AuthRequestError extends Error {
+  constructor(message: string, readonly status: number) { super(message); }
+}
 
 export function cloudConfig(): CloudConfig | null {
   const url = import.meta.env.VITE_SUPABASE_URL?.replace(/\/$/, "");
@@ -70,7 +75,7 @@ function requireConfig() {
   const config = cloudConfig();
   if (!config)
     throw new Error(
-      "Cloud sync is not configured. Your local workspace remains available.",
+      "Sign-in is not configured.",
     );
   return config;
 }
@@ -87,12 +92,13 @@ export async function authRequest(
   });
   const result = (await response.json()) as Record<string, unknown>;
   if (!response.ok)
-    throw new Error(
+    throw new AuthRequestError(
       typeof result.msg === "string"
         ? result.msg
         : typeof result.error_description === "string"
           ? result.error_description
-          : "Sign-in request failed. Try again shortly.",
+          : "Try again.",
+      response.status,
     );
   return result;
 }
@@ -125,7 +131,7 @@ export async function currentSession(): Promise<CloudSession | null> {
       })
       .catch((error) => {
         if (
-          navigator.onLine &&
+          error instanceof AuthRequestError && [400, 401, 403].includes(error.status) &&
           readSession()?.refresh_token === session.refresh_token
         )
           saveSession(null);
@@ -151,20 +157,29 @@ export function onSessionChange(listener: Listener): () => void {
 export async function sendEmailCode(email: string) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
     throw new Error("Enter a valid email address");
-  const { redirect, challenge } = await preparePKCE();
-  await authRequest(`otp?redirect_to=${encodeURIComponent(redirect.href)}`, {
-    email: email.trim(),
-    create_user: true,
-    code_challenge: challenge,
-    code_challenge_method: "s256",
+  const auth = await emailAuth();
+  const { error } = await auth.signInWithOtp({
+    email: email.trim(), options: { shouldCreateUser: true },
   });
+  if (error) throw error;
+}
+async function emailAuth() {
+  const config = requireConfig();
+  // The established session/PKCE boundary owns persistence and native callbacks.
+  // The SDK only handles code requests and verification; it cannot consume links.
+  return emailAuthFlight ??= import("@supabase/auth-js").then(({ GoTrueClient }) => new GoTrueClient({
+    url: `${config.url}/auth/v1`, headers: { apikey: config.key },
+    persistSession: false, autoRefreshToken: false, detectSessionInUrl: false,
+    storageKey: "kimpor-email-code", fetch,
+  }));
 }
 export async function verifyEmailCode(email: string, token: string) {
   if (!/^\d{6}$/.test(token))
     throw new Error("Enter the six-digit code from your email");
-  const session = sessionFrom(
-    await authRequest("verify", { email: email.trim(), token, type: "email" }),
-  );
+  const auth = await emailAuth();
+  const { data, error } = await auth.verifyOtp({ email: email.trim(), token, type: "email" });
+  if (error) throw error;
+  const session = sessionFrom((data.session ?? {}) as unknown as Record<string, unknown>);
   localStorage.removeItem(PKCE_KEY);
   saveSession(session);
   return session;
@@ -250,7 +265,7 @@ export async function consumeAuthRedirect(
     // adopt an unsolicited bearer session or retain its credentials in history.
     if (!platform.desktop && url.origin === location.origin && url.pathname === location.pathname)
       history.replaceState({}, "", `${url.pathname}${url.search}`);
-    throw new Error("Finish signing in from Settings → Account on this device.");
+    throw new Error("Start sign-in again.");
   }
   if (!url.searchParams.has("code") && !url.searchParams.has("error"))
     return null;

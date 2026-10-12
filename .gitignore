@@ -31,3 +31,5 @@ backup/
 # Public server source is separate from private user backup artifacts.
 !supabase/functions/backup/
 !supabase/dashboard/functions/backup/
+
+dist-auth/

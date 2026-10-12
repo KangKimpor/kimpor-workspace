@@ -11,7 +11,7 @@ for(const [name,width,height,engine,touch] of [['phone-small',320,640,webkit,tru
  async function navigate(name){const button=nav().getByRole('button',{name,exact:true});await button.click();await expect(button).toHaveAttribute('aria-current','page');await expect(page.getByRole('region',{name:'Page detail',exact:true})).toHaveCount(0);}
  async function shot(screen){
   const notice=page.getByRole('button',{name:'Dismiss notification',exact:true});if(await notice.isVisible())await notice.click();
-  if(await page.locator('.ws-page-detail .ws-save-state').isVisible())await expect(page.locator('.ws-page-detail .ws-save-state')).toHaveText('Saved');
+  await expect(page.getByRole('textbox',{name:'Page title'})).toBeVisible();
   await page.evaluate(()=>document.fonts.ready);await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
   const file=dir+'/'+name+'-'+screen+'.png';await page.screenshot({path:file,fullPage:true});images.push(file);results.push({name,screen,width,height,overflow:false});
  }

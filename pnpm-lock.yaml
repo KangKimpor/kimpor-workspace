@@ -198,6 +198,9 @@ importers:
 
   packages/core:
     dependencies:
+      '@supabase/auth-js':
+        specifier: 2.117.3
+        version: 2.117.3
       '@tauri-apps/api':
         specifier: 2.12.2
         version: 2.12.2
@@ -1691,6 +1694,10 @@ packages:
   '@sentry/utils@7.120.4':
     resolution: {integrity: sha512-zCKpyDIWKHwtervNK2ZlaK8mMV7gVUijAgFeJStH+CU/imcdquizV3pFLlSQYRswG+Lbyd6CT/LGRh3IbtkCFw==}
     engines: {node: '>=8'}
+
+  '@supabase/auth-js@2.117.3':
+    resolution: {integrity: sha512-XOZV+jllcU2Hzij8SwgM78zl0lOEr6BTjzi2MYkBb39nOAQzb5AelGpMUvVj7lwGSB11JmpAs/FEQroAyFzWEA==}
+    engines: {node: '>=22.0.0'}
 
   '@tailwindcss/node@4.3.3':
     resolution: {integrity: sha512-/T8IKEsf9VTU6tLjgC7+sv2mOPtQxzE2jMw7u4Tt40Tx+QSZxpzh95/H6cMKoja9XuW7iMdLJYBB0o9G1CaAgg==}
@@ -6331,6 +6338,10 @@ snapshots:
   '@sentry/utils@7.120.4':
     dependencies:
       '@sentry/types': 7.120.4
+
+  '@supabase/auth-js@2.117.3':
+    dependencies:
+      tslib: 2.8.1
 
   '@tailwindcss/node@4.3.3':
     dependencies:

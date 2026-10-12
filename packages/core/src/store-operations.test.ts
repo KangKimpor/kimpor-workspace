@@ -348,3 +348,35 @@ it("validates imported binaries and foreign/schema changes before making any wri
     expect(await store.getCursor()).toBeNull();
   }
 });
+
+it("adopts cache additions and merges text without replacing account fields or protected bodies", async () => {
+  const cache = await workspace("local");
+  const shared = await cache.createPage("note", "Old title");
+  const base = new Y.Doc(); base.getText("body").insert(0, "Base ");
+  await cache.saveDoc(shared.id, Y.encodeStateAsUpdate(base));
+  const firstArchive = await cache.exportData();
+  const account = await workspace();
+  await account.importData(firstArchive);
+  await account.patchPage(shared.id, { title: "Account title", properties: { status: "Current" } });
+  await account.setSetting("theme", "dark");
+  const cloudDoc = new Y.Doc(); Y.applyUpdate(cloudDoc, Y.encodeStateAsUpdate(base));
+  cloudDoc.getText("body").insert(0, "Account ");
+  await account.saveDoc(shared.id, Y.encodeStateAsUpdate(cloudDoc));
+  base.getText("body").insert(base.getText("body").length, "Cache");
+  await cache.saveDoc(shared.id, Y.encodeStateAsUpdate(base));
+  await cache.createPage("note", "New note");
+  await cache.setSetting("theme", "light");
+  await account.mergeCacheArchive(await cache.exportData());
+  expect(account.listPages().find(page => page.id === shared.id)).toMatchObject({ title: "Account title", properties: { status: "Current" } });
+  expect(account.listPages()).toHaveLength(2);
+  expect(await account.getSetting("theme", "system")).toBe("dark");
+  const merged = new Y.Doc(); Y.applyUpdate(merged, (await account.loadDoc(shared.id))!);
+  expect(merged.getText("body").toString()).toBe("Account Base Cache");
+  const envelope = await encryptBytes(Y.encodeStateAsUpdate(merged), "long passphrase", createRecoveryKey());
+  await account.saveEncryptedDoc(shared.id, envelope);
+  await account.mergeCacheArchive(await cache.exportData());
+  expect(await account.loadDoc(shared.id)).toBeNull();
+  expect(await account.listVersions(shared.id)).toHaveLength(0);
+  expect((await account.loadEncryptedDocs(shared.id)).length).toBeGreaterThan(0);
+  base.destroy(); cloudDoc.destroy(); merged.destroy();
+});

@@ -1,6 +1,6 @@
 import { defineConfig } from '@playwright/test';
 export default defineConfig({
-  testDir: './tests', timeout: 35_000, fullyParallel: true,
+  testDir: './tests', testIgnore: '**/account.spec.ts', timeout: 35_000, fullyParallel: true,
   workers: process.env.CI ? 2 : 4, retries: process.env.CI ? 1 : 0,
   reporter: [['list'], ['html', { open: 'never' }]],
   use: { baseURL: process.env.BASE_URL ?? 'http://127.0.0.1:4173', trace: 'retain-on-failure' },

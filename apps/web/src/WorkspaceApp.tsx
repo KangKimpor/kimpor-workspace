@@ -41,6 +41,7 @@ import {
 } from "lucide-react";
 import { BrandMark, Pressable } from "@veloradesk/ui";
 import { EdgeBack, SheetHandle, useCollapsingTitle } from "./WorkspaceChrome";
+import { SyncRetry } from "./AccountGate";
 import type {
   CalendarEvent,
   DatabaseDefinition,
@@ -438,7 +439,6 @@ export default function WorkspaceApp() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(readSetting("velora-sidebar-collapsed", "false") === "true");
   const [trashOpen, setTrashOpen] = useState(false);
   const [templatesOpen, setTemplatesOpen] = useState(false);
-  const [online, setOnline] = useState(navigator.onLine);
   const [toast, setToast] = useState<Toast | null>(null);
   const [error, setError] = useState("");
   const [folderId, setFolderId] = useState<string | null>(null);
@@ -472,7 +472,7 @@ export default function WorkspaceApp() {
       setError(
         cause instanceof Error
           ? cause.message
-          : "Your local workspace could not be opened.",
+          : "Could not open workspace.",
       );
     }
   }, []);
@@ -483,32 +483,10 @@ export default function WorkspaceApp() {
     return unsubscribe;
   }, [refresh]);
   useEffect(() => {
-    const update = () => setOnline(navigator.onLine);
-    window.addEventListener("online", update);
-    window.addEventListener("offline", update);
-    return () => {
-      window.removeEventListener("online", update);
-      window.removeEventListener("offline", update);
-    };
-  }, []);
-  useEffect(() => {
     if (!toast) return;
     const timeout = setTimeout(() => setToast(null), toast.undo ? 10000 : 5000);
     return () => clearTimeout(timeout);
   }, [toast]);
-  useEffect(() => {
-    let stopped = false;
-    let cleanup: (() => void) | undefined;
-    void import("./cloud-state")
-      .then((module) => {
-        if (!stopped) cleanup = module.startCloud();
-      })
-      .catch((cause) => setError(String(cause)));
-    return () => {
-      stopped = true;
-      cleanup?.();
-    };
-  }, []);
   useEffect(
     () =>
       startReminders(
@@ -960,12 +938,6 @@ export default function WorkspaceApp() {
                 <Settings size={17} />
                 Settings
               </Pressable>
-              <span className="ws-local-status">
-                <span className="ws-status-dot" />
-                {online
-                  ? "Saved on this device"
-                  : "Offline · edits saved locally"}
-              </span>
             </div>
           </aside>
           <div
@@ -1024,9 +996,7 @@ export default function WorkspaceApp() {
               </Pressable>
             ) : (
               <>
-                <span className="ws-topbar-status">
-                  <Check size={14} /> Local first
-                </span>
+                <SyncRetry />
                 <Pressable
                   className="ws-icon"
                   aria-label="Search workspace"
@@ -1530,14 +1500,7 @@ function Today({
               day: "numeric",
             })}
           </p>
-          <h1>
-            A little clarity,
-            <br />
-            for today.
-          </h1>
-          <p className="ws-muted">
-            Your plans, thoughts, and memories in one place.
-          </p>
+          <h1>Today</h1>
         </div>
         <div className="ws-today-illustration" aria-hidden="true">
           <span>☀</span>
@@ -1859,9 +1822,7 @@ function Capture({
           }
         />
       </label>
-      <p className="ws-muted">
-        Start with a title. Add details in the editor. Saved on this device.
-      </p>
+
       <Pressable type="submit" className="ws-button ws-filled" disabled={busy}>
         {busy ? "Creating…" : "Create and write"}
         <ChevronRight size={16} />
@@ -2049,7 +2010,7 @@ function PageDetail({
   const [menuOpen, setMenuOpen] = useState(false);
   const [versionsOpen, setVersionsOpen] = useState(false);
   const [title, setTitle] = useState(page.title);
-  const [titleState, setTitleState] = useState("Saved");
+  const [titleState, setTitleState] = useState("");
   const titleInput = useRef<HTMLInputElement>(null);
   const titleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingTitle = useRef<string | null>(null);
@@ -2058,7 +2019,7 @@ function PageDetail({
   useEffect(() => {
     if (pendingTitle.current === null) {
       setTitle(page.title);
-      setTitleState("Saved");
+      setTitleState("");
     }
     lastText.current = "";
   }, [page.id, page.title]);
@@ -2072,7 +2033,7 @@ function PageDetail({
       .catch(() => {})
       .then(() => store.patchPage(page.id, { title: next }))
       .then(() => {
-        if (pendingTitle.current === null) setTitleState("Saved");
+        if (pendingTitle.current === null) setTitleState("");
       })
       .catch((cause) => {
         if (pendingTitle.current === null) pendingTitle.current = next;
@@ -2091,7 +2052,7 @@ function PageDetail({
   const saveTitle = (next: string) => {
     setTitle(next);
     pendingTitle.current = next;
-    setTitleState("Saving…");
+    setTitleState("");
     if (titleTimer.current) clearTimeout(titleTimer.current);
     titleTimer.current = setTimeout(() => {
       void persistTitle().catch((cause) => onError(String(cause)));
@@ -2149,10 +2110,7 @@ function PageDetail({
         </nav>
       )}
       <div className="ws-page-detail-toolbar">
-        <span className="ws-save-state" role="status">
-          <Check size={13} />
-          {titleState}
-        </span>
+        {titleState && <Pressable className="ws-sync-retry" aria-label="Retry title" onClick={() => void persistTitle().catch(cause => onError(String(cause)))}><span className="ws-status-dot" />Retry</Pressable>}
         <div>
           <Pressable
             className="ws-icon"
@@ -3595,8 +3553,6 @@ function SettingsPanel({
   const [density, setDensity] = useState(
     readSetting("velora-density", "comfortable"),
   );
-  const [storage, setStorage] = useState<StorageEstimate | null>(null);
-  const [persistent, setPersistent] = useState<boolean | null>(null);
   const [importBusy, setImportBusy] = useState(false);
   const importInput = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -3610,10 +3566,6 @@ function SettingsPanel({
     window.addEventListener("velora-appearance", update);
     return () => window.removeEventListener("velora-appearance", update);
   }, []);
-  useEffect(() => {
-    void navigator.storage?.estimate?.().then(setStorage);
-    void navigator.storage?.persisted?.().then(setPersistent);
-  }, []);
   const setAppearance = (next: string) => {
     setTheme(next);
     saveAppearance("velora-theme", next);
@@ -3626,7 +3578,6 @@ function SettingsPanel({
     document.documentElement.dataset.theme = resolved;
     void platform.applyTheme(resolved);
   };
-  const bytes = (value = 0) => `${(value / 1024 / 1024).toFixed(1)} MB`;
   const exportAll = async () => {
     try {
       await flushEditors();
@@ -3643,8 +3594,7 @@ function SettingsPanel({
   return (
     <div className="ws-settings">
       <section>
-        <h3>Account and sync</h3>
-        <p>Your data is stored on this device. Cloud sync is optional.</p>
+        <h3>Account</h3>
         <AccountSettings />
       </section>
       <section>
@@ -3728,41 +3678,6 @@ function SettingsPanel({
             <span />
           </Pressable>
         </div>
-      </section>
-      <section>
-        <h3>Storage on this device</h3>
-        <p>
-          {storage
-            ? `${bytes(storage.usage)} used of ${bytes(storage.quota)} available to this browser.`
-            : "Storage information is unavailable in this browser."}
-        </p>
-        {storage?.quota ? (
-          <progress
-            value={storage.usage ?? 0}
-            max={storage.quota}
-            aria-label="Local storage usage"
-          />
-        ) : null}
-        <p className="ws-muted">
-          {persistent
-            ? "Persistent storage is enabled."
-            : "The browser may clear local data. Keep exports, or connect cloud sync."}
-        </p>
-        <Pressable
-          className="ws-button ws-tinted"
-          onClick={() =>
-            void platform.persistStorage().then((value) => {
-              setPersistent(value);
-              onNotify(
-                value
-                  ? "Persistent storage enabled"
-                  : "Your browser decides whether to keep storage. Export regularly.",
-              );
-            })
-          }
-        >
-          Keep this workspace on device
-        </Pressable>
       </section>
       <section>
         <h3>Import and export</h3>
@@ -3863,51 +3778,7 @@ function SettingsPanel({
           </span>
         </div>
       </section>
-      <section>
-        <h3>Language and region</h3>
-        <p>
-          Dates and times follow your device locale ({navigator.language}).
-          Mixed English, Khmer, and Chinese text is supported.
-        </p>
-        <p className="ws-muted">
-          Time zone: {Intl.DateTimeFormat().resolvedOptions().timeZone}
-        </p>
-      </section>
-      <section>
-        <h3>Diagnostics</h3>
-        <p>
-          Connection: {navigator.onLine ? "Online" : "Offline"}. Local IndexedDB
-          is the source of truth.
-        </p>
-        <a href={`${import.meta.env.BASE_URL}design`}>
-          Open the design gallery
-        </a>
-      </section>
-      <section>
-        <h3 className="ws-danger">Delete local data</h3>
-        <p>
-          Export first. This removes the workspace from this device. Connected
-          cloud data is managed separately in your account.
-        </p>
-        <Pressable
-          className="ws-button ws-danger"
-          onClick={() => {
-            if (
-              window.prompt(
-                "Type DELETE to remove all local data on this device.",
-              ) !== "DELETE"
-            )
-              return;
-            void store
-              .clearAll()
-              .then(() => onNotify("Local workspace cleared"))
-              .catch((cause) => onError(String(cause)));
-          }}
-        >
-          <Trash2 size={16} />
-          Delete data on this device
-        </Pressable>
-      </section>
+      <section><h3>Region</h3><div className="ws-setting-row"><span>{navigator.language}</span><span>{Intl.DateTimeFormat().resolvedOptions().timeZone}</span></div></section>
     </div>
   );
 }

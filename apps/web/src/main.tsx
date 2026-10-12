@@ -10,6 +10,7 @@ const FoundationApp = lazy(() =>
   import("./App").then((module) => ({ default: module.App })),
 );
 import WorkspaceApp from "./WorkspaceApp";
+const AccountGate = lazy(() => import("./AccountGate"));
 
 // Resolve appearance before the first React layout, including container queries.
 let savedTheme = "system";
@@ -45,7 +46,7 @@ function Router() {
         <FoundationApp />
       ) : (
         <ApplicationLock>
-          <WorkspaceApp />
+          <AccountGate><WorkspaceApp /></AccountGate>
         </ApplicationLock>
       )}
     </Suspense>

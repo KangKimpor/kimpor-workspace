@@ -44,6 +44,8 @@ jobs:
         run: pnpm secret:scan --history
       - run: pnpm exec playwright install --with-deps chromium webkit firefox
       - run: pnpm e2e
+      - name: Account entry fixtures
+        run: pnpm e2e:auth
       - name: Render full viewport matrix
         run: |
           pnpm --filter @veloradesk/web preview --port 4173 > /tmp/veloradesk-preview.log 2>&1 &
