@@ -1,0 +1,3130 @@
+{
+  "reviewed_at": "2026-10-13T01:44:24.655Z",
+  "source": {
+    "commit": "5bb0f41a49afa841082adbc3f29d4c605d2b21b0",
+    "platform": "linux",
+    "playwright": "1.64.0",
+    "runner": "Linux",
+    "captures": 510,
+    "date": "2026-10-12T15:24:22.742Z",
+    "fixture_time": "2026-10-11T09:00:00Z",
+    "locale": "en-US",
+    "time_zone": "UTC"
+  },
+  "workflow_run": 38268637809,
+  "artifact_id": 11755859265,
+  "archive_sha256": "5eac29385af276e507c0714e6c582c70eafcb9ee5a5b30bc4c9e87e9bbcd30e8",
+  "result": "approved",
+  "reviewer": "Codex visual inspection",
+  "contacts_reviewed": [
+    "contact-about-dark.png",
+    "contact-about-light.png",
+    "contact-calendar-dark.png",
+    "contact-calendar-light.png",
+    "contact-database-dark.png",
+    "contact-database-light.png",
+    "contact-design-dark.png",
+    "contact-design-light.png",
+    "contact-editor-dark.png",
+    "contact-editor-light.png",
+    "contact-email-code-dark.png",
+    "contact-email-code-light.png",
+    "contact-journal-dark.png",
+    "contact-journal-light.png",
+    "contact-note-detail-dark.png",
+    "contact-note-detail-light.png",
+    "contact-notes-dark.png",
+    "contact-notes-light.png",
+    "contact-palette-dark.png",
+    "contact-palette-light.png",
+    "contact-search-dark.png",
+    "contact-search-light.png",
+    "contact-settings-dark.png",
+    "contact-settings-light.png",
+    "contact-sign-in-dark.png",
+    "contact-sign-in-light.png",
+    "contact-today-dark.png",
+    "contact-today-light.png",
+    "contact-workspace-dark.png",
+    "contact-workspace-light.png"
+  ],
+  "individual_views_reviewed": [
+    "note-detail-iphone15-portrait-light.png",
+    "note-detail-iphone15-portrait-dark.png",
+    "calendar-phone-small-light.png",
+    "calendar-phone-small-dark.png",
+    "editor-ipad-portrait-light.png",
+    "editor-windows1366-150-dark.png"
+  ],
+  "findings": [
+    "All 30 contact sheets inspected across the 17 profiles and both themes.",
+    "Detailed note/editor views show readable Khmer and Chinese glyphs.",
+    "Narrow Calendar heading and controls fit; modal, sidebar and writing layouts are consistent across contacts."
+  ],
+  "limits": [
+    "Fixture screenshots establish visual acceptance only; physical devices, live authentication and native memory are separate gates.",
+    "Final-source Linux CI must compare all 510 captures at threshold 0.1 and maximum changed-pixel ratio 0.001."
+  ],
+  "files": [
+    {
+      "name": "about-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "2d8385a96f61dd097ec080b97ac4900e3f34e91a252135425118106b667d9af3"
+    },
+    {
+      "name": "about-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "61b1f7e8be4d91b802be770901ba71ac7007288a6155d234f69db09bc4701846"
+    },
+    {
+      "name": "about-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "682797ea4d0e55e978682a5661643e1ec7905f76aae36351886b8d5cc1150d44"
+    },
+    {
+      "name": "about-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "355c5a5fb6d1a952dc5a21cbb1f31b10cba7fb4ed00b1f1d02bbd22831bb9a87"
+    },
+    {
+      "name": "about-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "a110f8879e73c89d91df82ee0d511f256ae219baf994efdcf0094c94319a2fd3"
+    },
+    {
+      "name": "about-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "cccd428c0d6e7084925a2f7aef22edb74576efac763908eb56dc3d2896271acd"
+    },
+    {
+      "name": "about-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "5b98833c2f526426fadc453be146dbb693ec7e91a4822032877277cf44d3a388"
+    },
+    {
+      "name": "about-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "8563e475659770c9c8f1d4d9d3cff08094635cc9ed1f51b1509227aad26edda2"
+    },
+    {
+      "name": "about-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "d3e1685d9eae5f3d419b8ae3d6bf6f9a992f613fc3df0dbaab45d051a26c4c59"
+    },
+    {
+      "name": "about-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "0d0b4343eccd1b51bb01a41d3fb04d7662bde14d972bac737d3360d0439b98f3"
+    },
+    {
+      "name": "about-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "5a4b4efd9787e129dd99adc406470e17893f7ab94912b9e80d8cb0308743dbd4"
+    },
+    {
+      "name": "about-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "bf259f46f2327dd5e1a73ccc570bc884a8ad02b039e902326b7bd9084e50b2e2"
+    },
+    {
+      "name": "about-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "9554c55e23601931294fdd2cf58f6ecd00caa530d889ec85981d1540ef0f77aa"
+    },
+    {
+      "name": "about-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "13a3c3f83905b056134b6be0be5055bc9439b13a6e1252898982159fcde5882d"
+    },
+    {
+      "name": "about-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "9360bcdd2e2da86989742f66fe0845e7e98433a6ea0b702346b55ea9c111e2f4"
+    },
+    {
+      "name": "about-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "0e4312d74eefb79f43659f2a4477505b1b5aef838045b0b0c965bfd52117a13b"
+    },
+    {
+      "name": "about-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "346c8e8826216b89363846732df54a61e9d9812c3f659731d2fe0259b9a40ee9"
+    },
+    {
+      "name": "about-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "e1eef3c86f91a3262cfd20c289d562a58753ba899d85d6f245f6c39a3ae6215b"
+    },
+    {
+      "name": "about-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "c2234f858a2758ea952542da3fa2f4eb4e5b880df6ff2e5f85ba5f0794d05573"
+    },
+    {
+      "name": "about-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "43d42ac3204c156fa2d8fa5d5c25220451af764d9bb56e0f2c50fa931a5a4d09"
+    },
+    {
+      "name": "about-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "0808096c50b1d0355e49c0fcf98334acfbc8dba31f490f8e94f39b202a51e5d5"
+    },
+    {
+      "name": "about-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "d161c5849ca7046de5134c2db3a11d6857fb468b1c4bd9eea7436e09f06ca6ad"
+    },
+    {
+      "name": "about-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "20fa689a1472acc20352a7621db08f8b3c3ac33baea9d4d84e47b7f0527420f2"
+    },
+    {
+      "name": "about-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "0b30b56500cf732bf1b97ff8d27d8774d986646270c554ae97a2c8cd94c3fc96"
+    },
+    {
+      "name": "about-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "2bf3fb0bd77d88037f8ff9050b1ec7d2fac07dc4be129c630276021217fdb2b1"
+    },
+    {
+      "name": "about-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "7d6740637e5c23c8ac521ebdaabc29623777baa325964c7b4f284ee5a083a02f"
+    },
+    {
+      "name": "about-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "0292ae9badf027dbc169a5ea3759f336e9f19fe2acb8671b9f5e42b3d417b1ed"
+    },
+    {
+      "name": "about-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "4cc6849eb6d7388df79bba902e44adea73dd4b53191c849e78a03f2b260e58af"
+    },
+    {
+      "name": "about-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "3488739bcb29ed8210a0ac05985a20e3a2c75c140f8df330574499892f636232"
+    },
+    {
+      "name": "about-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "99102e8bcf76737b8637a2e635ee61b54853a434b9eaf98fb83e532bb1d1a12d"
+    },
+    {
+      "name": "about-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "1c85bfe147da99ab671fcb98ffb6433e422867b850f37dbca4a55a19746829c9"
+    },
+    {
+      "name": "about-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "c71e36a2f95219dac352aadb39963bb31033ce9c4d26ad7848de315c06076a37"
+    },
+    {
+      "name": "about-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "d5b97e74d2adb520c3c1cffae4fcaf2e9f4ce5332409e5d9414321d99282430d"
+    },
+    {
+      "name": "about-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "b2d34dabf56cbcb6074dc983fef3cefeb059d0da5504c54400ab58b7c20e25ad"
+    },
+    {
+      "name": "calendar-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "71e1266059860c17605a27c8a428bd262a5e32a2ac5fd85515158f7d838f7f66"
+    },
+    {
+      "name": "calendar-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "76917e6c1d2571c40527860b808c4ac0dafd59646dbb1963fdc840320bf01951"
+    },
+    {
+      "name": "calendar-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "bbf416c0aa24a98fa89eab7a781485ec3ce28409f2e8ca39701ecf1ce8950c0f"
+    },
+    {
+      "name": "calendar-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "821361478b6bafbb9e063a75c309a8ff9b58004a9dbcaf769ee1a1e061d961f5"
+    },
+    {
+      "name": "calendar-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "06bb44d65a7cb1e62fbe3b4db459d01bd593ee2efee022752cdb69880d14098b"
+    },
+    {
+      "name": "calendar-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "1857c4dbf4dcc13b10d4cdb053a252e2b955465ae03c8083f5671b0c99dd8f91"
+    },
+    {
+      "name": "calendar-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "422c7addbe1d09cde0ab611739098fa0290345e83dd27702451ede2f9184d6ad"
+    },
+    {
+      "name": "calendar-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "53cbc0ea067748bc3359e9c41e18362a7aa3e0610f28c1d1d7422dab8223c3cc"
+    },
+    {
+      "name": "calendar-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "b93a1e7fdb9369c8edb289ae7e73a9aa1b4e6deee56402873aa91e61cb0c1611"
+    },
+    {
+      "name": "calendar-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "428705b235525e629c38d9a83089672194e338fa357afa146cef9e263f19403b"
+    },
+    {
+      "name": "calendar-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "5a9985063a03369ebb780668e47a4971539404a20f6ab992dafcbb181a7d3606"
+    },
+    {
+      "name": "calendar-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "aad60e631d6636dc7874cb34b8cb23c1277651955bed1d1eff5b5199df68ec2e"
+    },
+    {
+      "name": "calendar-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "296cd3c3bc65fd600859671760c68762145903724118059f40731389ec509ee7"
+    },
+    {
+      "name": "calendar-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "2b572bc0e8feff437c51c52bb0a15f1ff43aced3fa2d967f87980c41677ded00"
+    },
+    {
+      "name": "calendar-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "bd5faa4755d68c772133ac765c7ad1edf70891b88954d922213bb105d4aa6089"
+    },
+    {
+      "name": "calendar-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "3327674eed248fdb6d187c0a03a76a271cc54fd021f0de649ee26ff780147943"
+    },
+    {
+      "name": "calendar-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "5c81a0b17ccb8a896d71dedd1e8fb8cbd6b10819e83c50ee5c789612323c7c41"
+    },
+    {
+      "name": "calendar-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "8dc911cd255f6625a13f3d7df063b1889e747465f14edab457e6e257bdd2db34"
+    },
+    {
+      "name": "calendar-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "aef9dafcd76060b47d56115d4d74b2a173fd47365933c19da8a121fbd7c63039"
+    },
+    {
+      "name": "calendar-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "039a5331602aacd45ec1217c751f117c46318ba0999c611462e79d93019ef7eb"
+    },
+    {
+      "name": "calendar-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "cb3fd4065c4d28fab6f985790383daaeadd12d6a213efa789ff6799f74a65c1c"
+    },
+    {
+      "name": "calendar-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "f4f28475c6f24d58046f4ae63cd3cceb64bce23d884d7fc74c0ac573f5e42452"
+    },
+    {
+      "name": "calendar-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "7fc7adbe97205cc4c5a4c4381577cf18e46f94bbd9e98682d1c2ffe0647ee76c"
+    },
+    {
+      "name": "calendar-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "8e36ea8d01bd44e9e7ef56921b49055e28c56f621e5890727709035e18c6c62c"
+    },
+    {
+      "name": "calendar-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "45718885e0e2d192ab7b67a2344a3f49ed82b25b7aa1090c7265a5d462b467ea"
+    },
+    {
+      "name": "calendar-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "31e84ab72bf4964b4618b95e7d0b192b7dde0b51d874be87a65490ce28915a2d"
+    },
+    {
+      "name": "calendar-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "5b3203ed8cf3ad0cea4179705484f5ca705fd4c3c032212ebe8c8e23f9edad1c"
+    },
+    {
+      "name": "calendar-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "e88a28b179004b6cbc7f191898a1f586efb3b2e28687750b57faca43e785ea93"
+    },
+    {
+      "name": "calendar-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "cc2c3ab1f74150bf31d3faee5ace82a1710f9df0b30cd15dbb2bd1fa85a4e84d"
+    },
+    {
+      "name": "calendar-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "e2803ba4748043522e2ddd3e4b2b35969646497f22c4df4afa53073cb89408e7"
+    },
+    {
+      "name": "calendar-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "d8164054ee59c039b85e9b770fdc10611714f04435779138094ae15b80b6a131"
+    },
+    {
+      "name": "calendar-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "190cb9ba89e16d82737665c477cb3dc809d88b93ac749cca8336fae5c564b405"
+    },
+    {
+      "name": "calendar-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "a41918e45f5d92b146438d4c00764b581680f0be51b0f0c2ab3a4b3c5327983c"
+    },
+    {
+      "name": "calendar-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "0f72e0cc17741b1f2c2f50b9cb06747bf16b0df78dc36df3a4c21199aba156a4"
+    },
+    {
+      "name": "database-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "27fd85a865d93fc148830ab89a2aff6d35e4c5ab0d65dab31cc3e6081120e1cd"
+    },
+    {
+      "name": "database-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "e540b2f8343f8e207106d9248e4e26b663c9f691b7ca11cacdcdf54daec97484"
+    },
+    {
+      "name": "database-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "bb177a262e264268e2e9ef16dfdf7ee6493ec287202c5cab2e8fe7bd4bcff523"
+    },
+    {
+      "name": "database-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "244ffc04903aa748d8cb4cfd417e716c4c24c136e98e21f7b855236b7f9e6fb4"
+    },
+    {
+      "name": "database-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "e5af06dbd0a8348a80b1fb293210e273faa6b6ae398f9725656c519dfe746501"
+    },
+    {
+      "name": "database-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "3056d80cf58e6d1c805d456e7d2296a2c39fdd2e3c5d7fde0d1bf120a22b78e6"
+    },
+    {
+      "name": "database-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "903e2f0d3af277c8217089729915237a65cce32651c4e438151d8e0f7ec1a703"
+    },
+    {
+      "name": "database-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "12fddd6263c93548367f778ccb7d813982b3b7a717901156a7789d7dce8ea14f"
+    },
+    {
+      "name": "database-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "72925ad7e278cc3324443c5ae4d3470817031c3024ed5680eaf22812745e04ec"
+    },
+    {
+      "name": "database-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "1b96a4b170eaf85e8ea13cf39fe16d2baa10501b7e2b83dc33c6602acabb352f"
+    },
+    {
+      "name": "database-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "3fdd04b3b672725948e93eb0d722894bb224985f4fbe6d965e03f5f3223dbe9c"
+    },
+    {
+      "name": "database-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "0f9c8fce3b76d173470a2f2f842ea2a029a3ad3ede2dc5c068bfbc27d5ed5e6f"
+    },
+    {
+      "name": "database-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "8df413dc8a6ea6429a418ac15b27437037830b0a04bda32f9696581af3f1e0f5"
+    },
+    {
+      "name": "database-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "5860ce9df5987ae9a275a27211ae4ef67c44f246f9242e918e3a88a35251214f"
+    },
+    {
+      "name": "database-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "fc558596fbc0d1b55299ea7904e0341b86d6ab0266af31885b30205db526f822"
+    },
+    {
+      "name": "database-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "bbfb237956a6c3f1ac8c4bfef84c87c4788a965d746c7bff4499991e901c296a"
+    },
+    {
+      "name": "database-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "26dd38823e7a064c9b700e28cf9a9528c8b0eef0be612f04afb3106f7d8f7690"
+    },
+    {
+      "name": "database-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "9bb50a8aabe885bea1c30f8b4b700e8b7dec9f9b6c037d18f7632cb3b5e51e09"
+    },
+    {
+      "name": "database-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "4ed6dbf273c1d00f28e402f653655a27b8ce3a1728172f68b2ad56a06c650fe1"
+    },
+    {
+      "name": "database-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "427e1cb3b62f2084077dfb477409939b107a2e1bee599d501ad30c8766d70513"
+    },
+    {
+      "name": "database-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "f3a57834d06906d28bfa45056d89c9dfd82dfacf572715a117d54aa021ac7e50"
+    },
+    {
+      "name": "database-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "4d8f482e8454213916d7d405ead9621d50609f0bb038ebc6d7214cdd93db3c0b"
+    },
+    {
+      "name": "database-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "ced748ac0e9406667c7a64bef12ccd95072a43d74fe015e55e6b3ace71362e27"
+    },
+    {
+      "name": "database-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "50390d3fea6e90feccd3d991b7a48d2f36925a4063f0d36df9b3b4e08d890267"
+    },
+    {
+      "name": "database-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "12bfd07029a7a8f82d85eb5480972baf123b9309be5230601cb2cf7bfc60ed94"
+    },
+    {
+      "name": "database-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "be2c0af16422fdf7d686186aa076a969a8407a48edf640a943339ca81e1c9b66"
+    },
+    {
+      "name": "database-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "85992304e1cd9cff10270ef6cbc0bc67e4fab8cc0af13166c03e1425cf206746"
+    },
+    {
+      "name": "database-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "92a32c311377d41eab98df1c0f4116cbba4dd3158b5ca594bced7ac2201f6d4e"
+    },
+    {
+      "name": "database-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "412e018f8549959206a62b6a10963720897cf24aea70cb0882f56294bbc17b35"
+    },
+    {
+      "name": "database-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "9d71ab12c779d0403bbbf940a37a2e611b8aca2a4e10a5ae082aa4aaabc249c4"
+    },
+    {
+      "name": "database-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "1f3d19e813428f2f8f041044b1ee13b928963583e7bb3f73244bfc83517be1fe"
+    },
+    {
+      "name": "database-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "eeb3a0f2c702485b4fea5bb3753534464eac00153dd6c4651c5442070986b998"
+    },
+    {
+      "name": "database-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "41ca004d9ec6651ba5d99a10a90b2a7456e9c3fe8dd0d0179f2ef74a5e13d331"
+    },
+    {
+      "name": "database-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "d0580d5e7c5b7fe0934b595ba3eec671850e6b7bfc583d46bf007e289b11b654"
+    },
+    {
+      "name": "design-desktop-dark.png",
+      "width": 1920,
+      "height": 1931,
+      "sha256": "f29720a1f5b24bece51806062bd0353d65ce63862e576728f0de2860a58e974f"
+    },
+    {
+      "name": "design-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1931,
+      "sha256": "1246862b2b4a16cd8b1b2b3c9c3a2d31e7db75596ce259f495b9c0d5cd27d5a0"
+    },
+    {
+      "name": "design-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1931,
+      "sha256": "659d6368596efece949320ac2c056c25d43dda9b1d57db3fc81bd4eb787eaaa8"
+    },
+    {
+      "name": "design-desktop-light.png",
+      "width": 1920,
+      "height": 1931,
+      "sha256": "d0ff0c1a4cdf35e26d666affe3230b0cfd9710582080b99aeef29e9d504b7fb7"
+    },
+    {
+      "name": "design-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1931,
+      "sha256": "a2623d742ba38ee760247129ab51b0b4d993bf768fdcb3b229651c1b75df4a2d"
+    },
+    {
+      "name": "design-desktop1980-light.png",
+      "width": 1980,
+      "height": 1931,
+      "sha256": "ab6ceed12990bfce6c8383fd49a2d7d713e5abe8d56196cf4f9adaa45da232d1"
+    },
+    {
+      "name": "design-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1931,
+      "sha256": "2781c2c734ce9685d6526a674e70f36d992f11183c944a40eb7538e070737330"
+    },
+    {
+      "name": "design-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1931,
+      "sha256": "7ff4553341fd2254c3f2ff12e8b14cca9f090f19e6e94948c4d0b890ad651010"
+    },
+    {
+      "name": "design-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 3862,
+      "sha256": "6b8e54a8c184c58be8f65fa8d019e9a30e5932ffb93e842f889657ddbe42c2ce"
+    },
+    {
+      "name": "design-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 3862,
+      "sha256": "efdf953716edc0ae93a4d22029922ed9c44e571cdad90162048d4802bab2277e"
+    },
+    {
+      "name": "design-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 5506,
+      "sha256": "356fce71de4b7840dbfd3e99daa722b349c6eb7c6549449bfc59b7877bca0783"
+    },
+    {
+      "name": "design-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 5506,
+      "sha256": "9d02f526ae279f539f4b0133cc9533859595cce6c061fa1340bd7b776f69381b"
+    },
+    {
+      "name": "design-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 5468,
+      "sha256": "c4193422d30cfdea7042ce05d9edaaa7d6ad2f32e0356e0b80bf5f91e016c786"
+    },
+    {
+      "name": "design-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 5468,
+      "sha256": "db46741468cf7580d664edb6ddfeb181405b35f834d17eecf806bc51c51f498a"
+    },
+    {
+      "name": "design-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 5458,
+      "sha256": "fe61771d0b1a4273dd53ff93b04dccb16cd0999382f621e54e6addb7ed62bae0"
+    },
+    {
+      "name": "design-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 5458,
+      "sha256": "bf782898d8787eb8b761909d4bdc37475e1a2d15252843c7bed64955e4620d05"
+    },
+    {
+      "name": "design-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 8142,
+      "sha256": "2a9e0d1adabc1e2c4cff7d89faf78a81dbbdeec00ecfe7212b10ca6892bf717f"
+    },
+    {
+      "name": "design-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 8142,
+      "sha256": "02a24f4ab0ebe9828a658d62a9dee94686454e08d744383552f6189ab60bd171"
+    },
+    {
+      "name": "design-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 7938,
+      "sha256": "dcee08f642dece42477195cb100008586d3772e1c99ad0f47bbe607f08e34dbf"
+    },
+    {
+      "name": "design-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 7938,
+      "sha256": "e0020753c989af70e44d97e421b63c41c1676e81fe51d542c9ae1ed7ed330cc5"
+    },
+    {
+      "name": "design-laptop-dark.png",
+      "width": 1920,
+      "height": 2414,
+      "sha256": "e3c59e6b681223d54125ad58f91743a8165129f965a27e5299b725e5b52c629b"
+    },
+    {
+      "name": "design-laptop-light.png",
+      "width": 1920,
+      "height": 2414,
+      "sha256": "f4ab296ba6d77dd47636928f1dabcd7347bc17c7f6e041dd92b32969bd11a1a5"
+    },
+    {
+      "name": "design-phone-small-dark.png",
+      "width": 640,
+      "height": 5950,
+      "sha256": "d4cb3f0035185197ab2d4528e6bd87eaaacbf7779a7242aed74cd1af643d3d45"
+    },
+    {
+      "name": "design-phone-small-light.png",
+      "width": 640,
+      "height": 5950,
+      "sha256": "8a18108476acf09bf8f39eee6e9c28eb144e71661c897ac2761c212c9e82d331"
+    },
+    {
+      "name": "design-wide-dark.png",
+      "width": 2560,
+      "height": 1931,
+      "sha256": "d5fd40b5e3c15c7235022a428a22a3043b6df7ecbec217e7b6fc7b4bb77ac744"
+    },
+    {
+      "name": "design-wide-light.png",
+      "width": 2560,
+      "height": 1931,
+      "sha256": "447eb07282135878188efa980dfb3e6fe6b0c683be1f6d6df27037b41d64109a"
+    },
+    {
+      "name": "design-window-min-dark.png",
+      "width": 1000,
+      "height": 3441,
+      "sha256": "ba8a50a290d699c1944b55e04bdde496d89a831cbee7c84cf37640f01d72ce49"
+    },
+    {
+      "name": "design-window-min-light.png",
+      "width": 1000,
+      "height": 3441,
+      "sha256": "afefe181f32badbd075fac5f25d1ce1ab19aa3bbaceb9c2ee9ce082cfa42758d"
+    },
+    {
+      "name": "design-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 4071,
+      "sha256": "de8703cf64e28d014203ec5e566575fa58970339380b2b290523779784cc735b"
+    },
+    {
+      "name": "design-windows1366-150-light.png",
+      "width": 1367,
+      "height": 4071,
+      "sha256": "7a702dac6e7bf5e551b210733b478663ff0a53543ed9a83189699619fc482b42"
+    },
+    {
+      "name": "design-windows1366-dark.png",
+      "width": 1366,
+      "height": 1931,
+      "sha256": "96d3c794d5b00520557700a68097799d149de4b1031a4ac936da2d6d72e6a61b"
+    },
+    {
+      "name": "design-windows1366-light.png",
+      "width": 1366,
+      "height": 1931,
+      "sha256": "8cd69822990d5bd78f8abc13adf97c51d1e5d4955ada35ed3c30f7976b8f0941"
+    },
+    {
+      "name": "design-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 2897,
+      "sha256": "cbaf5676b14071ed5d89ca9a4e0327272184a0e72506efabc39a44093b0e2a5a"
+    },
+    {
+      "name": "design-windows1920-150-light.png",
+      "width": 1920,
+      "height": 2897,
+      "sha256": "2d584dab11e7301dd7bf0e21242aefdcfb7945bbb90cca2d5b2ca2feb91a39c7"
+    },
+    {
+      "name": "editor-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "e0a07813fffb1fdda6bb651f889bca6e565b563f7f3017cd752a4ea3ed9d114a"
+    },
+    {
+      "name": "editor-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "97b8217fda616064d857726c27f5f2f90fe48b1571f1f4db7286bc1fd7cb5219"
+    },
+    {
+      "name": "editor-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "167ac10d7f90934409a598178213da8a982bed7ae50ec15966e78635b46928bf"
+    },
+    {
+      "name": "editor-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "5436366622d012bc3844afdfdafbb71fde66101479e1b005183fb37070bdd1db"
+    },
+    {
+      "name": "editor-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "f9a1269e499af28670a26a264603ad829d9155d8478acffeebb77ad386909ff0"
+    },
+    {
+      "name": "editor-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "8fa532ed53ac1378e9d44f90b138984ca9b51583ce57f3bb775b62417125b32a"
+    },
+    {
+      "name": "editor-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "19d0d492bf029f99d87c0cb5bc102906c7bb14b3834c1fba1ff1cd5bf72ca385"
+    },
+    {
+      "name": "editor-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "55b8006aa725f006177ebcdadeaed4ae50de22e671af2bb25a2b8d19bb445a47"
+    },
+    {
+      "name": "editor-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1872,
+      "sha256": "d71a8f47e4229a6c40cbce1d4e2f2137afef78697a8c79aed83c5cccbbb49b45"
+    },
+    {
+      "name": "editor-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1872,
+      "sha256": "5c9f4d18bef4fd28cda8398fa8c5c43ce3852492393c1c7063115bbfca43b123"
+    },
+    {
+      "name": "editor-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "d0ae30590acbf4f8d61ad900b240e6c0c6b9607107d6a2acc6e83936f0be8d1b"
+    },
+    {
+      "name": "editor-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "5e1982f27f519ba2a1d16e84873c260df8abe0194b9569b30ff1c9a4683de1c4"
+    },
+    {
+      "name": "editor-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1936,
+      "sha256": "c2fdca66f0d6caa04081163af51e8b5fc1dbe5d10d47467d3660d3d0fecaea1e"
+    },
+    {
+      "name": "editor-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1936,
+      "sha256": "15979f0cfb8ccb45e32163aed2018ea79ac33c4f1b9f1f5f9536db4e5989601e"
+    },
+    {
+      "name": "editor-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 2230,
+      "sha256": "0929fc9baada77f05553b4064351ab9224c1d24331b4aff3fb92adb657c8888b"
+    },
+    {
+      "name": "editor-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 2230,
+      "sha256": "7d413a961b6ccd2f7e024c56405fe0e8bd5e6725c68bd44bb7638695c6c00a84"
+    },
+    {
+      "name": "editor-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 2904,
+      "sha256": "a4452976433a3df40d8e064827adf45a1cf4d52109b3d982bd6dc07e6812f3fa"
+    },
+    {
+      "name": "editor-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 2904,
+      "sha256": "a239f369752890f3b81449cecb12091d6f0ec9506cdd50f5c1c48b7581f1160e"
+    },
+    {
+      "name": "editor-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2988,
+      "sha256": "f25fe8329b8adb6e2282a178a15aa3ee47ce38127e4276c7fab5734635b31e2b"
+    },
+    {
+      "name": "editor-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2988,
+      "sha256": "18be7685ffc5df63848f1c453e7c40019fe838c8aabb3ef102e8cfb9f5bd47d4"
+    },
+    {
+      "name": "editor-laptop-dark.png",
+      "width": 1920,
+      "height": 1170,
+      "sha256": "8f8612dc563cff184f5e30aed3e096ef87d615e099bcacf5565f48c57aa1ac0c"
+    },
+    {
+      "name": "editor-laptop-light.png",
+      "width": 1920,
+      "height": 1170,
+      "sha256": "a0bf06de33db67e68098528589369b852da82438cefe1fc8e73a5df5402e2232"
+    },
+    {
+      "name": "editor-phone-small-dark.png",
+      "width": 640,
+      "height": 2326,
+      "sha256": "498fb14bc3115e68f73362eac64770f08106d90960e52733b4a696c1620e62eb"
+    },
+    {
+      "name": "editor-phone-small-light.png",
+      "width": 640,
+      "height": 2326,
+      "sha256": "b58d7dc0b03efb25381a6fde8f7b93e3f34524fc1e3446a4cfb0b8b82929d2ec"
+    },
+    {
+      "name": "editor-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "d50f234c8bed03fcd6ba7b249256095c60bf9ddd87433c66642d3bb73d567a3b"
+    },
+    {
+      "name": "editor-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "4a9dcf44cf5232476cf5b7ab57c6e8a695710fb2ab05a071db4c6af3bba4bbee"
+    },
+    {
+      "name": "editor-window-min-dark.png",
+      "width": 1000,
+      "height": 1210,
+      "sha256": "c7e8439a15f4d02cb37784359d318e1f329686799c39b7e6ecd818d1797870a5"
+    },
+    {
+      "name": "editor-window-min-light.png",
+      "width": 1000,
+      "height": 1210,
+      "sha256": "7b23ce127d0e28c8ce8c49767c029fb713411952ed4c4b69807e4f1bb750c675"
+    },
+    {
+      "name": "editor-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 1415,
+      "sha256": "78eec3831c0912c3df9c1407a6296c43c8d8074af680f48b474259b16a5b90e0"
+    },
+    {
+      "name": "editor-windows1366-150-light.png",
+      "width": 1367,
+      "height": 1415,
+      "sha256": "a2b94b263e0d7bd9bb49d9f7cc608d27faf6cdc4f7eddb1669599a8db7e36b0c"
+    },
+    {
+      "name": "editor-windows1366-dark.png",
+      "width": 1366,
+      "height": 936,
+      "sha256": "815c5f7b6211f03415387ef7f629f4f227eb114176c70496f4168afb88b7a432"
+    },
+    {
+      "name": "editor-windows1366-light.png",
+      "width": 1366,
+      "height": 936,
+      "sha256": "034c66dfc0cccdcdf30557996b7259c4fa2bb6c75e94456b94ac5e50e0ee0928"
+    },
+    {
+      "name": "editor-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1404,
+      "sha256": "d71713a688822eb32892ea3c9a6bdb538f09ca6815c1ac6aecf9035eb4094012"
+    },
+    {
+      "name": "editor-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1404,
+      "sha256": "29d2925d075f81c75b3a32283582492e30167729041461227282398218fc6ac3"
+    },
+    {
+      "name": "email-code-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "008e1d48dc0e8aff04e4614e424a40ffaf6c28a9fdd137367d0e4ef72bceebde"
+    },
+    {
+      "name": "email-code-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "53613ffbd0a8265fdb5a6c9705c4aea9dd286ae1df6aa981846b2eda8d1acff6"
+    },
+    {
+      "name": "email-code-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "742c05bbd83b43551b97dae5a87637cd2c3901b0bc18290b20f607533e4fc522"
+    },
+    {
+      "name": "email-code-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "d099209b639970934ab5212c12fdd410961263517b3d1083c99198307fcb9ddc"
+    },
+    {
+      "name": "email-code-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "5ccb97e1821f389b2d762ba2bd0ea5ae7f2769723ce018c58f9d264d9596c4aa"
+    },
+    {
+      "name": "email-code-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "3756a339b9bb5c420c22abf9fd83bc1da10befcb3cf673f9c71d24798b221f60"
+    },
+    {
+      "name": "email-code-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "bf596e6a57b92ad0e42022134a6134e89b9f50acc66ca237c843553c009b28b5"
+    },
+    {
+      "name": "email-code-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "8c209697b21914e43350d81589f38153b713c5ae8a2a2890401ce36469e92f0e"
+    },
+    {
+      "name": "email-code-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "60e114a68f7ff5a4eba3169a9da049c95ab4c8f0d5868b66c5c88693f30c8fa3"
+    },
+    {
+      "name": "email-code-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "db00743e83424dfd3ca38b9ff97aa29b5fdb25ab5af08dcfcd6621529c75e4ab"
+    },
+    {
+      "name": "email-code-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "979f32b4d7c8031da9d0c5d8223a923cd31479c4b61c2c462d6e7c207d9cd678"
+    },
+    {
+      "name": "email-code-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "ca06463f46e2d474ec8b8f63f829cbc82d14b609fa68eae61799ec8f8b128f44"
+    },
+    {
+      "name": "email-code-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "e2e1a062302c5e17147efe21d1a153aa2780bad5bdd1a5e398c1c688f4ba0048"
+    },
+    {
+      "name": "email-code-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "9015d7f4c2bc4c45042c4000edf2113d276dd759f546065e760432c0e1320883"
+    },
+    {
+      "name": "email-code-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "f2b0dca3a62f7e3b449a30ef0b6a18fb9d4b9a92dc6ded717e3fae9a520ea99f"
+    },
+    {
+      "name": "email-code-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "7aa1931a67ad6ca8c4dfe0cc469ed04c3aabe277009cbc33bfcce0a5d69299d6"
+    },
+    {
+      "name": "email-code-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "76fc0eadee7552b6258bc9024271f750a7a3b73884d31bf89672fb577d3cc145"
+    },
+    {
+      "name": "email-code-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "34c55a6ff03ee0b43dfcb3cb54206331ecdbe0c6282ed7192172756c5489032f"
+    },
+    {
+      "name": "email-code-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "762e8f7926674935dea3e5a5ece2b9a399f8dfc03487da44d4c2dbd00f587b93"
+    },
+    {
+      "name": "email-code-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "4e1f363f0d9e35c26dfd2ce99f8ac4072ec53b70e62520e7b5d77779239ec26a"
+    },
+    {
+      "name": "email-code-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "89fbced6844d0e631f839e921bd375c024df0171f0c118ab68fcb2b74bfc2809"
+    },
+    {
+      "name": "email-code-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "8828c1e02f8b7691ba00f56d4b79cff3a5d17c56d2a9d1664bbe95d98fde18bb"
+    },
+    {
+      "name": "email-code-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "2103e74226e279e02b133b7a11aa7de5c5a7151663b43fbcb224ae60c49fb68c"
+    },
+    {
+      "name": "email-code-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "8b3e4158a09e646366c24281b5b6714245c25b90c5503e93e2643f1b2af647cf"
+    },
+    {
+      "name": "email-code-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "9d241ed7a48d64efa67a4ffa5d299a8870d1270320eaa2cf94f66e9358f029b8"
+    },
+    {
+      "name": "email-code-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "200b5fbd94f95796dd2eb39be5c8974652355d59001f4f7479e1a053c8c9104a"
+    },
+    {
+      "name": "email-code-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "7a2b05acd93dfd29d335277005dd7380e6204ebd02c8c52870825c48e920c66c"
+    },
+    {
+      "name": "email-code-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "94531a67fca4f9d9b1c24528ae1fb2ba77bd535f0e662d807c98739dfc15061b"
+    },
+    {
+      "name": "email-code-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "74b95543476be51163b81d38efc84ad20d4424f8069369bdedcff386c0330066"
+    },
+    {
+      "name": "email-code-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "1d3cc0ecb311397f29d979f5272b07682c8be00d4710e99769f8e11e2984c8fb"
+    },
+    {
+      "name": "email-code-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "3516343aa7bb3fdf9be5b0cc1fef5ff4bd88b4e0e37f85df90f9b99ee32eb66a"
+    },
+    {
+      "name": "email-code-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "50d19d1b067ed708057ac128d715a33c94d9430b4b6a9fd5c8c763b7f21c5f63"
+    },
+    {
+      "name": "email-code-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "be709b68fd7fd2eeac9e83ce0d9b959d309554d226ba857c6ced3f95a6945ee1"
+    },
+    {
+      "name": "email-code-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "32a71360baa5d0e061a9eb6a20f7dcbb32db35c2281bfec65f4a4fc235c991f8"
+    },
+    {
+      "name": "journal-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "aff1808ee5b9d19a54eded44bf17053e04fd5fddec6f889328b1b4ce9da06f1b"
+    },
+    {
+      "name": "journal-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "166d4b8ddd98ed421e8df4ef3348aa194b17431a6cf1ff28869e95485eb7f4b8"
+    },
+    {
+      "name": "journal-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "57b1773862a6e79d5a0562e602a9b45642936ada5b690ad270b63d03db69e67f"
+    },
+    {
+      "name": "journal-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "ac8d91d8d4c986cc60b2374f6c094152a9be2da173e2cb35ce9b41fe20ca909f"
+    },
+    {
+      "name": "journal-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "97643d1c8fa2d2ff8d70412840e1a89dbe1b658dd82575e51b258cbaf8633315"
+    },
+    {
+      "name": "journal-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "6ff02ac9a43d53ea04bddd5738e758515e51217deb4cf7a616cc5a3d0bb9adb2"
+    },
+    {
+      "name": "journal-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "e21bed084f9864e98bbd4e56bfb340c91db06d2796da65478e144b5a255530a8"
+    },
+    {
+      "name": "journal-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "b4aa11fdae44a9836723f6385ebf8c28baa9c12bc479b42da5518f90a0a7b7e8"
+    },
+    {
+      "name": "journal-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "b014e9212df11b0b4f9a90c02d32c03ecf4c13a85a3d129c318e1f279a9eb3f2"
+    },
+    {
+      "name": "journal-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "60ec9b67af627d34ec258dd16c17adf3b784e59b71e224e220afff7f7f0ef4a1"
+    },
+    {
+      "name": "journal-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "2adc6548cb49dbb420e278cc5f60d9c6aacd56660bf0c525544cd43b5021c5bd"
+    },
+    {
+      "name": "journal-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "6a299dbc86f4df1a270adcfa9deed5bb00fa46590e2ab3f9af57d471c0e54fdf"
+    },
+    {
+      "name": "journal-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "a365f36bcd4e73c9e9b65a4ad3c8c615876d89475724a4818b1b3bcb0ec5bb24"
+    },
+    {
+      "name": "journal-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "997230476e743dbfb58a6fc2698cb21422c6353e0571f4184589a3ad3e921403"
+    },
+    {
+      "name": "journal-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "c3aa60d136fc47cb615843400d761bdbffa0490d37cd78235c204ee887843d73"
+    },
+    {
+      "name": "journal-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "d0c95f1382f4535ee22c21e650d211bcf5a7e235254ba88ceb4547e4e97f62d8"
+    },
+    {
+      "name": "journal-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "863c18c1dc0606acd95d617e554fd0a2b25394a3d96db62b7c76c02e1a722f69"
+    },
+    {
+      "name": "journal-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "56ebffca05e6ad6eec99fc365e9484220ca74c317a48490bb6142771dbe89c07"
+    },
+    {
+      "name": "journal-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "3228f622733ebcb61da99d74d1f31badd0869040eb857dce8fbec1516e931947"
+    },
+    {
+      "name": "journal-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "c85b5d45f1dfecf5cf82fd449852194f47d7fb65a35e46ced0354ac15b42b4ff"
+    },
+    {
+      "name": "journal-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "a7043b9142a06776dd194fce2ebc46edd9dd9a21d7946fb1dc5ac40234c71e17"
+    },
+    {
+      "name": "journal-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "bd70f286cf6616fde134018dc4b7036bba4513260903d0198f2b370ca390d2f1"
+    },
+    {
+      "name": "journal-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "5d43c7a2305286810f0397989a8b89bb89277c4354ca23846fd0d39142314bbe"
+    },
+    {
+      "name": "journal-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "4eb031cc0e0a1bccd52af58bfa1ee9c5ea3210d496fecdd32ce9d448bf81b25b"
+    },
+    {
+      "name": "journal-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "8ab7036bf3ed72d876213b6ce8a463f4509eb03d446c9a93b34c3cf9bd75a9c0"
+    },
+    {
+      "name": "journal-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "1dc5d3658d684535b1d63e2acc34429f091956599d0c4e20121a199430c370ea"
+    },
+    {
+      "name": "journal-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "5801ca716ee97de647e3c556d60c5ed939523485c777fe0affa9ced99e505095"
+    },
+    {
+      "name": "journal-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "a6a7f7f8a8804e0d0bb95c774e9c1690f171f8fa0bf25e71e3b76e21375757d7"
+    },
+    {
+      "name": "journal-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "a38c4d57ad30a92200e6109748082b53054219aaa408f48867ef24fade8e6b02"
+    },
+    {
+      "name": "journal-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "04d238514de1764520c65f79a2a010d89d23f70dc9a584c050a397fe97965aed"
+    },
+    {
+      "name": "journal-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "579d810f12f4872105ecb6cba9c88a0eafe3970ccb13bcf4216085ce5bd5b9ab"
+    },
+    {
+      "name": "journal-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "e47ea121019613869bcfe2ef99336bb438e480f99a20a6e40a4fe9095eb59e9c"
+    },
+    {
+      "name": "journal-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "36b32c722b9e7254eb0b46ab12f65b4f622ccf93f06919e205b877f347c48500"
+    },
+    {
+      "name": "journal-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "a54d804db3f51cfb3cf2822a62c94992da07a1df3c7999d2d03f9260baef8613"
+    },
+    {
+      "name": "note-detail-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "820d7386c1b118574eb50076e5a4e7065b1d615e14a80a48ebe76f6f3b9e3145"
+    },
+    {
+      "name": "note-detail-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "1e521735f0fee1bbe76523f5942d4962a1066be05ad277085134faeb54005cc3"
+    },
+    {
+      "name": "note-detail-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "9f488deca4dba382a7ace59a602c574500201cf81ea4f9bff923d5ebb3c626be"
+    },
+    {
+      "name": "note-detail-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "43657f77e7113bc2c82e49ae6e41d11340cb4e116f2036ce7312ae92d678fbf6"
+    },
+    {
+      "name": "note-detail-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "3a2886c5bc9072288552db6a16fa555857a66b4e6ec7c99dfd749456aa4a163e"
+    },
+    {
+      "name": "note-detail-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "6b5069aa1c26a755e1aa0ea28be947d3ce9f0cc540d110a01fef2c800c4b9d45"
+    },
+    {
+      "name": "note-detail-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "14707b051cf4a20e33b776b81261ba87daf29c8f09b6ebc4da389b6843f138f7"
+    },
+    {
+      "name": "note-detail-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "a3f97e10f4414f56bf133eb50347b26d9e7dfea346f1c12fe97f3da01a2f4dc7"
+    },
+    {
+      "name": "note-detail-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "be0e9301fbdd4e6ca83f7cd15db2a0868965ae612a26dc2fb0dbf932d77c5bf9"
+    },
+    {
+      "name": "note-detail-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "b47554f48385cf916a4a00d2bad05a71910d3b47e75df547accc7cccf63e435f"
+    },
+    {
+      "name": "note-detail-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "bf2a032b573ce8c7a981cb2863caf6dfd44a1fcaf214325c22f4c940d30b37cb"
+    },
+    {
+      "name": "note-detail-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "4aeb14d0aac106b3928037ba1ce8e4c436021968a1bbf2dac5b19503e57baab2"
+    },
+    {
+      "name": "note-detail-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "36d825143e187e306d1ca41c7ef32af9b81b065b3bf76a03ed73cc518ed8c7c1"
+    },
+    {
+      "name": "note-detail-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "111c4ef2f7377748ce239303f23cc42abdb22edd52df6c856e2318b817717720"
+    },
+    {
+      "name": "note-detail-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "42d94308a85e782fdbac10391b34a11105d18594feeb9c46fc4dd7f7fa0a3217"
+    },
+    {
+      "name": "note-detail-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "39e308fe934e4f92be61bd562ffb4f6e8df1f86ded92d4c019248744916819f9"
+    },
+    {
+      "name": "note-detail-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "0de50d720c072e28fb109db432517185718706ebd10e617fdd38ed31916c8e08"
+    },
+    {
+      "name": "note-detail-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "87b9053102c8441b45d923062dacc72c67bce595cf11fd3cb3fdb27b7cdcb0f1"
+    },
+    {
+      "name": "note-detail-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "e65090e02854aa26e4f49abc6472d29d9e1d609cbe1355b2890246d2bdb20af9"
+    },
+    {
+      "name": "note-detail-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "f4283c5b42e98269f764fb9c8cea7272a7c0a15452878a3e2846a9ad3ad96a27"
+    },
+    {
+      "name": "note-detail-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "1c3b0eed25831eeaed71e706939b0528fd03b889716f0a465e84d836d9b96203"
+    },
+    {
+      "name": "note-detail-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "c613eefdae4413e59b0b3238d654354cd808ab8a1d44d6b15154929bcddc8865"
+    },
+    {
+      "name": "note-detail-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "92ee02407738b66fdde5a2fe60cb2d4f576277aea30210a1b6d10143ced3ead4"
+    },
+    {
+      "name": "note-detail-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "9e50513e92543daa1f3bbb5ca7a08d87baa15a3b2e30b80e8db2b8f481d60274"
+    },
+    {
+      "name": "note-detail-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "29c0d000dbdcaa3239842e89cec0db47e055a7ca4e50eea3533e6adca6e44148"
+    },
+    {
+      "name": "note-detail-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "d79f4adc69da400e9e20ddcdb242de9a369bdcb79d3db9d98911f5e35494f687"
+    },
+    {
+      "name": "note-detail-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "2c779dbf633289c53a2917ede44ab6d2808f9388abb3064dc8f4165e3c9bc7e1"
+    },
+    {
+      "name": "note-detail-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "5f84af591427cb05e2c34673df142d2b7a206b7c61abe1751a8409f9583da96f"
+    },
+    {
+      "name": "note-detail-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "75525eab067814c5e041ee3d47660da6b547deaebe552bae207a3eadab2e8d15"
+    },
+    {
+      "name": "note-detail-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "c58b558b353f4df0cd49f89946bd30641eb57f94158be2f4d5a79511ae4f87f1"
+    },
+    {
+      "name": "note-detail-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "04483670d8377358a0e013423cc30f410dba342df46a7ed4f7729822bb8cdc21"
+    },
+    {
+      "name": "note-detail-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "ab32e52d8ed0ef9c0848e4e35d7d585b5d503e3426eee5d9b262d0626e0c35a0"
+    },
+    {
+      "name": "note-detail-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "6c3f0abf64147d7d6ea051332e29e919aece7a9324b57f2f94f3ba72266f33a8"
+    },
+    {
+      "name": "note-detail-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "fc493796f3f6354f7707be844c9b6255b2d488f695b46d5a15c773f95243537e"
+    },
+    {
+      "name": "notes-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "6617f3f4208ec631446af9ff05194a415abab0e194ee24b720f21cfa58149b01"
+    },
+    {
+      "name": "notes-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "389eee52995300d39853b2c09ec0a2ece10385b03e9b769376e455b78b1b12e0"
+    },
+    {
+      "name": "notes-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "4eeb3409e1ae3c75cb95474b0163421ba4739854adeb847a100ab8b3bdd0802c"
+    },
+    {
+      "name": "notes-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "ee28b5d5b7a6bdad707c18e65fab3d675c49aff47a5edca77a8af5fe3ef88a3c"
+    },
+    {
+      "name": "notes-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "076c7d87c2b4901df588cd59192d99c44eb0f0b2f86c66ec3f084dfef23285ff"
+    },
+    {
+      "name": "notes-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "cc6a3781d823cb4378187fb04fbb3f814961827c2ec392ae0e05933ee673b80f"
+    },
+    {
+      "name": "notes-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "22b91bbdc916d8a210a7c8e9e01f773e5ae067bfcfa8d2e88c312309576b4e90"
+    },
+    {
+      "name": "notes-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "d0b6db842f42f70ca31f473c29e4cc9b1f3245e43bc9972adbec3c0909511289"
+    },
+    {
+      "name": "notes-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "72c1d188eec3adb5752425bb0e5cfe1292ec3a9c705467776130f1483eb3b888"
+    },
+    {
+      "name": "notes-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "9d66de8285ac7419592eeba68fad1d5e0d36fcdf6b17a09465bdf0dbd085339b"
+    },
+    {
+      "name": "notes-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "6d4e83818f8dd77e4ea6ef6a545f68a5f67aa8d9c0be351e9392c1d71382cf8e"
+    },
+    {
+      "name": "notes-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "1cfbcf0aedaaf902b3b93babd52fe43e1b28a2009e282e2b4ca46a46541a1ae9"
+    },
+    {
+      "name": "notes-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "896db3cf312a7e68498198f44a4d7c01ff645a1b4aa55ae2b209aea0e5726702"
+    },
+    {
+      "name": "notes-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "48caf55b7946d76eed41dc3f635575d174359182def2561bbf2fab6bfa47b238"
+    },
+    {
+      "name": "notes-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "24fb2de22f54180424fa6ac71681663804dd9622eab68663590f12e80adc58bc"
+    },
+    {
+      "name": "notes-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "4af1a7afb31d80b011358c81316796fc3499b1875bc03f8a849c030939abae7e"
+    },
+    {
+      "name": "notes-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "3438c4c4dd322030af297410314243fae6931cc2c30a76035cd1ffb39d1cff42"
+    },
+    {
+      "name": "notes-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "b7deb83298e6201bf749eeb87e96c78f9503999640d76b51f118ebb6e9542c07"
+    },
+    {
+      "name": "notes-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "bc7672b6f99d7bf68f6b30f21444f37264eb466fdaa77516f67d714d940d4a90"
+    },
+    {
+      "name": "notes-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "8fdb2986f6aaad251f86cf532a1b01f6b354ac59c751928867d7b4e6c90a96fa"
+    },
+    {
+      "name": "notes-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "3800a626dde8cca8f4b567520baa2d29585c452a0a702d31e3a564c3d501863a"
+    },
+    {
+      "name": "notes-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "cbafe4aaf9a7beb99fb1774ad4cd524477a0cd46ce67c238123373299a1dfa6b"
+    },
+    {
+      "name": "notes-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "cb607b1721002548b470fec5fb16bbd51a60a53d83c4d2d8a9cebff13a628b82"
+    },
+    {
+      "name": "notes-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "36de05b6ffd821f303fd7c29802c8ffcbbb2b27c00f1ea462f2cd50422bbb0c1"
+    },
+    {
+      "name": "notes-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "a4aa750320f90837cabda1deb02490919e5bae80ec971e761addd07de77663eb"
+    },
+    {
+      "name": "notes-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "ffd5598ab41495ad8361d6f42843fb9b02ea77994b6303922e072f7d4a7bee4f"
+    },
+    {
+      "name": "notes-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "0b23d5d57cbe8f124a6cd0732228433073efe2b88dabaf158a50f589c65e6ea5"
+    },
+    {
+      "name": "notes-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "e5b354b918c981693175fa0fae73d24e3d1ac029b75119026a06448f32b24798"
+    },
+    {
+      "name": "notes-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "9ff839ba6398c704ba009294ef5f5c19aaabd32888d64b86faee30da817c54b1"
+    },
+    {
+      "name": "notes-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "15d3daf45a37458569ae20e4fcdc442426a7b7801516c92258055984e54474db"
+    },
+    {
+      "name": "notes-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "4186a4e9e696e24272a06008527768e665478cf25d149fe17900fec8588f7bb4"
+    },
+    {
+      "name": "notes-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "16b7f9ce21bb847af698ea684f57f66c2f6f0209140e159db9a7e75c33a21ff7"
+    },
+    {
+      "name": "notes-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "736f5845f1719b7e2b45806ff99012c2c4ed05f9d1e83957ce4fab0e40dad1d6"
+    },
+    {
+      "name": "notes-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "8eb326b69ee33ff9b0abcd42c7b7590bdcaa5273399ddcde54ba25fad20997e0"
+    },
+    {
+      "name": "palette-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "ace047f0955fa4078318055bec1090008ae5fe7f9526fb1a33138f3725b2d939"
+    },
+    {
+      "name": "palette-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "9b3e6dff8ce96d99b41210dd5c6d98f3ed56f4e5ada6a6477e7c82968a41b33a"
+    },
+    {
+      "name": "palette-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "2c0bb78c20d12822420c9acf94de155a259b60bba097bc985ffa572993e7b778"
+    },
+    {
+      "name": "palette-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "2983d1944f49b5daeac642974c1178706d3c410c0f6252add03212ba9d01d4d6"
+    },
+    {
+      "name": "palette-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "7045562a7c3d3e6c7f757c5721b07d227fddc5a2c01d7059727b9f9d642378e9"
+    },
+    {
+      "name": "palette-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "af417c68edb4a7134af190c18d863a8c6aea6ff19dbff77c3d94080171698168"
+    },
+    {
+      "name": "palette-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "977b736285120b16188f3ecfbbd818699aeeeb90327edb9532c149fc74f44968"
+    },
+    {
+      "name": "palette-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "d206b45ca77e1dad9bb4b20344aefac8e0201d4d26a2adcb5dd7eef329148ad5"
+    },
+    {
+      "name": "palette-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "9dd32d9d1d5c92333e4e758292476b18e86d7b25eb4e44f9ed7c05e1c072f941"
+    },
+    {
+      "name": "palette-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "a1a3902728e0a393d1efce5a936152cd7e66df6993fdd3eebdd7491ebad585a1"
+    },
+    {
+      "name": "palette-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "9d721ee0c27a1fba3a927fd86fd9f3c26f0f4383387e99eaad7e73b33cfec18d"
+    },
+    {
+      "name": "palette-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "6be7445eb34376b726310f779acd831bd2df25b0698dae85610d555a83df879c"
+    },
+    {
+      "name": "palette-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "c0d81d0690111e651e974409a5a4ef9ec01c45249d7c6a194e795cfa281e1ad6"
+    },
+    {
+      "name": "palette-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "6373c4d163e2bb825ab27d2e669c4b23d86f3d321cd4611b8cb5347bb92c2a9a"
+    },
+    {
+      "name": "palette-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "dc13d738765a7f17f077668e997f09b762dddec947393c2ca539c9c694448964"
+    },
+    {
+      "name": "palette-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "41671cd9e3a0cff732f6c876e2b54687ff94fd4637332ff5ce8618e715e5c7d0"
+    },
+    {
+      "name": "palette-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "ff522bdc89177165a8e5765576d765bdc3d1c4b41c77f9e346510364743459f0"
+    },
+    {
+      "name": "palette-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "52b35025aa55dff135f2c66e858fc483bcf9f854d7e90d88c47e003f64871b49"
+    },
+    {
+      "name": "palette-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "dbec594f3a5a32d9ca43e2d31377650b77682239048c361b43b33d73c3d25625"
+    },
+    {
+      "name": "palette-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "31860b5354c8f0ffd41182486df23cb3e01fe58153766717e923b065312e8221"
+    },
+    {
+      "name": "palette-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "c8ba425d57b985128aa61774294f5c4567512764c40f49c28fbbd884b0201c32"
+    },
+    {
+      "name": "palette-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "f92aef0c905637dcd77d47a9c771cdcaf749c83f139e7afef3fcc249c9c8582e"
+    },
+    {
+      "name": "palette-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "5bcafe8d6fa0ed687b1fb461e0d4743dea9199caeba64d465455138789cedb63"
+    },
+    {
+      "name": "palette-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "fc280ec7d739985558f0d9d0e2cb58705cb0821588b7ffa496b4b4b65205fbfe"
+    },
+    {
+      "name": "palette-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "7140e889dc5e85c7657050405461c27928117f726608543c1085d20c975f74c0"
+    },
+    {
+      "name": "palette-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "c044a4fbbe240c2651a0303e18749f55794e612cf03de33f3868c918b7261566"
+    },
+    {
+      "name": "palette-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "b8b526ff3d651ddbd53b284c3fccf987c96f2efeedc76f4137d4d0f2b7225304"
+    },
+    {
+      "name": "palette-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "2cdc3e2570d5170a12d1e6f515084e9d2d6e2da686a8beba21cf71902e3d4427"
+    },
+    {
+      "name": "palette-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "943885e361bd73b472052b91e9573f3386059a875dd5649fd2bee0b35dd62b1d"
+    },
+    {
+      "name": "palette-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "deefffa33fe7c9d4717d3ef18667cf0bc0dda93f8bf2dc10818fb9a3f54468a3"
+    },
+    {
+      "name": "palette-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "344a61f5882a87a90d1cf29730ae246f5d012fe480fc6a444f6bb4eccb11894b"
+    },
+    {
+      "name": "palette-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "cefa58bc369213e18dcf228f919edce46409677bedd434029f1b9cab0187d403"
+    },
+    {
+      "name": "palette-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "65300daaaa5adf782c64b079da2d93e0b6beb871ca170a9946089308a2e87a1b"
+    },
+    {
+      "name": "palette-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "48bdd6dd84c548a560782e4e18429a63292cee7ecbde3e58d3747b5b8010a1e6"
+    },
+    {
+      "name": "search-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "40afff552556a5b58df2f84cab68e0f41e83386ca65e02bae49a387923ef3630"
+    },
+    {
+      "name": "search-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "47ea1c8590ae3721d1c0deefc54c51e9c6fef8dde896bf0a29c23db102309670"
+    },
+    {
+      "name": "search-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "0f75acec404adcf1a5a9eb22a626c895ea2c4358c35c72b1bdb05750abeac3d2"
+    },
+    {
+      "name": "search-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "bd4141ac4152bdd09147bd048ed2dc0094e55441d70564df78f41e65c2c43f2d"
+    },
+    {
+      "name": "search-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "e43aee20b221f28d600bddf48b26caa96122ac50ede28f87ef15fc2f330ff2ff"
+    },
+    {
+      "name": "search-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "9c6bb2b84629afdc7662db96b85956bedc8a107943865b1e70d1a003f65ccd39"
+    },
+    {
+      "name": "search-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "570c30c5c7f4b81b841da4a4190c29f9d97927ae2877c2a9e90b4f3df377832e"
+    },
+    {
+      "name": "search-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "0a92d0c8277538fb8702ea9e0d3425bf68564b78d90f50b86f6578d880baf2ed"
+    },
+    {
+      "name": "search-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "b246d751078fe074f1f7c96f61c4cffed2fee18e3efa9a03db3dd7b4a398c0ca"
+    },
+    {
+      "name": "search-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "999ddb48e87c65b564eaa4ff76e7e0b3a2f3b2d6285e0ade06fd29ca5f7d9626"
+    },
+    {
+      "name": "search-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "ef6d109da2a2bd3d0f089157b0bbb6122706182458babe288a2dbfefee5868ee"
+    },
+    {
+      "name": "search-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "58ee096f943fb80e610f90d0c162278ada415a7d12590a89da4ea43f8aa78fa8"
+    },
+    {
+      "name": "search-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "80d61dcf7fa3a3a8cfdcef603c95457eb8e18d8aec0e7b26abd59d1c1154cadd"
+    },
+    {
+      "name": "search-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "a3f1b9a10355fc2e58e1a79a967e580a36f2e972f240054eb0577de9338a36e0"
+    },
+    {
+      "name": "search-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "c989690912c3cc4ec2abffcaf699462362237a52ae795e0ceae919f5da73d152"
+    },
+    {
+      "name": "search-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "02c028923aa292707ff106425a4fa11f7e162424ca8535b5a0d1e1757df3f919"
+    },
+    {
+      "name": "search-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "0590b839468a945a02ee6da18d7d8f8b7d42863264a7e6e3040cfd5558b535dd"
+    },
+    {
+      "name": "search-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "f16046a52c474ab7130da3544ce14c7d99b2482d40ea4cb9362b52e9980f0776"
+    },
+    {
+      "name": "search-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "4103f9d45a5d29729e1c423e3d80382e8e676a29b7714fbd227c5eef9d47a3b1"
+    },
+    {
+      "name": "search-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "ebe53d7e372491bc649b91c5f830e670ba86c7dfe251a5a6ad249aaba064043e"
+    },
+    {
+      "name": "search-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "a77fff250e8f100eb9f260384240ca0e3562168f41fbbf0b628a4553dd6a5911"
+    },
+    {
+      "name": "search-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "621de4f302268905f74f3de014ca7c020a10a15415a69f84d231556825f54221"
+    },
+    {
+      "name": "search-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "ce3a5bed282aa03befb1d75d1bc1087d61905c1d149db2d4cfc1831785bdcd4c"
+    },
+    {
+      "name": "search-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "c87f3af05b7c065e8a7f70523281a5d21d8fdfd524f8ce7f0092e9db26713747"
+    },
+    {
+      "name": "search-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "7220b61536264e0d37c71a7acdb90a1f14dad6be5807e8498de92762c737947e"
+    },
+    {
+      "name": "search-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "42879a290896256c6ac69572fa49e20ef83ce84432b3c964a8b88dd2c1fdc012"
+    },
+    {
+      "name": "search-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "c261b8013abea83ba4318d9f5ed41c24b4c10746801737460aa397a0d29d84f9"
+    },
+    {
+      "name": "search-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "7cbbb542c39740aee9e09992ad0c7311c2bacf2399ff55473af2a6973a4f6d2b"
+    },
+    {
+      "name": "search-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "aaa2cff4c9987f75958f437f2143c18eb6898f86cd278a852ba93244459cd263"
+    },
+    {
+      "name": "search-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "fe42fa64b14248e5e6fab723ddada3f90ebe4816accc0764afb17882f09681c6"
+    },
+    {
+      "name": "search-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "240d514bb00c144030dc44f2f2b8cecc1908ec2c18a221d35c4eb04f8754d0c8"
+    },
+    {
+      "name": "search-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "9448880debb0755855e0b3e996f958f318f5ad8c58e5fbd0b9193cd948c6cf85"
+    },
+    {
+      "name": "search-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "619c4acba921580771a1ab3cb24b7342c77c921c45c6341ff8f3b15612238e7a"
+    },
+    {
+      "name": "search-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "362eec4e6b9bbe967ffc131668301a44483a9c4a5680f6e45f4fea4693de4680"
+    },
+    {
+      "name": "settings-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "789e8668819b7d5ba18be08a9db54dc384b5ef8e7eccbbd1c4f0c8963925f1e1"
+    },
+    {
+      "name": "settings-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "7b420c1adbc8e56bc6cf43b3433ad398e7505192cdb93fdc81edc57cd18573af"
+    },
+    {
+      "name": "settings-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "7faa74fd3cf177e1b0a579678bb8fc54f8733684f2a7ce8c56e8bd2e72e7d9a3"
+    },
+    {
+      "name": "settings-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "c44a2556dcbb50666299fb91e2e9631f225762bd22356d2bbda526459f8334d7"
+    },
+    {
+      "name": "settings-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "5d51c1d779a5d39299fc9c5c8d31276d9f1fdb2a48d0c7c33fcb45446526de38"
+    },
+    {
+      "name": "settings-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "d83029a6aac03edae5bca2bceea15ff666ad1b1e9f93a480a0acf49e14491168"
+    },
+    {
+      "name": "settings-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "a47d14864ebaac18615e68679370d42582ba53486b665b2709a31caefc3319fa"
+    },
+    {
+      "name": "settings-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "1bbbc5e48e1b29d95ce814c75d6d25fb544cb543f912162c10ff408e308eb073"
+    },
+    {
+      "name": "settings-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "c20cd72dd4be362e9fafb06f8cf41641296235b0e968961969577c8c8dc7a696"
+    },
+    {
+      "name": "settings-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "8592648e38372f60be6c75f8f942b0c5f613edfba914bbd1df81543f9ddd25c6"
+    },
+    {
+      "name": "settings-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "4f8ca319310867fa4fe0aa0e56c51a79f6e83f0235d7c00b9a57eac93a11e4ca"
+    },
+    {
+      "name": "settings-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "ac7c7e529f0487c20566c383d8d3e077bfd445a57dbf3a4afa7df7fd2be488b4"
+    },
+    {
+      "name": "settings-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "e55fa59b1aedd6b503d5007317249a62ab63bcc2105729c48dd402cf57e93efe"
+    },
+    {
+      "name": "settings-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "ced5c8faba502f3b8dc24a04350e3bcb508b15dcc0651ae3b9848282ed4939b3"
+    },
+    {
+      "name": "settings-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "d11035624bc383a17cb1a2cf3af9d831a55a90097d9f2f3a032f21867814508a"
+    },
+    {
+      "name": "settings-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "6edcdbe36b4c87107610f56babafcc9dba5888802cb56ca6cbfd5852cd353cf0"
+    },
+    {
+      "name": "settings-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "c1501335079097eb2d8d5efa01799db3e7fa671e33ce2434155e399cde13285c"
+    },
+    {
+      "name": "settings-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "8b9861ddd6896439e2466f0225e469c03aceb1fb2012fd0843d0fb3c19e1dd56"
+    },
+    {
+      "name": "settings-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "869e8711b5c242134e6162e6241a2ce470ef0dc3b5bc8fb18f11ab77d1e6e858"
+    },
+    {
+      "name": "settings-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "4dcdfa161f0bf556f7ae7b1423da8c078b308478b64f41a13a7d27e93c98d8b9"
+    },
+    {
+      "name": "settings-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "63f73501b8fc5b5142e93e1517a6f2957df7a8a046867d431b7f114f5a741358"
+    },
+    {
+      "name": "settings-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "2a3bb8d30e21bf7d2089c77e136745b89557ae6304049b54ac039e1bc96506fd"
+    },
+    {
+      "name": "settings-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "e601713de32f4ec9656678c33f403dec34d9792bb47e633f1fd0043390e94cd4"
+    },
+    {
+      "name": "settings-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "c566d5ae9ab7067ae4314c77c79e12c30163ad5e7f8d703fd97f3f344217075f"
+    },
+    {
+      "name": "settings-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "c20efb093184adb01aaadaef405ed35572d54287137ee0da009eaafdae8d3605"
+    },
+    {
+      "name": "settings-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "0db63285f00d811e13d30f877f4c7ca53013094dde0e09b11c24a83a41e62ebf"
+    },
+    {
+      "name": "settings-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "42435cc0b04d5c052c007faa3e868e6695617f2c6a57f14ae6baa28a8ab6216c"
+    },
+    {
+      "name": "settings-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "24a468177f10f3678afae236b4fb89f215210742d7a7727e5b2eb2eeb2234aa2"
+    },
+    {
+      "name": "settings-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "6384b69d56e73564825793d22303ea2d5b1caa68eecbf390a04138ad347c6830"
+    },
+    {
+      "name": "settings-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "6ed1737ebab7689961aedda368ca3865e17239f9cfa6938a9a5814bd76afe6e9"
+    },
+    {
+      "name": "settings-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "47e8392294e007dc1ec4e9142ef847857abfbc99c2f8ea1c4aad223d8b37e065"
+    },
+    {
+      "name": "settings-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "2bd97987b5a8a095c47acf5eafbd685c84b846efe3a881fc0d75d16a317d1228"
+    },
+    {
+      "name": "settings-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "691a199c91191c2f0b46cd70aa33c876a49c725b35c3e4c45dbbc8dd97fe169c"
+    },
+    {
+      "name": "settings-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "b14de930db82d17a3b05280e45771eebf74b96c24d68311ee6eca5932c86611c"
+    },
+    {
+      "name": "sign-in-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "607f67a8bd12db8d817ab82327ee22eac62c0fb8ad1a9cb605f9ba4c024e0c47"
+    },
+    {
+      "name": "sign-in-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "3fb69e47cdd81464410bb6031be5a7ef8f77da534a5e1cbd7e4f8c299dd95774"
+    },
+    {
+      "name": "sign-in-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "5e6ad47371cbdd3226babcf1536768c388c4363d87518350429203fac2460f99"
+    },
+    {
+      "name": "sign-in-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "ad2562b06a195ba624087b9bd57d257a1454f3fd2392b2fb282637e1ec55593d"
+    },
+    {
+      "name": "sign-in-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "c118a4eb3b36f015889e7ee23ec67b1f46ea2cfac256079872cabc339a2bb526"
+    },
+    {
+      "name": "sign-in-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "fe2c303ef4ea0357dea2fab0f3be6ce030c3cf99a74ce175516d2efecc90b4e7"
+    },
+    {
+      "name": "sign-in-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "f928bdadebb4741387021e58beb2a3d169e2a8cfcd8a30114d17c2551597d504"
+    },
+    {
+      "name": "sign-in-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "a4cfdf502c278941478f81944d15b2357d5e6e06339dc47e51d18f0e9eee9088"
+    },
+    {
+      "name": "sign-in-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "844a8d38cde016937b8c15bdb68c92e9369484259e1927da8f4045b511e71146"
+    },
+    {
+      "name": "sign-in-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "d62b12d18dd9e61a954ba0aa69e321c3473e6360dbb8f0b869bc99f632a130ca"
+    },
+    {
+      "name": "sign-in-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "fbd965e5dd27a2d70508993e42f60642d68fc1fc7f670701e8c23514bff87bc9"
+    },
+    {
+      "name": "sign-in-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "cd1e0182fac97790e3c799179f8b502bce7f357e860af53535bd36d01ff6ea52"
+    },
+    {
+      "name": "sign-in-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "68b1b493c0b5526b2477f1d2477354183476fbd284f0a662847b57d274abcb68"
+    },
+    {
+      "name": "sign-in-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "62f3e978987287e0770ad02faeda63329bfcde292eaa4fefd800f07c93db1850"
+    },
+    {
+      "name": "sign-in-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "35f668e5d8e4c089db000a61d0c2cbf6e496bb8063328fad584b509bb54b7970"
+    },
+    {
+      "name": "sign-in-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "e76d859a937faa559f5d19955b09347f6d456474ce55b5a368c9de289f3202ca"
+    },
+    {
+      "name": "sign-in-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "501fcce60208140faee96549c274e20907bbf489dac06ccd795b0f88f938b655"
+    },
+    {
+      "name": "sign-in-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "20f8c9f484a4029d9678c813040f9432f2b0d36623630f02df03f9d588f0b8e3"
+    },
+    {
+      "name": "sign-in-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "fcc3df97184960e0f8e4f8a6ee5631c845357304550c54e699305a4d10447b27"
+    },
+    {
+      "name": "sign-in-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "d1088d51d7d7863a8a05c400cdae7fa294db61624e7355ccce3a0428684e9262"
+    },
+    {
+      "name": "sign-in-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "1241cdf387c719ff3cde103a4948ba0504dc3c75a452653a7a9e718e7d47f738"
+    },
+    {
+      "name": "sign-in-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "f42277467fe62d6d40aee98dd8da1f9aa63b5eb4ecf4381153412b6e786a3e29"
+    },
+    {
+      "name": "sign-in-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "14e9456b3eabeb127b30bebc4b4cb95461f5750963385f972019e5d69efc7c39"
+    },
+    {
+      "name": "sign-in-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "ee3ff18770d3f380f47483325dea1badddef644b85fc598a023ffb3424239ad8"
+    },
+    {
+      "name": "sign-in-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "8421e054bebc97634b02299b7b5120efa59569a9cfca1e025a35a1dc2b7cb7de"
+    },
+    {
+      "name": "sign-in-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "2fbc28438af4fe6c96740a091886613225a99e3055d44e0047592ec55b4bd6dd"
+    },
+    {
+      "name": "sign-in-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "d6302504118c33c0f596426c0d3e489cdb37495adc82075ae65643d6d8e8d335"
+    },
+    {
+      "name": "sign-in-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "ab2ba432b8d8775f92b316235ef6e44ee52ac65d57139cf37f99fdd42c2fcbda"
+    },
+    {
+      "name": "sign-in-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "bb696cdf2ee218089e228f4b55446e8aafda99e6ce56fc740f27b90ad6bf38ad"
+    },
+    {
+      "name": "sign-in-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "460835fd204e944719c67132aa600ebe56e7fd01d446485b6d44c7973b1aa53e"
+    },
+    {
+      "name": "sign-in-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "1ea4af055f87710234f6b6340cfc5530eeeb12d54555df27977e52270a4c3812"
+    },
+    {
+      "name": "sign-in-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "6176e741240a2364273ff941c2f3a1ffbf0096fbef7ddadb5bd13fd043d06be8"
+    },
+    {
+      "name": "sign-in-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "164055ff37a64ca178e65060c6ebeaa71027d614f714d6dde974b708ab936a4d"
+    },
+    {
+      "name": "sign-in-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "35ba4bc308c88f1809060e886e3f095aa0233309c0b1f35b3ed2481c05c5e770"
+    },
+    {
+      "name": "today-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "78381870958fe4ba19972a8e089add97af06b9f8d0898cc26192f0d9a2be654d"
+    },
+    {
+      "name": "today-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "28440ea140e86f2bb86f8fedbb71e3f7c8c1d3c3f724287c534cce9bf9920d17"
+    },
+    {
+      "name": "today-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "bf5c2025634415a4651e09baba927586674206ba28761da4dfee5f315ac46b3e"
+    },
+    {
+      "name": "today-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "759c8883a8a490bd7e4a64efac0a9fd83d3106b99c4df465732ed4a0407a8cb3"
+    },
+    {
+      "name": "today-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "a2df095524dfec1ad303fe2c300c395f9defd28212ac7650b9216f09e332a195"
+    },
+    {
+      "name": "today-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "d551a0fe22020977eebf336f9c7c88b149cb9c2a749ae9268b60c2c00865f9cc"
+    },
+    {
+      "name": "today-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "80082b401925ec327ed436ba507cd4763e867f81b7abfe2ab4cb9fa7c91fed44"
+    },
+    {
+      "name": "today-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "2b1a5efa6dd097c056c5171357019ea71528275a191a4e5e055aa2137a64d650"
+    },
+    {
+      "name": "today-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "cfab7bbbc61b961dcf0e6bf07ee08f2d2b3419b4278fb2db66ab6fdea66c2a54"
+    },
+    {
+      "name": "today-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "83cb0f75b64c611f7df8b71e64764e60e7c0e5e9656f6e83f8ca8dddf21ba40f"
+    },
+    {
+      "name": "today-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "28a0a941c2c4c02bdc19d8e207686fef34294936773d1c3b4d6a7423f0fc4cbf"
+    },
+    {
+      "name": "today-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "dd7783d60252a027a3dcd237f7c5a8fed22ecd98c34da93513f57568d4e8342a"
+    },
+    {
+      "name": "today-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "866a8bb844aab79587b6dd321b6c4bca82fa5856b72aa0e4902839abe9b052ea"
+    },
+    {
+      "name": "today-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "7553aa8e52575d36153766249996732f50ea2ebf5f9139a029974827eb29a0c9"
+    },
+    {
+      "name": "today-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "f603bd93d85dc2bf2d67c292108a2db41e9ae9d44140d7439a5433c8ebed8084"
+    },
+    {
+      "name": "today-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "d128ff02f5d6f86b7788cb6d903acc5b534787fb55676ca71c9410995ae2c186"
+    },
+    {
+      "name": "today-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "a23cab21296bafdfedbcedc6b0832b81cdf6b886b3c9c15d83be34e553157bb6"
+    },
+    {
+      "name": "today-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "91da2821f7b99d8d91a3425fc66501379af54a310f73a0524454cb339e8a3316"
+    },
+    {
+      "name": "today-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "a63bb76d7c6b53a76a54c93b10c209914404567119ea0d9324f81fbd0195635e"
+    },
+    {
+      "name": "today-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "8d3293a33535b04babb0bd06015f3586b8aa6fa949bdca0a7bbf9a47dc3aeb44"
+    },
+    {
+      "name": "today-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "03f004a70a355c2aab1500589c3baf0c2fa18664519ca79f0d79e15b17eeaa6b"
+    },
+    {
+      "name": "today-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "33fa329f56bd2a7aa2dfec66011aeb73250d9211f27be953625f861f2138a793"
+    },
+    {
+      "name": "today-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "fba9272bae882273f575978e8942b1cf4ca36d9fc25ab8ecdbe54eeffa711eb8"
+    },
+    {
+      "name": "today-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "7546492d100513fa4f04495c5a061b5e07587e356ced2d004f7ae5ffdbfbbfe7"
+    },
+    {
+      "name": "today-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "c16407cc6e7a3f92bfbf677ff84791dd69d1f3c029a0311a59a6f7dfc39a29f6"
+    },
+    {
+      "name": "today-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "1413d7804ec28d609b0904b32fbae8a1dbc9cd925f10485d00c2de7dd32d7a16"
+    },
+    {
+      "name": "today-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "e02733545c0c1dc6e8063bfc2d076cf035f23ed590b80929c9fe75b1d9baddc4"
+    },
+    {
+      "name": "today-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "c6233ff70e0843b603237062763ab93a765ca6d19ccc4a0a4567c6d9437ad595"
+    },
+    {
+      "name": "today-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "7c831ea03c0057f9cd50ed02ab34452f2b5253d9382e442595cabb00d747e731"
+    },
+    {
+      "name": "today-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "b9f09646f2817d52ba8c00b154d98b2f840721cc7c4edcf5b2789e74689f1cdf"
+    },
+    {
+      "name": "today-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "39fff3184fb4c3b3b9bbc1b62fa9c8c08352365bd47e6ae6d0425de2117d74b6"
+    },
+    {
+      "name": "today-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "daa57a998dee37aaca6586c37c4b28e2fd75adf38c2f8949c2a6ca3d56a27c0b"
+    },
+    {
+      "name": "today-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "d0eaf6742f83a029a28c7eb9a86212630f647fda17dce429b26bfaaa39ef0e04"
+    },
+    {
+      "name": "today-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "5bf20dbb7d10f2b0449bf6b0a0476b96ad423474647e0b25efdbadbc08860902"
+    },
+    {
+      "name": "workspace-desktop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "ca28bee41255c9108d418ccd6abcf997498b9a703077cfcf27343d2b59b26f23"
+    },
+    {
+      "name": "workspace-desktop-firefox-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "f0213ac1b7c3d3f1828f913a2ae2b7e9eac07bc39e7478073124e8ddd8597345"
+    },
+    {
+      "name": "workspace-desktop-firefox-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "8b12f69823bb913704f62e28526314b159f9739be75f39eaa3eb5e6c7ad5cac9"
+    },
+    {
+      "name": "workspace-desktop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "c638ef15febe1702ad4a4f131855c714dd9ad923381832bf489d94059a91fe74"
+    },
+    {
+      "name": "workspace-desktop1980-dark.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "7228a0983b07ee4a536316463f83ef0466633a4592cf04fed7692e2449fdda98"
+    },
+    {
+      "name": "workspace-desktop1980-light.png",
+      "width": 1980,
+      "height": 1080,
+      "sha256": "a3e939250d447bb5c62a14279a44ce51340616b75608f9b734720a6cbfc957f1"
+    },
+    {
+      "name": "workspace-desktop1980-tall-dark.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "8fdf21d5062aae5f4a49509f7a802d445c8fecad23ce60cd9aeb742c71fe4d37"
+    },
+    {
+      "name": "workspace-desktop1980-tall-light.png",
+      "width": 1980,
+      "height": 1200,
+      "sha256": "41ec75529561344bc47e6df3682391f1b6a010ccfdad544568a70af5610e5478"
+    },
+    {
+      "name": "workspace-ipad-landscape-dark.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "02219d0fe9b1870baa7d3e47346d8d34832603038b988c436956e9f76a61e6c7"
+    },
+    {
+      "name": "workspace-ipad-landscape-light.png",
+      "width": 2360,
+      "height": 1640,
+      "sha256": "6f4e5230b5a4ba807da561e3e1f9270a6c723c94c33b7c3f7a56aaca82887c6c"
+    },
+    {
+      "name": "workspace-ipad-portrait-dark.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "2374b4ef768ad7d9f652b2cfcbb8c92ff73291f66afd379cfcbd5914ab53eecf"
+    },
+    {
+      "name": "workspace-ipad-portrait-light.png",
+      "width": 1640,
+      "height": 2360,
+      "sha256": "c252f42c55cccacd5b0988446601b91a57f2803d90f81d6afafd446a402661d7"
+    },
+    {
+      "name": "workspace-ipad-split-half-dark.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "8909348ed3d30851bb3a95eab99325c725461be775deae2a59cc2e3365c350af"
+    },
+    {
+      "name": "workspace-ipad-split-half-light.png",
+      "width": 1160,
+      "height": 1640,
+      "sha256": "0957fdb92578391012120413ef73f057a92aebf9e486ef91c3dd0005d9abac71"
+    },
+    {
+      "name": "workspace-ipad-split-narrow-dark.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "4daf069999239c2d5fb72a62afe3375910ed9e6fc23efd6f2273d73bb498a8a7"
+    },
+    {
+      "name": "workspace-ipad-split-narrow-light.png",
+      "width": 750,
+      "height": 1640,
+      "sha256": "0d3851f5a45d1d0c114392cbc400957d67808c8ac962bcbab04d5c6e77432e8c"
+    },
+    {
+      "name": "workspace-iphone15-landscape-dark.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "ba58c8c05a51e615e0bb178281f8a62ba491821a4c36eb50d929e350a28bb97a"
+    },
+    {
+      "name": "workspace-iphone15-landscape-light.png",
+      "width": 2556,
+      "height": 1179,
+      "sha256": "54b243ed9c4e98efd53a1f75dd5e34443884eddea5677f2bf1f1764b5f870060"
+    },
+    {
+      "name": "workspace-iphone15-portrait-dark.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "48bb72cdd834594d54d62228228d579aaadaa803fb65a481e0b479d52954e863"
+    },
+    {
+      "name": "workspace-iphone15-portrait-light.png",
+      "width": 1179,
+      "height": 2556,
+      "sha256": "1bd3a8ff73f58e50d8474b441005c350f55b242e5880121040053d346b024dd6"
+    },
+    {
+      "name": "workspace-laptop-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "102a9cb800e64de805f53c865d6d437c4ce0e9f8d78780c7ebf750bd279b7009"
+    },
+    {
+      "name": "workspace-laptop-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "e884d6cc054417df166659c9395d7869e114c21d6d8dec64826d1ea26cbd730c"
+    },
+    {
+      "name": "workspace-phone-small-dark.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "0241607c6523ff4f7fd63832b12f4a01edba6fbe25735bec589b62c98c929490"
+    },
+    {
+      "name": "workspace-phone-small-light.png",
+      "width": 640,
+      "height": 1280,
+      "sha256": "b3d7f8926c25415fbe4c7501a640eadf9d33d3d54e055557eaf04686117d380c"
+    },
+    {
+      "name": "workspace-wide-dark.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "933d2833fe7ead355cbed87482593a16630c72c1b36e244c3c96d4dd414ab356"
+    },
+    {
+      "name": "workspace-wide-light.png",
+      "width": 2560,
+      "height": 1440,
+      "sha256": "3949ce86626ef8cb220d3569f6d03a924aba6ad49eb1c62191dbd4ee89a92408"
+    },
+    {
+      "name": "workspace-window-min-dark.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "c4f4169ebf589bfa5cefaee0b2f9e159713a677c74163086d96636510916c6aa"
+    },
+    {
+      "name": "workspace-window-min-light.png",
+      "width": 1000,
+      "height": 750,
+      "sha256": "aa93f4fab5b602b3fb2f7511772dba143884671d858a31bf065a58abe67eb960"
+    },
+    {
+      "name": "workspace-windows1366-150-dark.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "48d79b1b516074372cfb270d03af1c1f014ae38e624c3a6039d80bf7bd364c25"
+    },
+    {
+      "name": "workspace-windows1366-150-light.png",
+      "width": 1367,
+      "height": 768,
+      "sha256": "3bdecb8894f37805f36905b424a0cba78f35a379de30e9b9b73006d9631b75be"
+    },
+    {
+      "name": "workspace-windows1366-dark.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "461aa37aedfabba3ec724f43c5adc9b62fe05a25f7b29b28782603b83b2b7bfa"
+    },
+    {
+      "name": "workspace-windows1366-light.png",
+      "width": 1366,
+      "height": 768,
+      "sha256": "f09f936c5fea0fa82049922afb97a63a0f39366ab353de8e0c788c172610a13d"
+    },
+    {
+      "name": "workspace-windows1920-150-dark.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "aa35622e09cd9735a5de7fe0202b9991a055694fb8ad60cb2e4c40fa322d677b"
+    },
+    {
+      "name": "workspace-windows1920-150-light.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "a760cd4f787c8584070dc8a64bebbb0706818095eb3f8f4350f77a30d0a5bc31"
+    }
+  ]
+}

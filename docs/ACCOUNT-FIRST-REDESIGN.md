@@ -1,5 +1,14 @@
 # Account-first redesign
 
+Current status, 2026-10-13: all 510 font-fixed images from actual CI recording
+38268637809 are reviewed and installed. Actual source 5bb0f41 Quality CI passes
+138 app cases and 18 auth fixtures, then fails because historical baselines omit
+sign-in. Final-source comparison/deployment are pending. The owner has completed
+both Google and code-only email sign-in in the new live-configured local screen;
+the original owner and complete imported page/schema/body rows remain unchanged.
+See ACCOUNT-SETUP.md and the current verification ledger; older phase descriptions
+below are historical. Windows memory and physical/updater acceptance remain open.
+
 Source phases were pushed directly to main on 2026-10-12 after `pnpm check`.
 The original imported account remains intact: private read-only comparison found
 69 pages, four database schemas and 62 document bodies unchanged, including all

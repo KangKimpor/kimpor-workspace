@@ -1,8 +1,31 @@
 # Verification ledger
 
-Updated 2026-10-12. “Tested” describes the stated automated/local evidence, not a
+Updated 2026-10-13. “Tested” describes the stated automated/local evidence, not a
 completed physical release. The physical **Verified by user** column is
 intentionally blank: no confirmed device results have been supplied.
+
+Current continuation: source `5bb0f41` CI `38267787606` passed all 138 app cases,
+18 auth fixtures, SQL/Deno, licenses, secret and build checks before failing on
+the missing sign-in baseline. All 510 images from actual recording `38268637809`
+are now reviewed and installed, including the Khmer font correction; final-source
+pixel comparisons remain required at the unchanged 0.001 ratio / 0.1 threshold.
+
+The owner completed real Google and code-only email sign-in in the redesigned
+local live-configured build. Dashboard checks confirm one original owner with
+Email/Google identities. Before/after read-only complete-row hashes match for
+69 pages, four databases and 62 document bodies. SMTP and token-only templates
+are verified. Google remains External / Testing for the configured owner.
+See `evidence/account-auth-readiness.json`; these results supersede older
+provider-pending entries in the historical table below.
+
+The local MSVC release and 3.45 MiB NSIS installer compile; 308 Cargo license
+expressions pass. Local native UI automation could not verify entered body text,
+so it is not a completed install/persistence acceptance run. A subsequent active
+app observation used 392,937,472 aggregate resident bytes against 157,286,400.
+Actual CI `38267787615` passed functional checks but used 399,757,312 resident
+bytes. Memory remains a release blocker; no threshold or runtime security flag
+has been weakened. Physical input/accessibility and signed updater acceptance
+remain unverified.
 
 | Feature / gate | Evidence and supported behavior | Status / limit | Verified by user |
 | --- | --- | --- | --- |
