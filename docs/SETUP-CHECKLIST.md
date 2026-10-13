@@ -70,13 +70,17 @@ it does not reintroduce approval stops.
    separately. Review database/storage/egress/Edge/Realtime usage in the provider
    dashboard; only storage meters are implemented in the app.
 
-8. **Updater secrets.** The ignored local updater private key/password were
-   generated in the earlier takeover. Preserve their separate private backup.
-   GitHub → Settings → Secrets and variables → Actions → add
-   TAURI_SIGNING_PRIVATE_KEY and TAURI_SIGNING_PRIVATE_KEY_PASSWORD without printing
-   them. Public key is in tauri.conf.json. Native desktop workflow produces signed
-   update packages/feed on semantic-version tags; Authenticode remains unsigned.
-   Perform actual installed N→N+1 save/consent/signature tests before release.
+8. **Updater secrets.** The owner confirmed the earlier private key is unavailable
+   and approved a replacement on 2026-10-13. Its public key is in tauri.conf.json;
+   both matching GitHub Actions secrets are now provisioned. The encrypted private
+   key has a user-only local ACL and a portable encrypted backup with verified
+   recovery. Keep that backup off the computer and its recovery password separately.
+   Signed 0.0.2/0.0.3 account candidates verify; a separate native fixture passes
+   HTTPS, tamper rejection, NSIS update/restart and synthetic-file preservation.
+   See `evidence/updater-signing-2026-10-13.json`. The old installed key cannot
+   accept this pair: install the new baseline manually. Production feed and
+   frontend save/consent/pending-sync acceptance still need release evidence.
+   Authenticode remains unsigned; no tag or public desktop release was created.
 
 9. **Physical device checks.** Connect Windows/iPhone/iPad hardware and complete
    docs/DEVICE-TEST.md with dates/OS/results. Desktop Commander currently reports

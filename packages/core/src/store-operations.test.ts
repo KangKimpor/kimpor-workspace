@@ -1,6 +1,7 @@
 import "fake-indexeddb/auto";
 import { afterEach, expect, it, vi } from "vitest";
 import * as Y from "yjs";
+import { compareClock } from "./clock";
 import {
   WorkspaceStore,
   base64ToBytes,
@@ -347,6 +348,89 @@ it("validates imported binaries and foreign/schema changes before making any wri
     expect(store.listPages()).toHaveLength(1);
     expect(await store.getCursor()).toBeNull();
   }
+});
+
+it("imports duplicate entities and document deltas in order, retaining owner isolation and monotonic sync metadata", async () => {
+  const source = await workspace("source");
+  const page = await source.createPage("note", "First", { properties: { removed: "old" } });
+  const doc = new Y.Doc();
+  doc.getText("body").insert(0, "English ");
+  await source.saveDoc(page.id, Y.encodeStateAsUpdate(doc));
+  const baseArchive = JSON.parse(await source.exportData());
+  const archive = structuredClone(baseArchive);
+  archive.entities.push({ table: "pages", entity: { ...page, title: "Last", properties: { color: "blue" } } });
+  const vector = Y.encodeStateVector(doc);
+  doc.getText("body").insert(doc.getText("body").length, "ខ្មែរ 中文");
+  archive.documents.push({ pageId: page.id, update: bytesToBase64(Y.encodeStateAsUpdate(doc, vector)) });
+  archive.versions.push({ ...archive.versions[0], update: bytesToBase64(Y.encodeStateAsUpdate(doc)) });
+  const target = await workspace("foreign");
+  await target.importData(JSON.stringify(baseArchive));
+  await target.patchPage(page.id, { title: "Foreign" });
+  await target.bindAccount("owner");
+  const remoteClock = { wall: Date.now() + 86_400_000, counter: 9, node: "other" };
+  await target.db.table("meta").put({ key: "clock:owner", value: remoteClock });
+  await target.db.table("meta").put({ key: "queue:owner", value: 9 });
+  await target.importData(JSON.stringify(archive));
+  expect(target.listPages()[0]).toMatchObject({ title: "Last", userId: "owner", properties: { color: "blue", removed: null } });
+  const restored = new Y.Doc();
+  Y.applyUpdate(restored, (await target.loadDoc(page.id))!);
+  expect(restored.getText("body").toString()).toBe("English ខ្មែរ 中文");
+  const queued = await target.pendingChanges();
+  expect(queued.map(change => change.kind)).toEqual(["entity", "entity", "document", "document"]);
+  expect(queued.every(change => change.userId === "owner")).toBe(true);
+  const firstClock = queued[0]!.fields!.id!.clock;
+  const lastClock = queued[1]!.fields!.id!.clock;
+  expect(compareClock(firstClock, remoteClock)).toBeGreaterThan(0);
+  expect(compareClock(lastClock, firstClock)).toBeGreaterThan(0);
+  expect((await target.db.table("meta").get("clock:owner")).value).toEqual(lastClock);
+  expect((await target.listVersions(page.id)).find(version => version.id === archive.versions[0].id)?.update).toEqual(Y.encodeStateAsUpdate(doc));
+  await target.patchPage(page.id, { title: "Next" });
+  const orders = (await target.db.table("outbox").where("userId").equals("owner").toArray()).map(record => record.order).sort((a, b) => a - b);
+  expect(orders).toEqual([10, 11, 12, 13, 14]);
+  const next = (await target.pendingChanges()).at(-1)!;
+  expect(compareClock(next.fields!.id!.clock, lastClock)).toBeGreaterThan(0);
+  await target.bindAccount("foreign");
+  expect(target.listPages()[0]?.title).toBe("Foreign");
+  doc.destroy(); restored.destroy();
+});
+
+it("rolls back bulk import after protected-document rejection or a late storage failure", async () => {
+  const source = await workspace("source");
+  const page = await source.createPage("note", "Imported title");
+  const doc = new Y.Doc(); doc.getText("body").insert(0, "Plain body");
+  await source.saveDoc(page.id, Y.encodeStateAsUpdate(doc));
+  const archive = await source.exportData();
+  const target = await workspace();
+  await target.importData(archive);
+  await target.saveEncryptedDoc(page.id, await encryptBytes(Y.encodeStateAsUpdate(doc), "long passphrase", createRecoveryKey()));
+  const tables = ["entities", "documents", "versions", "encryptedDocuments", "attachments", "outbox", "meta"];
+  const snapshot = () => Promise.all(tables.map(table => target.db.table(table).toArray()));
+  const protectedBefore = await snapshot();
+  await expect(target.importData(archive)).rejects.toThrow("Unlock this page");
+  expect(await snapshot()).toEqual(protectedBefore);
+  expect(target.listPages()[0]?.properties.__locked).toBe(true);
+  expect(target.listPages()[0]?.properties.__text).toBeUndefined();
+  await target.bindAccount("empty");
+  const beforeFailure = await snapshot();
+  const fail = vi.spyOn(target.db.table("outbox"), "bulkPut").mockRejectedValueOnce(new DOMException("Storage full", "QuotaExceededError"));
+  await expect(target.importData(archive)).rejects.toThrow("Storage full");
+  fail.mockRestore();
+  expect(await snapshot()).toEqual(beforeFailure);
+  expect(target.listPages()).toEqual([]);
+  const documents = target.db.table("documents");
+  const bulkPut = documents.bulkPut.bind(documents);
+  let switching: Promise<void> | undefined;
+  const switchAccount = vi.spyOn(documents, "bulkPut").mockImplementationOnce(items => {
+    switching = target.bindAccount("switched");
+    void switching.catch(() => undefined);
+    return bulkPut(items);
+  });
+  await expect(target.importData(archive)).rejects.toThrow("Account changed during import");
+  switchAccount.mockRestore();
+  await switching?.catch(() => undefined);
+  expect(await snapshot()).toEqual(beforeFailure);
+  expect(target.listPages()).toEqual([]);
+  doc.destroy();
 });
 
 it("adopts cache additions and merges text without replacing account fields or protected bodies", async () => {

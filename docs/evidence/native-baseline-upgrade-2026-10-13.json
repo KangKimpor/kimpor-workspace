@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-13T06:40:34.1130129Z",
+  "baseline": "0.0.2",
+  "installerSha256": "a9d60d522b26d046314624e4577f978166d395a6566a55909733ccdb0c4f4b19",
+  "installedExeSha256": "b370041bc19d44378d81d649248041777792bc729355f003ca84ae4740167f9d",
+  "installedUsingVerifiedInstaller": true,
+  "sessionRetainedAcrossUpgrade": true,
+  "existingWorkspaceObserved": true,
+  "commandPaletteOpens": true,
+  "escapeDismisses": true,
+  "initialQueryFocusIssueFound": true,
+  "focusIssueFixedInSource": true,
+  "public_key_rotation_baseline_installed": true,
+  "productionFeedUpdateTested": false,
+  "sourceParent": "a826457d530c89839684076c2000a225ea3d190e",
+  "privateWorkspaceScreenshotsSaved": false
+}

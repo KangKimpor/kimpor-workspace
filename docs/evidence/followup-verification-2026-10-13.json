@@ -1,0 +1,89 @@
+{
+  "source_commit": "1438595e151b0ebe301f3d88e33875f2982b647e",
+  "pull_request": "https://github.com/KangKimpor/kimpor-workspace/pull/8",
+  "human_approved_merge_and_publication": true,
+  "quality": {
+    "run": 38344354325,
+    "job": 115122188801,
+    "result": "success",
+    "unit_tests": 74,
+    "app_cases": 138,
+    "auth_fixtures": 18,
+    "strict_visual_comparisons": 510,
+    "visual_changed_ratio_limit": 0.001,
+    "visual_pixel_threshold": 0.1
+  },
+  "codeql": {
+    "run": 38344354255,
+    "result": "success"
+  },
+  "windows": {
+    "run": 38344354265,
+    "job": 115122188260,
+    "result": "success",
+    "idle_working_set_bytes": 405590016,
+    "idle_working_set_budget_bytes": 471859200,
+    "processes": 7,
+    "aggregation": "Tauri host and all six descendant WebView2 processes",
+    "idle_cpu_percent": 0,
+    "native_window_ms": 258,
+    "functional_install_restart_single_instance_exit_uninstall": "passed",
+    "verification_artifact_id": 11788253309,
+    "verification_artifact_sha256": "934f698edd719aa3b718cbdef3330b140f84ecfed89c7f0844da027d9707866e",
+    "downloaded_digest_verified": true
+  },
+  "pages": {
+    "run": 38345643798,
+    "build_job": 115126301336,
+    "deploy_job": 115126410837,
+    "result": "success",
+    "url": "https://kangkimpor.github.io/kimpor-workspace/",
+    "artifact_id": 11788239269,
+    "artifact_sha256": "07872fd0d5f710065b5191f6ff4e966b799ba81859e632acf550bd9c43795bdb",
+    "downloaded_digest_verified": true,
+    "live_html_matches_artifact": true,
+    "index_sha256": "01c1c038309cee534633590fc55e084fdae737ef363974490e8c754e6d9d0578"
+  },
+  "account_native_candidate": {
+    "source_commit": "914c032f7bbe21f3e99101415fd13dcda2f9db11",
+    "version": "0.0.1",
+    "installer_bytes": 3616811,
+    "installer_sha256": "9b386c5183cc06d0290395afc6dc841ac74b63326b05e3928ab75f2333219530",
+    "installed_executable_sha256": "3f62899584e2e3f1522e5ffaf4ad73fda2be8056a87d949c3aae2f4390cb9b3b",
+    "unbundled_executable_sha256": "8ca62a42e4a5939fbdfa8f1bbd51fb2b7b1962565c9bf471abb55257e2ac4b1b",
+    "installed_matches_build_with_nsis_marker_patch": true,
+    "windows": "Windows 11 Pro 10.0.26300, build 26300",
+    "human_confirmed": [
+      "installed",
+      "Google system-browser return to app",
+      "closed/reopened with session retained"
+    ],
+    "computer_use_observed": [
+      "original account",
+      "existing notes",
+      "Ctrl+K opens palette",
+      "Escape dismisses palette"
+    ],
+    "read_only_live_audit": {
+      "pages": 73,
+      "databases": 4,
+      "documents": 64,
+      "complete_rows_match_pre_desktop_audit": true,
+      "private_identifiers_and_hashes_omitted": true
+    },
+    "authenticode_signed": false,
+    "tagged_release": false,
+    "signed_updater_n_to_n_plus_one_verified": false
+  },
+  "remaining": [
+    "Human confirmation of four pre-publication page additions and one prior page soft-delete",
+    "Native email-code recheck",
+    "Remaining physical matrix: Windows IME/Narrator, offline/scaling/notifications, iPhone gestures/rotation/eviction/stress",
+    "iPad/Pencil hardware unavailable",
+    "Large-page typing budget and Windows WebKit large-workspace timing",
+    "Signed updater and final v1 release"
+  ],
+  "iphone_user_acceptance_receipt": "iphone-acceptance-2026-10-13.json",
+  "replacement_signing_and_native_updater_fixture_receipt": "updater-signing-2026-10-13.json",
+  "complete_phone_performance_receipt": "phone-performance-2026-10-13.json"
+}

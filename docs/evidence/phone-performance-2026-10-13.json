@@ -1,0 +1,208 @@
+{
+  "date": "2026-10-13T05:03:37.046Z",
+  "mode": "Local production browser benchmark; no physical-device or cloud result inferred.",
+  "fixture": {
+    "pages": 2000,
+    "journals": 365,
+    "total_page_entities": 2365,
+    "events": 5000,
+    "blocks": 20000,
+    "long_page_blocks": 5000,
+    "search_items": 10000
+  },
+  "results": [
+    {
+      "profile": "phone-webkit",
+      "browser_version": "27.2",
+      "errors": [],
+      "import_ms": 337486.0505,
+      "warm_start_ms": 1146.2211000000243,
+      "rendered_tree_rows": 20,
+      "scrolled_nested_tree": true,
+      "rendered_note_rows": 20,
+      "resized_text_without_row_overlap": true,
+      "scrolled_last_note": true,
+      "opened_scrolled_note_at_top": true,
+      "open_long_page_ms": 1138.1912999999477,
+      "typing_keydown_to_next_frame_ms": {
+        "samples": [
+          21,
+          13,
+          11,
+          12,
+          11,
+          11,
+          12,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          10,
+          14,
+          12,
+          12,
+          11,
+          11
+        ],
+        "median": 11,
+        "p95": 14,
+        "max": 21
+      },
+      "visible_drag_handles": 27,
+      "drag_scroll_geometry": {
+        "scrollY": 211501,
+        "viewportHeight": 852,
+        "viewportTop": 0,
+        "first": -211368,
+        "last": 569.125,
+        "handles": [
+          "Move block 4976: Small idea 0.4975. ខ្មែរ 中文 Engl",
+          "Move block 4977: Small idea 0.4976. ខ្មែរ 中文 Engl",
+          "Move block 4978: Small idea 0.4977. ខ្មែរ 中文 Engl",
+          "Move block 4979: Small idea 0.4978. ខ្មែរ 中文 Engl",
+          "Move block 4980: Small idea 0.4979. ខ្មែរ 中文 Engl",
+          "Move block 4981: Small idea 0.4980. ខ្មែរ 中文 Engl",
+          "Move block 4982: Small idea 0.4981. ខ្មែរ 中文 Engl",
+          "Move block 4983: Small idea 0.4982. ខ្មែរ 中文 Engl",
+          "Move block 4984: Small idea 0.4983. ខ្មែរ 中文 Engl",
+          "Move block 4985: Small idea 0.4984. ខ្មែរ 中文 Engl",
+          "Move block 4986: Small idea 0.4985. ខ្មែរ 中文 Engl",
+          "Move block 4987: Small idea 0.4986. ខ្មែរ 中文 Engl",
+          "Move block 4988: Small idea 0.4987. ខ្មែរ 中文 Engl",
+          "Move block 4989: Small idea 0.4988. ខ្មែរ 中文 Engl",
+          "Move block 4990: Small idea 0.4989. ខ្មែរ 中文 Engl",
+          "Move block 4991: Small idea 0.4990. ខ្មែរ 中文 Engl",
+          "Move block 4992: Small idea 0.4991. ខ្មែរ 中文 Engl",
+          "Move block 4993: Small idea 0.4992. ខ្មែរ 中文 Engl",
+          "Move block 4994: Small idea 0.4993. ខ្មែរ 中文 Engl",
+          "Move block 4995: Small idea 0.4994. ខ្មែរ 中文 Engl",
+          "Move block 4996: Small idea 0.4995. ខ្មែរ 中文 Engl",
+          "Move block 4997: Small idea 0.4996. ខ្មែរ 中文 Engl",
+          "Move block 4998: Small idea 0.4997. ខ្មែរ 中文 Engl",
+          "Move block 4999: Small idea 0.4998. ខ្មែរ 中文 Engl",
+          "Move block 5000: Small idea 0.4999. ខ្មែរ 中文 Engl"
+        ]
+      },
+      "offscreen_handles_and_keyboard_reorder": true,
+      "search_worker_initial_ms": 64,
+      "search_worker_round_trip_ms": {
+        "samples": [
+          {
+            "query": "中文",
+            "ms": 15,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 19,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 13,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 28,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 18,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 15,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 15,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 15,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 15,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 17,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 23,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 309,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 215,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 16,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 28,
+            "results": 100
+          },
+          {
+            "query": "中文",
+            "ms": 3,
+            "results": 100
+          },
+          {
+            "query": "កំណត់ហេតុ",
+            "ms": 16,
+            "results": 100
+          },
+          {
+            "query": "Idea 9843",
+            "ms": 15,
+            "results": 1
+          },
+          {
+            "query": "missingmatch",
+            "ms": 16,
+            "results": 0
+          },
+          {
+            "query": "quiet",
+            "ms": 15,
+            "results": 100
+          }
+        ],
+        "median": 16,
+        "p95": 215,
+        "max": 309
+      },
+      "budgets": {
+        "warm_start_1500ms": true,
+        "typing_max_16ms": false,
+        "search_max_50ms": false
+      }
+    }
+  ],
+  "status": "budget failures",
+  "source_commit": "19da08c0a2b23f62034d6317a29b37cb157959b1",
+  "interpretation": "Completed local Windows WebKit benchmark after phone-editor Back navigation correction. All functional assertions pass, but 5m37s import, 21 ms maximum typing and 309 ms maximum warm search leave performance work open. No physical iPhone timing inferred."
+}

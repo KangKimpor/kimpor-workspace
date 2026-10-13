@@ -148,6 +148,83 @@ function recordProperties(
 ): Page["properties"] {
   return record ? ((recordEntity(record) as Page).properties ?? {}) : {};
 }
+function writeFields(
+  previous: EntityRecord | undefined,
+  table: EntityTable,
+  entityId: string,
+  values: Record<string, unknown>,
+  create: boolean,
+  user: string,
+  clock: Clock,
+): Record<string, StampedValue> {
+  if (!previous && !create) throw new Error("Item no longer exists");
+  const fields: Record<string, StampedValue> = {};
+  const normalized = { ...values };
+  if (table === "pages" && isRecord(normalized.properties)) {
+    const oldProperties = recordProperties(previous);
+    const nextProperties = { ...normalized.properties };
+    if (oldProperties.__locked) {
+      nextProperties.__locked = true;
+      delete nextProperties.__text;
+    }
+    normalized.properties = {};
+    for (const name of new Set([
+      ...Object.keys(oldProperties),
+      ...Object.keys(nextProperties),
+    ])) {
+      if (["__proto__", "constructor", "prototype"].includes(name))
+        throw new Error("Invalid property");
+      normalized[`properties.${name}`] = nextProperties[name] ?? null;
+    }
+  }
+  for (const [name, value] of Object.entries(normalized)) {
+    if (value === undefined || (PROTECTED.has(name) && !create)) continue;
+    if (["__proto__", "constructor", "prototype"].includes(name)) continue;
+    if (
+      previous &&
+      JSON.stringify(previous.fields[name]?.value) === JSON.stringify(value)
+    )
+      continue;
+    fields[name] = { value: structuredClone(value), clock };
+  }
+  if (!Object.keys(fields).length) return fields;
+  fields.userId = { value: user, clock };
+  fields.id = { value: entityId, clock };
+  validateEntity(
+    table,
+    recordEntity({
+      userId: user,
+      id: entityId,
+      table,
+      fields: { ...previous?.fields, ...fields },
+      schemaVersion: 1,
+    }),
+  );
+  return fields;
+}
+function mergeDocument(
+  page: EntityRecord | undefined,
+  previous: DocRecord | undefined,
+  update: Uint8Array,
+): Uint8Array | null {
+  if (!page) throw new Error("Page no longer exists");
+  if (recordProperties(page).__locked)
+    throw new Error("Unlock this page before changing its document");
+  const merged = new Uint8Array(
+    previous ? Y.mergeUpdates([previous.update, update]) : update,
+  );
+  return previous && equalBytes(previous.update, merged) ? null : merged;
+}
+function documentVersion(
+  userId: string,
+  pageId: string,
+  update: Uint8Array,
+  versions: VersionRecord[],
+): VersionRecord | undefined {
+  const latest = versions.sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0];
+  if (!latest || Date.now() - Date.parse(latest.createdAt) >= 300_000)
+    return { userId, pageId, update, id: crypto.randomUUID(), createdAt: new Date().toISOString() };
+}
 function isRecord(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
@@ -408,51 +485,9 @@ export class WorkspaceStore {
           | Clock
           | undefined;
         this.clock = tick(this.node, Date.now(), this.clock, savedClock);
-        const fields: Record<string, StampedValue> = {};
-        const normalized = { ...values };
-        if (table === "pages" && isRecord(normalized.properties)) {
-          const oldProperties = recordProperties(previous);
-          const nextProperties = { ...normalized.properties };
-          if (oldProperties.__locked) {
-            nextProperties.__locked = true;
-            delete nextProperties.__text;
-          }
-          normalized.properties = {};
-          for (const name of new Set([
-            ...Object.keys(oldProperties),
-            ...Object.keys(nextProperties),
-          ])) {
-            if (["__proto__", "constructor", "prototype"].includes(name))
-              throw new Error("Invalid property");
-            normalized[`properties.${name}`] = nextProperties[name] ?? null;
-          }
-        }
-        for (const [name, value] of Object.entries(normalized)) {
-          if (value === undefined || (PROTECTED.has(name) && !create)) continue;
-          if (["__proto__", "constructor", "prototype"].includes(name))
-            continue;
-          if (
-            previous &&
-            JSON.stringify(previous.fields[name]?.value) ===
-              JSON.stringify(value)
-          )
-            continue;
-          fields[name] = { value: structuredClone(value), clock: this.clock };
-        }
+        const fields = writeFields(previous, table, entityId, values, create, user, this.clock);
         if (!Object.keys(fields).length) return;
-        fields.userId = { value: user, clock: this.clock };
-        fields.id = { value: entityId, clock: this.clock };
         const merged = { ...previous?.fields, ...fields };
-        validateEntity(
-          table,
-          recordEntity({
-            userId: user,
-            id: entityId,
-            table,
-            fields: merged,
-            schemaVersion: 1,
-          }),
-        );
         await this.entities.put({
           userId: user,
           table,
@@ -645,30 +680,16 @@ export class WorkspaceStore {
       [this.entities, this.documents, this.outbox, this.versions, this.meta],
       async () => {
         const page = await this.entities.get([user, "pages", pageId]);
-        if (!page) throw new Error("Page no longer exists");
-        if (recordProperties(page).__locked)
-          throw new Error("Unlock this page before changing its document");
         const previous = await this.documents.get([user, pageId]);
-        const merged = new Uint8Array(
-          previous ? Y.mergeUpdates([previous.update, update]) : update,
-        );
-        if (previous && equalBytes(previous.update, merged)) return;
+        const merged = mergeDocument(page, previous, update);
+        if (!merged) return;
         await this.documents.put({ userId: user, pageId, update: merged });
         const versions = await this.versions
           .where("[userId+pageId]")
           .equals([user, pageId])
           .toArray();
-        const latest = versions.sort((a, b) =>
-          b.createdAt.localeCompare(a.createdAt),
-        )[0];
-        if (!latest || Date.now() - Date.parse(latest.createdAt) >= 300_000)
-          await this.versions.put({
-            userId: user,
-            id: crypto.randomUUID(),
-            pageId,
-            createdAt: new Date().toISOString(),
-            update: merged,
-          });
+        const version = documentVersion(user, pageId, merged, versions);
+        if (version) await this.versions.put(version);
         const id = crypto.randomUUID();
         await this.outbox.put({
           id,
@@ -1369,6 +1390,7 @@ export class WorkspaceStore {
     return JSON.stringify(archive, null, 2);
   }
   async importData(json: string): Promise<void> {
+    const user = this.user;
     if (json.length > 100_000_000) throw new Error("Import exceeds 100 MB");
     const archive: unknown = JSON.parse(json);
     if (
@@ -1473,40 +1495,97 @@ export class WorkspaceStore {
         this.meta,
       ],
       async () => {
-        for (const entry of entries)
-          await this.write(
-            entry.table,
-            entry.entity.id,
-            {
-              ...entry.entity,
-              userId: this.user,
-              updatedAt: new Date().toISOString(),
-            } as unknown as Record<string, unknown>,
-            true,
-          );
-        for (const document of documents)
-          await this.saveDoc(document.pageId, base64ToBytes(document.update));
-        for (const version of versions)
-          await this.versions.put({
-            ...version,
-            userId: this.user,
-            update: base64ToBytes(version.update),
-          });
+        if (this.user !== user) throw new Error("Account changed during import");
+        const keys = entries.map(({ table, entity }) => [user, table, entity.id] as [string, EntityTable, string]);
+        const previous = await this.entities.where("[userId+table+id]").anyOf(keys).toArray();
+        const records = new Map<string, EntityRecord>();
+        previous.forEach((record) => {
+          records.set(JSON.stringify([user, record.table, record.id]), record);
+        });
+        const changed = new Map<string, EntityRecord>();
+        const queued: OutboxRecord[] = [];
+        let order = Number((await this.meta.get(`queue:${user}`))?.value ?? 0);
+        let savedClock = (await this.meta.get(`clock:${user}`))?.value as Clock | undefined;
+        // Stage in archive order, then bulk-write in the same atomic transaction.
+        // Awaiting every IndexedDB request makes large WebKit imports take minutes.
+        for (const entry of entries) {
+          const key = JSON.stringify([user, entry.table, entry.entity.id]);
+          const old = records.get(key);
+          this.clock = tick(this.node, Date.now(), this.clock, savedClock);
+          const fields = writeFields(old, entry.table, entry.entity.id, {
+            ...entry.entity, userId: user, updatedAt: new Date().toISOString(),
+          }, true, user, this.clock);
+          if (!Object.keys(fields).length) continue;
+          const record: EntityRecord = {
+            userId: user, table: entry.table, id: entry.entity.id,
+            fields: { ...old?.fields, ...fields }, schemaVersion: 1,
+          };
+          records.set(key, record);
+          changed.set(key, record);
+          savedClock = this.clock;
+          const id = crypto.randomUUID();
+          queued.push({ id, userId: user, createdAt: Date.now(), order: ++order,
+            change: { id, userId: user, kind: "entity", entityId: entry.entity.id,
+              table: entry.table, fields, schemaVersion: 1 } });
+        }
+        if (changed.size) {
+          await this.entities.bulkPut([...changed.values()]);
+          await this.meta.put({ key: `clock:${user}`, value: savedClock });
+        }
+        const documentKeys = documents.map(({ pageId }) => [user, pageId] as [string, string]);
+        const priorDocuments = await this.documents.where("[userId+pageId]").anyOf(documentKeys).toArray();
+        const bodies = new Map<string, DocRecord>();
+        priorDocuments.forEach((record) => { bodies.set(record.pageId, record); });
+        const changedBodies = new Map<string, DocRecord>();
+        const histories = new Map<string, VersionRecord[]>();
+        for (const version of await this.versions.where("[userId+pageId]").anyOf(documentKeys).toArray()) {
+          const history = histories.get(version.pageId) ?? [];
+          history.push(version);
+          histories.set(version.pageId, history);
+        }
+        const newVersions: VersionRecord[] = [];
+        for (const document of documents) {
+          const update = base64ToBytes(document.update);
+          const merged = mergeDocument(records.get(JSON.stringify([user, "pages", document.pageId])), bodies.get(document.pageId), update);
+          if (!merged) continue;
+          const body = { userId: user, pageId: document.pageId, update: merged };
+          bodies.set(document.pageId, body);
+          changedBodies.set(document.pageId, body);
+          const history = histories.get(document.pageId) ?? [];
+          const version = documentVersion(user, document.pageId, merged, history);
+          if (version) {
+            history.push(version);
+            histories.set(document.pageId, history);
+            newVersions.push(version);
+          }
+          const id = crypto.randomUUID();
+          queued.push({ id, userId: user, createdAt: Date.now(), order: ++order,
+            change: { id, userId: user, kind: "document", entityId: document.pageId,
+              update: bytesToBase64(update), schemaVersion: 1 } });
+        }
+        if (changedBodies.size) await this.documents.bulkPut([...changedBodies.values()]);
+        await this.versions.bulkPut([...newVersions, ...versions.map(version => ({
+          ...version, userId: user, update: base64ToBytes(version.update),
+        }))]);
+        if (queued.length) {
+          await this.outbox.bulkPut(queued);
+          await this.meta.put({ key: `queue:${user}`, value: order });
+        }
         for (const document of encryptedDocuments) {
           const shardId = crypto.randomUUID();
           await this.encryptedDocuments.put({
             ...document,
             id: shardId,
-            userId: this.user,
+            userId: user,
           });
           await this.outbox.put({
             id: shardId,
-            userId: this.user,
+            userId: user,
             createdAt: Date.now(),
-            order: await this.nextOrder(this.user),
+            order: await this.nextOrder(user),
             change: {
               id: shardId,
-              userId: this.user,
+              userId: user,
               kind: "encrypted-document",
               entityId: document.pageId,
               envelope: document.envelope,
@@ -1517,7 +1596,7 @@ export class WorkspaceStore {
         for (const attachment of attachments) {
           const restored = {
             ...attachment,
-            userId: this.user,
+            userId: user,
             bytes: base64ToBytes(attachment.bytes),
           };
           await this.attachments.put(restored);
@@ -1525,6 +1604,7 @@ export class WorkspaceStore {
         }
         for (const setting of settings)
           await this.setSetting(setting.key, setting.value);
+        if (this.user !== user) throw new Error("Account changed during import");
       },
     );
     await this.refresh();

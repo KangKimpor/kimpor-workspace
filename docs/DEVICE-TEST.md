@@ -1,6 +1,22 @@
 # Physical device checklist
 
-No line has been performed on your devices by this agent. Fill date, exact OS version, result and notes. On 2026-10-13 the user confirmed Windows and iPhone are available; iPad/Pencil are unavailable. Automated browser emulation does not fill these physical acceptance rows.
+Fill date, exact OS version, result and notes. On 2026-10-13 the user confirmed Windows and iPhone are available; iPad/Pencil are unavailable. Automated browser emulation does not fill these physical acceptance rows.
+
+Windows evidence on 2026-10-13: the owner installed the account-configured
+0.0.1 candidate, completed Google sign-in with automatic browser-to-app return,
+then closed/reopened the app with the session retained. Windows 11 Pro
+10.0.26300/build 26300 was read from the OS. Computer Use verified the original
+account, existing notes, Ctrl+K palette and Escape dismissal; the installed
+binary matches the candidate after the standard NSIS bundle-marker patch.
+This subset does not verify screen readers, native IME, offline editing,
+scaling, notifications, uninstall on this device or the signed updater.
+
+iPhone evidence on 2026-10-13, reported by the owner: iOS 27.0.1; Safari
+Google and email-code sign-in, Home Screen installation, the original workspace
+and session retained on reopening, Khmer and Chinese typing, and VoiceOver
+checks work. The owner explicitly confirmed both languages and VoiceOver.
+The model was not supplied. No agent-observed physical iPhone result or full
+offline/gesture/rotation/notification/stress checklist is inferred.
 
 Start with the published account screen in Windows Chrome and iPhone Safari:
 sign in to the original account, confirm the existing notes appear, and reload
@@ -9,8 +25,15 @@ named disposable verification note to check native English/Khmer/Chinese input,
 keyboard geometry, reload persistence and cross-device sync. Use VoiceOver and
 Narrator to check labelled controls, focus order, overlay dismissal and returning
 to the editor. Record actual OS/browser versions and failures in the ledger.
-Do not install or describe the Windows development fixture as a completed native
-release: its aggregate memory and signed updater acceptance still fail/remain open.
+Use the account-configured candidate for real sign-in checks. CI's development
+fixture passes the approved 450 MiB aggregate memory gate; it does not prove
+account sign-in or a signed native release. Signed updater acceptance remains open.
+
+An isolated native Windows fixture on this device now passes a signed 0.0.2→0.0.3
+NSIS update and automatic restart, synthetic-file preservation, modified-download
+rejection and HTTPS certificate checks. It has a separate app identifier. This
+does not fill the production-account save/consent/sync or public-feed acceptance
+rows. See `evidence/updater-signing-2026-10-13.json`.
 
 **A. iPhone 15, in a Safari tab and then as a Home Screen web app**
 

@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-13",
+  "source_commit": "1438595e151b0ebe301f3d88e33875f2982b647e",
+  "url": "https://kangkimpor.github.io/kimpor-workspace/",
+  "device": "iPhone; model not provided",
+  "os": "iOS 27.0.1",
+  "mode": "Human-reported results; not direct agent observation",
+  "confirmed": [
+    "Safari Google sign-in",
+    "Safari email-code sign-in",
+    "Add to Home Screen",
+    "Original workspace visible",
+    "Session retained after reopening",
+    "Khmer typing",
+    "Chinese typing",
+    "VoiceOver checks"
+  ],
+  "confirmation": "Owner first reported everything working, then explicitly confirmed both languages and VoiceOver and supplied the iOS version.",
+  "full_device_matrix_complete": false,
+  "not_inferred": ["offline convergence", "large-data timing", "all native gestures", "rotation/background eviction", "notifications", "iPad/Pencil"]
+}

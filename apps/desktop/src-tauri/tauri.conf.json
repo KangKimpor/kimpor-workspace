@@ -66,7 +66,8 @@
       }
     },
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEMxQUVGM0Q5NjlEMkNDQ0YKUldUUHpOSnAyZk91d1JPN1c2MXA0Vy9sMDVOblRxT2MrcnNkQlVLc1BzNnVvQU5NRUFiWmxtZHoK",
+      "requireSignedVersion": true,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDkwQTYxRTE5RThGMjIwMzkKUldRNUlQTG9HUjZta05ZUW1GQzljRmRDNWN3RnQ3bEN3cHhqR05yWlZ4ZmdJa2F0cXNZL0tXbGUK",
       "endpoints": [
         "https://github.com/KangKimpor/kimpor-workspace/releases/latest/download/latest.json"
       ]

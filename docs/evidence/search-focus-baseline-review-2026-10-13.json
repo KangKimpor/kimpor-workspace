@@ -1,0 +1,278 @@
+{
+  "reviewed_at": "2026-10-13T07:13:42.510Z",
+  "source": {
+    "commit": "5a436c86ad4c882283bb1d09ddbd64e7cd7cc097",
+    "platform": "linux",
+    "playwright": "1.64.0",
+    "runner": "Linux",
+    "captures": 510,
+    "date": "2026-10-13T07:06:05.655Z",
+    "fixture_time": "2026-10-11T09:00:00Z",
+    "locale": "en-US",
+    "time_zone": "UTC"
+  },
+  "workflow_run": 38359566412,
+  "artifact_id": 11794367485,
+  "archive_sha256": "70766a5dc7d56fcbd2937e6aa92f39eafd7e96892d35d5ca254cb942704bdeca",
+  "result": "approved",
+  "scope": "Search query autofocus only; other dialog behavior and baselines retained.",
+  "contacts_reviewed": [
+    "contact-search-light.png",
+    "contact-search-dark.png"
+  ],
+  "individual_views_reviewed": [
+    "search-phone-small-light.png",
+    "search-phone-small-dark.png",
+    "search-windows1366-150-light.png",
+    "search-windows1366-150-dark.png"
+  ],
+  "findings": [
+    "Visible query focus across all 17 viewport profiles and both themes.",
+    "Narrow and Windows scaling captures inspected individually; input, close button and navigation remain readable.",
+    "The final source marks only Search for initial field focus; Settings retains its prior focus and scroll position."
+  ],
+  "unchanged_limits": {
+    "threshold": 0.1,
+    "max_changed_pixel_ratio": 0.001
+  },
+  "files": [
+    {
+      "name": "search-desktop-dark.png",
+      "changed": 1305,
+      "ratio": 0.0006293402777777778,
+      "oldSha256": "40afff552556a5b58df2f84cab68e0f41e83386ca65e02bae49a387923ef3630",
+      "newSha256": "b897b906b089bca53ad6d8c31e894583ab10b69ff798b0044a1e3b3bfeb67eb4"
+    },
+    {
+      "name": "search-desktop-firefox-dark.png",
+      "changed": 1299,
+      "ratio": 0.0006264467592592592,
+      "oldSha256": "47ea1c8590ae3721d1c0deefc54c51e9c6fef8dde896bf0a29c23db102309670",
+      "newSha256": "8444a30804e5ec623252796eee88ef7a1471f234f790e3460327d4828186e184"
+    },
+    {
+      "name": "search-desktop-firefox-light.png",
+      "changed": 1308,
+      "ratio": 0.000630787037037037,
+      "oldSha256": "0f75acec404adcf1a5a9eb22a626c895ea2c4358c35c72b1bdb05750abeac3d2",
+      "newSha256": "bdebc78bf6fcf5500155d7786c214b041cd8dc31020c7160d0fb288a5fcf7517"
+    },
+    {
+      "name": "search-desktop-light.png",
+      "changed": 1320,
+      "ratio": 0.0006365740740740741,
+      "oldSha256": "bd4141ac4152bdd09147bd048ed2dc0094e55441d70564df78f41e65c2c43f2d",
+      "newSha256": "2d00ab5f22fb0a7444cb2e4eb8a2f5def366b3d8b0eaba60d0564c69e6a19b74"
+    },
+    {
+      "name": "search-desktop1980-dark.png",
+      "changed": 1305,
+      "ratio": 0.0006102693602693602,
+      "oldSha256": "e43aee20b221f28d600bddf48b26caa96122ac50ede28f87ef15fc2f330ff2ff",
+      "newSha256": "8bb3c96675ec74036178dce98ad6095ae9429c5538e496cfa7aa2a7be1b7c9f2"
+    },
+    {
+      "name": "search-desktop1980-light.png",
+      "changed": 1320,
+      "ratio": 0.0006172839506172839,
+      "oldSha256": "9c6bb2b84629afdc7662db96b85956bedc8a107943865b1e70d1a003f65ccd39",
+      "newSha256": "9141c859541c700c2d51bc0316d4f2b3fd2003470ebf13b28467000e31cb6dde"
+    },
+    {
+      "name": "search-desktop1980-tall-dark.png",
+      "changed": 1305,
+      "ratio": 0.0005492424242424242,
+      "oldSha256": "570c30c5c7f4b81b841da4a4190c29f9d97927ae2877c2a9e90b4f3df377832e",
+      "newSha256": "beb61c01e71acf0ce71b4e25e83c0b8b3eb21cdb25f16b8d190783fbe00a9831"
+    },
+    {
+      "name": "search-desktop1980-tall-light.png",
+      "changed": 1320,
+      "ratio": 0.0005555555555555556,
+      "oldSha256": "0a92d0c8277538fb8702ea9e0d3425bf68564b78d90f50b86f6578d880baf2ed",
+      "newSha256": "96a46f23181c2797e98f6e20979e9965fa08490755f44ca827af0268327df31a"
+    },
+    {
+      "name": "search-ipad-landscape-dark.png",
+      "changed": 5347,
+      "ratio": 0.0013815109549400579,
+      "oldSha256": "b246d751078fe074f1f7c96f61c4cffed2fee18e3efa9a03db3dd7b4a398c0ca",
+      "newSha256": "cfebdc6edbd10dc05220d9a81eb2cdbf2511140573354009bc88aa193a64f564"
+    },
+    {
+      "name": "search-ipad-landscape-light.png",
+      "changed": 5345,
+      "ratio": 0.0013809942124844976,
+      "oldSha256": "999ddb48e87c65b564eaa4ff76e7e0b3a2f3b2d6285e0ade06fd29ca5f7d9626",
+      "newSha256": "4ebadeceaa284cb445a41ce310f5af0abc1e87873a66a01a4647bc1d18e899db"
+    },
+    {
+      "name": "search-ipad-portrait-dark.png",
+      "changed": 5347,
+      "ratio": 0.0013815109549400579,
+      "oldSha256": "ef6d109da2a2bd3d0f089157b0bbb6122706182458babe288a2dbfefee5868ee",
+      "newSha256": "94e5864bd10ca2afc5d0ad5ea152665f6b3c8f5865c68a95be9fb7660ac90546"
+    },
+    {
+      "name": "search-ipad-portrait-light.png",
+      "changed": 5345,
+      "ratio": 0.0013809942124844976,
+      "oldSha256": "58ee096f943fb80e610f90d0c162278ada415a7d12590a89da4ea43f8aa78fa8",
+      "newSha256": "15007bcc4b452f47044f870568076b30478a5fdc6b145c2c9f9e3b93db13237a"
+    },
+    {
+      "name": "search-ipad-split-half-dark.png",
+      "changed": 4547,
+      "ratio": 0.002390138772077376,
+      "oldSha256": "80d61dcf7fa3a3a8cfdcef603c95457eb8e18d8aec0e7b26abd59d1c1154cadd",
+      "newSha256": "a06096b51771f6051c7030355814923fec757ed289e1baa95dfc30f19bcc35a2"
+    },
+    {
+      "name": "search-ipad-split-half-light.png",
+      "changed": 4545,
+      "ratio": 0.0023890874684608914,
+      "oldSha256": "a3f1b9a10355fc2e58e1a79a967e580a36f2e972f240054eb0577de9338a36e0",
+      "newSha256": "37afa1a12eab39de05e0db4fbc46b3c459756b90fcf9c2794981e8b2ec16fead"
+    },
+    {
+      "name": "search-ipad-split-narrow-dark.png",
+      "changed": 2907,
+      "ratio": 0.0023634146341463417,
+      "oldSha256": "c989690912c3cc4ec2abffcaf699462362237a52ae795e0ceae919f5da73d152",
+      "newSha256": "e12538737e86316fae1888ae5369c950d93a9d5e9a44a8358061701be8f3aa33"
+    },
+    {
+      "name": "search-ipad-split-narrow-light.png",
+      "changed": 2905,
+      "ratio": 0.002361788617886179,
+      "oldSha256": "02c028923aa292707ff106425a4fa11f7e162424ca8535b5a0d1e1757df3f919",
+      "newSha256": "c693de7e4c87befb0debe5ad3e80ef667e5b7664037457400d9464ce1db9a5ce"
+    },
+    {
+      "name": "search-iphone15-landscape-dark.png",
+      "changed": 8418,
+      "ratio": 0.0027934073198023312,
+      "oldSha256": "0590b839468a945a02ee6da18d7d8f8b7d42863264a7e6e3040cfd5558b535dd",
+      "newSha256": "08d3054a7c0a2f70aad66d5a007e8ab1e8c06d1d51ab8c5e1e24554d62ab4a49"
+    },
+    {
+      "name": "search-iphone15-landscape-light.png",
+      "changed": 8422,
+      "ratio": 0.002794734669443482,
+      "oldSha256": "f16046a52c474ab7130da3544ce14c7d99b2482d40ea4cb9362b52e9980f0776",
+      "newSha256": "542e9ca6730f4e970089e68cbb1d25445b8b2461725fad4caf1f74bf4c773a12"
+    },
+    {
+      "name": "search-iphone15-portrait-dark.png",
+      "changed": 6976,
+      "ratio": 0.0023148977741673867,
+      "oldSha256": "4103f9d45a5d29729e1c423e3d80382e8e676a29b7714fbd227c5eef9d47a3b1",
+      "newSha256": "257273a1c4b72e062bd40a844b2e6436438f2b866db8ab952939131959331d32"
+    },
+    {
+      "name": "search-iphone15-portrait-light.png",
+      "changed": 6978,
+      "ratio": 0.002315561448987962,
+      "oldSha256": "ebe53d7e372491bc649b91c5f830e670ba86c7dfe251a5a6ad249aaba064043e",
+      "newSha256": "a7cd3c6dbda4cf73c78226733e4526370b113db3021037f69a2c7c2a342c235d"
+    },
+    {
+      "name": "search-laptop-dark.png",
+      "changed": 1630,
+      "ratio": 0.0007860725308641975,
+      "oldSha256": "a77fff250e8f100eb9f260384240ca0e3562168f41fbbf0b628a4553dd6a5911",
+      "newSha256": "a95190b08a7817e04a97796a7f2edb2921ea53a7b3f37c2999a2e1e200ba78f3"
+    },
+    {
+      "name": "search-laptop-light.png",
+      "changed": 1632,
+      "ratio": 0.000787037037037037,
+      "oldSha256": "621de4f302268905f74f3de014ca7c020a10a15415a69f84d231556825f54221",
+      "newSha256": "c1d938f9b8a611154f3b7118ca503d5c004278e6a7eef8732f28605c7b316b87"
+    },
+    {
+      "name": "search-phone-small-dark.png",
+      "changed": 2467,
+      "ratio": 0.003011474609375,
+      "oldSha256": "ce3a5bed282aa03befb1d75d1bc1087d61905c1d149db2d4cfc1831785bdcd4c",
+      "newSha256": "c1c2addbe056598b64ef72951134893dd11a84b3806372325a8e20dd32a8864a"
+    },
+    {
+      "name": "search-phone-small-light.png",
+      "changed": 2465,
+      "ratio": 0.003009033203125,
+      "oldSha256": "c87f3af05b7c065e8a7f70523281a5d21d8fdfd524f8ce7f0092e9db26713747",
+      "newSha256": "eac7eef0495596e2e1e0732d05c3a62d600dd13f3a3dae9c2aa01edcc2d26525"
+    },
+    {
+      "name": "search-wide-dark.png",
+      "changed": 1305,
+      "ratio": 0.00035400390625,
+      "oldSha256": "7220b61536264e0d37c71a7acdb90a1f14dad6be5807e8498de92762c737947e",
+      "newSha256": "7f4821c0c15bc0dd6b91c553d7662f9099409a5e27a41e313e9d56429e7a7243"
+    },
+    {
+      "name": "search-wide-light.png",
+      "changed": 1320,
+      "ratio": 0.00035807291666666664,
+      "oldSha256": "42879a290896256c6ac69572fa49e20ef83ce84432b3c964a8b88dd2c1fdc012",
+      "newSha256": "729abb4ece7d743c8362ce545b78c58d2c431158577a6f584a5b0e383da8443b"
+    },
+    {
+      "name": "search-window-min-dark.png",
+      "changed": 1630,
+      "ratio": 0.0021733333333333335,
+      "oldSha256": "c261b8013abea83ba4318d9f5ed41c24b4c10746801737460aa397a0d29d84f9",
+      "newSha256": "fd6a82edf517fc718927f58445d88a1f68f83b52fcdb784708c570e004033672"
+    },
+    {
+      "name": "search-window-min-light.png",
+      "changed": 1632,
+      "ratio": 0.002176,
+      "oldSha256": "7cbbb542c39740aee9e09992ad0c7311c2bacf2399ff55473af2a6973a4f6d2b",
+      "newSha256": "246d2ceb4c81083fa4f5bc5f0b5a47a5818d1b2d21285201817767d1e54c2b65"
+    },
+    {
+      "name": "search-windows1366-150-dark.png",
+      "changed": 1974,
+      "ratio": 0.0018802578639356255,
+      "oldSha256": "aaa2cff4c9987f75958f437f2143c18eb6898f86cd278a852ba93244459cd263",
+      "newSha256": "cfe5c2d2689fe3d20d735fdceaef23c8dab6858f5bc81885974130f472d34ac6"
+    },
+    {
+      "name": "search-windows1366-150-light.png",
+      "changed": 1982,
+      "ratio": 0.0018878779565959522,
+      "oldSha256": "fe42fa64b14248e5e6fab723ddada3f90ebe4816accc0764afb17882f09681c6",
+      "newSha256": "7f75fe1684a61cd8dc02b37925477a1611328be7cc3f8089626b23a7dc1d9966"
+    },
+    {
+      "name": "search-windows1366-dark.png",
+      "changed": 1305,
+      "ratio": 0.0012439375915080527,
+      "oldSha256": "240d514bb00c144030dc44f2f2b8cecc1908ec2c18a221d35c4eb04f8754d0c8",
+      "newSha256": "01bf87b67ab72cd28b22b350b5f36abb6262b4d8e9c000f1837fe1907df744d2"
+    },
+    {
+      "name": "search-windows1366-light.png",
+      "changed": 1320,
+      "ratio": 0.0012582357247437775,
+      "oldSha256": "9448880debb0755855e0b3e996f958f318f5ad8c58e5fbd0b9193cd948c6cf85",
+      "newSha256": "6f273f32a197d343fa87b2c1873d84acdef25af4b41cb67061828ea4e2420930"
+    },
+    {
+      "name": "search-windows1920-150-dark.png",
+      "changed": 1974,
+      "ratio": 0.0009519675925925926,
+      "oldSha256": "619c4acba921580771a1ab3cb24b7342c77c921c45c6341ff8f3b15612238e7a",
+      "newSha256": "27949e6bcd1f08139b53e6f8c42fcf0a2d09926a0fe4af55062ba796841180b9"
+    },
+    {
+      "name": "search-windows1920-150-light.png",
+      "changed": 1982,
+      "ratio": 0.0009558256172839506,
+      "oldSha256": "362eec4e6b9bbe967ffc131668301a44483a9c4a5680f6e45f4fea4693de4680",
+      "newSha256": "1a8c3abb0aab82dd6ff58cb367746e702c7fe2e329d660e472b1a73e535e6815"
+    }
+  ]
+}

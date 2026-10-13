@@ -1,3 +1,4 @@
+param([switch]$AccountConfigured)
 $ErrorActionPreference = 'Stop'
 $idleWorkingSetBudget = 450MB
 $installer = Get-ChildItem apps/desktop/src-tauri/target/release/bundle/nsis/*-setup.exe | Select-Object -First 1
@@ -54,9 +55,18 @@ try {
   } while ($added)
   $processes | Where-Object { $tree.Contains([int]$_.ProcessId) } | Select-Object Name,CommandLine | ConvertTo-Json -Depth 4 | Set-Content 'docs/evidence/windows-webview-diagnostics.json' -Encoding utf8NoBOM
   . ./scripts/windows-ui-check.ps1
-  $application = Invoke-InstalledWorkspaceCheck $application $executable ([DateTime]::Parse($evidence.measured_at))
-  $evidence.rendered_workspace = $true
-  $evidence.multilingual_note_restart = $true
+  if ($AccountConfigured) {
+    Invoke-InstalledSignInCheck $application
+    $evidence.mode = 'account-sign-in'
+    $evidence.rendered_sign_in = $true
+    $evidence.rendered_workspace = $false
+    $evidence.multilingual_note_restart = $false
+  } else {
+    $application = Invoke-InstalledWorkspaceCheck $application $executable ([DateTime]::Parse($evidence.measured_at))
+    $evidence.mode = 'development-workspace'
+    $evidence.rendered_workspace = $true
+    $evidence.multilingual_note_restart = $true
+  }
   $protocol = Get-ItemProperty 'HKCU:/Software/Classes/kimpor-workspace/shell/open/command'
   if (!$protocol.'(default)') { throw 'Custom-scheme callback is not registered' }
   $second = Start-Process $executable -ArgumentList 'kimpor-workspace://auth/callback?code=smoke&state=smoke' -PassThru
