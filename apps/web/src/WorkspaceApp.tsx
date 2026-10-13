@@ -186,9 +186,9 @@ function Sheet({
             event.preventDefault();
             (
               content.current?.querySelector<HTMLElement>(
-                'input:not([type="file"]):not([type="hidden"]):not(:disabled)',
+                '[data-sheet-autofocus]',
               ) ?? content.current?.querySelector<HTMLElement>(
-                'button:not(.ws-sheet-handle)',
+                'input:not([type="file"]),button:not(.ws-sheet-handle)',
               ) ?? content.current
             )?.focus();
           }}
@@ -1626,6 +1626,7 @@ function SearchPanel({
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search"
+          data-sheet-autofocus
           aria-label="Search query"
         />
       </label>
