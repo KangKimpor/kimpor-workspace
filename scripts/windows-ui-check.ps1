@@ -81,6 +81,15 @@ function Wait-WorkspaceText($Root, [string]$Name, [string]$Expected) {
   }
   throw "Installed editor did not expose the expected text: $Name"
 }
+function Invoke-InstalledSignInCheck($Application) {
+  $root = [System.Windows.Automation.AutomationElement]::FromHandle($Application.MainWindowHandle)
+  $button = [System.Windows.Automation.ControlType]::Button
+  $email = Wait-WorkspaceControl $root 'Email' ([System.Windows.Automation.ControlType]::Edit)
+  $null = Wait-WorkspaceControl $root 'Continue with Google' $button
+  $null = Wait-WorkspaceControl $root 'Continue' $button
+  if ((Get-WorkspaceText $email).Length -ne 0) { throw 'Fresh production install unexpectedly contains an email.' }
+  if (Get-WorkspaceControl $root 'Agenda') { throw 'Production install exposed a development workspace before authentication.' }
+}
 function Invoke-InstalledWorkspaceCheck($Application, [string]$Executable, [DateTime]$StartedAt) {
   $button = [System.Windows.Automation.ControlType]::Button
   $root = [System.Windows.Automation.AutomationElement]::FromHandle($Application.MainWindowHandle)

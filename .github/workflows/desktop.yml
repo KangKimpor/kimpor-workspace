@@ -61,7 +61,9 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Tauri build failed.' }
       - name: Install, window and single-instance smoke checks
         shell: pwsh
-        run: ./scripts/windows-smoke.ps1
+        env:
+          IS_RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
+        run: ./scripts/windows-smoke.ps1 -AccountConfigured:($env:IS_RELEASE -eq 'true')
       - name: Installer budget, checksums and update feed
         id: bundle
         if: always() && steps.build.outcome == 'success'
