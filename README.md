@@ -3,6 +3,8 @@
 An account workspace for tasks, projects, calendars, notes and journals.
 
 [Open Kimpor Workspace](https://kangkimpor.github.io/kimpor-workspace/).
+The redesigned account screen is published from `4fc8726`; final-source Quality
+CI passes 138 app cases, 18 account fixtures and 510 visual comparisons.
 The Supabase Free account holds the workspace. IndexedDB is an invisible cache
 and outbox; the existing HLC and Yjs engine synchronizes changes.
 
@@ -61,8 +63,11 @@ pnpm e2e:auth
 ```
 
 The pixel comparison limit is 0.1%. Initial and additional JavaScript graphs
-must each stay under 250 KiB gzip. Contrast and the 150 MiB Windows resident-memory
-gate remain unchanged. Capture provenance must come from the actual CI runner.
+must each stay under 250 KiB gzip. The user approved a 450 MiB aggregate Windows
+idle resident-memory cap after the same-host minimal HTML fixture measured
+324 MiB. The collector includes the Tauri host and all descendant WebView2
+processes; missing host/WebView2 samples fail. Contrast remains unchanged.
+Capture provenance must come from the actual CI runner.
 
 ## Install and deploy
 

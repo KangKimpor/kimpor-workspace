@@ -23,8 +23,11 @@ The aggregate receipt is `evidence/account-auth-readiness.json`. Do not recreate
 OAuth clients, SMTP keys or the original account. Manual identity linking remains
 disabled. No paid plan, trial or billing resource was added.
 
-Before deploying the redesigned web app, require final-source Quality CI with
-138 app cases, 18 auth fixtures and 510 strict visual comparisons. Then enable
-the existing repository's `KIMPOR_AUTH_READY=true` variable and verify the actual
-Pages deployment. Account readiness alone does not establish native memory,
-physical devices, live calendar providers or signed updater acceptance.
+The human approved PR #7 merge and `KIMPOR_AUTH_READY=true` on 2026-10-13.
+Quality CI 38337462873 passes 138 app cases, 18 account fixtures and 510 strict
+visual comparisons; Pages 38338654296 deploys source 4fc8726. Deployed Google
+sign-in and reload preserve the original owner; a public-origin email recheck
+is awaiting the owner. A fresh audit identifies four added pages and one prior
+soft-delete before publication; original database/document bytes still match.
+See evidence/web-publication-2026-10-13.json. Account readiness does not establish
+native memory, physical devices, live calendar providers or updater acceptance.

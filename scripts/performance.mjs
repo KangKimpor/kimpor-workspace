@@ -78,6 +78,7 @@ try {
       await page.goto(baseURL,{waitUntil:'networkidle'});
       if (!await page.getByRole('button',{name:'Settings',exact:true}).first().isVisible()) await page.getByRole('button',{name:'Open sidebar',exact:true}).click();
       await page.getByRole('button',{name:'Settings',exact:true}).first().click();
+      await page.getByText('More',{exact:true}).click();
       const started = performance.now();
       await page.getByLabel('Import workspace JSON',{exact:true}).setInputFiles(fixture);
       await expect(page.getByText('Workspace imported',{exact:true})).toBeVisible({timeout:180000});
@@ -127,7 +128,7 @@ try {
       await expect(slider).toHaveValue(String(initialSize));
       await page.keyboard.press('Escape');
       if (profile === 'phone-webkit') await page.getByRole('button',{name:'Close sidebar',exact:true}).first().click();
-      await page.evaluate(() => window.scrollTo({top:document.documentElement.scrollHeight,behavior:'instant'}));
+      await page.locator('.ws-main').evaluate(element => element.scrollTo({top:element.scrollHeight,behavior:'instant'}));
       await expect(page.locator('.ws-page-list').getByRole('button',{name:new RegExp(lastNote.entity.title)})).toBeVisible();
       result.scrolled_last_note = true;
       await page.locator('.ws-page-list').getByRole('button',{name:new RegExp(lastNote.entity.title)}).click();
@@ -161,6 +162,10 @@ try {
       if(profiler){const {profile:cpu}=await profiler.send('Profiler.stop');await writeFile(process.env.BENCH_CPU_REPORT,JSON.stringify(cpu));await profiler.detach();}
       if(typing.length!==20)throw new Error(`Expected 20 typing samples; received ${typing.length}`);
       result.typing_keydown_to_next_frame_ms = {samples:typing,median:percentile(typing,.5),p95:percentile(typing,.95),max:Math.max(...typing)};
+      await page.getByRole('button',{name:'Page options',exact:true}).click();
+      await page.getByRole('button',{name:'Formatting',exact:true}).click();
+      await page.getByRole('button',{name:'Reorder blocks',exact:true}).click();
+      await expect.poll(()=>page.locator('.rich-block-handle').count()).toBeGreaterThan(0);
       result.visible_drag_handles = await page.locator('.rich-block-handle').count();
       expect(result.visible_drag_handles).toBeLessThan(100);
       const lastText=await editor.locator('p').last().textContent();
@@ -169,7 +174,7 @@ try {
       const handle=page.getByRole('button',{name:/^Move block 4999:/});
       await expect(handle).toBeVisible({timeout:15000});
       await expect(handle).toBeInViewport();
-      result.drag_scroll_geometry=await page.evaluate(()=>({scrollY,viewportHeight:innerHeight,viewportTop:window.visualViewport?.offsetTop,first:document.querySelector('[aria-label="Document editor"] p')?.getBoundingClientRect().top,last:[...document.querySelectorAll('[aria-label="Document editor"] p')].at(-1)?.getBoundingClientRect().top,handles:[...document.querySelectorAll('.rich-block-handle button')].map(button=>button.getAttribute('aria-label'))}));
+      result.drag_scroll_geometry=await page.evaluate(()=>({scrollY:document.querySelector('.ws-main').scrollTop,viewportHeight:innerHeight,viewportTop:window.visualViewport?.offsetTop,first:document.querySelector('[aria-label="Document editor"] p')?.getBoundingClientRect().top,last:[...document.querySelectorAll('[aria-label="Document editor"] p')].at(-1)?.getBoundingClientRect().top,handles:[...document.querySelectorAll('.rich-block-handle button')].map(button=>button.getAttribute('aria-label'))}));
       await handle.focus();
       await page.keyboard.press('Space');
       await expect(handle).toHaveAttribute('aria-pressed','true');

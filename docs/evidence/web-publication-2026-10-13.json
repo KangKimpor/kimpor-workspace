@@ -1,0 +1,44 @@
+{
+  "checked_at": "2026-10-13T03:09:35.172Z",
+  "site": "https://kangkimpor.github.io/kimpor-workspace/",
+  "source_commit": "4fc872664aecf20631c9c713d7b425111731eaf5",
+  "approved_pr": 7,
+  "quality_run": 38337462873,
+  "quality": {
+    "status": "passed",
+    "app_cases": 138,
+    "account_fixtures": 18,
+    "visual_comparisons": 510
+  },
+  "codeql_run": 38337462822,
+  "pages_run": 38338654296,
+  "pages_artifact": 11786400447,
+  "pages_artifact_sha256": "5a2a9dfa05b211345bc908f9f2288e6f738b107cfa43a9cf79163d155f8cb995",
+  "publication_flag": true,
+  "pages_status": "deployed",
+  "live": {
+    "new_account_screen_visible": true,
+    "google_sign_in": true,
+    "session_reload": true,
+    "original_owner_preserved": true,
+    "users": 1,
+    "email_code_verification": "Local live-project code-only delivery passed; public-origin recheck awaiting owner."
+  },
+  "integrity": {
+    "pages_now": 73,
+    "databases_now": 4,
+    "document_bodies_now": 64,
+    "original_database_rows_byte_identical": true,
+    "original_document_rows_byte_identical": true,
+    "original_document_bodies": 62,
+    "page_records_byte_identical": false,
+    "page_changes": "Four pages added at 2026-10-13T02:09:47Z; one prior page soft-deleted at 02:10:10Z. These predate publication; human confirmation pending. No recovery/deletion mutation performed by this audit."
+  },
+  "remaining": [
+    "Windows aggregate resident RAM 403705856 exceeds 157286400 bytes.",
+    "Typing maximum 19.9 ms exceeds 16 ms in follow-up local Chromium.",
+    "Phone WebKit large benchmark import timed out while busy.",
+    "Physical input, screen readers, native OAuth and signed N-to-N+1 updater acceptance remain open.",
+    "Google consent remains External/Testing, configured owner only."
+  ]
+}
