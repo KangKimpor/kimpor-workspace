@@ -1,13 +1,15 @@
 # Verification ledger
 
 Updated 2026-10-13. “Tested” describes the stated automated/local evidence, not a
-completed physical release. The physical **Verified by user** column is
-intentionally blank: no confirmed device results have been supplied.
+completed physical release. The owner confirmed installation, Google browser
+return and reopen/session persistence on Windows 11 Pro build 26300. These
+specific checks do not complete the whole physical-device checklist.
 
-Published source `4fc8726` Quality CI `38337462873` passes 138 app cases,
+Published source `1438595` Quality CI `38344354325` passes 138 app cases,
 18 account fixtures, SQL/Deno, licenses, secrets/build checks and all 510 strict
-visual comparisons. CodeQL `38337462822` passes. Pages `38338654296` deploys the
-redesign after explicit human approval of PR #7 and the publication flag.
+visual comparisons. CodeQL `38344354255` passes. Pages `38345643798` deploys
+the approved PR #8 follow-up. PR #7 and the publication flag were also explicitly
+approved by the human.
 The unchanged visual limits are 0.001 changed ratio and 0.1 pixel threshold.
 See `evidence/web-publication-2026-10-13.json` for deployment and live evidence.
 
@@ -36,9 +38,23 @@ That run failed the former 150 MiB cap. After the minimal same-host fixture
 measured 324 MiB, the user explicitly approved 450 MiB (471,859,200 bytes).
 The current script keeps full descendant aggregation and rejects host-only or
 missing-WebView2 samples; a nested-tree/unrelated-process fixture passes locally.
-Fresh Windows CI is required before claiming the revised gate passes. Startup
-and CPU limits and runtime security flags are unchanged. Physical acceptance
-and signed updater remain unverified.
+PR #8 head `914c032` Windows CI `38342124218` passes the revised gate at
+400,924,672 resident bytes. Merged source `1438595` Windows CI `38344354265`
+also passes: 405,590,016 resident bytes, seven processes, 258 ms window startup
+and 0% sampled idle CPU. Install, rendered workspace, multilingual restart,
+single instance, normal exit and uninstall pass. Startup/CPU limits and runtime
+security flags are unchanged. Full physical acceptance and signed updater remain
+unverified.
+
+The account-configured unsigned NSIS candidate from `914c032` is 3,616,811
+bytes. The installed executable matches that build after Tauri's normal NSIS
+bundle-marker patch. Computer Use observes the original account and existing
+notes; Ctrl+K opens the palette and Escape closes it. The owner confirms Google
+returns from the system browser to the app and the session persists on reopen.
+A fresh complete-row audit after these checks matches the previous 73-page,
+four-database, 64-document audit exactly. No acceptance note was created in the
+live account. Native email delivery, offline editing, screen readers and the
+N-to-N+1 signed updater still need their own evidence.
 
 The follow-up search worker normalizes indexed text once instead of once per
 query. Its regression test preserves multilingual ranking, filters and index
@@ -47,7 +63,7 @@ replacement; Chromium and desktop/phone WebKit search/IME cases pass. Local
 The isolated 10,000-item Chromium benchmark measures warm search median 1.6 ms,
 maximum 4.5 ms; typing maximum 19.9 ms still exceeds 16 ms. Phone WebKit remains
 busy importing at 180 seconds, so it has no valid benchmark timing. These are
-follow-up working-tree results, not the merged web source. See
+measurements from the PR #8 source. See
 `evidence/local-performance-2026-10-13.json` for source hashes and measurements.
 The user has Windows and iPhone available; iPad/Pencil acceptance remains open.
 
@@ -58,13 +74,16 @@ lint compatibility is verified. Microsoft's [migration guidance](https://devblog
 confirms the missing API. The follow-up incorporates PRs #1/#3/#4/#5/#6 as
 pinned workflow actions, keeping CodeQL init/analyze together. Inputs and hosted
 runner compatibility were checked against the pinned upstream manifests/docs;
-final-source CI and post-merge Pages execution are still required.
+PR #8 final-source CI and post-merge Pages execution pass. After that merge,
+Dependabot opened PRs #9–#12 for checkout, setup-node, upload-artifact and
+deploy-pages. The next follow-up consolidates their pinned Node 24 actions;
+it requires its own final-source verification before merging.
 
 | Feature / gate | Evidence and supported behavior | Status / limit | Verified by user |
 | --- | --- | --- | --- |
 | Build, lint and strict types | Frozen dependency graph; pnpm check | Tested locally | |
-| Core coverage | 73 Vitest tests; 88.91% core line coverage; whole packages/core source line coverage above 85% | Tested; not whole-app/native/backend coverage | |
-| Browser profiles | 138 app cases across original four profiles and five requested sizes in both themes; 18 account fixtures | Local continuation: 132/138, five Windows Firefox resize timeouts reproduce on a blank page; one WebKit caret case passes in isolation. Desktop navigation/reload reproduction now passes 16/16 with stronger assertions; 18 auth fixtures pass. Fresh full CI required | |
+| Core coverage | 74 Vitest tests; 88.91% core line coverage; whole packages/core source line coverage above 85% | Tested; not whole-app/native/backend coverage | |
+| Browser profiles | 138 app cases across original four profiles and five requested sizes in both themes; 18 account fixtures | All pass on published source 1438595 in CI 38344354325 | |
 | Phone tabs and capture | Five bottom tabs, capture sheet, 44px targets, safe-area CSS | Tested/emulated | |
 | Collapsing titles, edge-swipe back, sheet detents | Today title collapse, phone edge-back flush, 56/92dvh sheets | Eight browser checks pass; touch on physical devices pending | |
 | Sidebar and three panes | 72px tablet sidebar, optional expansion; 240px desktop sidebar; portrait single pane and landscape list/detail; keyboard-aware editor | Container resize, sidebar collapse/expansion and simulated keyboard/caret bounds pass | |
@@ -127,7 +146,7 @@ final-source CI and post-merge Pages execution are still required.
 | Filters/sorts/groups/saved views | Nested AND/OR filter and view settings | Implemented/store-tested; exhaustive UI combinations pending | |
 | Relations/rollups | Row links and aggregate calculations | Implemented; dedicated UI/edge cases pending | |
 | Version history/templates | Cached Yjs versions; recovery and prompt/task templates | Store restore tests; encrypted history intentionally unavailable | |
-| Cloud email/Google auth | Six-digit SDK flow, paste/wrong/resend, same-window Google start and persisted sessions; code-only configuration guard | 18 fixtures pass; real code delivery and Google linking unverified; custom SMTP/client pending | |
+| Cloud email/Google auth | Six-digit SDK flow, paste/wrong/resend, Google start and persisted sessions; code-only configuration guard | 18 fixtures, real local Google/email-code and published Google/reload pass. Native Google/browser return/reopen pass; public-origin and native email rechecks remain open | Local Google/code-only email; native Google return/reopen |
 | Owner isolation | Local partitions, SQL RLS, owner-qualified private file paths; no credential client reads | Unit/PostgreSQL and actual gateway/private Storage owner/foreign checks pass | |
 | Outbox and merge engine | Three offline clients, pages/events/properties/text, retries and account-switch guard | Unit-tested with in-memory transport; real-device <5s sync unverified | |
 | Realtime/polling | Tiny private broadcast hint, debounce; minute/focus/online polling | SQL/transport implementation; Realtime reconnect uses polling fallback | |
@@ -144,18 +163,18 @@ final-source CI and post-merge Pages execution are still required.
 | Daily keepalive | Secret-protected real database health RPC | SQL/typechecked; unconfigured schedule, no availability guarantee | |
 | Windows tray/autostart/hotkey/notifications | Scoped Tauri plugins and native commands | Actual MSVC/NSIS builds pass; native extras need physical-device checks | |
 | Windows updater | Signature verification, explicit consent, flush and pending-sync restart guard | Adapter tests; actual N→N+1/device verification absent | |
-| NSIS/checksum/release | Real Windows MSVC/NSIS build; install/window/forwarding/exit/uninstall checks; new rendered-UI/note-reload gate | Rendered source 10aea20 passes functional checks then uses 399,253,504 resident bytes, exceeding 150 MiB. Development fixture only; no tagged release | |
+| NSIS/checksum/release | Real Windows MSVC/NSIS build; install/window/forwarding/exit/uninstall and rendered-UI/note-reload checks | Published source 1438595 passes at 386.8 MiB against approved 450 MiB cap. Account-configured candidate installed; no tagged release | Account candidate installed and session retained on reopen |
 | Original brand/privacy | Derived A, SVG/PNG/ICO/NSIS assets; original JPEG excluded | Traced/reviewed; OS icon scaling pending | |
 | Accessibility/feedback | Axe both themes on modules/settings, focus/targets/motion tests and 44 contrast pairs | Automated evidence; VoiceOver/Narrator/haptics pending | |
-| Screenshot matrix | 15 screens × 17 profiles × 2 themes; 510 captures and 30 contact sheets | Final actual CI candidate 38231262270 reviewed; detailed iPhone notes show missing Khmer glyphs. Bundled font passes four browser checks; fresh actual CI capture/review required. Emulation is not hardware | |
+| Screenshot matrix | 15 screens × 17 profiles × 2 themes; 510 captures and 30 contact sheets | Font-fixed baseline from actual run 38268637809 reviewed; all 510 strict comparisons pass for published source 1438595. Emulation is not hardware | |
 | Bundle budgets | Initial graph 219.8 KiB gzip; initial/additional lazy graphs each ≤250KiB gzip | Tested; SW precache downloads lazy assets separately | |
 | Lighthouse | Local desktop / and /design measurements | Local evidence only; physical Safari/native timing unverified | |
 | Large-data performance | 2k notes + 365 journals, 20k blocks, 5k events; 5k-block note; windowed regular lists/tree/handles | Functional stress assertions pass; typing exceeds 16 ms; editor body, galleries and database bodies not fully virtualized | |
 | JS/Rust licenses | Locked inventories; KaTeX/font notices; Windows-resolved Cargo expressions | Audited locally; final binary notice audit needs native bundle | |
 | Workflow/secret checks | actionlint, staged/history gitleaks; six deployment safety tests; real Actions | 73 core cases, all 44 contrast pairs and actionlint pass; source-specific CI status tracked separately | |
 | Historical CI pixel baselines | Previous baseline: actual run 38189952585, source 5384f41, 312 captures/26 reviewed contacts; notes-refresh-baseline-review.json | All 92 browser cases and 312/312 comparisons pass in 38191255405 with unchanged 0.1% gate | |
-| GitHub main push/hosting | UI phases pushed directly; first CI candidate 38223471702 rejected after review; replacement recording pending | Previous UI remains live; account-readiness guard blocks new deployment until SMTP/delivery/linking pass | |
-| Physical device acceptance | DEVICE-TEST.md with dates/OS/results | Unverified; no connected hardware | |
+| GitHub main push/hosting | Human-approved PRs #7/#8 and account publication flag | Pages 38345643798 successfully deploys source 1438595 after passing CI | Merge/publication approvals |
+| Physical device acceptance | DEVICE-TEST.md with dates/OS/results | Windows install/Google/reopen and read-only Computer Use subset pass; iPhone/input/accessibility/scaling/offline checks remain open | Windows install, Google return and reopen |
 | Free signing/v1.0.0 | Unsigned fallback; SignPath requirements documented | No application/release; blocked by account/device/reputation gates | |
 
 See [the report](PHASES-1-3-REPORT.md), [screenshot matrix](evidence/screenshot-matrix.json),
