@@ -63,11 +63,12 @@ function Set-WorkspaceText($Element, [string]$Text, $Application) {
 }
 function Get-WorkspaceText($Element) {
   $pattern = $null
-  if ($Element.TryGetCurrentPattern([System.Windows.Automation.TextPattern]::Pattern, [ref]$pattern)) {
-    return ([System.Windows.Automation.TextPattern]$pattern).DocumentRange.GetText(-1)
-  }
+  # WebView2 TextPattern can include an empty input's placeholder.
   if ($Element.TryGetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern, [ref]$pattern)) {
     return ([System.Windows.Automation.ValuePattern]$pattern).Current.Value
+  }
+  if ($Element.TryGetCurrentPattern([System.Windows.Automation.TextPattern]::Pattern, [ref]$pattern)) {
+    return ([System.Windows.Automation.TextPattern]$pattern).DocumentRange.GetText(-1)
   }
   throw 'Visible editor has no accessible text or value pattern'
 }
