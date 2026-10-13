@@ -47,6 +47,12 @@ In the current session the human requested completion of the workspace and
 explicitly approved PR #7 merge and web publication. Recorded approvals from
 prior handovers are context, not fresh permission for credentials or access.
 The follow-up branch contains search and workflow maintenance under review.
+The human subsequently approved changing the Windows idle cap to 450 MiB
+(or 500 MiB for CI). Use 450 MiB consistently: the minimal same-host fixture
+measured 324 MiB and full CI 385 MiB. Keep host plus all WebView2 descendant
+working sets, 2-second startup and 2-percent CPU checks. The host/WebView2
+sample guards and nested-tree fixture prevent host-only false passes. Historical
+150 MiB failures below remain historical evidence; fresh Windows CI is required.
 
 Kimpor Workspace, public MIT, KangKimpor/kimpor-workspace, derived A monogram, unsigned Windows
 initially. Original signature and updater key/password are private and ignored.

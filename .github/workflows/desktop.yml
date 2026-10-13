@@ -30,6 +30,7 @@ jobs:
       - run: pnpm brand:build
       - run: pnpm licenses:cargo
       - run: cargo fmt --manifest-path apps/desktop/src-tauri/Cargo.toml -- --check
+      - run: ./scripts/windows-process-tree.test.ps1
       - name: Build per-user NSIS installer and signed updater on tags
         id: build
         shell: pwsh

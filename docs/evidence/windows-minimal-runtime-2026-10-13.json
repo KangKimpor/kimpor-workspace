@@ -1,0 +1,77 @@
+{
+  "source_commit": "93b06ad1478c1d2e8e3d8f6c0cb5d621cb0223bb",
+  "mode": "Active minimal embedded HTML in the same Tauri/Rust host, plugins, window and CSP. Fresh isolated WebView cache; CDP diagnostic port only; no forced GC or working-set trimming. Not an irreducible floor for every Windows machine.",
+  "date": "2026-10-13T03:18:57.976Z",
+  "budget_bytes": 157286400,
+  "measurements": [
+    {
+      "phase": "cold-minimal-html-same-native-host",
+      "aggregate_working_set_bytes": 339865600,
+      "processes": [
+        {
+          "role": "host",
+          "private_committed_bytes": 7401472,
+          "working_set_bytes": 26071040
+        },
+        {
+          "role": "browser",
+          "private_committed_bytes": 38670336,
+          "working_set_bytes": 123637760
+        },
+        {
+          "role": "crashpad-handler",
+          "private_committed_bytes": 2449408,
+          "working_set_bytes": 10481664
+        },
+        {
+          "role": "gpu-process",
+          "private_committed_bytes": 66314240,
+          "working_set_bytes": 61181952
+        },
+        {
+          "role": "utility",
+          "private_committed_bytes": 12316672,
+          "working_set_bytes": 41816064
+        },
+        {
+          "role": "utility",
+          "private_committed_bytes": 7585792,
+          "working_set_bytes": 20123648
+        },
+        {
+          "role": "renderer",
+          "private_committed_bytes": 22880256,
+          "working_set_bytes": 56553472
+        }
+      ],
+      "js_heap_used_bytes": 2132528,
+      "js_heap_total_bytes": 3215360
+    }
+  ],
+  "fixture": {
+    "title": "Minimal WebView",
+    "body": "Minimal WebView",
+    "custom_protocol": "http://tauri.localhost/",
+    "verified": true,
+    "executable_sha256": "c1e8a3c6df4860087148fba6e6084bcc479411143bc41db2ccb47deea2ff7627",
+    "html_sha256": "926720771fc473864897cad8e6903a93b05b6d79f9d23bddd0e887a901d10703",
+    "native_source_sha256": "6cda33f68dbf8f216b4a0a9a0cb673f5960c0560b1114ed8abadcc4cb13f5938",
+    "native_config_sha256": "e483036d7b749ef52b15b85f86c527f4c47a60ceafd76b757001ab491f1ca82a"
+  },
+  "production_binary_restored_sha256": "0e8451414aeb6d78c3c593d7dbc6b5d5f991d1697e267708cf38a905f0e65657",
+  "comparison": {
+    "ci_run": 38337462848,
+    "ci_active_working_set_bytes": 403705856,
+    "budget_bytes": 157286400,
+    "conclusion": "Both the full app and the minimal same-host fixture exceed the current aggregate resident-memory cap. UI-only reductions cannot establish compliance from this evidence."
+  },
+  "approved_revision": {
+    "date": "2026-10-13T03:29:54.747Z",
+    "idle_working_set_budget_bytes": 471859200,
+    "mode": "Explicit current-session human approval. Same 450 MiB limit locally and in CI; no conditional inflation.",
+    "aggregation": "Tauri host plus every descendant process. Host and msedgewebview2 presence are required; nested-tree and unrelated-process exclusion fixture passes.",
+    "startup_budget_ms": 2000,
+    "idle_cpu_budget_percent": 2,
+    "verification": "Fresh source-specific Windows smoke pending."
+  }
+}

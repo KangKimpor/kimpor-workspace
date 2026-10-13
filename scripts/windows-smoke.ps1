@@ -1,4 +1,5 @@
 $ErrorActionPreference = 'Stop'
+$idleWorkingSetBudget = 450MB
 $installer = Get-ChildItem apps/desktop/src-tauri/target/release/bundle/nsis/*-setup.exe | Select-Object -First 1
 if (!$installer) { throw 'NSIS installer not found' }
 $installation = Start-Process $installer.FullName -ArgumentList '/S' -Wait -PassThru
@@ -85,6 +86,8 @@ try {
   Start-Sleep -Seconds 5
   $after = @(Get-AppProcessTree)
   $idleClock.Stop()
+  if (!($after | Where-Object Id -eq $application.Id)) { throw 'Memory sample is missing the Tauri host.' }
+  if (!($after | Where-Object ProcessName -eq 'msedgewebview2')) { throw 'Memory sample is missing WebView2 descendants.' }
   $cpuAfter = ($after | Measure-Object CPU -Sum).Sum
   $evidence.idle_working_set_bytes = [long](($after | Measure-Object WorkingSet64 -Sum).Sum)
   $evidence.idle_private_committed_bytes = [long](($after | Measure-Object PrivateMemorySize64 -Sum).Sum)
@@ -93,7 +96,7 @@ try {
   })
   $evidence.idle_cpu_percent = [Math]::Round([Math]::Max(0, ($cpuAfter - $cpuBefore)) / $idleClock.Elapsed.TotalSeconds / [Environment]::ProcessorCount * 100, 3)
   $evidence.process_count = $after.Count
-  $evidence.budgets = @{ native_window_ms = 2000; idle_working_set_bytes = 150MB; idle_cpu_percent = 2 }
+  $evidence.budgets = @{ native_window_ms = 2000; idle_working_set_bytes = $idleWorkingSetBudget; idle_cpu_percent = 2 }
   if (!$application.CloseMainWindow()) { throw 'Application did not accept normal close' }
   if (!$application.WaitForExit(10000)) { throw 'Application did not exit cleanly' }
   if ($application.ExitCode -ne 0) { throw "Application exit code: $($application.ExitCode)" }
@@ -111,7 +114,7 @@ try {
   # Enforce published Windows budgets. The native-window metric is a lower bound
   # for full first-render readiness; physical-device checks cover the latter.
   if ($evidence.native_window_ms -gt 2000) { throw 'Native window startup exceeds the 2 second budget.' }
-  if ($evidence.idle_working_set_bytes -gt 150MB) { throw 'App and WebView2 idle RAM exceed the 150 MiB budget.' }
+  if ($evidence.idle_working_set_bytes -gt $idleWorkingSetBudget) { throw 'App and WebView2 idle RAM exceed the 450 MiB budget.' }
   if ($evidence.idle_cpu_percent -gt 2) { throw 'App and WebView2 idle CPU exceed the 2 percent budget.' }
   $evidence.result = 'passed'
   Write-Output 'Per-user install, native window, callback registration, single instance, idle budgets and uninstall passed.'

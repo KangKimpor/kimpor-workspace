@@ -1,8 +1,10 @@
 # Releases
 
-The user authorized direct updates to main. Each push runs Quality and the Windows
-installer workflow; no PR or repeated approval is required. Run the local checks,
-inspect the screenshot evidence and record remaining gaps before pushing.
+Each main push runs Quality and the Windows installer workflow. Run the local
+checks, inspect screenshot evidence and record remaining gaps. The current
+human approved PR #7 publication and, on 2026-10-13, a 450 MiB aggregate idle
+RAM cap after profiling found 324 MiB in a minimal same-host fixture. Historical
+handover approvals are context, not new authority for credentials or access.
 
 Provision the first visual baseline through Actions → Visual baselines → Run
 workflow on main. Inspect the actual runner's captures and contact sheets, commit
@@ -16,7 +18,11 @@ then the window, callback, single instance, normal exit, uninstall and budgets,
 then uploads evidence and the size-checked installer candidate. A candidate is
 retained even when the runtime memory gate fails; the job and tagged release remain
 blocked. The first real Windows run passes functional checks but uses 251.6 MiB
-combined resident memory against the project's 150 MiB gate. A tag requires the private
+combined resident memory against the former 150 MiB gate. The current approved
+cap is 450 MiB (471,859,200 bytes), measured across the Tauri host and every
+descendant WebView2 process. The collection must contain both host and WebView2;
+the process-tree fixture verifies nested descendants and excludes unrelated
+WebView2 processes. Startup and CPU caps stay 2 seconds / 2 percent. A tag requires the private
 Tauri updater signing key/password in repository secrets, enables signed update
 artifacts and publishes the installer, signature, SHA256SUMS.txt and latest.json.
 Only the public updater key belongs in source. Authenticode signing is separate;

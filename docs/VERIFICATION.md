@@ -32,9 +32,13 @@ so it is not a completed install/persistence acceptance run. A subsequent active
 app observation used 392,937,472 aggregate resident bytes against 157,286,400.
 Merged-source CI `38337462848` passed functional checks, normal exit and
 uninstall but used 403,705,856 resident bytes. Its installer is 3,617,256 bytes.
-Memory remains a release blocker; no threshold or runtime security flag
-has been weakened. Physical input/accessibility and signed updater acceptance
-remain unverified.
+That run failed the former 150 MiB cap. After the minimal same-host fixture
+measured 324 MiB, the user explicitly approved 450 MiB (471,859,200 bytes).
+The current script keeps full descendant aggregation and rejects host-only or
+missing-WebView2 samples; a nested-tree/unrelated-process fixture passes locally.
+Fresh Windows CI is required before claiming the revised gate passes. Startup
+and CPU limits and runtime security flags are unchanged. Physical acceptance
+and signed updater remain unverified.
 
 The follow-up search worker normalizes indexed text once instead of once per
 query. Its regression test preserves multilingual ranking, filters and index

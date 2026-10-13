@@ -63,8 +63,11 @@ pnpm e2e:auth
 ```
 
 The pixel comparison limit is 0.1%. Initial and additional JavaScript graphs
-must each stay under 250 KiB gzip. Contrast and the 150 MiB Windows resident-memory
-gate remain unchanged. Capture provenance must come from the actual CI runner.
+must each stay under 250 KiB gzip. The user approved a 450 MiB aggregate Windows
+idle resident-memory cap after the same-host minimal HTML fixture measured
+324 MiB. The collector includes the Tauri host and all descendant WebView2
+processes; missing host/WebView2 samples fail. Contrast remains unchanged.
+Capture provenance must come from the actual CI runner.
 
 ## Install and deploy
 

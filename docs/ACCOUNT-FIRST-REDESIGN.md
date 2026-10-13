@@ -9,7 +9,9 @@ one prior page soft-deleted before publication; human confirmation is pending.
 All four original database rows and 62 original document rows still match.
 See evidence/web-publication-2026-10-13.json; current page hashes differ.
 See ACCOUNT-SETUP.md and the current verification ledger; older phase descriptions
-below are historical. Windows memory and physical/updater acceptance remain open.
+below are historical. The user subsequently approved a 450 MiB aggregate idle
+Windows RAM cap after minimal-runtime profiling; fresh Windows CI and physical/
+updater acceptance remain open. See windows-minimal-runtime-2026-10-13.json.
 
 Source phases were pushed directly to main on 2026-10-12 after `pnpm check`.
 The original imported account remains intact: private read-only comparison found
