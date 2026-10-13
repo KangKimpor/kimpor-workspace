@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-13T11:35:11.738Z",
+  "project_ref": "nlcpjdokfvawlpzyfytx",
+  "health_run": 38390890987,
+  "backup_run": 38390895847,
+  "artifact_id": 11808837408,
+  "encrypted_file_sha256": "f6c82fe4016647d3408142d82a3432892fe82969920b9a0c2bb8983c26129dd3",
+  "decrypted_bytes": 289143,
+  "counts": {
+    "pages": 78,
+    "calendars": 3,
+    "events": 0,
+    "databases": 6,
+    "documents": 66,
+    "versions": 67,
+    "encryptedDocuments": 0,
+    "attachments": 0,
+    "settings": 0
+  },
+  "authenticated_decryption": true,
+  "isolated_local_restore": {
+    "passed": true,
+    "entities": true,
+    "documents": true,
+    "attachments": "not exercised: empty archive",
+    "encrypted_documents": "not exercised: empty archive",
+    "versions": true,
+    "settings": "not exercised: empty archive",
+    "production_import": false,
+    "indexeddb": "fake-indexeddb",
+    "restored_version_count": 133
+  }
+}

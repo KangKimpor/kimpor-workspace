@@ -6,6 +6,44 @@ Home Screen/reopen, Khmer/Chinese and VoiceOver checks on iOS 27.0.1, plus insta
 return and reopen/session persistence on Windows 11 Pro build 26300. These
 specific checks do not complete the whole physical-device checklist.
 
+Takeover recheck on 2026-10-13: main `9ac0972` is clean and its Quality
+`38372401404`, CodeQL `38372401386`, Windows `38372401423` and Pages
+`38374517397` runs all succeed. The public HTML still hashes to
+`3a5ca538dfc3c33081840891ad9d4f5ee5482b13fd575f9e66d006a39e4f6da8`.
+Tagged Windows release 0.0.4 comes from `cebe846`; the repaired public feed and
+checksums use GitHub's dot-normalized asset names. The prior session records the
+owner's manual update/restart, retained notes/session, Search and multilingual
+input checks as working and independently confirms the installed 0.0.4 version.
+The broad reply does not independently establish Narrator or every device row.
+
+After explicit approval in the takeover session, the existing Supabase project's
+daily health and weekly encrypted backup secrets are configured in Actions.
+Health run `38390890987` actually checks the database; backup run `38390895847`
+exports and uploads an AES-256-GCM encrypted artifact. Authenticated local
+decryption and isolated core-store import/reopen pass: 78 pages, three calendars,
+six databases, 66 document bodies and 67 original history entries are preserved.
+Import adds 66 normal restore snapshots and rewrites local owner/update metadata.
+There were no attachments, encrypted documents or settings in this snapshot;
+their live recovery is therefore unverified. The restore uses fake-indexeddb,
+not a physical browser or production-account import. Keys and plaintext remain
+in user-only local files; an off-computer recovery-key copy still needs the owner.
+The existing 15-minute maintenance job and four latest HTTP 200 responses were
+also checked in Chrome. Aggregate counts differ from older audits; no unchanged
+content hashes are inferred. See `evidence/cloud-schedules-2026-10-13.json`.
+
+The takeover search fix indexes only when page/event data changes and waits for
+searchable body metadata before an editor flush completes. The regression covers
+search after immediate navigation/reload and reuse of the index across queries
+and filters. All 24 product checks pass in Chromium, WebKit, Firefox and phone
+WebKit; `pnpm check` passes 76 unit tests at 89.26% core line coverage.
+The isolated Chromium stress run passes every functional assertion with 487 ms
+warm start and 12.9 ms maximum warm worker search, but 17.6 ms maximum typing
+still misses the unchanged 16 ms gate. This is one local run, not a before/after
+performance comparison or physical-device result. Phone stress was not rerun.
+See `evidence/takeover-performance-2026-10-13.json`. Earlier paragraphs below
+retain historical source-specific evidence; this summary supersedes their
+unconfigured-schedule and unpublished-0.0.4 statements.
+
 Published source `1438595` Quality CI `38344354325` passes 138 app cases,
 18 account fixtures, SQL/Deno, licenses, secrets/build checks and all 510 strict
 visual comparisons. CodeQL `38344354255` passes. Pages `38345643798` deploys
@@ -200,11 +238,11 @@ it requires its own final-source verification before merging.
 | Provider disconnect/revocation | Google revoke call; account credential removal | Implemented; Outlook/CalDAV require provider-side manual revocation | |
 | Closed-app Web Push | VAPID registration and bounded recurring maintenance delivery | Code/typechecked; no live delivery; best-effort retry/dedup limits | |
 | Scheduled maintenance | 15-minute SQL job, bounded calendar polling, plain snapshot CAS | SQL CAS tested; actual pg_cron requests returned HTTP 200 | |
-| Scheduled encrypted backup | Consistent owner export RPC, AES-GCM artifact, wrong-key/tamper rejection | CLI tested; live export/restore and schedule unverified | |
-| Daily keepalive | Secret-protected real database health RPC | SQL/typechecked; unconfigured schedule, no availability guarantee | |
+| Scheduled encrypted backup | Consistent owner export RPC, AES-GCM artifact, wrong-key/tamper rejection | Configured; live run 38390895847, downloaded/decrypted artifact and isolated core restore pass. Live file/protected-document and physical-browser restore remain unverified | Explicit takeover approval |
+| Daily keepalive | Secret-protected real database health RPC | Configured; run 38390890987 actually checks the database; no availability guarantee | Explicit takeover approval |
 | Windows tray/autostart/hotkey/notifications | Scoped Tauri plugins and native commands | Actual MSVC/NSIS builds pass; native extras need physical-device checks | |
-| Windows updater | Signature verification, explicit consent, flush and pending-sync restart guard | Adapter guards and separate native 0.0.2→0.0.3 HTTPS/signature/NSIS restart fixture pass; production account/feed acceptance pending | |
-| NSIS/checksum/release | Real Windows MSVC/NSIS build; install/window/forwarding/exit/uninstall and rendered-UI/note-reload checks | Published source 1438595 passes at 386.8 MiB against approved 450 MiB cap. Account-configured candidate installed; no tagged release | Account candidate installed and session retained on reopen |
+| Windows updater | Signature verification, explicit consent, flush and pending-sync restart guard | Native fixture passes; public 0.0.4 feed repaired and owner reports update/restart with notes/session retained. Pending-sync rejection covered automatically, not separately confirmed on hardware | Prior owner-reported pass |
+| NSIS/checksum/release | Real Windows MSVC/NSIS build; install/window/forwarding/exit/uninstall and rendered-UI/note-reload checks | Tagged 0.0.4 published from cebe846; main 9ac0972 Windows run 38372401423 passes approved 450 MiB cap | Owner reports installed 0.0.4 |
 | Original brand/privacy | Derived A, SVG/PNG/ICO/NSIS assets; original JPEG excluded | Traced/reviewed; OS icon scaling pending | |
 | Accessibility/feedback | Axe both themes on modules/settings, focus/targets/motion tests and 44 contrast pairs | Automated evidence; VoiceOver/Narrator/haptics pending | |
 | Screenshot matrix | 15 screens × 17 profiles × 2 themes; 510 captures and 30 contact sheets | Font-fixed baseline from actual run 38268637809 reviewed; all 510 strict comparisons pass for published source 1438595. Emulation is not hardware | |
@@ -214,7 +252,7 @@ it requires its own final-source verification before merging.
 | JS/Rust licenses | Locked inventories; KaTeX/font notices; Windows-resolved Cargo expressions | Audited locally; final binary notice audit needs native bundle | |
 | Workflow/secret checks | actionlint, staged/history gitleaks; six deployment safety tests; real Actions | 73 core cases, all 44 contrast pairs and actionlint pass; source-specific CI status tracked separately | |
 | Historical CI pixel baselines | Previous baseline: actual run 38189952585, source 5384f41, 312 captures/26 reviewed contacts; notes-refresh-baseline-review.json | All 92 browser cases and 312/312 comparisons pass in 38191255405 with unchanged 0.1% gate | |
-| GitHub main push/hosting | Human-approved PRs #7/#8 and account publication flag | Pages 38345643798 successfully deploys source 1438595 after passing CI | Merge/publication approvals |
+| GitHub main push/hosting | Human-approved PRs #7/#8 and account publication flag | Pages 38374517397 deploys source 9ac0972 after passing CI; live HTML hash rechecked | Prior publication approvals |
 | Physical device acceptance | DEVICE-TEST.md with dates/OS/results | Windows install/Google/reopen and read-only Computer Use subset pass; iPhone iOS 27.0.1 sign-in/Home Screen/reopen/Khmer/Chinese/VoiceOver subset passes. Full offline/gesture/scaling/notification/stress matrix remains open | Windows and iPhone reported subsets |
 | Free signing/v1.0.0 | Unsigned fallback; SignPath requirements documented | No application/release; blocked by account/device/reputation gates | |
 

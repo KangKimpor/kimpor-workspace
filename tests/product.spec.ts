@@ -75,11 +75,22 @@ test("a multilingual note persists through navigation and an offline reload", as
 test("the command palette searches local mixed-language bodies and suppresses IME shortcuts", async ({
   page,
 }) => {
+  await page.addInitScript(() => {
+    const state = window as unknown as { searchIndexWrites: number };
+    state.searchIndexWrites = 0;
+    const postMessage = Worker.prototype.postMessage;
+    Worker.prototype.postMessage = function (message, ...options) {
+      if (message?.kind === "index") state.searchIndexWrites++;
+      return Reflect.apply(postMessage, this, [message, ...options]);
+    };
+  });
   await note(page, "Languages");
   await page
     .getByRole("textbox", { name: "Document editor" })
     .fill("សួស្តី 中文 hello");
   await navigate(page, "Today");
+  await page.reload();
+  await page.locator(".ws-today").waitFor();
   await page.evaluate(() => {
     window.dispatchEvent(
       new KeyboardEvent("keydown", {
@@ -99,6 +110,11 @@ test("the command palette searches local mixed-language bodies and suppresses IM
   await expect(
     page.getByRole("dialog").getByRole("button", { name: /Languages/ }),
   ).toBeVisible();
+  const indexWrites = await page.evaluate(() => (window as unknown as { searchIndexWrites: number }).searchIndexWrites);
+  await page.getByRole("textbox", { name: "Search query" }).fill("hello");
+  await page.getByRole("combobox", { name: "Search item type" }).selectOption("note");
+  await expect(page.getByRole("dialog").getByRole("button", { name: /Languages/ })).toBeVisible();
+  expect(await page.evaluate(() => (window as unknown as { searchIndexWrites: number }).searchIndexWrites)).toBe(indexWrites);
   await page.keyboard.press("Escape");
   await expect(page.getByRole("dialog")).toHaveCount(0);
 });

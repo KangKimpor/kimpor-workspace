@@ -1,9 +1,23 @@
 # Setup and release gates
 
-Updated 2026-10-11. All phases and direct main pushes are authorized. The source,
+Updated 2026-10-13. Historical approvals below describe earlier sessions; the current
+session's explicit approvals govern new credential/access changes. The source,
 brand, workflows and local verification are prepared. This checklist records
 configuration that cannot be completed without connected account access or hardware;
 it does not reintroduce approval stops.
+
+Latest takeover results supersede the older pending statements below: public
+Windows 0.0.4 is published, its updater feed is repaired, and the prior owner
+reports successful update/restart with retained notes/session. Google and Brevo
+code-only email sign-in have existing owner evidence; do not recreate their
+credentials. The current session explicitly approved Actions health and owner
+backup access. Live daily health and encrypted backup workflow runs now pass,
+and downloaded backup decryption plus isolated core-store restore pass.
+The backup recovery key is in a user-only local file; its separate off-computer
+copy remains an owner action. Native physical-browser restore, empty-snapshot
+attachment/protected-document recovery, provider calendars, closed-app push and
+the remaining hardware/stress gates remain open. See VERIFICATION.md and
+evidence/cloud-schedules-2026-10-13.json for exact boundaries.
 
 1. **Repository access.** The intended target is public MIT
    `KangKimpor/kimpor-workspace`. Completed October 11: the user saved secure browser
@@ -79,8 +93,9 @@ it does not reintroduce approval stops.
    HTTPS, tamper rejection, NSIS update/restart and synthetic-file preservation.
    See `evidence/updater-signing-2026-10-13.json`. The old installed key cannot
    accept this pair: install the new baseline manually. Production feed and
-   frontend save/consent/pending-sync acceptance still need release evidence.
-   Authenticode remains unsigned; no tag or public desktop release was created.
+   frontend save/consent/pending-sync acceptance were pending at this earlier
+   checkpoint. Later 0.0.4 production-feed and owner-reported update/restart
+   evidence is summarized above. Authenticode remains unsigned.
 
 9. **Physical device checks.** Connect Windows/iPhone/iPad hardware and complete
    docs/DEVICE-TEST.md with dates/OS/results. Desktop Commander currently reports

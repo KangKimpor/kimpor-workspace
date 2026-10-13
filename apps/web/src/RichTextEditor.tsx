@@ -294,7 +294,7 @@ function SessionEditor({
 }: {
   pageId: string;
   session: Session;
-  onTextChange?: (text: string) => void;
+  onTextChange?: (text: string) => void | Promise<void>;
   onLock: () => void;
   onEnableEncryption: () => void;
   toolsRequest: number;
@@ -684,7 +684,7 @@ function SessionEditor({
             throw cause;
           }
           saved.vector = vector;
-          onText.current?.(editor.getText());
+          await onText.current?.(editor.getText());
         }
         if (mounted.current) setStatus("");
       };
@@ -1436,7 +1436,7 @@ export default function RichTextEditor({
   onTextChange,
 }: {
   pageId: string;
-  onTextChange?: (text: string) => void;
+  onTextChange?: (text: string) => void | Promise<void>;
 }) {
   const [toolsRequest, setToolsRequest] = useState(0);
   const [toolsAck, setToolsAck] = useState(0);

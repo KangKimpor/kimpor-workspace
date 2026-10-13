@@ -18,6 +18,14 @@ enables Chromium profiling; profiling runs are separate from the final timings.
 The default output is [seeded-performance.json](evidence/seeded-performance.json).
 The command exits nonzero when a functional assertion or budget fails.
 
+October 13 takeover run on Windows: Chromium passes all functional assertions,
+imports in 1.69 seconds, warms in 487 ms and has a 12.9 ms maximum warm worker
+search. Typing median/max is 9.8/17.6 ms, so the unchanged 16 ms maximum still
+fails. The palette now retains its index between queries/filters and editor flush
+awaits searchable body metadata. This run is not an isolated before/after
+comparison and does not establish phone or native performance; see
+[takeover-performance-2026-10-13.json](evidence/takeover-performance-2026-10-13.json).
+
 ## October 11 local result
 
 | Measurement | Chromium, 1536 × 864 | Phone WebKit, 393 × 852 |
