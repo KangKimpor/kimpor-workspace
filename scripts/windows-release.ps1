@@ -9,6 +9,13 @@ if ($env:IS_RELEASE -eq 'true') {
   if (!(Test-Path $signaturePath)) { throw 'Tauri updater signature is missing; refusing to publish an unsigned feed.' }
   $signature = (Get-Content $signaturePath -Raw).Trim()
   if (!$signature) { throw 'Tauri updater signature is empty.' }
+  # GitHub changes spaces to dots in uploaded asset names.
+  $assetName = $installer.Name.Replace(' ', '.')
+  if ($assetName -ne $installer.Name) {
+    Rename-Item -LiteralPath $signaturePath -NewName "$assetName.sig"
+    Rename-Item -LiteralPath $installer.FullName -NewName $assetName
+    $installer = Get-Item (Join-Path $bundle $assetName)
+  }
   $version = $env:RELEASE_TAG -replace '^v', ''
   $assetUrl = "https://github.com/$($env:REPOSITORY)/releases/download/$($env:RELEASE_TAG)/$([Uri]::EscapeDataString($installer.Name))"
   $manifest = @{
