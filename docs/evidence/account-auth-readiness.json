@@ -1,12 +1,23 @@
 {
   "project_ref": "nlcpjdokfvawlpzyfytx",
-  "checked_at": "2026-10-12T07:24:00Z",
-  "custom_smtp": false,
-  "code_templates_only": false,
+  "checked_at": "2026-10-13T02:07:05.776Z",
+  "custom_smtp": true,
+  "code_templates_only": true,
   "otp_length": 6,
   "otp_expiry_seconds": 600,
-  "google_enabled": false,
-  "google_existing_account_link_verified": false,
-  "email_code_delivery_verified": false,
-  "mode": "Read-only Management API and signed-in browser audit. Fixture tests do not establish live delivery or identity linking."
+  "google_enabled": true,
+  "google_existing_account_link_verified": true,
+  "email_code_delivery_verified": true,
+  "mode": "Signed-in Supabase dashboard inspection; owner completed Google and code-only email sign-in in the live-configured redesigned local app; same original owner and read-only complete-row hashes preserved.",
+  "google_audience": "External / Testing; existing owner only",
+  "integrity": {
+    "users": 1,
+    "pages": 69,
+    "databases": 4,
+    "documents": 62,
+    "page_records_unchanged": true,
+    "database_schemas_unchanged": true,
+    "document_update_rows_unchanged": true,
+    "document_snapshot_rows_unchanged": true
+  }
 }

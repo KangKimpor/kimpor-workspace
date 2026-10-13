@@ -1,7 +1,32 @@
 # Kimpor Workspace working memory
 
-Updated 2026-10-12 UTC. The local continuation reproduced the desktop reload race and found missing Khmer glyphs in the final CI candidate. A bundled Khmer font requires a fresh actual CI recording. Read
+Updated 2026-10-13 UTC. All 510 font-fixed CI baselines have been reviewed and
+installed; live Google and code-only email sign-in preserve the original owner
+and imported data. Read the current continuation section below and
 docs/ACCOUNT-FIRST-REDESIGN.md and docs/VERIFICATION.md before editing.
+
+## Current continuation, 13 October 2026
+
+Source 5bb0f41 Quality run 38267787606 passes 138 app cases, 18 auth fixtures,
+SQL/Deno, licenses and secret/build checks; its final failure is the missing
+sign-in baseline. CodeQL 38267787643 passes. Baseline run 38268637809/artifact
+11755859265 provides the reviewed 510-image set; its archive SHA-256 and complete
+matrix were verified. All 30 contacts and detailed Khmer, Calendar and scaled
+editor views pass review. See evidence/account-redesign-baseline-review.json.
+
+Actual dashboard inspection confirms existing SMTP, Google, six-digit 600-second
+codes and both token-only templates. The owner completed real Google and email
+code sign-in in the redesigned local build. One original user and all 69 pages,
+four databases and 62 bodies remain; full stored-row hashes match before/after.
+Only public client configuration was read, and no credential was created.
+Google remains External / Testing, restricted to the configured owner. These
+facts supersede older provider-pending statements below.
+
+Local pnpm check passes 73 core tests, 88.91% line coverage, 219.7 KiB initial
+gzip and 44 contrast pairs; 18 auth fixtures, JS/Cargo licenses and Gitleaks
+history pass. Rust 1.99.0 and pnpm 11.19.0 live privately in .private/toolchain.
+Windows MSVC release and NSIS compile locally. Native acceptance is still open;
+do not weaken aggregate resident-memory or typing budgets or tag v1.
 
 ## Authorization and decisions
 
