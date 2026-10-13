@@ -1,7 +1,8 @@
 # Verification ledger
 
 Updated 2026-10-13. “Tested” describes the stated automated/local evidence, not a
-completed physical release. The owner confirmed installation, Google browser
+completed physical release. The owner confirmed iPhone Safari Google/email-code,
+Home Screen/reopen, Khmer/Chinese and VoiceOver checks on iOS 27.0.1, plus installation, Google browser
 return and reopen/session persistence on Windows 11 Pro build 26300. These
 specific checks do not complete the whole physical-device checklist.
 
@@ -25,8 +26,8 @@ Deployed Google sign-in and reload preserve the original owner. A fresh audit
 finds 73 pages and 64 document bodies: four pages were added and one prior page
 soft-deleted before publication. The four original database rows and all 62
 original document rows still match byte-for-byte. Human confirmation of the
-page changes and the deployed email-code recheck are pending; current page-row
-hashes must not be described as unchanged.
+page changes is pending; the deployed email-code recheck passes on the owner's
+iPhone. Current page-row hashes must not be described as unchanged.
 
 The local MSVC release and 3.45 MiB NSIS installer compile; 308 Cargo license
 expressions pass. Local native UI automation could not verify entered body text,
@@ -76,8 +77,14 @@ gate passes 76 tests at 89.26% core line coverage; four existing Chromium/phone
 WebKit import/download cases pass. Isolated Chromium import time falls from
 14.8 seconds to 3.47 seconds, warm start is 1.01 seconds, warm search maximum is
 5 ms and typing maximum remains 20 ms. The large Windows WebKit import still
-exceeds the unchanged 180-second harness wait, including a profile outside
-OneDrive; it is not a passed phone benchmark. See
+exceeded the earlier 180-second harness wait, including a profile outside
+OneDrive. A diagnostic with a longer wait completes import in 337.36 seconds
+and passes the large tree/list/scale/reorder assertions, warm start in 1.16
+seconds and typing maximum 19 ms. Its final navigation revealed that the phone
+tabs hide during editing; the harness now uses the existing Back action before
+selecting Today. Import observation allows ten minutes; the measured warm-start,
+typing and search limits remain 1.5 seconds, 16 ms and 50 ms. It is not a passed
+phone performance result or a physical Safari timing. See
 `evidence/import-performance-2026-10-13.json`. No live account import was run.
 
 Dependency maintenance: PR #2 is closed because its direct TypeScript 7
@@ -159,7 +166,7 @@ it requires its own final-source verification before merging.
 | Filters/sorts/groups/saved views | Nested AND/OR filter and view settings | Implemented/store-tested; exhaustive UI combinations pending | |
 | Relations/rollups | Row links and aggregate calculations | Implemented; dedicated UI/edge cases pending | |
 | Version history/templates | Cached Yjs versions; recovery and prompt/task templates | Store restore tests; encrypted history intentionally unavailable | |
-| Cloud email/Google auth | Six-digit SDK flow, paste/wrong/resend, Google start and persisted sessions; code-only configuration guard | 18 fixtures, real local Google/email-code and published Google/reload pass. Native Google/browser return/reopen pass; public-origin and native email rechecks remain open | Local Google/code-only email; native Google return/reopen |
+| Cloud email/Google auth | Six-digit SDK flow, paste/wrong/resend, Google start and persisted sessions; code-only configuration guard | 18 fixtures, real local Google/email-code and published Google/reload pass. iPhone public Google/email-code and reopen pass; native Google/browser return/reopen pass. Native email recheck remains open | Local Google/code-only email; iPhone Google/email-code/reopen; native Google return/reopen |
 | Owner isolation | Local partitions, SQL RLS, owner-qualified private file paths; no credential client reads | Unit/PostgreSQL and actual gateway/private Storage owner/foreign checks pass | |
 | Outbox and merge engine | Three offline clients, pages/events/properties/text, retries and account-switch guard | Unit-tested with in-memory transport; real-device <5s sync unverified | |
 | Realtime/polling | Tiny private broadcast hint, debounce; minute/focus/online polling | SQL/transport implementation; Realtime reconnect uses polling fallback | |
@@ -187,7 +194,7 @@ it requires its own final-source verification before merging.
 | Workflow/secret checks | actionlint, staged/history gitleaks; six deployment safety tests; real Actions | 73 core cases, all 44 contrast pairs and actionlint pass; source-specific CI status tracked separately | |
 | Historical CI pixel baselines | Previous baseline: actual run 38189952585, source 5384f41, 312 captures/26 reviewed contacts; notes-refresh-baseline-review.json | All 92 browser cases and 312/312 comparisons pass in 38191255405 with unchanged 0.1% gate | |
 | GitHub main push/hosting | Human-approved PRs #7/#8 and account publication flag | Pages 38345643798 successfully deploys source 1438595 after passing CI | Merge/publication approvals |
-| Physical device acceptance | DEVICE-TEST.md with dates/OS/results | Windows install/Google/reopen and read-only Computer Use subset pass; iPhone/input/accessibility/scaling/offline checks remain open | Windows install, Google return and reopen |
+| Physical device acceptance | DEVICE-TEST.md with dates/OS/results | Windows install/Google/reopen and read-only Computer Use subset pass; iPhone iOS 27.0.1 sign-in/Home Screen/reopen/Khmer/Chinese/VoiceOver subset passes. Full offline/gesture/scaling/notification/stress matrix remains open | Windows and iPhone reported subsets |
 | Free signing/v1.0.0 | Unsigned fallback; SignPath requirements documented | No application/release; blocked by account/device/reputation gates | |
 
 See [the report](PHASES-1-3-REPORT.md), [screenshot matrix](evidence/screenshot-matrix.json),

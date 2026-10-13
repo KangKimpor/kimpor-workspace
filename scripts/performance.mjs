@@ -81,7 +81,8 @@ try {
       await page.getByText('More',{exact:true}).click();
       const started = performance.now();
       await page.getByLabel('Import workspace JSON',{exact:true}).setInputFiles(fixture);
-      await expect(page.getByText('Workspace imported',{exact:true})).toBeVisible({timeout:180000});
+      // Windows WebKit writes this fixture in minutes; the measured performance limits below stay unchanged.
+      await expect(page.getByText('Workspace imported',{exact:true})).toBeVisible({timeout:600000});
       result.import_ms = performance.now() - started;
       await page.keyboard.press('Escape');
       if (await page.getByRole('button',{name:'Close sidebar',exact:true}).first().isVisible()) await page.getByRole('button',{name:'Close sidebar',exact:true}).first().click();
@@ -184,6 +185,7 @@ try {
       await expect(editor.locator('p').last()).toHaveText(previousText);
       await expect(editor.locator('p').nth(4998)).toHaveText(lastText);
       result.offscreen_handles_and_keyboard_reorder=true;
+      if (profile === 'phone-webkit') await page.locator('.ws-detail-back').click();
       await page.getByRole('navigation',{name:profile==='chromium'?'Main navigation':'Bottom navigation',exact:true}).getByRole('button',{name:'Today',exact:true}).click();
       await page.locator('.ws-today').waitFor();
       const search = await page.evaluate(async({workerURL,items})=>{

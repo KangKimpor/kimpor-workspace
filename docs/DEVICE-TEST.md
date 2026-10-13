@@ -11,6 +11,13 @@ binary matches the candidate after the standard NSIS bundle-marker patch.
 This subset does not verify screen readers, native IME, offline editing,
 scaling, notifications, uninstall on this device or the signed updater.
 
+iPhone evidence on 2026-10-13, reported by the owner: iOS 27.0.1; Safari
+Google and email-code sign-in, Home Screen installation, the original workspace
+and session retained on reopening, Khmer and Chinese typing, and VoiceOver
+checks work. The owner explicitly confirmed both languages and VoiceOver.
+The model was not supplied. No agent-observed physical iPhone result or full
+offline/gesture/rotation/notification/stress checklist is inferred.
+
 Start with the published account screen in Windows Chrome and iPhone Safari:
 sign in to the original account, confirm the existing notes appear, and reload
 to check the session persists. Keep codes in the app. Then create one clearly

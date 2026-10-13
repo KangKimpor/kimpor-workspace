@@ -13,7 +13,10 @@
     "visual_changed_ratio_limit": 0.001,
     "visual_pixel_threshold": 0.1
   },
-  "codeql": { "run": 38344354255, "result": "success" },
+  "codeql": {
+    "run": 38344354255,
+    "result": "success"
+  },
   "windows": {
     "run": 38344354265,
     "job": 115122188260,
@@ -50,8 +53,17 @@
     "unbundled_executable_sha256": "8ca62a42e4a5939fbdfa8f1bbd51fb2b7b1962565c9bf471abb55257e2ac4b1b",
     "installed_matches_build_with_nsis_marker_patch": true,
     "windows": "Windows 11 Pro 10.0.26300, build 26300",
-    "human_confirmed": ["installed", "Google system-browser return to app", "closed/reopened with session retained"],
-    "computer_use_observed": ["original account", "existing notes", "Ctrl+K opens palette", "Escape dismisses palette"],
+    "human_confirmed": [
+      "installed",
+      "Google system-browser return to app",
+      "closed/reopened with session retained"
+    ],
+    "computer_use_observed": [
+      "original account",
+      "existing notes",
+      "Ctrl+K opens palette",
+      "Escape dismisses palette"
+    ],
     "read_only_live_audit": {
       "pages": 73,
       "databases": 4,
@@ -65,10 +77,11 @@
   },
   "remaining": [
     "Human confirmation of four pre-publication page additions and one prior page soft-delete",
-    "Public-origin and native email-code rechecks",
-    "Physical iPhone, native IME, screen readers, offline/scaling/notification acceptance",
+    "Native email-code recheck",
+    "Remaining physical matrix: Windows IME/Narrator, offline/scaling/notifications, iPhone gestures/rotation/eviction/stress",
     "iPad/Pencil hardware unavailable",
-    "Large-page typing budget and phone large-workspace benchmark",
+    "Large-page typing budget and Windows WebKit large-workspace timing",
     "Signed updater and final v1 release"
-  ]
+  ],
+  "iphone_user_acceptance_receipt": "iphone-acceptance-2026-10-13.json"
 }
