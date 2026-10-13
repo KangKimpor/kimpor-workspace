@@ -11,6 +11,13 @@ binary matches the candidate after the standard NSIS bundle-marker patch.
 This subset does not verify screen readers, native IME, offline editing,
 scaling, notifications, uninstall on this device or the signed updater.
 
+Later October 13 owner report, carried from the takeover transcript: after the
+published 0.0.4 feed repair, the requested update/restart with preserved notes
+and session, Ctrl+K/Escape and Khmer/Chinese persistence checks were reported as
+working. The prior session independently confirmed installed version 0.0.4.
+The broad reply does not isolate Narrator or add offline/scaling/notification
+results. This is a prior-device report, not a new run on the takeover computer.
+
 iPhone evidence on 2026-10-13, reported by the owner: iOS 27.0.1; Safari
 Google and email-code sign-in, Home Screen installation, the original workspace
 and session retained on reopening, Khmer and Chinese typing, and VoiceOver
@@ -27,7 +34,8 @@ Narrator to check labelled controls, focus order, overlay dismissal and returnin
 to the editor. Record actual OS/browser versions and failures in the ledger.
 Use the account-configured candidate for real sign-in checks. CI's development
 fixture passes the approved 450 MiB aggregate memory gate; it does not prove
-account sign-in or a signed native release. Signed updater acceptance remains open.
+account sign-in or a signed native release. The later 0.0.4 owner-reported updater
+acceptance is recorded above; the remaining hardware rows stay open.
 
 An isolated native Windows fixture on this device now passes a signed 0.0.2→0.0.3
 NSIS update and automatic restart, synthetic-file preservation, modified-download

@@ -1573,7 +1573,6 @@ function SearchPanel({
     };
   }, []);
   useEffect(() => {
-    let active = true;
     searcher.current?.index([
       ...pages
         .filter((page) => !page.properties.__locked)
@@ -1595,6 +1594,9 @@ function SearchPanel({
           date: event.start.slice(0, 10),
         })),
     ]);
+  }, [pages, events]);
+  useEffect(() => {
+    let active = true;
     void searcher.current
       ?.search(query, {
         type: type === "all" ? undefined : type,
@@ -1855,7 +1857,7 @@ function PageDetail({
               if (text === lastText.current) return;
               lastText.current = text;
               if (!page.properties.__locked && text !== page.properties.__text)
-                void onPatch({
+                return onPatch({
                   properties: { ...page.properties, __text: text },
                 });
             }}

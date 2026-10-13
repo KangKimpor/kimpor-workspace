@@ -31,8 +31,13 @@ artifacts and publishes the installer, signature, SHA256SUMS.txt and latest.json
 Only the public updater key belongs in source. Authenticode signing is separate;
 the initial installer is unsigned.
 
-Tag a tested main commit only after its release gates pass. Version is currently
-0.0.1 and there is no verified v1.0.0 release. Native compilation does not prove
+Tag a tested main commit only after its release gates pass. The checked-in default
+version remains 0.0.1; the tag workflow overrides it. Public release v0.0.4 is
+published from cebe846 with a signed updater, installer, signature, checksums and
+the repaired dot-normalized asset URLs. The owner reports successful production
+update/restart and retained notes/session; final main 9ac0972 Windows CI passes.
+See VERIFICATION.md for the exact automated and reported evidence. Authenticode
+remains unsigned, and there is no verified v1.0.0 release. Native compilation does not prove
 the installer or N→N+1 updater works. The live cloud and physical device checklist
 remain separate requirements; see VERIFICATION.md and DEVICE-TEST.md.
 

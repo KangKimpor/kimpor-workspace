@@ -130,8 +130,16 @@ it. Restore locally:
 node scripts/cloud-backup.mjs decrypt .private/workspace.json backup/workspace.enc
 ```
 
-Then import that JSON in Settings. The CLI round-trip/tamper/wrong-key test passes;
-a real cloud backup/restore remains unverified. Source exports/imports are bounded
+Then import that JSON in Settings. The CLI round-trip/tamper/wrong-key test passes.
+On October 13, owner-approved Actions configuration and live health/backup runs
+38390890987/38390895847 pass. The downloaded artifact authenticates/decrypts;
+isolated core-store import/reopen preserves all exported pages, calendars,
+databases, document bytes and original history. This uses fake-indexeddb and
+does not verify a physical-browser restore or production import. The real
+snapshot had no files/protected documents/settings; their live recovery stays
+open. See ../docs/evidence/cloud-schedules-2026-10-13.json. Keep the separately
+saved recovery key off the computer; that owner action remains outstanding.
+Source exports/imports are bounded
 at 100 MB, individual files at 10 MiB, and cloud document envelopes/updates at
 1 MiB. Imported archives can contain sensitive plaintext; keep local exports private.
 
