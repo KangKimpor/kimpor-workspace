@@ -67,6 +67,19 @@ measurements from the PR #8 source. See
 `evidence/local-performance-2026-10-13.json` for source hashes and measurements.
 The user has Windows and iPhone available; iPad/Pencil acceptance remains open.
 
+The next import follow-up stages entity/body/history/outbox writes inside the
+existing encompassing transaction and uses bounded compound-index reads.
+Shared field/protection, Yjs merge and version rules remain the same. Regression
+checks cover duplicate IDs, original owner isolation, clock/queue order,
+protected-note rejection, quota rollback and account-switch rollback. The local
+gate passes 76 tests at 89.26% core line coverage; four existing Chromium/phone
+WebKit import/download cases pass. Isolated Chromium import time falls from
+14.8 seconds to 3.47 seconds, warm start is 1.01 seconds, warm search maximum is
+5 ms and typing maximum remains 20 ms. The large Windows WebKit import still
+exceeds the unchanged 180-second harness wait, including a profile outside
+OneDrive; it is not a passed phone benchmark. See
+`evidence/import-performance-2026-10-13.json`. No live account import was run.
+
 Dependency maintenance: PR #2 is closed because its direct TypeScript 7
 replacement breaks the installed `typescript-eslint` peer/API requirements
 (`>=4.8.4 <6.1.0`). TypeScript 6.0.3 is retained; Dependabot ignores 7.x until
