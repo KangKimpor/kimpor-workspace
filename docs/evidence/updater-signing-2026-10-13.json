@@ -68,17 +68,19 @@
     "production_workspace_data_touched": false,
     "frontend_save_consent_sync_guards_exercised": false,
     "next_installer_sha256": "2af36c77667246bc0b89132bd7ddc392d3f4a9f11953c74571c8e28f28e83b64",
-    "verification_source_sha256": "993c973f0042c3df05321db1f84c14deca6070f2eba6976570024be16198e090"
+    "verification_source_sha256": "05aef738f38e1a474279b098cd7855867ec9ed6496499e8291c579dbcbc9c3f2",
+    "require_signed_version": true,
+    "altered_manifest_version_rejected_before_install": true,
+    "strict_signed_version_install_restart_verified": true
   },
   "public_release_created": false,
   "authenticode_signed": false,
-  "installed_old_key_candidate_requires_manual_baseline_upgrade": true,
+  "installed_old_key_candidate_requires_manual_baseline_upgrade": false,
   "remaining": [
-    "Account-configured new baseline installation and session check",
     "Production HTTPS feed and frontend save/consent/pending-sync update acceptance",
     "Tagged CI signing validation",
-    "Off-computer encrypted backup copy confirmation",
-    "PR merge and publication approval"
+    "Off-computer encrypted backup copy confirmation"
   ],
-  "standalone_backup_restore_self_check": "Passed recovery of synthetic key/password into a fresh user-only directory and DPAPI re-protection"
+  "standalone_backup_restore_self_check": "Passed recovery of synthetic key/password into a fresh user-only directory and DPAPI re-protection",
+  "native_baseline_upgrade_receipt": "native-baseline-upgrade-2026-10-13.json"
 }

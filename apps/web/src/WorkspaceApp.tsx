@@ -186,7 +186,9 @@ function Sheet({
             event.preventDefault();
             (
               content.current?.querySelector<HTMLElement>(
-                'input:not([type="file"]),button:not(.ws-sheet-handle)',
+                'input:not([type="file"]):not([type="hidden"]):not(:disabled)',
+              ) ?? content.current?.querySelector<HTMLElement>(
+                'button:not(.ws-sheet-handle)',
               ) ?? content.current
             )?.focus();
           }}

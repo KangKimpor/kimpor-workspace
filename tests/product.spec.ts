@@ -94,7 +94,8 @@ test("the command palette searches local mixed-language bodies and suppresses IM
   });
   await expect(page.getByRole("dialog")).toHaveCount(0);
   await page.keyboard.press("Control+k");
-  await page.getByRole("textbox", { name: "Search query" }).fill("中文");
+  await expect(page.getByRole("textbox", { name: "Search query" })).toBeFocused();
+  await page.keyboard.type("中文");
   await expect(
     page.getByRole("dialog").getByRole("button", { name: /Languages/ }),
   ).toBeVisible();
