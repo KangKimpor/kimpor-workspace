@@ -29,6 +29,12 @@ Use the account-configured candidate for real sign-in checks. CI's development
 fixture passes the approved 450 MiB aggregate memory gate; it does not prove
 account sign-in or a signed native release. Signed updater acceptance remains open.
 
+An isolated native Windows fixture on this device now passes a signed 0.0.2→0.0.3
+NSIS update and automatic restart, synthetic-file preservation, modified-download
+rejection and HTTPS certificate checks. It has a separate app identifier. This
+does not fill the production-account save/consent/sync or public-feed acceptance
+rows. See `evidence/updater-signing-2026-10-13.json`.
+
 **A. iPhone 15, in a Safari tab and then as a Home Screen web app**
 
 - [ ] Date: ____ · OS: ____ · Result (Pass/Fail/Notes): ____ — First paint has no flash of the wrong theme in light and dark.

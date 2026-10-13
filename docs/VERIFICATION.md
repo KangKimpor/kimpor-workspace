@@ -57,6 +57,20 @@ four-database, 64-document audit exactly. No acceptance note was created in the
 live account. Native email delivery, offline editing, screen readers and the
 N-to-N+1 signed updater still need their own evidence.
 
+On 2026-10-13 the owner approved replacing the unavailable updater private key.
+The new public key is adopted in this review branch, both GitHub Actions signing
+secrets are provisioned, and the owner created a portable encrypted backup whose
+recovery and ciphertext hash verify. Account-configured 0.0.2 and 0.0.3 installers
+are signed; matching-key verification, old-key rejection and modified-byte
+rejection pass. An isolated Windows fixture using the same Tauri/updater versions
+rejects untrusted TLS and a modified download, verifies the pinned HTTPS download,
+installs via NSIS and automatically restarts from 0.0.2 into 0.0.3. Its synthetic
+data file is preserved. This verifies the native update mechanism; it does not
+complete the production feed or frontend save/consent/pending-sync flow. The old
+installed account candidate needs a manual new-key baseline upgrade. No tagged
+release or Authenticode signature is inferred. See
+`evidence/updater-signing-2026-10-13.json`.
+
 The follow-up search worker normalizes indexed text once instead of once per
 query. Its regression test preserves multilingual ranking, filters and index
 replacement; Chromium and desktop/phone WebKit search/IME cases pass. Local
@@ -86,6 +100,13 @@ selecting Today. Import observation allows ten minutes; the measured warm-start,
 typing and search limits remain 1.5 seconds, 16 ms and 50 ms. It is not a passed
 phone performance result or a physical Safari timing. See
 `evidence/import-performance-2026-10-13.json`. No live account import was run.
+
+The corrected complete phone-profile run imports in 337.49 seconds and passes
+all functional assertions, including final navigation and search. Warm start is
+1.15 seconds; maximum typing is 21 ms and maximum warm search is 309 ms, so the
+16 ms and 50 ms budgets still fail. See `evidence/phone-performance-2026-10-13.json`.
+An isolated alternating collator probe did not show a reliable improvement and
+was discarded; search behavior is unchanged.
 
 Dependency maintenance: PR #2 is closed because its direct TypeScript 7
 replacement breaks the installed `typescript-eslint` peer/API requirements
@@ -182,7 +203,7 @@ it requires its own final-source verification before merging.
 | Scheduled encrypted backup | Consistent owner export RPC, AES-GCM artifact, wrong-key/tamper rejection | CLI tested; live export/restore and schedule unverified | |
 | Daily keepalive | Secret-protected real database health RPC | SQL/typechecked; unconfigured schedule, no availability guarantee | |
 | Windows tray/autostart/hotkey/notifications | Scoped Tauri plugins and native commands | Actual MSVC/NSIS builds pass; native extras need physical-device checks | |
-| Windows updater | Signature verification, explicit consent, flush and pending-sync restart guard | Adapter tests; actual N→N+1/device verification absent | |
+| Windows updater | Signature verification, explicit consent, flush and pending-sync restart guard | Adapter guards and separate native 0.0.2→0.0.3 HTTPS/signature/NSIS restart fixture pass; production account/feed acceptance pending | |
 | NSIS/checksum/release | Real Windows MSVC/NSIS build; install/window/forwarding/exit/uninstall and rendered-UI/note-reload checks | Published source 1438595 passes at 386.8 MiB against approved 450 MiB cap. Account-configured candidate installed; no tagged release | Account candidate installed and session retained on reopen |
 | Original brand/privacy | Derived A, SVG/PNG/ICO/NSIS assets; original JPEG excluded | Traced/reviewed; OS icon scaling pending | |
 | Accessibility/feedback | Axe both themes on modules/settings, focus/targets/motion tests and 44 contrast pairs | Automated evidence; VoiceOver/Narrator/haptics pending | |

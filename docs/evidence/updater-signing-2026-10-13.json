@@ -1,0 +1,84 @@
+{
+  "date": "2026-10-13",
+  "source_parent_commit": "19da08c0a2b23f62034d6317a29b37cb157959b1",
+  "mode": "Local signing and isolated native Windows updater verification; no public release",
+  "human_approved": [
+    "new signing-pair preparation",
+    "public-key adoption",
+    "secure backup",
+    "GitHub Actions signing-secret provisioning",
+    "baseline and next-version candidate testing"
+  ],
+  "public_key_ed25519_sha256": "d34d0690b28a1a988ec120f6b350e2d11f135f07cd77ca9da2a9627c625e057c",
+  "key_storage": {
+    "encrypted_private_key": true,
+    "random_signing_password_bits": 256,
+    "outside_onedrive": true,
+    "windows_user_only_acl_verified": true,
+    "local_password_dpapi_current_user": true,
+    "portable_backup": "AES-256-GCM; PBKDF2-SHA256, 600000 iterations; human-entered separate backup password",
+    "portable_backup_recovery_verified": true,
+    "backup_ciphertext_sha256": "1ac3d36e17da96161bd9d4dc779ac3abee66005ea39c368c5ff3982010b675eb",
+    "off_computer_copy_confirmed": false,
+    "secret_values_in_repo_or_chat": false
+  },
+  "github_actions": {
+    "repository": "KangKimpor/kimpor-workspace",
+    "TAURI_SIGNING_PRIVATE_KEY_present": true,
+    "TAURI_SIGNING_PRIVATE_KEY_PASSWORD_present": true,
+    "provisioned_through_official_cli": true,
+    "values_read_back": false,
+    "tagged_ci_signing_run": false
+  },
+  "production_candidates": [
+    {
+      "version": "0.0.2",
+      "installer_bytes": 3617532,
+      "installer_sha256": "a9d60d522b26d046314624e4577f978166d395a6566a55909733ccdb0c4f4b19",
+      "updater_signature_verified": true,
+      "previous_key_rejects_signature": true,
+      "tampered_bytes_rejected": true
+    },
+    {
+      "version": "0.0.3",
+      "installer_bytes": 3618925,
+      "installer_sha256": "b1a491418e71811857c5468155f4405f258211faecad7ad253238e91836cc979",
+      "updater_signature_verified": true,
+      "previous_key_rejects_signature": true,
+      "tampered_bytes_rejected": true
+    }
+  ],
+  "native_fixture": {
+    "windows": "Windows 11 Pro 10.0.26300/build 26300",
+    "tauri": "2.12.2",
+    "updater_plugin": "2.13.2",
+    "tauri_cli": "2.12.1",
+    "minisign_verifier": "0.2.5",
+    "separate_application_identifier": "com.kimpor.updaterfixture20261013",
+    "https_loopback_only": true,
+    "untrusted_tls_certificate_rejected": true,
+    "pinned_certificate_verified": true,
+    "windows_trust_store_changed": false,
+    "tls_validation_disabled": false,
+    "modified_download_signature_rejected_before_install": true,
+    "valid_download_signature_verified": true,
+    "nsis_installed_baseline": "0.0.2",
+    "automatic_restart_into_installed_version": "0.0.3",
+    "synthetic_app_data_file_preserved": true,
+    "production_workspace_data_touched": false,
+    "frontend_save_consent_sync_guards_exercised": false,
+    "next_installer_sha256": "2af36c77667246bc0b89132bd7ddc392d3f4a9f11953c74571c8e28f28e83b64",
+    "verification_source_sha256": "993c973f0042c3df05321db1f84c14deca6070f2eba6976570024be16198e090"
+  },
+  "public_release_created": false,
+  "authenticode_signed": false,
+  "installed_old_key_candidate_requires_manual_baseline_upgrade": true,
+  "remaining": [
+    "Account-configured new baseline installation and session check",
+    "Production HTTPS feed and frontend save/consent/pending-sync update acceptance",
+    "Tagged CI signing validation",
+    "Off-computer encrypted backup copy confirmation",
+    "PR merge and publication approval"
+  ],
+  "standalone_backup_restore_self_check": "Passed recovery of synthetic key/password into a fresh user-only directory and DPAPI re-protection"
+}

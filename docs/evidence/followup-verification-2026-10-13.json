@@ -83,5 +83,7 @@
     "Large-page typing budget and Windows WebKit large-workspace timing",
     "Signed updater and final v1 release"
   ],
-  "iphone_user_acceptance_receipt": "iphone-acceptance-2026-10-13.json"
+  "iphone_user_acceptance_receipt": "iphone-acceptance-2026-10-13.json",
+  "replacement_signing_and_native_updater_fixture_receipt": "updater-signing-2026-10-13.json",
+  "complete_phone_performance_receipt": "phone-performance-2026-10-13.json"
 }
