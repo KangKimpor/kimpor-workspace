@@ -1,6 +1,16 @@
 # Physical device checklist
 
-No line has been performed on your devices by this agent. Fill date, exact OS version, result and notes. Product features apply in their phase; Phase 0 checks only the gallery, themes, logo, launch and cached editor study. Run the full checklist at the end of Phase 1 and relevant lines after later phases.
+No line has been performed on your devices by this agent. Fill date, exact OS version, result and notes. On 2026-10-13 the user confirmed Windows and iPhone are available; iPad/Pencil are unavailable. Automated browser emulation does not fill these physical acceptance rows.
+
+Start with the published account screen in Windows Chrome and iPhone Safari:
+sign in to the original account, confirm the existing notes appear, and reload
+to check the session persists. Keep codes in the app. Then create one clearly
+named disposable verification note to check native English/Khmer/Chinese input,
+keyboard geometry, reload persistence and cross-device sync. Use VoiceOver and
+Narrator to check labelled controls, focus order, overlay dismissal and returning
+to the editor. Record actual OS/browser versions and failures in the ledger.
+Do not install or describe the Windows development fixture as a completed native
+release: its aggregate memory and signed updater acceptance still fail/remain open.
 
 **A. iPhone 15, in a Safari tab and then as a Home Screen web app**
 

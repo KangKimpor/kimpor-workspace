@@ -1,3 +1,5 @@
+export {};
+
 interface SearchItem {
   id: string;
   type: string;
@@ -5,7 +7,7 @@ interface SearchItem {
   text: string;
   date?: string | null;
 }
-let items: SearchItem[] = [];
+let items: (SearchItem & { content: string; searchTitle: string })[] = [];
 const segmenter = new Intl.Segmenter(undefined, { granularity: "word" });
 function tokens(text: string): string[] {
   return [...segmenter.segment(text.normalize("NFKC").toLocaleLowerCase())]
@@ -25,7 +27,11 @@ self.onmessage = (
 ) => {
   const message = event.data;
   if (message.kind === "index") {
-    items = message.items ?? [];
+    items = (message.items ?? []).map((item) => ({
+      ...item,
+      content: `${item.title} ${item.text}`.normalize("NFKC").toLocaleLowerCase(),
+      searchTitle: item.title.toLocaleLowerCase(),
+    }));
     return;
   }
   const words = tokens(message.query ?? "");
@@ -37,15 +43,12 @@ self.onmessage = (
         (!message.before || (item.date ?? "") <= message.before),
     )
     .map((item) => {
-      const content = `${item.title} ${item.text}`
-        .normalize("NFKC")
-        .toLocaleLowerCase();
       return {
         id: item.id,
-        score: words.every((word) => content.includes(word))
+        score: words.every((word) => item.content.includes(word))
           ? words.reduce(
               (total, word) =>
-                total + (item.title.toLocaleLowerCase().includes(word) ? 3 : 1),
+                total + (item.searchTitle.includes(word) ? 3 : 1),
               0,
             ) + 1
           : 0,

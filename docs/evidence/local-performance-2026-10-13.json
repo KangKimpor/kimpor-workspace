@@ -1,0 +1,363 @@
+{
+  "date": "2026-10-13T02:46:47.840Z",
+  "source_base_commit": "4fc872664aecf20631c9c713d7b425111731eaf5",
+  "working_source_sha256": {
+    "apps/web/src/search.worker.ts": "8c564b40c4ba82a134692cbd0628fb9da1d42968282ebe8904866ce8ef4e1b4b",
+    "scripts/performance.mjs": "d1ae6ed2ee70d802d17c820aee61ed5cf9e451cc33ef0ac2a300680f29745ffe"
+  },
+  "mode": "Local Windows production Chromium; synthetic fixtures only. No physical iPhone/iPad or release acceptance inferred.",
+  "fixture": {
+    "pages": 2000,
+    "journals": 365,
+    "total_page_entities": 2365,
+    "events": 5000,
+    "blocks": 20000,
+    "long_page_blocks": 5000,
+    "search_items": 10000
+  },
+  "before": {
+    "date": "2026-10-13T02:27:49.091Z",
+    "profile": "chromium",
+    "browser_version": "156.0.8078.4",
+    "errors": [],
+    "warm_start_ms": 598.1905999999999,
+    "typing": {
+      "samples": [
+        23.399999976158142,
+        14.399999976158142,
+        14.799999952316284,
+        13.899999976158142,
+        13.399999976158142,
+        13.199999988079071,
+        13.299999952316284,
+        13,
+        14,
+        13.099999964237213,
+        12.5,
+        13.600000023841858,
+        13.399999976158142,
+        12.900000035762787,
+        12.900000035762787,
+        13.5,
+        12.699999988079071,
+        12.600000023841858,
+        12.699999988079071,
+        12.899999976158142
+      ],
+      "median": 13.199999988079071,
+      "p95": 14.799999952316284,
+      "max": 23.399999976158142
+    },
+    "search": {
+      "samples": [
+        {
+          "query": "中文",
+          "ms": 30.30000001192093,
+          "results": 100
+        },
+        {
+          "query": "កំណត់ហេតុ",
+          "ms": 13.100000023841858,
+          "results": 100
+        },
+        {
+          "query": "Idea 9843",
+          "ms": 11.599999964237213,
+          "results": 1
+        },
+        {
+          "query": "missingmatch",
+          "ms": 10.300000011920929,
+          "results": 0
+        },
+        {
+          "query": "quiet",
+          "ms": 13.800000011920929,
+          "results": 100
+        },
+        {
+          "query": "中文",
+          "ms": 132.5,
+          "results": 100
+        },
+        {
+          "query": "កំណត់ហេតុ",
+          "ms": 15.699999988079071,
+          "results": 100
+        },
+        {
+          "query": "Idea 9843",
+          "ms": 8.899999976158142,
+          "results": 1
+        },
+        {
+          "query": "missingmatch",
+          "ms": 6.700000047683716,
+          "results": 0
+        },
+        {
+          "query": "quiet",
+          "ms": 9.699999988079071,
+          "results": 100
+        },
+        {
+          "query": "中文",
+          "ms": 9.099999964237213,
+          "results": 100
+        },
+        {
+          "query": "កំណត់ហេតុ",
+          "ms": 9.300000011920929,
+          "results": 100
+        },
+        {
+          "query": "Idea 9843",
+          "ms": 6.900000035762787,
+          "results": 1
+        },
+        {
+          "query": "missingmatch",
+          "ms": 6.799999952316284,
+          "results": 0
+        },
+        {
+          "query": "quiet",
+          "ms": 9.200000047683716,
+          "results": 100
+        },
+        {
+          "query": "中文",
+          "ms": 9.599999964237213,
+          "results": 100
+        },
+        {
+          "query": "កំណត់ហេតុ",
+          "ms": 9.5,
+          "results": 100
+        },
+        {
+          "query": "Idea 9843",
+          "ms": 7,
+          "results": 1
+        },
+        {
+          "query": "missingmatch",
+          "ms": 6.800000011920929,
+          "results": 0
+        },
+        {
+          "query": "quiet",
+          "ms": 9.899999976158142,
+          "results": 100
+        }
+      ],
+      "median": 9.5,
+      "p95": 30.30000001192093,
+      "max": 132.5
+    },
+    "budgets": {
+      "warm_start_1500ms": true,
+      "typing_max_16ms": false,
+      "search_max_50ms": false
+    }
+  },
+  "after": {
+    "date": "2026-10-13T02:45:33.352Z",
+    "profile": "chromium",
+    "browser_version": "156.0.8078.4",
+    "errors": [],
+    "warm_start_ms": 598.576100000002,
+    "typing": {
+      "samples": [
+        19.900000035762787,
+        14.600000023841858,
+        15.400000035762787,
+        15.199999988079071,
+        14.300000011920929,
+        14.5,
+        13.599999964237213,
+        13.600000023841858,
+        16.399999976158142,
+        14.900000035762787,
+        13.5,
+        15.600000023841858,
+        15.699999988079071,
+        14,
+        15.099999964237213,
+        18.80000001192093,
+        14.300000011920929,
+        13.5,
+        13.699999988079071,
+        13
+      ],
+      "median": 14.5,
+      "p95": 18.80000001192093,
+      "max": 19.900000035762787
+    },
+    "search": {
+      "samples": [
+        {
+          "query": "中文",
+          "ms": 4.5,
+          "results": 100
+        },
+        {
+          "query": "កំណត់ហេតុ",
+          "ms": 4.100000023841858,
+          "results": 100
+        },
+        {
+          "query": "Idea 9843",
+          "ms": 1.2999999523162842,
+          "results": 1
+        },
+        {
+          "query": "missingmatch",
+          "ms": 0.800000011920929,
+          "results": 0
+        },
+        {
+          "query": "quiet",
+          "ms": 1.800000011920929,
+          "results": 100
+        },
+        {
+          "query": "中文",
+          "ms": 1.7999999523162842,
+          "results": 100
+        },
+        {
+          "query": "កំណត់ហេតុ",
+          "ms": 1.600000023841858,
+          "results": 100
+        },
+        {
+          "query": "Idea 9843",
+          "ms": 1.399999976158142,
+          "results": 1
+        },
+        {
+          "query": "missingmatch",
+          "ms": 0.9000000357627869,
+          "results": 0
+        },
+        {
+          "query": "quiet",
+          "ms": 2.599999964237213,
+          "results": 100
+        },
+        {
+          "query": "中文",
+          "ms": 1.800000011920929,
+          "results": 100
+        },
+        {
+          "query": "កំណត់ហេតុ",
+          "ms": 1.600000023841858,
+          "results": 100
+        },
+        {
+          "query": "Idea 9843",
+          "ms": 1.0999999642372131,
+          "results": 1
+        },
+        {
+          "query": "missingmatch",
+          "ms": 0.800000011920929,
+          "results": 0
+        },
+        {
+          "query": "quiet",
+          "ms": 1.699999988079071,
+          "results": 100
+        },
+        {
+          "query": "中文",
+          "ms": 1.800000011920929,
+          "results": 100
+        },
+        {
+          "query": "កំណត់ហេតុ",
+          "ms": 4.100000023841858,
+          "results": 100
+        },
+        {
+          "query": "Idea 9843",
+          "ms": 1.0999999642372131,
+          "results": 1
+        },
+        {
+          "query": "missingmatch",
+          "ms": 0.800000011920929,
+          "results": 0
+        },
+        {
+          "query": "quiet",
+          "ms": 2,
+          "results": 100
+        }
+      ],
+      "median": 1.600000023841858,
+      "p95": 4.100000023841858,
+      "max": 4.5
+    },
+    "budgets": {
+      "warm_start_1500ms": true,
+      "typing_max_16ms": false,
+      "search_max_50ms": true
+    }
+  },
+  "phone_webkit": {
+    "browser_version": "27.2",
+    "status": "Import remained busy at the 180-second timeout; no timing result.",
+    "errors": []
+  },
+  "windows_ci": {
+    "source_commit": "4fc872664aecf20631c9c713d7b425111731eaf5",
+    "run_id": 38337462848,
+    "artifact_id": 11785610785,
+    "artifact_sha256": "3125ad1ddb212ae2025f895d0926c3e057a69931dd2411e3af708ca6212ed316",
+    "functional_checks": "passed",
+    "idle_working_set_bytes": 403705856,
+    "idle_cpu_percent": 0,
+    "native_window_ms": 223,
+    "budget_bytes": 157286400,
+    "status": "Memory budget failure"
+  },
+  "remaining": [
+    "Typing max exceeds 16 ms.",
+    "Windows aggregate resident memory exceeds 150 MiB.",
+    "Physical Windows/iPhone input and accessibility unverified; iPad/Pencil unavailable.",
+    "Signed N-to-N+1 updater and real native OAuth unverified."
+  ],
+  "lighthouse": {
+    "mode": "Local unconfigured production fixture, not live signed-in workspace.",
+    "assertions": "passed",
+    "results": [
+      {
+        "url": "http://127.0.0.1:4173/",
+        "categories": {
+          "performance": 0.95,
+          "accessibility": 1,
+          "best-practices": 1,
+          "seo": 0.91
+        },
+        "lcp_ms": 1270.8080000000002,
+        "cls": 0,
+        "tbt_ms": 0
+      },
+      {
+        "url": "http://127.0.0.1:4173/design",
+        "categories": {
+          "performance": 0.95,
+          "accessibility": 1,
+          "best-practices": 1,
+          "seo": 0.91
+        },
+        "lcp_ms": 1196.489,
+        "cls": 0,
+        "tbt_ms": 0
+      }
+    ]
+  }
+}

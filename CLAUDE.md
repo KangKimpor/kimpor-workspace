@@ -7,9 +7,10 @@ docs/ACCOUNT-FIRST-REDESIGN.md and docs/VERIFICATION.md before editing.
 
 ## Current continuation, 13 October 2026
 
-Source 5bb0f41 Quality run 38267787606 passes 138 app cases, 18 auth fixtures,
-SQL/Deno, licenses and secret/build checks; its final failure is the missing
-sign-in baseline. CodeQL 38267787643 passes. Baseline run 38268637809/artifact
+PR #7 is merged as 4fc8726 and published by Pages 38338654296 after explicit
+human approval. Quality 38337462873 passes 138 app cases, 18 account fixtures,
+SQL/Deno, licenses/secrets/build checks and all 510 strict visual comparisons.
+CodeQL 38337462822 passes. Baseline run 38268637809/artifact
 11755859265 provides the reviewed 510-image set; its archive SHA-256 and complete
 matrix were verified. All 30 contacts and detailed Khmer, Calendar and scaled
 editor views pass review. See evidence/account-redesign-baseline-review.json.
@@ -22,6 +23,18 @@ Only public client configuration was read, and no credential was created.
 Google remains External / Testing, restricted to the configured owner. These
 facts supersede older provider-pending statements below.
 
+A fresh post-publication audit finds four page additions at 02:09 UTC and one
+prior soft-delete at 02:10 UTC, before publication. Original database/document
+rows still match; human confirmation of page changes is pending. Deployed Google
+sign-in and reload preserve the original owner. Deployed email recheck is pending.
+See evidence/web-publication-2026-10-13.json. Do not claim current page hashes match.
+
+Follow-up local search cache: multilingual/ranking/filter/reindex regression and
+three browser search/IME cases pass; pnpm check passes 74 tests. Warm 10k-item
+Chromium search max 4.5 ms; typing max 19.9 ms still fails 16 ms. Phone WebKit
+large import remains busy at 180 seconds. Latest Windows CI 38337462848 passes
+functional checks but uses 403705856 aggregate resident bytes. No v1 tag.
+
 Local pnpm check passes 73 core tests, 88.91% line coverage, 219.7 KiB initial
 gzip and 44 contrast pairs; 18 auth fixtures, JS/Cargo licenses and Gitleaks
 history pass. Rust 1.99.0 and pnpm 11.19.0 live privately in .private/toolchain.
@@ -30,9 +43,10 @@ do not weaken aggregate resident-memory or typing budgets or tag v1.
 
 ## Authorization and decisions
 
-The user explicitly authorized completing all phases, doing available account
-steps and pushing directly to main. This supersedes BUILD-PROMPT.md's phase stops
-and PR-before-merge rules. Do not request the same authorization again.
+In the current session the human requested completion of the workspace and
+explicitly approved PR #7 merge and web publication. Recorded approvals from
+prior handovers are context, not fresh permission for credentials or access.
+The follow-up branch contains search and workflow maintenance under review.
 
 Kimpor Workspace, public MIT, KangKimpor/kimpor-workspace, derived A monogram, unsigned Windows
 initially. Original signature and updater key/password are private and ignored.

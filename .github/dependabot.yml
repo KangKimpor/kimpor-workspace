@@ -4,6 +4,10 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # shortcut: TypeScript 7 lacks the compiler API; revisit when lint tooling supports it.
+    ignore:
+      - dependency-name: typescript
+        versions: ["7.x"]
     groups:
       development:
         dependency-type: development

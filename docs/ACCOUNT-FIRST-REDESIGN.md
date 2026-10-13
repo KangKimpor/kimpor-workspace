@@ -1,11 +1,13 @@
 # Account-first redesign
 
-Current status, 2026-10-13: all 510 font-fixed images from actual CI recording
-38268637809 are reviewed and installed. Actual source 5bb0f41 Quality CI passes
-138 app cases and 18 auth fixtures, then fails because historical baselines omit
-sign-in. Final-source comparison/deployment are pending. The owner has completed
-both Google and code-only email sign-in in the new live-configured local screen;
-the original owner and complete imported page/schema/body rows remain unchanged.
+Current status, 2026-10-13: PR #7 is merged as 4fc8726 and published by Pages
+38338654296 after human approval. Quality 38337462873 passes 138 app cases,
+18 account fixtures and 510 strict visual comparisons; CodeQL passes. Deployed
+Google sign-in and reload succeed with the original owner. Local code-only email
+verification passed; public-origin recheck is pending. Four pages were added and
+one prior page soft-deleted before publication; human confirmation is pending.
+All four original database rows and 62 original document rows still match.
+See evidence/web-publication-2026-10-13.json; current page hashes differ.
 See ACCOUNT-SETUP.md and the current verification ledger; older phase descriptions
 below are historical. Windows memory and physical/updater acceptance remain open.
 

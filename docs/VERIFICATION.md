@@ -4,11 +4,12 @@ Updated 2026-10-13. “Tested” describes the stated automated/local evidence, 
 completed physical release. The physical **Verified by user** column is
 intentionally blank: no confirmed device results have been supplied.
 
-Current continuation: source `5bb0f41` CI `38267787606` passed all 138 app cases,
-18 auth fixtures, SQL/Deno, licenses, secret and build checks before failing on
-the missing sign-in baseline. All 510 images from actual recording `38268637809`
-are now reviewed and installed, including the Khmer font correction; final-source
-pixel comparisons remain required at the unchanged 0.001 ratio / 0.1 threshold.
+Published source `4fc8726` Quality CI `38337462873` passes 138 app cases,
+18 account fixtures, SQL/Deno, licenses, secrets/build checks and all 510 strict
+visual comparisons. CodeQL `38337462822` passes. Pages `38338654296` deploys the
+redesign after explicit human approval of PR #7 and the publication flag.
+The unchanged visual limits are 0.001 changed ratio and 0.1 pixel threshold.
+See `evidence/web-publication-2026-10-13.json` for deployment and live evidence.
 
 The owner completed real Google and code-only email sign-in in the redesigned
 local live-configured build. Dashboard checks confirm one original owner with
@@ -18,14 +19,42 @@ are verified. Google remains External / Testing for the configured owner.
 See `evidence/account-auth-readiness.json`; these results supersede older
 provider-pending entries in the historical table below.
 
+Deployed Google sign-in and reload preserve the original owner. A fresh audit
+finds 73 pages and 64 document bodies: four pages were added and one prior page
+soft-deleted before publication. The four original database rows and all 62
+original document rows still match byte-for-byte. Human confirmation of the
+page changes and the deployed email-code recheck are pending; current page-row
+hashes must not be described as unchanged.
+
 The local MSVC release and 3.45 MiB NSIS installer compile; 308 Cargo license
 expressions pass. Local native UI automation could not verify entered body text,
 so it is not a completed install/persistence acceptance run. A subsequent active
 app observation used 392,937,472 aggregate resident bytes against 157,286,400.
-Actual CI `38267787615` passed functional checks but used 399,757,312 resident
-bytes. Memory remains a release blocker; no threshold or runtime security flag
+Merged-source CI `38337462848` passed functional checks, normal exit and
+uninstall but used 403,705,856 resident bytes. Its installer is 3,617,256 bytes.
+Memory remains a release blocker; no threshold or runtime security flag
 has been weakened. Physical input/accessibility and signed updater acceptance
 remain unverified.
+
+The follow-up search worker normalizes indexed text once instead of once per
+query. Its regression test preserves multilingual ranking, filters and index
+replacement; Chromium and desktop/phone WebKit search/IME cases pass. Local
+`pnpm check` passes 74 tests, 88.91% core line coverage and 44 contrast pairs.
+The isolated 10,000-item Chromium benchmark measures warm search median 1.6 ms,
+maximum 4.5 ms; typing maximum 19.9 ms still exceeds 16 ms. Phone WebKit remains
+busy importing at 180 seconds, so it has no valid benchmark timing. These are
+follow-up working-tree results, not the merged web source. See
+`evidence/local-performance-2026-10-13.json` for source hashes and measurements.
+The user has Windows and iPhone available; iPad/Pencil acceptance remains open.
+
+Dependency maintenance: PR #2 is closed because its direct TypeScript 7
+replacement breaks the installed `typescript-eslint` peer/API requirements
+(`>=4.8.4 <6.1.0`). TypeScript 6.0.3 is retained; Dependabot ignores 7.x until
+lint compatibility is verified. Microsoft's [migration guidance](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/)
+confirms the missing API. The follow-up incorporates PRs #1/#3/#4/#5/#6 as
+pinned workflow actions, keeping CodeQL init/analyze together. Inputs and hosted
+runner compatibility were checked against the pinned upstream manifests/docs;
+final-source CI and post-merge Pages execution are still required.
 
 | Feature / gate | Evidence and supported behavior | Status / limit | Verified by user |
 | --- | --- | --- | --- |
@@ -81,7 +110,7 @@ remain unverified.
 | Journal heatmap/streak/memories/focus | Calendar summary and same-date past entries | Implemented/captured; exhaustive UI tests pending | |
 | Journal location/weather | Off; no calls made | Gap: opt-in feature absent | |
 | App lock | Passphrase verifier, hidden/inert workspace, background lock | Wrong/correct unlock and palette exclusion browser-tested; no disk encryption | |
-| Search | Web Worker, Intl.Segmenter Khmer/Chinese, type/date filters; protected bodies excluded | Mixed-body/IME browser tests; warm 10k-item worker queries pass sampled 50 ms target | |
+| Search | Web Worker, Intl.Segmenter Khmer/Chinese, type/date filters; protected bodies excluded | Mixed-body/IME browser tests; follow-up Chromium warm 10k-item queries max 4.5 ms. Phone benchmark import has no timing result | |
 | Appearance settings | System/light/dark, five accents, text size, motion and density; owner sync | Captured/contrast-checked; large lists resize without row overlap; live preference sync unverified | |
 | Language/region and diagnostics | English UI, locale/timezone diagnostic display | Implemented; translations and general region editor absent | |
 | Cache controls | Cache/outbox hidden; account-first gate; export/backup in Settings | Automatic cache adoption is unit/fixture-tested | |
