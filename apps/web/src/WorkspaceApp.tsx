@@ -1059,7 +1059,7 @@ export default function WorkspaceApp() {
               else void run(() => create("journal", "", { date }));
             }} />
         ) : (
-          <div className={`ws-module-body ${selected ? "with-detail" : ""}`}>
+          <div className={`ws-module-body ${selected ? "with-detail" : ""} ${selected?.type === "database" ? "project-detail" : ""}`}>
             <section className="ws-list-pane" aria-label={`${module} list`}>
               <div className="ws-list-heading">
                 <div>
@@ -2262,6 +2262,7 @@ function PropertyInput({
   if (property.type === "select" || property.type === "status")
     return (
       <select
+        className={property.type === "status" ? `ws-status-input ${/^(done|shipped|completed?)$/i.test(String(value)) ? "done" : /progress|building|testing|redo/i.test(String(value)) ? "active" : ""}` : undefined}
         value={String(value ?? "")}
         aria-label={property.name}
         onChange={(event) => onChange(event.target.value || null)}
@@ -2408,8 +2409,9 @@ function DatabaseEditor({
 }) {
   const preset = projectPreset(type);
   const views = projectViews(definition, type);
-  const [viewId, setViewId] = useState(views.find(view => view.type === preset?.view)?.id ?? views[0]?.id ?? "");
-  const visibleFields = visibleProjectFields(definition, type);
+  const [viewId, setViewId] = useState(views.find(view => view.type === "table")?.id ?? views[0]?.id ?? "");
+  const [query, setQuery] = useState("");
+  const visibleFields = viewId === views.find(view => view.type === "table")?.id ? [...definition.properties.filter(property => property.type === "title"), ...definition.properties.filter(property => property.type !== "title")] : visibleProjectFields(definition, type);
   const [configOpen, setConfigOpen] = useState(false);
   const [propertyOpen, setPropertyOpen] = useState(false);
   const [newPropertyName, setNewPropertyName] = useState("");
@@ -2428,7 +2430,7 @@ function DatabaseEditor({
     (page) => page.type === "row" && page.databaseId === definition.id,
   );
   const rows = rawRows
-    .filter((row) => !view.filter || matchesFilter(row, view.filter))
+    .filter((row) => (!view.filter || matchesFilter(row, view.filter)) && `${row.title} ${row.properties.__locked ? "" : Object.values(row.properties).join(" ")}`.toLocaleLowerCase().includes(query.toLocaleLowerCase()))
     .sort((a, b) => {
       for (const sort of view.sort ?? []) {
         const left = propertyValue(a, sort.property);
@@ -2498,10 +2500,16 @@ function DatabaseEditor({
   return (
     <div className="ws-database">
       <div className="ws-database-toolbar">
-        <select aria-label="Project view" className="ws-view-picker" value={view.id} onChange={event => setViewId(event.target.value)}>
-          {views.map(item => <option value={item.id} key={item.id}>{item.name}</option>)}
-        </select>
+        <div className="ws-view-tabs" role="tablist" aria-label="Project view">
+          {views.map((item, index) => <Pressable key={item.id} id={`project-tab-${item.id}`} role="tab" aria-selected={view.id === item.id} aria-controls="project-view-panel" tabIndex={view.id === item.id ? 0 : -1} onClick={() => setViewId(item.id)} onKeyDown={event => {
+            const next = event.key === "ArrowRight" ? (index + 1) % views.length : event.key === "ArrowLeft" ? (index - 1 + views.length) % views.length : event.key === "Home" ? 0 : event.key === "End" ? views.length - 1 : null;
+            if (next === null) return;
+            event.preventDefault(); setViewId(views[next]!.id);
+            (event.currentTarget.parentElement?.children[next] as HTMLElement)?.focus();
+          }}>{item.name === "Table" ? "All tasks" : item.name === "Board" ? "By status" : item.name}</Pressable>)}
+        </div>
         <div className="ws-database-actions">
+          <label className="ws-search-field"><Search size={16} /><input type="search" aria-label="Search tasks" placeholder="Search tasks" value={query} onChange={event => setQuery(event.target.value)} /></label>
           <Pressable className="ws-button" onClick={() => setConfigOpen(true)}>
             More
             {view.filter || view.sort?.length ? (
@@ -2517,6 +2525,7 @@ function DatabaseEditor({
           </Pressable>
         </div>
       </div>
+      <div id="project-view-panel" role="tabpanel" aria-labelledby={`project-tab-${view.id}`} tabIndex={0}>
       <div className="ws-db-count">
         {rows.length} {rows.length === 1 ? "item" : "items"}
         {rows.length !== rawRows.length ? ` of ${rawRows.length}` : ""}
@@ -2693,6 +2702,7 @@ function DatabaseEditor({
           Add a row. Each item is a page with its own notes.
         </Empty>
       )}
+      </div>
       <Sheet
         open={configOpen}
         onOpenChange={setConfigOpen}

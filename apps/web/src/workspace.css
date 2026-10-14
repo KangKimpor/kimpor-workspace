@@ -390,7 +390,9 @@
 .ws-task-row.completing .ws-task-check svg { animation:task-check 150ms ease forwards; }
 .ws-task-secondary { display:flex; gap:var(--space-3); padding-inline-start:var(--space-3); padding-bottom:var(--space-2); }
 .ws-task-details { margin-bottom:var(--space-4); }
-.ws-view-picker { min-height:var(--target); border:0; background:var(--field); color:var(--text); padding:var(--space-2) var(--space-3); border-radius:var(--radius-control); }
+.ws-view-tabs { display:flex; flex-wrap:wrap; gap:var(--space-1); }
+.ws-view-tabs [role='tab'] { min-height:var(--target); padding:var(--space-2) var(--space-4); color:var(--secondary); border-radius:var(--radius-pill); }
+.ws-view-tabs [aria-selected='true'] { background:var(--field); color:var(--text); font-weight:600; }
 .ws-project-types { display:grid; gap:var(--space-2); }
 .ws-project-types .ws-page-row strong { flex:1; text-align:left; }
 @keyframes task-check { from { opacity:0; transform:scale(.6); } to { opacity:1; transform:scale(1); } }
@@ -564,4 +566,25 @@
  .ws-today-stats { justify-content:space-between; gap:var(--space-2); }
  .ws-today-stats > span { flex-direction:column; gap:0; }
  .ws-today-tasks,.ws-agenda-card { padding:var(--space-4); }
+}
+
+.ws-module-body.project-detail .ws-list-pane,.ws-module-body.project-detail .ws-list-resize { display:none; }
+.ws-page-detail[data-page-type='database'] { max-width:none; }
+.ws-database-toolbar { flex-wrap:wrap; gap:var(--space-3); }
+.ws-database-actions { flex-wrap:wrap; gap:var(--space-2); }
+.ws-database-actions .ws-search-field { max-width:220px; }
+.ws-db-table { border-collapse:collapse; min-width:640px; width:100%; }
+.ws-db-table th { text-align:left; font-size:var(--text-footnote); font-weight:500; color:var(--secondary); padding:var(--space-3); white-space:nowrap; }
+.ws-db-table td { padding:var(--space-1) var(--space-3); border-inline:var(--hairline) solid var(--line); }
+.ws-db-table th:first-child,.ws-db-table td:first-child { width:40%; min-width:280px; border-left:0; }
+.ws-db-table td:last-child { border-right:0; }
+.ws-db-table td input,.ws-db-table td select { border:0; background:transparent; }
+.ws-db-title input { font-weight:550; }
+.ws-db-table td .ws-status-input { background:var(--field); border-radius:var(--radius-pill); width:auto; max-width:100%; }
+.ws-db-table td .ws-status-input.done { color:var(--success); background:var(--success-tint); }
+.ws-db-table td .ws-status-input.active { color:var(--accent); background:var(--accent-tint); }
+@container workspace (width < 600px) {
+ .ws-database-actions { width:100%; }
+ .ws-database-actions .ws-search-field { flex:1; min-width:120px; }
+ .ws-view-tabs [role='tab'] { padding-inline:var(--space-3); }
 }

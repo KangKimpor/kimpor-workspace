@@ -7,12 +7,12 @@ async function navigate(page: Page, name: string) {
 }
 test("project creation is one type tap with the intended default view", async ({ page }) => {
   await page.goto("/");
-  for (const [label, view, count] of [["Weekly report", "List", 4], ["Rework list", "List", 0], ["App build", "Board", 0], ["Coursework", "List", 0], ["Model tracking", "List", 2]] as const) {
+  for (const [label, count] of [["Weekly report", 4], ["Rework list", 0], ["App build", 0], ["Coursework", 0], ["Model tracking", 2]] as const) {
     await navigate(page, "Projects");
     await page.getByRole("button", { name: "New project", exact: true }).click();
     await page.getByRole("dialog", { name: "New project" }).getByRole("button", { name: label, exact: true }).click();
     await expect(page.getByRole("textbox", { name: "Page title" })).toHaveValue(label);
-    await expect(page.getByRole("combobox", { name: "Project view" }).locator("option:checked")).toHaveText(view);
+    await expect(page.getByRole("tab", { name: "All tasks", exact: true })).toHaveAttribute("aria-selected", "true");
     await expect(page.locator(".ws-db-count")).toContainText(`${count} items`);
     await expect(page.getByRole("button", { name: "New task", exact: true }).filter({ visible: true })).toBeVisible();
   }

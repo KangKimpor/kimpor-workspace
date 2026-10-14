@@ -151,8 +151,8 @@ test("database rows persist in all five views and journal entries use the same e
     .first()
     .click();
   for (const name of ["Table", "List", "Board", "Calendar", "Gallery"]) {
-    await page.getByRole("combobox", { name: "Project view" }).selectOption({ label: name });
-    await expect(page.getByRole("combobox", { name: "Project view" }).locator("option:checked")).toHaveText(name);
+    await page.getByRole("tab", { name: name === "Table" ? "All tasks" : name === "Board" ? "By status" : name, exact: true }).click();
+    await expect(page.getByRole("tab", { name: name === "Table" ? "All tasks" : name === "Board" ? "By status" : name, exact: true })).toHaveAttribute("aria-selected", "true");
     await expect(page.locator(".ws-db-count")).toContainText("1 item");
   }
   await module(page, "Journal");

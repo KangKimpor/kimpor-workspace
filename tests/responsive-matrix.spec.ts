@@ -63,7 +63,7 @@ test('task names lead Today, project rows, Calendar and search', async ({ page }
   await expect(page.locator('.ws-task-title').first().locator('strong')).toHaveText('Prepare fixture report');
   await nav.getByRole('button', { name: 'Projects', exact: true }).click();
   await page.locator('.ws-page-list').getByRole('button', { name: /Inbox/ }).click();
-  await page.getByRole('combobox', { name: 'Project view' }).selectOption({ label: 'Table' });
+  await page.getByRole('tab', { name: 'All tasks', exact: true }).click();
   await expect(page.getByRole('textbox', { name: 'Row title', exact: true })).toHaveValue('Prepare fixture report');
   await nav.getByRole('button', { name: 'Calendar', exact: true }).click();
   const selected = page.getByRole('region', { name: 'Selected day events', exact: true });
