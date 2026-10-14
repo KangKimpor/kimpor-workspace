@@ -197,7 +197,6 @@
 .ws-search-filters > * { flex: 1; min-width: 0; }
 .ws-trash-row { display: flex; align-items: center; justify-content: space-between; gap:var(--space-3); padding:var(--space-3) 0; border-bottom: var(--hairline) solid var(--line); overflow-wrap: anywhere; }
 .ws-trash-row small { display: block; color: var(--secondary); }
-.ws-template-list { display: flex; flex-direction: column; gap:var(--space-2); }
 .ws-icon-picker { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap:var(--space-1); }
 .ws-icon-picker .pressable { border-radius:var(--radius-control); text-align: center; font-size: var(--text-title2); }
 .ws-menu-row { display: flex; align-items: center; gap:var(--space-3); width: 100%; padding:var(--space-2); border-radius:var(--radius-control); }

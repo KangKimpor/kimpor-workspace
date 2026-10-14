@@ -411,7 +411,6 @@ export default function WorkspaceApp() {
   const [tabletExpanded, setTabletExpanded] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(readSetting("velora-sidebar-collapsed", "false") === "true");
   const [trashOpen, setTrashOpen] = useState(false);
-  const [templatesOpen, setTemplatesOpen] = useState(false);
   const [toast, setToast] = useState<Toast | null>(null);
   const [error, setError] = useState("");
   const [folderId, setFolderId] = useState<string | null>(null);
@@ -520,7 +519,6 @@ export default function WorkspaceApp() {
       setSettingsOpen(false);
       setCaptureOpen(false);
       setSidebarOpen(false);
-      setTemplatesOpen(false);
       setTrashOpen(false);
       setSelectedId(null);
     };
@@ -609,7 +607,6 @@ export default function WorkspaceApp() {
     );
     setSelectedId(page.id);
     setCaptureOpen(false);
-    setTemplatesOpen(false);
     return page;
   };
   const movePage = async (
@@ -690,17 +687,16 @@ export default function WorkspaceApp() {
     if (selectedId === page.id) setSelectedId(null);
     notify("Moved to Trash", () => store.restorePage(page.id).then(() => {}));
   };
-  const duplicate = async (page: Page, fromTemplate = false) => {
+  const duplicate = async (page: Page) => {
     const created = await create(
       page.type === "row" ? "page" : page.type,
-      `${titleOf(page)}${fromTemplate ? "" : " copy"}`,
+      `${titleOf(page)} copy`,
       {
         parentId: page.parentId,
         icon: page.icon,
         tags: [...page.tags],
         properties: {
           ...page.properties,
-          __template: false,
           __encrypted: false,
         },
         fullWidth: page.fullWidth,
@@ -714,47 +710,6 @@ export default function WorkspaceApp() {
     }
     const doc = await store.loadDoc(page.id);
     if (doc) await store.saveDoc(created.id, doc);
-  };
-  const createDatabase = async (tasks = false) => {
-    const page = await create(
-      "database",
-      tasks ? "Tasks" : "Untitled database",
-      { icon: tasks ? "☑️" : "▦" },
-    );
-    const now = new Date().toISOString();
-    const definition: DatabaseDefinition = {
-      id: page.id,
-      userId: page.userId,
-      properties: [
-        { id: "title", name: "Name", type: "title" },
-        {
-          id: "status",
-          name: "Status",
-          type: "status",
-          options: ["To do", "In progress", "Done"],
-        },
-        ...(tasks
-          ? [
-              { id: "due", name: "Due", type: "date" as const },
-              { id: "completed", name: "Completed", type: "checkbox" as const },
-            ]
-          : []),
-      ],
-      views: (["table", "list", "board", "calendar", "gallery"] as const).map(
-        (type) => ({
-          id: crypto.randomUUID(),
-          name: type.charAt(0).toUpperCase() + type.slice(1),
-          type,
-          groupBy: "status",
-        }),
-      ),
-      createdAt: now,
-      updatedAt: now,
-      deletedAt: null,
-    };
-    await store.saveDatabase(definition);
-    if (tasks)
-      await store.patchPage(page.id, { properties: { __tasks: true } });
   };
   const createProject = async (type: ProjectType, title = projectPreset(type)!.label) => {
     const page = await create("database", title, { icon: "▦", properties: { __projectType: type, __tasks: true } });
@@ -813,7 +768,6 @@ export default function WorkspaceApp() {
     .filter(
       (page) =>
         page.type !== "row" &&
-        !page.properties.__template &&
         (!typeFilter || page.type === typeFilter) &&
         (typeFilter
           ? !folderId || page.parentId === folderId
@@ -935,14 +889,6 @@ export default function WorkspaceApp() {
                   void run(() => movePage(id, parent, after))
                 }
               />
-              <Pressable
-                className="ws-sidebar-link"
-                aria-label="Templates"
-                onClick={() => setTemplatesOpen(true)}
-              >
-                <LayoutGrid size={16} />
-                Templates
-              </Pressable>
             </div>
             <div className="ws-sidebar-footer">
               <Pressable
@@ -1326,60 +1272,6 @@ export default function WorkspaceApp() {
             Your deleted pages will appear here.
           </Empty>
         )}
-      </Sheet>
-      <Sheet
-        open={templatesOpen}
-        onOpenChange={setTemplatesOpen}
-        title="Templates"
-      >
-        <div className="ws-template-list">
-          <Pressable
-            className="ws-page-row"
-            onClick={() => void run(() => createDatabase(true))}
-          >
-            <span className="ws-page-icon">☑️</span>
-            <span className="ws-page-row-text">
-              <strong>Tasks</strong>
-              <span>Status, due dates, and a place in Today</span>
-            </span>
-            <Plus size={18} />
-          </Pressable>
-          {["Morning", "Evening", "Gratitude", "Weekly review"].map((name) => (
-            <Pressable
-              className="ws-page-row"
-              key={name}
-              onClick={() =>
-                void run(() =>
-                  create("journal", "", {
-                    date: localDate(),
-                    properties: { template: name },
-                  }),
-                )
-              }
-            >
-              <span className="ws-page-icon">🌿</span>
-              <span className="ws-page-row-text">
-                <strong>{name}</strong>
-                <span>A gentle journal prompt</span>
-              </span>
-              <Plus size={18} />
-            </Pressable>
-          ))}
-          {livePages
-            .filter(
-              (page) => page.properties.__template && !page.properties.__locked,
-            )
-            .map((page) => (
-              <PageButton
-                page={page}
-                key={page.id}
-                onOpen={() => void run(() => duplicate(page, true))}
-              />
-            ))}
-        </div>
-        <p className="ws-muted">
-          Turn any page into a reusable template from its page menu.
-        </p>
       </Sheet>
       <AppUpdateNotice />
       {toast && (
@@ -2065,28 +1957,6 @@ function PageDetail({
           >
             <FileText size={18} />
             Duplicate
-          </Pressable>
-          <Pressable
-            className="ws-menu-row"
-            disabled={Boolean(page.properties.__locked)}
-            onClick={() => {
-              void onPatch({
-                properties: {
-                  ...page.properties,
-                  __template: !page.properties.__template,
-                },
-              });
-              onNotify(
-                page.properties.__template
-                  ? "Template removed"
-                  : "Template added",
-              );
-            }}
-          >
-            <LayoutGrid size={18} />
-            {page.properties.__template
-              ? "Remove template"
-              : "Save as template"}
           </Pressable>
           {["page", "note"].includes(page.type) && (
             <Pressable
