@@ -151,6 +151,10 @@ serve(async (request) => {
       body: JSON.stringify({ owner_id: userId, metadata, change_id: changeId }),
     });
   } catch (error) {
+    const purged = (await database(`permanent_deletions?user_id=eq.${encoded(userId)}&table_name=eq.pages&entity_id=eq.${encoded(page)}`)) as unknown[];
+    if (purged.length) await database("purged_files?on_conflict=user_id,path", {
+      method: "POST", headers: { Prefer: "resolution=ignore-duplicates" }, body: JSON.stringify({ user_id: userId, path }),
+    });
     await fetch(`${env("SUPABASE_URL")}/storage/v1/object/attachments`, {
       method: "DELETE",
       headers: {

@@ -687,6 +687,13 @@ export default function WorkspaceApp() {
     if (selectedId === page.id) setSelectedId(null);
     notify("Moved to Trash", () => store.restorePage(page.id).then(() => {}));
   };
+  const purge = async (ids: string[], label: string) => {
+    if (!window.confirm(`Delete ${label} forever? Nested pages, tasks, linked events, files and version history will also be deleted. This cannot be undone.`)) return;
+    await flushEditors();
+    await store.purgePages(ids);
+    if (selectedId && !store.listPages().some(page => page.id === selectedId)) setSelectedId(null);
+    notify("Permanently deleted. Account changes sync when connected.");
+  };
   const duplicate = async (page: Page) => {
     const created = await create(
       page.type === "row" ? "page" : page.type,
@@ -1245,7 +1252,7 @@ export default function WorkspaceApp() {
         <SettingsPanel onNotify={notify} onError={setError} />
       </Sheet>
       <Sheet open={trashOpen} onOpenChange={setTrashOpen} title="Trash">
-
+        {pages.some(page => page.deletedAt) && <Pressable className="ws-button ws-danger" onClick={() => void run(() => purge(pages.filter(page => page.deletedAt).map(page => page.id), "all items in Trash"))}>Empty Trash</Pressable>}
         {pages.filter((page) => page.deletedAt).length ? (
           pages
             .filter((page) => page.deletedAt)
@@ -1254,7 +1261,7 @@ export default function WorkspaceApp() {
                 <span>
                   {pageIcon(page)} {titleOf(page)}
                 </span>
-                <Pressable
+                <div className="ws-trash-actions"><Pressable
                   className="ws-button ws-tinted"
                   onClick={() =>
                     void run(async () => {
@@ -1265,12 +1272,11 @@ export default function WorkspaceApp() {
                 >
                   Restore
                 </Pressable>
+                <Pressable className="ws-button ws-danger" aria-label={`Delete ${titleOf(page)} forever`} onClick={() => void run(() => purge([page.id], `“${titleOf(page)}”`))}>Delete forever</Pressable></div>
               </div>
             ))
         ) : (
-          <Empty title="Trash is empty">
-            Your deleted pages will appear here.
-          </Empty>
+          <div className="ws-quiet-empty"><Trash2 size={28} /><p>Trash is empty</p></div>
         )}
       </Sheet>
       <AppUpdateNotice />

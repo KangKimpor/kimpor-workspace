@@ -13,6 +13,7 @@ serve(async (request) => {
   const files = (await database(
     `attachments?user_id=eq.${encoded(userId)}&select=path`,
   )) as { path: string }[];
+  files.push(...(await database(`purged_files?user_id=eq.${encoded(userId)}&select=path`)) as { path: string }[]);
   for (let index = 0; index < files.length; index += 100) {
     const result = await fetch(
       `${env("SUPABASE_URL")}/storage/v1/object/attachments`,

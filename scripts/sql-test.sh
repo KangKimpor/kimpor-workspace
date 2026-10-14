@@ -19,3 +19,4 @@ fi
 docker exec -i "$container_name" psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1 -q < supabase/tests/bootstrap.sql
 for migration in supabase/migrations/*.sql; do docker exec -i "$container_name" psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1 -q < "$migration"; done
 docker exec -i "$container_name" psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1 -q < supabase/tests/ownership.sql
+docker exec -i "$container_name" psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1 -q < supabase/tests/purge.sql

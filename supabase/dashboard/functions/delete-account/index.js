@@ -81,7 +81,9 @@ var encoded = (value) => encodeURIComponent(value);
 //#region supabase/functions/delete-account/index.ts
 serve(async (request) => {
 	if (request.method !== "POST") throw new HttpError(405, "Use POST");
-	const files = await database(`attachments?user_id=eq.${encoded(await owner(request))}&select=path`);
+	const userId = await owner(request);
+	const files = await database(`attachments?user_id=eq.${encoded(userId)}&select=path`);
+	files.push(...await database(`purged_files?user_id=eq.${encoded(userId)}&select=path`));
 	for (let index = 0; index < files.length; index += 100) if (!(await fetch(`${env("SUPABASE_URL")}/storage/v1/object/attachments`, {
 		method: "DELETE",
 		headers: {

@@ -21,7 +21,7 @@ export interface StampedValue {
 export interface SyncChange {
   id: string;
   userId: string;
-  kind: "entity" | "document" | "encrypted-document" | "setting" | "attachment";
+  kind: "entity" | "document" | "encrypted-document" | "setting" | "attachment" | "purge";
   entityId: string;
   table?: EntityTable;
   fields?: Record<string, StampedValue>;
@@ -480,6 +480,10 @@ export class WorkspaceStore {
       async () => {
         const key: [string, EntityTable, string] = [user, table, entityId];
         const previous = await this.entities.get(key);
+        if (await this.meta.get(`purged:${user}:${table}:${entityId}`)) throw new Error("Item was permanently deleted");
+        for (const parent of [values.parentId, values.databaseId, values.pageId]) {
+          if (typeof parent === "string" && await this.meta.get(`purged:${user}:pages:${parent}`)) throw new Error("Parent was permanently deleted");
+        }
         if (!previous && !create) throw new Error("Item no longer exists");
         const savedClock = (await this.meta.get(`clock:${user}`))?.value as
           | Clock
@@ -570,6 +574,51 @@ export class WorkspaceStore {
   }
   async restorePage(id: string): Promise<void> {
     await this.patchPage(id, { deletedAt: null });
+  }
+  /** One transaction validates all roots before removing any page or queued bytes. */
+  async purgePages(ids: string[]): Promise<void> {
+    const user = this.user;
+    await this.db.transaction("rw", [this.entities, this.documents, this.encryptedDocuments, this.attachments, this.versions, this.outbox, this.meta], async () => {
+      if (user !== this.user) throw new Error("Workspace account changed");
+      for (const id of new Set(ids)) {
+        const page = await this.entities.get([user, "pages", id]);
+        if (!page || !recordEntity(page).deletedAt) throw new Error("Only items in Trash can be deleted forever");
+      }
+      for (const entityId of new Set(ids)) {
+        if (await this.meta.get(`purged:${user}:pages:${entityId}`)) continue;
+        await this.purgeRecords(user, "pages", entityId);
+        const id = crypto.randomUUID();
+        await this.outbox.put({ id, userId: user, createdAt: Date.now(), order: await this.nextOrder(user),
+          change: { id, userId: user, kind: "purge", table: "pages", entityId, schemaVersion: 1 } });
+      }
+    });
+    await this.refresh();
+  }
+  private async purgeRecords(user: string, table: EntityTable, id: string): Promise<void> {
+    const children = new Map<string, { table: EntityTable; id: string }[]>();
+    if (table === "pages") for (const record of await this.entities.where("userId").equals(user).toArray()) {
+      const entity = recordEntity(record);
+      const parents = record.table === "pages" ? [(entity as Page).parentId, (entity as Page).databaseId] : record.table === "events" ? [(entity as CalendarEvent).pageId] : [];
+      for (const parent of new Set(parents)) if (parent) {
+        const items = children.get(parent) ?? []; items.push(record); children.set(parent, items);
+      }
+    }
+    const targets = [{ table, id }];
+    const removed = new Set<string>();
+    for (let index = 0; index < targets.length; index++) {
+      const item = targets[index]!;
+      const key = `purged:${user}:${item.table}:${item.id}`;
+      if (await this.meta.get(key)) continue;
+      await this.meta.put({ key, value: true });
+      removed.add(`${item.table}:${item.id}`);
+      if (item.table === "pages") {
+        targets.push(...children.get(item.id) ?? [], { table: "databases", id: item.id });
+        await this.documents.delete([user, item.id]);
+        for (const items of [this.versions, this.encryptedDocuments, this.attachments]) await items.where("[userId+pageId]").equals([user, item.id]).delete();
+      }
+      await this.entities.delete([user, item.table, item.id]);
+    }
+    await this.outbox.where("userId").equals(user).filter(item => item.change.kind !== "setting" && removed.has(`${item.change.table ?? "pages"}:${item.change.entityId}`)).delete();
   }
   async saveCalendar(
     patch: Partial<Calendar> & { id?: string },
@@ -1151,11 +1200,13 @@ export class WorkspaceStore {
       if (
         change.userId !== user ||
         change.schemaVersion !== 1 ||
-        !change.id ||
-        !change.entityId
+        typeof change.id !== "string" || !change.id ||
+        typeof change.entityId !== "string" || !change.entityId
       )
         throw new Error("Rejected a change outside this account or schema");
-      if (change.kind === "entity") {
+      if (change.kind === "purge") {
+        if (!change.table || !["pages", "databases", "events"].includes(change.table) || change.entityId.length > 160) throw new Error("Invalid purge change");
+      } else if (change.kind === "entity") {
         if (!change.table || !TABLES.includes(change.table))
           throw new Error("Invalid table");
         validateFields(change.fields);
@@ -1220,6 +1271,19 @@ export class WorkspaceStore {
           | Clock
           | undefined;
         for (const change of changes) {
+          if (change.kind === "purge") {
+            await this.purgeRecords(user, change.table!, change.entityId);
+            continue;
+          }
+          if (change.kind !== "setting") {
+            const table = change.kind === "entity" ? change.table! : "pages";
+            if (await this.meta.get(`purged:${user}:${table}:${change.entityId}`)) continue;
+            const parents = [change.fields?.parentId?.value, change.fields?.databaseId?.value, change.fields?.pageId?.value];
+            if ((await Promise.all(parents.filter((id): id is string => typeof id === "string").map(id => this.meta.get(`purged:${user}:pages:${id}`)))).some(Boolean)) {
+              await this.purgeRecords(user, table, change.entityId);
+              continue;
+            }
+          }
           if (change.kind === "document") {
             const page = await this.entities.get([
               user,
@@ -1496,6 +1560,13 @@ export class WorkspaceStore {
       ],
       async () => {
         if (this.user !== user) throw new Error("Account changed during import");
+        for (const { table, entity } of entries) {
+          if (await this.meta.get(`purged:${user}:${table}:${entity.id}`)) throw new Error("Backup contains permanently deleted items");
+          if (table === "pages") for (const parent of [(entity as Page).parentId, (entity as Page).databaseId]) {
+            if (parent && await this.meta.get(`purged:${user}:pages:${parent}`)) throw new Error("Backup contains permanently deleted items");
+          }
+        }
+        for (const item of [...documents, ...encryptedDocuments, ...attachments, ...versions]) if (await this.meta.get(`purged:${user}:pages:${item.pageId}`)) throw new Error("Backup contains permanently deleted items");
         const keys = entries.map(({ table, entity }) => [user, table, entity.id] as [string, EntityTable, string]);
         const previous = await this.entities.where("[userId+table+id]").anyOf(keys).toArray();
         const records = new Map<string, EntityRecord>();

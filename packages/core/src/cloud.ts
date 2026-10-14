@@ -112,7 +112,7 @@ export class SupabaseTransport implements SyncTransport {
       });
       if (!response.ok)
         throw new CloudError(
-          "Attachment upload failed. The file remains saved on this device.",
+          "Attachment upload failed. Your file is queued for retry.",
           response.status,
         );
       result.acknowledged.push(change.id);

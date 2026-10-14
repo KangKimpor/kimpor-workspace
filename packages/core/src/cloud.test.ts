@@ -32,6 +32,13 @@ const entity: SyncChange = {
   schemaVersion: 1,
   fields: {},
 };
+it("sends permanent deletion through the authenticated immutable sync queue", async () => {
+  const purge: SyncChange = { id: "delete-forever", userId: "owner", entityId: "page", kind: "purge", table: "pages", schemaVersion: 1 };
+  fetcher.mockResolvedValueOnce(new Response(JSON.stringify({ acknowledged: [purge.id] }), { status: 200 }));
+  expect(await new SupabaseTransport().push("owner", [purge])).toEqual({ acknowledged: [purge.id] });
+  expect(JSON.parse(fetcher.mock.calls[0]![1].body)).toEqual({ changes: [purge] });
+  expect(purge).toEqual({ id: "delete-forever", userId: "owner", entityId: "page", kind: "purge", table: "pages", schemaVersion: 1 });
+});
 beforeEach(() => {
   auth.config = { url: "https://project.supabase.co", key: "public-test-key" };
   auth.session = { access_token: "test-token", user: { id: "owner" } };
