@@ -7,13 +7,15 @@ test("Trash supports cancel, restore, delete forever and emptying after reload",
   const create = async (title: string) => {
     if (await page.locator(".ws-sidebar.open").count()) await page.getByRole("button", { name: "Close sidebar", exact: true }).first().click();
     await leaveWriting(page);
-    await nav.getByRole("button", { name: "Notes", exact: true }).click();
+    const notes = nav.getByRole("button", { name: "Notes", exact: true });
+    if (await notes.getAttribute("aria-current") !== "page") await notes.click();
     await page.getByRole("button", { name: "New note", exact: true }).click();
     await page.getByRole("textbox", { name: "Page title" }).fill(title);
     await page.getByRole("textbox", { name: "Document editor" }).fill(`Body for ${title}`);
     await page.getByRole("button", { name: "Page options", exact: true }).click();
     await expect(page.getByText("Save as template", { exact: true })).toHaveCount(0);
     await page.getByRole("button", { name: "Move to Trash", exact: true }).click();
+    await expect(page.getByRole("region", { name: "Page detail", exact: true })).toHaveCount(0);
   };
   const trash = async () => {
     if (page.viewportSize()!.width < 600 && !await page.getByRole("button", { name: "Trash", exact: true }).isVisible()) await page.getByRole("button", { name: "Open sidebar", exact: true }).click();
@@ -61,7 +63,6 @@ test("project task search, status editing and keyboard view tabs preserve rows",
   await all.focus(); await all.press("End");
   await expect(page.getByRole("tab", { name: "Gallery", exact: true })).toHaveAttribute("aria-selected", "true");
   await page.getByRole("tab", { name: "Gallery", exact: true }).press("Home");
-  // The preset order is retained even though the table is the initial view.
   await all.click();
   await expect(page.getByRole("combobox", { name: "Status", exact: true })).toHaveValue("Done");
   await page.getByRole("searchbox", { name: "Search tasks" }).fill("");
@@ -87,6 +88,8 @@ test("an app update is visible outside Settings and flushes the editor before ac
   await page.getByRole("button", { name: "Reload to update the app", exact: true }).click();
   await expect.poll(() => page.evaluate(() => (window as unknown as { updateMessages: unknown[] }).updateMessages)).toEqual([{ type: "SKIP_WAITING" }]);
   await page.reload();
+  await expect(page.getByRole("button", { name: "Reload to update the app", exact: true })).toBeVisible();
+  await leaveWriting(page);
   await nav.getByRole("button", { name: "Notes", exact: true }).click();
   await page.locator(".ws-list-pane").getByRole("button", { name: /Update persistence proof/ }).click();
   await expect(page.getByRole("textbox", { name: "Document editor" })).toContainText("Flush this before updating. ខ្មែរ 中文");

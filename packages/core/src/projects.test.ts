@@ -81,4 +81,7 @@ it("supplies migrated default views and photo/item fields without rewriting sche
   expect(projectViews(definition)).toBe(definition.views);
   expect(projectViews(projectDefinition(page, "weekly"), "weekly")[0]?.type).toBe("list");
   expect(definition).toEqual(original);
+  const listOnly = { ...definition, views: [{ id: "source-list", name: "List", type: "list" as const }] };
+  expect(projectViews(listOnly).map(view => view.type)).toEqual(["list", "table"]);
+  expect(listOnly.views).toHaveLength(1);
 });

@@ -34,3 +34,82 @@ only; existing CI visual baselines and thresholds remain unchanged.
 No Pages deployment, live migration, merge or visual-baseline approval is
 authorized by this brief. Backend rollout and CI baseline review are final human
 steps after the pull request is ready.
+
+## Components and interaction contracts
+
+- `Today`: schedule is a single Calendar action with real event times; counts
+  use current tasks and projects. The agenda dot never consumes a flex column.
+- `DatabaseEditor`: All tasks opens first, followed by source views. Keyboard
+  arrows/Home/End move between tabs. Search and inline edits preserve source
+  IDs and schemas; wide tables scroll inside their own pane. Missing table
+  views are supplied for presentation, without changing imported definitions.
+- `CalendarModule`: Today/period navigation shares the month heading's center
+  line. Four view buttons replace the duplicate native picker. Month height
+  follows the workspace container; the selected day stays available on phones
+  and in the desktop sidebar. First-day, time-zone and recurrence logic remain.
+- `AppUpdateNotice`: an available update occupies space below the toolbar.
+  Activation flushes editors to durable storage before requesting SKIP_WAITING.
+  Desktop builds register no service worker.
+- `Trash`: native confirmation names the destructive scope. Purge includes
+  nested pages/tasks, linked events, bodies, encrypted shards, history and files.
+  Only Trash roots qualify. Persistent deletion IDs suppress stale devices;
+  offline operations remain in the existing owner-bound transactional outbox.
+  Old backup IDs cannot recreate purged items in the same workspace.
+
+Default accent remains keyed `blue` for compatibility and is labeled Lime in
+the interface. Existing font packages and accent preferences are reused. New
+foreground/background pairs live in tokens.css and retain contrast thresholds.
+Pressable targets, focus outlines, safe areas, reduced motion and IME handling
+are preserved. Theme pairs, responsive overflow and touch targets are audited
+by `pnpm layout:audit`; its fixture screenshots never replace CI baselines.
+
+## Backend rollout for human approval
+
+1. Apply only `202610140001_permanent_deletion.sql` to the existing project via
+   the incremental migration path. The generated dashboard schema is for a
+   fresh project and refuses an existing workspace.
+2. Deploy the changed `attachments`, `maintenance` and `delete-account` Edge
+   Functions before deploying the client. Retained purge notifications must
+   remain available to stale devices. Database deletion is atomic; physical
+   Storage cleanup retries through the existing 15-minute maintenance job.
+3. Verify a test account's purge, stale-device pull, file cleanup and cloud reset
+   against the deployed backend. Local SQL and browser fixtures do not prove
+   production Storage cleanup, account/provider behavior or physical hardware.
+4. Generate the 510-image candidate through the Visual baselines workflow and
+   review it before replacing any baseline. Keep the strict pixel thresholds.
+   Approve merge and Pages publication separately after backend readiness.
+
+Rollback: retain the migration and deletion ledger. Reverting the UI cannot
+restore purged content. Retain maintenance until the file queue is drained;
+existing independent backup copies are outside Trash's deletion scope.
+
+## Local verification, 14 October 2026
+
+`pnpm check` passes 79 unit tests, 89.5% core line coverage, 221.5 KiB initial
+gzip and 48 contrast pairs. Both web and desktop frontend builds pass the
+obsolete-status guard. SQL bootstrap plus all eleven migrations, existing
+ownership checks and permanent-deletion checks pass in isolated PostgreSQL
+18.6 on this Windows host; no live project was contacted. Deno 2.5.5 checks all
+eight Edge Functions and passes seven backend contract tests.
+
+The layout audit passes 442 populated/empty screen cases: thirteen states in
+each of seventeen profiles and both themes. It checks document/root/main
+overflow, nominal 44px targets (0.5px measurement tolerance), toolbar center
+alignment, desktop month height, agenda gutter and the full-width project pane.
+See `evidence/lime-layout-audit.json` and local fixture screenshots under
+`docs/screenshots/lime-layout/`. Minor final color-label copy and native checkbox
+accent changes do not change measured geometry. These captures are evidence,
+not approved visual baselines.
+
+All 28 targeted browser regressions pass in Chromium, desktop WebKit, Firefox
+and phone WebKit; the 30-case responsive matrix and 18 account entry fixtures
+pass. These cover task views/search/status editing, month selection, Trash
+cancel/restore/purge/reload and editor persistence through simulated app updates.
+The initial broad run passed 144/150; its four obsolete expected text-color
+values and two newly exposed interaction issues were corrected and passed the
+targeted rerun. The final broad run is recorded separately when complete.
+
+JavaScript licenses and Gitleaks's 69-commit history scan pass. Existing build
+warnings about recurrence interop and AccountGate import modes remain. No new
+runtime dependency was added. Production Storage deletion, live sync/providers,
+physical iPhone/iPad and the native Windows runtime were not tested by this work.

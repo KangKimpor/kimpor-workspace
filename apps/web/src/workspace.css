@@ -26,7 +26,7 @@
 .ws-nav { display: flex; align-items: center; gap:var(--space-3); padding:var(--space-2) var(--space-3); border-radius:var(--radius-control); color: var(--secondary); font-weight: 500; }
 .ws-nav.selected { background: var(--surface); color: var(--accent); box-shadow: var(--shadow); }
 .ws-sidebar-section { margin-top:var(--space-8); }
-.ws-sidebar-section-title { display: flex; justify-content: space-between; align-items: center; color: var(--tertiary); font-size: var(--text-caption); letter-spacing: .06em; padding-left:var(--space-3); }
+.ws-sidebar-section-title { display: flex; justify-content: space-between; align-items: center; color: var(--tertiary); font-size: var(--text-caption); padding-left:var(--space-3); }
 .ws-tree { min-width: 0; }
 .ws-tree-row { display: flex; min-width: 0; align-items: center; }
 .ws-tree-row > .ws-icon { flex-shrink: 0; }
@@ -524,7 +524,6 @@
 /* Lime workspace: clear task names, soft cards and a single schedule rail. */
 .ws-topbar { background:var(--bg); border-bottom:0; }
 .ws-sidebar { border-right:0; }
-.ws-sidebar-label { text-transform:none; letter-spacing:0; }
 .ws-button { border-radius:var(--radius-pill); }
 .ws-nav.selected { background:var(--schedule); color:var(--on-schedule); }
 .ws-brand .logo { background:var(--schedule); color:var(--on-schedule); }
@@ -581,7 +580,7 @@
 .ws-db-table td:last-child { border-right:0; }
 .ws-db-table td input,.ws-db-table td select { border:0; background:transparent; }
 .ws-db-title input { font-weight:550; }
-.ws-db-table td .ws-status-input { background:var(--field); border-radius:var(--radius-pill); width:auto; max-width:100%; }
+.ws-db-table td .ws-status-input { appearance:none; background:var(--field); border-radius:var(--radius-pill); width:auto; max-width:100%; padding-inline:var(--space-3); }
 .ws-db-table td .ws-status-input.done { color:var(--success); background:var(--success-tint); }
 .ws-db-table td .ws-status-input.active { color:var(--accent); background:var(--accent-tint); }
 @container workspace (width < 600px) {
@@ -590,8 +589,8 @@
  .ws-view-tabs [role='tab'] { padding-inline:var(--space-3); }
 }
 
-.ws-update-notice { position:absolute; z-index:50; bottom:var(--space-5); left:calc(var(--active-sidebar-width,0px) + var(--space-5)); right:var(--space-5); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-3); padding:var(--space-4); border:var(--hairline) solid var(--line); border-radius:var(--radius-card); background:var(--surface-raised); box-shadow:var(--shadow); }
-@container workspace (width < 600px) { .ws-update-notice { left:var(--space-4); right:var(--space-4); bottom:calc(var(--bar-height) + env(safe-area-inset-bottom) + var(--space-4)); } }
+.ws-update-notice { position:sticky; z-index:45; top:var(--bar-height); margin:var(--space-3) var(--pane-padding); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-3); padding:var(--space-4); border:var(--hairline) solid var(--line); border-radius:var(--radius-card); background:var(--surface-raised); box-shadow:var(--shadow); }
+.ws-app .ws-agenda-card .ws-button:hover { background:var(--accent-fill); color:var(--on-accent); }
 
 .ws-trash-actions { display:flex; flex-wrap:wrap; gap:var(--space-2); justify-content:flex-end; }
 @container workspace (width < 600px) { .ws-trash-row { flex-wrap:wrap; } .ws-trash-actions { width:100%; } }

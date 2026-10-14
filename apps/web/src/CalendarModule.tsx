@@ -659,11 +659,11 @@ export default function CalendarModule({
               </Pressable>
             </div>
             <h2>
-              {dayLabel(date, {
-                month: "short",
+              <span className="cal-period-long">{dayLabel(date, {
+                month: "long",
                 year: "numeric",
                 ...(view === "day" ? { day: "numeric" } : {}),
-              })}
+              })}</span><span className="cal-period-short">{dayLabel(date, { month: "short", year: "numeric", ...(view === "day" ? { day: "numeric" } : {}) })}</span>
             </h2>
             <div className="cal-views" role="group" aria-label="Calendar view">
               {(["day", "week", "month", "agenda"] as const).map((option) => (
@@ -1386,7 +1386,7 @@ export default function CalendarModule({
                   >
                     {colors.map((color) => (
                       <option value={color} key={color}>
-                        {color}
+                        {color === "blue" ? "Lime" : color}
                       </option>
                     ))}
                   </select>

@@ -967,6 +967,7 @@ export default function WorkspaceApp() {
             {module === "Today" && livePages.some(page => page.type === "row") && <Pressable className="ws-button ws-filled ws-capture-desktop" onClick={() => setCaptureOpen(true)}><Plus size={16} />New task</Pressable>}
           </>}</div>
         </header>
+        <AppUpdateNotice />
         {error && (
           <div role="alert" className="ws-error">
             <span>{error}</span>
@@ -1279,7 +1280,6 @@ export default function WorkspaceApp() {
           <div className="ws-quiet-empty"><Trash2 size={28} /><p>Trash is empty</p></div>
         )}
       </Sheet>
-      <AppUpdateNotice />
       {toast && (
         <div className="ws-toast" role="status">
           <Check size={18} />
@@ -1879,7 +1879,7 @@ function PageDetail({
               onChange={(event) => void onPatch({ cover: event.target.value })}
             >
               <option value="">No cover</option>
-              <option value="blue">Blue gradient</option>
+              <option value="blue">Lime gradient</option>
               <option value="purple">Purple gradient</option>
               <option value="warm">Warm gradient</option>
             </select>
@@ -2286,10 +2286,10 @@ function DatabaseEditor({
   onError: (message: string) => void;
 }) {
   const preset = projectPreset(type);
-  const views = projectViews(definition, type);
+  const views = [...projectViews(definition, type)].sort((a, b) => Number(b.type === "table") - Number(a.type === "table"));
   const [viewId, setViewId] = useState(views.find(view => view.type === "table")?.id ?? views[0]?.id ?? "");
   const [query, setQuery] = useState("");
-  const visibleFields = viewId === views.find(view => view.type === "table")?.id ? [...definition.properties.filter(property => property.type === "title"), ...definition.properties.filter(property => property.type !== "title")] : visibleProjectFields(definition, type);
+  const visibleFields = views.find(view => view.id === viewId)?.type === "table" ? [...definition.properties.filter(property => property.type === "title"), ...definition.properties.filter(property => property.type !== "title")] : visibleProjectFields(definition, type);
   const [configOpen, setConfigOpen] = useState(false);
   const [propertyOpen, setPropertyOpen] = useState(false);
   const [newPropertyName, setNewPropertyName] = useState("");
@@ -3185,7 +3185,7 @@ function SettingsPanel({
               saveAppearance("velora-accent", event.target.value);
             }}
           >
-            <option value="blue">Blue</option>
+            <option value="blue">Lime</option>
             <option value="green">Green</option>
             <option value="red">Red</option>
             <option value="purple">Purple</option>

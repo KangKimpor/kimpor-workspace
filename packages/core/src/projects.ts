@@ -93,9 +93,11 @@ export function visibleProjectFields(definition: DatabaseDefinition, type?: Proj
 /** Supply a missing default view for display without writing the source schema. */
 export function projectViews(definition: DatabaseDefinition, type?: ProjectType): DatabaseView[] {
   const preset = projectPreset(type);
-  if (!preset || definition.views.some(view => view.type === preset.view)) return definition.views;
+  const views: DatabaseView[] = definition.views.some(view => view.type === "table") ? definition.views :
+    [...definition.views, { id: "presentation:all-tasks", name: "Table", type: "table" }];
+  if (!preset || views.some(view => view.type === preset.view)) return views;
   const date = definition.properties.find(property => property.type === "date");
-  return [...definition.views, { id: `presentation:${type}`, name: preset.view[0]!.toUpperCase() + preset.view.slice(1), type: preset.view,
+  return [...views, { id: `presentation:${type}`, name: preset.view[0]!.toUpperCase() + preset.view.slice(1), type: preset.view,
     groupBy: preset.group, sort: date ? [{ property: date.id, direction: "asc" }] : undefined }];
 }
 export async function completeProjectTask(workspace: Pick<WorkspaceStore, "patchPage" | "createPage">, task: Page, definition?: DatabaseDefinition) {

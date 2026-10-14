@@ -43,6 +43,7 @@
 html { background: var(--bg); color: var(--text); font-family: var(--font); font-size: var(--text-body); line-height: var(--leading-body); scroll-behavior: smooth; }
 body { margin: 0; min-width: 0; color: var(--text); }
 button, input, select, textarea { font: inherit; }
+input[type='checkbox'], input[type='radio'] { accent-color:var(--accent); }
 button, input, select, a { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
 button { color: inherit; }
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: var(--focus-width) solid var(--accent); outline-offset: var(--focus-offset); }
