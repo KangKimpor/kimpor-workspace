@@ -8,6 +8,16 @@ do $$declare denied boolean:=false;begin
   begin perform public.push_retained_changes('[]');raise exception 'Old writer is accessible';exception when insufficient_privilege then null;end;
 end$$;
 reset role;
+insert into public.pages(user_id,id,fields) values('11111111-1111-4111-8111-111111111111','purge-offline-existing','{"title":{"value":"Offline deletion","clock":{"wall":100,"counter":0,"node":"one"}}}');
+set role authenticated;
+-- Client removed its unsent create/trash changes; only immutable Trash intent remains.
+select public.push_changes('[{"id":"offline-existing-intent","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"purge-offline-existing","schemaVersion":1,"fields":{"deletedAt":{"value":"2026-10-14T00:00:00Z","clock":{"wall":200,"counter":0,"node":"offline"}}}},{"id":"offline-new-intent","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"purge-never-synced","schemaVersion":1,"fields":{"deletedAt":{"value":"2026-10-14T00:00:00Z","clock":{"wall":200,"counter":0,"node":"offline"}}}}]');
+do $$declare denied boolean:=false;begin
+  if exists(select 1 from public.pages where id='purge-offline-existing') then raise exception 'Unsent Trash was required';end if;
+  begin perform public.push_changes('[{"id":"invalid-trash-intent","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"malformed-purge","schemaVersion":1,"fields":{"deletedAt":{"value":true,"clock":{"wall":200,"counter":0,"node":"offline"}}}}]');exception when raise_exception then denied:=SQLERRM='Invalid Trash intent';end;
+  if not denied then raise exception 'Malformed Trash intent was accepted';end if;
+end$$;
+reset role;
 insert into public.page_doc_updates(user_id,id,page_id,update_base64) values('11111111-1111-4111-8111-111111111111','purge-doc','purge-child','AAA=');
 insert into public.encrypted_doc_updates(user_id,id,page_id,envelope) values('11111111-1111-4111-8111-111111111111','purge-encrypted','purge-child','{}');
 insert into public.page_versions(user_id,page_id,update_base64) values('11111111-1111-4111-8111-111111111111','purge-child','AAA=');

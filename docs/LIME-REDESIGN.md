@@ -52,7 +52,7 @@ steps after the pull request is ready.
   Desktop builds register no service worker.
 - `Trash`: native confirmation names the destructive scope. Purge includes
   nested pages/tasks, linked events, bodies, encrypted shards, history and files.
-  Only Trash roots qualify. Persistent deletion IDs suppress stale devices;
+  Only local Trash roots qualify; the immutable purge request carries their Trash intent so an unsent soft-delete or page creation is not required on the server. Persistent deletion IDs suppress stale devices;
   offline operations remain in the existing owner-bound transactional outbox.
   Old backup IDs cannot recreate purged items in the same workspace.
 
@@ -85,7 +85,7 @@ existing independent backup copies are outside Trash's deletion scope.
 
 ## Local verification, 14 October 2026
 
-`pnpm check` passes 79 unit tests, 89.5% core line coverage, 221.5 KiB initial
+`pnpm check` passes 79 unit tests, 89.51% core line coverage, 221.6 KiB initial
 gzip and 48 contrast pairs. Both web and desktop frontend builds pass the
 obsolete-status guard. SQL bootstrap plus all eleven migrations, existing
 ownership checks and permanent-deletion checks pass in isolated PostgreSQL
@@ -115,3 +115,8 @@ JavaScript licenses and Gitleaks's 69-commit history scan pass. Existing build
 warnings about recurrence interop and AccountGate import modes remain. No new
 runtime dependency was added. Production Storage deletion, live sync/providers,
 physical iPhone/iPad and the native Windows runtime were not tested by this work.
+
+Final offline sequencing regression: purge of an existing cloud page with an
+unsent Trash change, purge of a never-synced page, and malformed Trash intent
+rejection pass in the isolated SQL suite. The queued intent contains only the
+deletedAt stamp; private page fields and queued body/file bytes are removed.

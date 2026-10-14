@@ -580,16 +580,18 @@ export class WorkspaceStore {
     const user = this.user;
     await this.db.transaction("rw", [this.entities, this.documents, this.encryptedDocuments, this.attachments, this.versions, this.outbox, this.meta], async () => {
       if (user !== this.user) throw new Error("Workspace account changed");
+      const roots = new Map<string, StampedValue>();
       for (const id of new Set(ids)) {
         const page = await this.entities.get([user, "pages", id]);
         if (!page || !recordEntity(page).deletedAt) throw new Error("Only items in Trash can be deleted forever");
+        roots.set(id, page.fields.deletedAt!);
       }
       for (const entityId of new Set(ids)) {
         if (await this.meta.get(`purged:${user}:pages:${entityId}`)) continue;
         await this.purgeRecords(user, "pages", entityId);
         const id = crypto.randomUUID();
         await this.outbox.put({ id, userId: user, createdAt: Date.now(), order: await this.nextOrder(user),
-          change: { id, userId: user, kind: "purge", table: "pages", entityId, schemaVersion: 1 } });
+          change: { id, userId: user, kind: "purge", table: "pages", entityId, fields: { deletedAt: roots.get(entityId)! }, schemaVersion: 1 } });
       }
     });
     await this.refresh();

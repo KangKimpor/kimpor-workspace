@@ -58,6 +58,10 @@ it("purges a subtree atomically, clears private bytes and rejects stale-device r
   for (const key of ["documents", "versions", "encryptedDocuments", "attachments"]) expect(exported[key]).toEqual([]);
   const queued = await store.pendingChanges();
   expect(queued.some(change => change.kind === "purge" && change.entityId === root.id)).toBe(true);
+  const intent = queued.find(change => change.kind === "purge" && change.entityId === root.id)!;
+  expect(Object.keys(intent.fields!)).toEqual(["deletedAt"]);
+  expect(intent.fields!.deletedAt!.value).toEqual(expect.any(String));
+  expect(intent.fields!.deletedAt!.clock).toMatchObject({ wall: expect.any(Number), node: expect.any(String) });
   expect(queued.some(change => change.kind !== "purge" && [root.id, child.id].includes(change.entityId))).toBe(false);
   await store.applyRemote(before, "1");
   expect(store.listPages(true).map(page => page.id)).toEqual([kept.id]);

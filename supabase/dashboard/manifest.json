@@ -1,6 +1,6 @@
 {
   "mode": "Fresh project only; generated from the canonical migrations and Edge source. No credentials are embedded.",
-  "schema_sha256": "1e2f758bb5a414cdb86f52a853bfa24ed28e9bd548c6d4cd039997fa0e83572d",
+  "schema_sha256": "341efbec5242a8976ed902ce63b92b8cec04dee4cef14f669f94718c7924010d",
   "migrations": [
     {
       "file": "202610100001_workspace.sql",
@@ -55,7 +55,7 @@
     {
       "file": "202610140001_permanent_deletion.sql",
       "version": "202610140001",
-      "sha256": "377655f9ecaaaff068858aebba9a48a1f4b2ffcba6bcc7e9a19b18f2b73be457"
+      "sha256": "3ab82493058ab6094876533258a0aa92fc94a7ba8f3788c892ec7530d3dd697e"
     }
   ],
   "functions": [

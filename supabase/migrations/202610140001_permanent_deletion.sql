@@ -62,7 +62,15 @@ declare owner_id uuid:=auth.uid(); change jsonb; stored_hash text; change_hash t
     if change->>'kind'='purge' then
       if change->>'table' is distinct from 'pages' then raise exception 'Only pages can be purged'; end if;
       if not exists(select 1 from public.permanent_deletions where user_id=owner_id and table_name='pages' and entity_id=change->>'entityId') then
-        if not exists(select 1 from public.pages where user_id=owner_id and id=change->>'entityId' and fields->'deletedAt'->>'value' is not null) then raise exception 'Only items in Trash can be deleted forever'; end if;
+        -- Offline purge carries the local Trash intent; its earlier soft-delete
+        -- and page creation may never have reached the server.
+        if change ? 'fields' then
+          if jsonb_typeof(change->'fields') is distinct from 'object' or (change->'fields')-'deletedAt'<>'{}'::jsonb or jsonb_typeof(change->'fields'->'deletedAt'->'value') is distinct from 'string' then raise exception 'Invalid Trash intent'; end if;
+          if (change->'fields'->'deletedAt'->>'value')!~'^[0-9]{4}-[0-9]{2}-[0-9]{2}T' then raise exception 'Invalid Trash intent';end if;
+          perform (change->'fields'->'deletedAt'->>'value')::timestamptz;
+          perform public.merge_clock_fields('{}',change->'fields');
+          if not exists(select 1 from public.pages where user_id=owner_id and id=change->>'entityId') and (public.storage_usage()->>'databaseBytes')::bigint+octet_length(change::text)*3>=500000000 then raise exception 'Cloud quota reached; deletion remains queued' using errcode='54000'; end if;
+        elsif not exists(select 1 from public.pages where user_id=owner_id and id=change->>'entityId' and fields->'deletedAt'->>'value' is not null) then raise exception 'Only items in Trash can be deleted forever'; end if;
         perform public.purge_workspace_page(owner_id,change->>'entityId');
       end if;
     else
