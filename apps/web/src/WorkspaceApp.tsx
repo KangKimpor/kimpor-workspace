@@ -62,6 +62,7 @@ import { flushEditors, registerEditorFlush } from "./editor-lifecycle";
 import { AppLockSettings } from "./ApplicationLock";
 import { startReminders, enablePush, disablePush } from "./notifications";
 import { LocalSearch } from "./search";
+import AppUpdateNotice from "./AppUpdateNotice";
 const AccountPanel = lazy(() => import("./AccountPanel"));
 const ImportExportPanel = lazy(() => import("./ImportExportPanel"));
 const DesktopSettings = lazy(() => import("./DesktopSettings"));
@@ -1380,6 +1381,7 @@ export default function WorkspaceApp() {
           Turn any page into a reusable template from its page menu.
         </p>
       </Sheet>
+      <AppUpdateNotice />
       {toast && (
         <div className="ws-toast" role="status">
           <Check size={18} />

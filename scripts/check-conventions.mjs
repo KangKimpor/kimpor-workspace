@@ -7,7 +7,9 @@ async function walk(directory) {
     const file = path.join(directory, entry.name);
     if (entry.isDirectory()) await walk(file);
     else if (file.endsWith('.tsx') && !file.endsWith('Pressable.tsx')) {
-      if (/<(?:button|motion\.button)\b/.test(await readFile(file, 'utf8'))) violations.push(`${file}: use Pressable for buttons`);
+      const source = await readFile(file, 'utf8');
+      if (/<(?:button|motion\.button)\b/.test(source)) violations.push(`${file}: use Pressable for buttons`);
+      if (/saved on this device/i.test(source)) violations.push(`${file}: remove obsolete editor save status`);
     }
     else if (file.endsWith('.css') && !file.endsWith('tokens.css')) {
       if (/#(?:[a-f\d]{3,8})\b|\b(?:rgba?|hsla?)\(/i.test(await readFile(file, 'utf8'))) violations.push(`${file}: define colors in tokens.css`);

@@ -588,3 +588,6 @@
  .ws-database-actions .ws-search-field { flex:1; min-width:120px; }
  .ws-view-tabs [role='tab'] { padding-inline:var(--space-3); }
 }
+
+.ws-update-notice { position:absolute; z-index:50; bottom:var(--space-5); left:calc(var(--active-sidebar-width,0px) + var(--space-5)); right:var(--space-5); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-3); padding:var(--space-4); border:var(--hairline) solid var(--line); border-radius:var(--radius-card); background:var(--surface-raised); box-shadow:var(--shadow); }
+@container workspace (width < 600px) { .ws-update-notice { left:var(--space-4); right:var(--space-4); bottom:calc(var(--bar-height) + env(safe-area-inset-bottom) + var(--space-4)); } }
