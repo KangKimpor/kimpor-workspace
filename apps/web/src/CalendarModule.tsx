@@ -660,15 +660,12 @@ export default function CalendarModule({
             </div>
             <h2>
               {dayLabel(date, {
-                month: "long",
+                month: "short",
                 year: "numeric",
                 ...(view === "day" ? { day: "numeric" } : {}),
               })}
             </h2>
-            <select className="cal-view-select" aria-label="Calendar view" value={view} onChange={event => setView(event.target.value as View)}>
-              {(["day", "week", "month", "agenda"] as const).map(option => <option key={option} value={option}>{option.charAt(0).toUpperCase() + option.slice(1)}</option>)}
-            </select>
-            <div className="cal-views" aria-label="Calendar view">
+            <div className="cal-views" role="group" aria-label="Calendar view">
               {(["day", "week", "month", "agenda"] as const).map((option) => (
                 <Pressable
                   key={option}
@@ -682,7 +679,12 @@ export default function CalendarModule({
             </div>
           </div>
           {view === "month" ? (
-            <div className="cal-month-layout"><div className="cal-month">
+            <div className="cal-month-layout"><aside className="cal-month-sidebar" aria-label="Calendar sidebar">
+              <Pressable className="button filled" onClick={() => newDraft()}><Plus size={18} />Create event</Pressable>
+              <h3>{dayLabel(date, { month: "long", year: "numeric" })}</h3>
+              <div className="cal-mini-grid">{days.map(day => <Pressable key={day} className={day === date ? "selected" : ""} aria-label={`Select ${dayLabel(day, { month: "long", day: "numeric", year: "numeric" })}`} aria-pressed={day === date} onClick={() => setDate(day)}>{Number(day.slice(-2))}</Pressable>)}</div>
+              <h3>My calendars</h3>{calendars.map(calendar => <label className="cal-source-row" key={calendar.id}><input type="checkbox" checked={calendar.visible} onChange={() => void store.saveCalendar({ ...calendar, visible: !calendar.visible }).catch(cause => notify(String(cause)))} /><span>{calendar.title}</span></label>)}
+            </aside><div className="cal-month">
               <div className="cal-month-head" aria-hidden="true">
                 {days.slice(0, 7).map((day) => (
                   <span key={day}>{dayLabel(day, { weekday: "short" })}</span>

@@ -211,14 +211,9 @@ test("calendar creates a local recurring event and all views are available", asy
     page.getByRole("region", { name: "Selected day events", exact: true }).getByRole("button", { name: /Weekly review/ }),
   ).toBeVisible();
   for (const name of ["Day", "Week", "Month", "Agenda"]) {
-    const view = page.getByRole("combobox", { name: "Calendar view", exact: true });
-    if (await view.isVisible()) {
-      await view.selectOption(name.toLowerCase());
-      await expect(view).toHaveValue(name.toLowerCase());
-    } else {
-      await page.getByRole("button", { name, exact: true }).click();
-      await expect(page.getByRole("button", { name, exact: true })).toHaveAttribute("aria-pressed", "true");
-    }
+    const view = page.getByRole("group", { name: "Calendar view", exact: true }).getByRole("button", { name, exact: true });
+    await view.click();
+    await expect(view).toHaveAttribute("aria-pressed", "true");
   }
 });
 test("all modules and settings are accessible in both themes without page overflow", async ({
