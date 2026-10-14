@@ -917,7 +917,7 @@ export default function WorkspaceApp() {
             </nav>
             <div className="ws-sidebar-section">
               <div className="ws-sidebar-section-title">
-                <span>YOUR PAGES</span>
+                <span>Pages</span>
                 <Pressable
                   className="ws-icon"
                   aria-label="New page"
@@ -1447,7 +1447,8 @@ function Today({ pages, events, databases, onOpen, onCapture, onCalendar, onComp
   const done = tasks.filter(task => taskDone(task, definitions.get(task.databaseId ?? "")));
   const project = (task: Page) => pages.find(page => page.type === "database" && (page.id === task.databaseId || page.databaseId === task.databaseId));
   return <div className="ws-today ws-task-today">
-    <header className="ws-today-hero"><div><p className="ws-eyebrow">{new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</p><h1>Today</h1></div></header>
+    <Pressable className="ws-schedule" onClick={onCalendar} aria-label="Open today’s schedule"><span className="ws-schedule-label"><CalendarDays size={18} />Your schedule</span><span className="ws-schedule-track">{dailyEvents.length ? dailyEvents.slice(0, 3).map(event => <span className="ws-schedule-event" key={event.id}><time>{event.allDay ? "All day" : new Date(event.start).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}</time><strong>{event.title || "Untitled"}</strong></span>) : <span className="ws-schedule-event">A little room to breathe. Plan your day.</span>}</span><ChevronRight size={20} /></Pressable>
+    <header className="ws-today-hero"><div><p className="ws-eyebrow">{new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</p><h1>Today</h1></div><div className="ws-today-stats" aria-label="Workspace overview"><span><strong>{open.length}</strong>Open tasks</span><span><strong>{done.length}</strong>Done</span><span><strong>{pages.filter(page => page.type === "database").length}</strong>Projects</span></div><Pressable className="ws-button ws-filled" onClick={onCapture}><Plus size={18} />New task</Pressable></header>
     <div className="ws-today-grid">
       <section className="ws-card ws-today-tasks" aria-label="Tasks">
         {open.length ? groups.filter(group => group.items.length).map(group => <section className="ws-task-group" key={group.label}>
@@ -1455,7 +1456,7 @@ function Today({ pages, events, databases, onOpen, onCapture, onCalendar, onComp
         </section>) : <div className="ws-quiet-empty"><Check size={28} /><Pressable className="ws-button ws-tinted" onClick={onCapture}>Add task</Pressable></div>}
         {done.length > 0 && <details className="ws-done-tasks"><summary>Done <span className="ws-count">{done.length}</span></summary>{done.map(task => <TaskRow key={task.id} task={task} project={project(task)} definition={definitions.get(task.databaseId ?? "")} onOpen={onOpen} />)}</details>}
       </section>
-      <section className="ws-card" aria-label="Agenda"><div className="ws-card-heading"><h2>Agenda</h2></div>
+      <section className="ws-card ws-agenda-card" aria-label="Agenda"><div className="ws-card-heading"><h2>Agenda</h2></div>
         {dailyEvents.length ? dailyEvents.map(event => <div className="ws-agenda-row" key={event.id}><span className="ws-event-dot" /><span><strong>{event.title || "Untitled"}</strong><small>{event.allDay ? "All day" : new Date(event.start).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}{event.location ? ` · ${event.location}` : ""}</small></span>
           {event.pageId && <Pressable className="ws-icon" aria-label={`Open ${event.title}`} onClick={() => onOpen(event.pageId!)}><ChevronRight size={18} /></Pressable>}
         </div>) : <div className="ws-quiet-empty"><CalendarDays size={28} /><Pressable className="ws-button" onClick={onCalendar}>Calendar</Pressable></div>}

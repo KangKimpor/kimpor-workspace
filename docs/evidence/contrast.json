@@ -3,119 +3,133 @@
     "theme": "light",
     "foreground": "text",
     "background": "bg",
-    "ratio": 14.336,
+    "ratio": 13.592,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "text",
     "background": "surface",
-    "ratio": 15.61,
+    "ratio": 15.628,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "text",
     "background": "surface-raised",
-    "ratio": 15.61,
+    "ratio": 15.628,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "text",
     "background": "sidebar",
-    "ratio": 13.368,
+    "ratio": 12.714,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "text",
     "background": "field",
-    "ratio": 13.847,
+    "ratio": 13.187,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "secondary",
     "background": "bg",
-    "ratio": 5.537,
+    "ratio": 5.943,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "secondary",
     "background": "surface",
-    "ratio": 6.029,
+    "ratio": 6.833,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "secondary",
     "background": "surface-raised",
-    "ratio": 6.029,
+    "ratio": 6.833,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "secondary",
     "background": "sidebar",
-    "ratio": 5.164,
+    "ratio": 5.559,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "secondary",
     "background": "field",
-    "ratio": 5.349,
+    "ratio": 5.766,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "tertiary",
     "background": "bg",
-    "ratio": 5.286,
+    "ratio": 5.567,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "tertiary",
     "background": "surface",
-    "ratio": 5.755,
+    "ratio": 6.401,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "tertiary",
     "background": "surface-raised",
-    "ratio": 5.755,
+    "ratio": 6.401,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "tertiary",
     "background": "sidebar",
-    "ratio": 4.929,
+    "ratio": 5.208,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "tertiary",
     "background": "field",
-    "ratio": 5.105,
+    "ratio": 5.401,
     "minimum": 4.5
   },
   {
     "theme": "light",
-    "foreground": "white",
+    "foreground": "on-accent",
     "background": "accent-fill",
-    "ratio": 5.526,
+    "ratio": 14.018,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "foreground": "on-schedule",
+    "background": "schedule",
+    "ratio": 17.61,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
+    "foreground": "schedule-secondary",
+    "background": "schedule",
+    "ratio": 10.607,
     "minimum": 4.5
   },
   {
     "theme": "light",
     "foreground": "accent",
     "background": "accent-tint",
-    "ratio": 4.684,
+    "ratio": 5.867,
     "minimum": 4.5
   },
   {
@@ -129,140 +143,154 @@
     "theme": "light",
     "foreground": "accent",
     "background": "bg",
-    "ratio": 5.075,
+    "ratio": 5.831,
     "minimum": 3
   },
   {
     "theme": "light",
     "foreground": "accent",
     "background": "surface",
-    "ratio": 5.526,
+    "ratio": 6.705,
     "minimum": 3
   },
   {
     "theme": "light",
     "foreground": "accent",
     "background": "field",
-    "ratio": 4.902,
+    "ratio": 5.658,
     "minimum": 3
   },
   {
     "theme": "dark",
     "foreground": "text",
     "background": "bg",
-    "ratio": 17.019,
+    "ratio": 16.141,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "text",
     "background": "surface",
-    "ratio": 15.354,
+    "ratio": 14.184,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "text",
     "background": "surface-raised",
-    "ratio": 13.427,
+    "ratio": 12.156,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "text",
     "background": "sidebar",
-    "ratio": 15.829,
+    "ratio": 15.192,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "text",
     "background": "field",
-    "ratio": 12.549,
+    "ratio": 11.64,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "secondary",
     "background": "bg",
-    "ratio": 8.862,
+    "ratio": 10.381,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "secondary",
     "background": "surface",
-    "ratio": 7.995,
+    "ratio": 9.122,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "secondary",
     "background": "surface-raised",
-    "ratio": 6.991,
+    "ratio": 7.818,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "secondary",
     "background": "sidebar",
-    "ratio": 8.242,
+    "ratio": 9.77,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "secondary",
     "background": "field",
-    "ratio": 6.534,
+    "ratio": 7.486,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "tertiary",
     "background": "bg",
-    "ratio": 7.285,
+    "ratio": 9.3,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "tertiary",
     "background": "surface",
-    "ratio": 6.572,
+    "ratio": 8.172,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "tertiary",
     "background": "surface-raised",
-    "ratio": 5.747,
+    "ratio": 7.004,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "tertiary",
     "background": "sidebar",
-    "ratio": 6.775,
+    "ratio": 8.753,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "tertiary",
     "background": "field",
-    "ratio": 5.371,
+    "ratio": 6.707,
     "minimum": 4.5
   },
   {
     "theme": "dark",
-    "foreground": "white",
+    "foreground": "on-accent",
     "background": "accent-fill",
-    "ratio": 5.142,
+    "ratio": 14.018,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "foreground": "on-schedule",
+    "background": "schedule",
+    "ratio": 17.61,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "foreground": "schedule-secondary",
+    "background": "schedule",
+    "ratio": 10.607,
     "minimum": 4.5
   },
   {
     "theme": "dark",
     "foreground": "accent",
     "background": "accent-tint",
-    "ratio": 4.519,
+    "ratio": 10.086,
     "minimum": 4.5
   },
   {
@@ -276,21 +304,21 @@
     "theme": "dark",
     "foreground": "accent",
     "background": "bg",
-    "ratio": 6.658,
+    "ratio": 14.664,
     "minimum": 3
   },
   {
     "theme": "dark",
     "foreground": "accent",
     "background": "surface",
-    "ratio": 6.006,
+    "ratio": 12.887,
     "minimum": 3
   },
   {
     "theme": "dark",
     "foreground": "accent",
     "background": "field",
-    "ratio": 4.909,
+    "ratio": 10.576,
     "minimum": 3
   },
   {

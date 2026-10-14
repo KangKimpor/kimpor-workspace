@@ -66,7 +66,7 @@
 .calendar-module { max-width: 1440px; padding:var(--space-7) var(--space-8) var(--space-12); margin:0 auto; color: var(--text); }
 .cal-heading { justify-content: space-between; margin-bottom:var(--space-7); }
 .cal-heading h1 { font-size: 32px; letter-spacing: -.035em; margin:0; }
-.cal-heading .filled, .cal-dialog .button.filled { background: var(--accent-fill); color: var(--white); border-color: transparent; }
+.cal-heading .filled, .cal-dialog .button.filled { background: var(--accent-fill); color: var(--on-accent); border-color: transparent; }
 .cal-heading .filled { border-radius:var(--space-3); padding-inline:var(--space-5); white-space: nowrap; }
 .cal-layout { display: block; }
 .cal-main { padding:0; }
@@ -92,7 +92,7 @@
 .cal-main .cal-day-number { display: flex; align-items: center; justify-content: center; border: 0; background: transparent; width: 100%; min-width: 0; min-height: 44px; padding:0; font-size: 14px; }
 .cal-day-number > span { display: grid; place-items: center; width: 30px; height: 30px; border-radius:50%; }
 .cal-day.today .cal-day-number > span { color: var(--accent); font-weight: 700; box-shadow: inset 0 0 0 1px var(--accent); }
-.cal-day.selected-day .cal-day-number > span { color: var(--white); background: var(--accent-fill); box-shadow: none; }
+.cal-day.selected-day .cal-day-number > span { color: var(--on-accent); background: var(--accent-fill); box-shadow: none; }
 .cal-day-dots { display: none; height: 10px; justify-content: center; align-items: center; gap:var(--space-1); }
 .cal-day-dots i { display: block; width: 5px; height: 5px; background: var(--cal-color, var(--accent)); border-radius:50%; }
 .cal-main .cal-event-chip { border-radius:var(--space-2); padding:var(--space-2) var(--space-2); line-height: 1.4; }
