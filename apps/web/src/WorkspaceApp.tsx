@@ -688,9 +688,12 @@ export default function WorkspaceApp() {
     notify("Moved to Trash", () => store.restorePage(page.id).then(() => {}));
   };
   const purge = async (ids: string[], label: string) => {
+    const owner = store.accountId;
     if (!window.confirm(`Delete ${label} forever? Nested pages, tasks, linked events, files and version history will also be deleted. This cannot be undone.`)) return;
     await flushEditors();
+    if (store.accountId !== owner) throw new Error("Workspace account changed");
     await store.purgePages(ids);
+    if (store.accountId !== owner) return;
     if (selectedId && !store.listPages().some(page => page.id === selectedId)) setSelectedId(null);
     notify("Permanently deleted. Account changes sync when connected.");
   };

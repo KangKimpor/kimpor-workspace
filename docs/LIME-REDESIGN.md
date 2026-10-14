@@ -105,9 +105,11 @@ All 28 targeted browser regressions pass in Chromium, desktop WebKit, Firefox
 and phone WebKit; the 30-case responsive matrix and 18 account entry fixtures
 pass. These cover task views/search/status editing, month selection, Trash
 cancel/restore/purge/reload and editor persistence through simulated app updates.
-The initial broad run passed 144/150; its four obsolete expected text-color
-values and two newly exposed interaction issues were corrected and passed the
-targeted rerun. The final broad run is recorded separately when complete.
+The final complete browser suite passes all 150 cases, including the existing
+accessibility, multilingual persistence, offline, import, protection and gesture
+checks. Final self-review also adds an owner check around the destructive UI
+operation's editor flush and avoids showing an old account's deletion result
+in a newly selected account.
 
 JavaScript licenses and Gitleaks's 69-commit history scan pass. Existing build
 warnings about recurrence interop and AccountGate import modes remain. No new
