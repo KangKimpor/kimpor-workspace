@@ -13,6 +13,7 @@ import type {
   WorkspaceEntity,
 } from "./model";
 import type { EncryptedEnvelope } from "./crypto";
+import type { SyncTransport } from "./sync";
 
 export interface StampedValue {
   value: unknown;
@@ -450,7 +451,18 @@ export class WorkspaceStore {
       );
   }
   listPages(includeTrash = false): Page[] {
-    return this.list<Page>("pages", includeTrash);
+    const pages = this.list<Page>("pages", true);
+    if (includeTrash) return pages;
+    const hidden = new Set(pages.filter(page => page.deletedAt).map(page => page.id));
+    let changed = true;
+    while (changed) {
+      changed = false;
+      for (const page of pages) if (!hidden.has(page.id) &&
+        ((page.parentId && hidden.has(page.parentId)) || (page.databaseId && hidden.has(page.databaseId)))) {
+        hidden.add(page.id); changed = true;
+      }
+    }
+    return pages.filter(page => !hidden.has(page.id));
   }
   listCalendars(): Calendar[] {
     return this.list<Calendar>("calendars");
@@ -481,7 +493,7 @@ export class WorkspaceStore {
         const key: [string, EntityTable, string] = [user, table, entityId];
         const previous = await this.entities.get(key);
         if (await this.meta.get(`purged:${user}:${table}:${entityId}`)) throw new Error("Item was permanently deleted");
-        for (const parent of [values.parentId, values.databaseId, values.pageId]) {
+        for (const parent of table === "pages" ? [values.parentId, values.databaseId] : []) {
           if (typeof parent === "string" && await this.meta.get(`purged:${user}:pages:${parent}`)) throw new Error("Parent was permanently deleted");
         }
         if (!previous && !create) throw new Error("Item no longer exists");
@@ -576,31 +588,49 @@ export class WorkspaceStore {
     await this.patchPage(id, { deletedAt: null });
   }
   /** One transaction validates all roots before removing any page or queued bytes. */
-  async purgePages(ids: string[]): Promise<void> {
+  async purgePages(ids: string[], transport?: SyncTransport): Promise<number> {
     const user = this.user;
+    const changes: SyncChange[] = [...new Set(ids)].map(entityId => {
+      if (!this.listPages(true).some(page => page.id === entityId && page.deletedAt)) throw new Error("Only items in Trash can be deleted forever");
+      return { id: crypto.randomUUID(), userId: user, kind: "purge", table: "pages", entityId, schemaVersion: 1 };
+    });
+    if (user !== "local") {
+      if (!transport?.purge || (typeof navigator !== "undefined" && navigator.onLine === false)) throw new Error("Connect to the internet to delete forever.");
+      const result = await transport.purge(user, changes);
+      if (user !== this.user) throw new Error("Workspace account changed");
+      if (result.refused.length || changes.some(change => !result.acknowledged.includes(change.id))) {
+        let cursor: string | null = null;
+        for (;;) {
+          const remote = await transport.pull(user, cursor);
+          if (user !== this.user) throw new Error("Workspace account changed");
+          await this.applyRemote(remote.changes, remote.cursor);
+          if (!remote.hasMore) break;
+          if (remote.cursor === cursor) throw new Error("Cloud refresh did not advance. Please retry.");
+          cursor = remote.cursor;
+        }
+        throw new Error("An item was restored on another device. Trash has been refreshed.");
+      }
+    }
+    const before = this.listPages(true).length;
     await this.db.transaction("rw", [this.entities, this.documents, this.encryptedDocuments, this.attachments, this.versions, this.outbox, this.meta], async () => {
       if (user !== this.user) throw new Error("Workspace account changed");
-      const roots = new Map<string, StampedValue>();
       for (const id of new Set(ids)) {
         const page = await this.entities.get([user, "pages", id]);
-        if (!page || !recordEntity(page).deletedAt) throw new Error("Only items in Trash can be deleted forever");
-        roots.set(id, page.fields.deletedAt!);
+        if (user === "local" && (!page || !recordEntity(page).deletedAt)) throw new Error("Only items in Trash can be deleted forever");
       }
       for (const entityId of new Set(ids)) {
         if (await this.meta.get(`purged:${user}:pages:${entityId}`)) continue;
         await this.purgeRecords(user, "pages", entityId);
-        const id = crypto.randomUUID();
-        await this.outbox.put({ id, userId: user, createdAt: Date.now(), order: await this.nextOrder(user),
-          change: { id, userId: user, kind: "purge", table: "pages", entityId, fields: { deletedAt: roots.get(entityId)! }, schemaVersion: 1 } });
       }
     });
     await this.refresh();
+    return before - this.listPages(true).length;
   }
   private async purgeRecords(user: string, table: EntityTable, id: string): Promise<void> {
     const children = new Map<string, { table: EntityTable; id: string }[]>();
     if (table === "pages") for (const record of await this.entities.where("userId").equals(user).toArray()) {
       const entity = recordEntity(record);
-      const parents = record.table === "pages" ? [(entity as Page).parentId, (entity as Page).databaseId] : record.table === "events" ? [(entity as CalendarEvent).pageId] : [];
+      const parents = record.table === "pages" ? [(entity as Page).parentId, (entity as Page).databaseId] : [];
       for (const parent of new Set(parents)) if (parent) {
         const items = children.get(parent) ?? []; items.push(record); children.set(parent, items);
       }
@@ -1280,7 +1310,7 @@ export class WorkspaceStore {
           if (change.kind !== "setting") {
             const table = change.kind === "entity" ? change.table! : "pages";
             if (await this.meta.get(`purged:${user}:${table}:${change.entityId}`)) continue;
-            const parents = [change.fields?.parentId?.value, change.fields?.databaseId?.value, change.fields?.pageId?.value];
+            const parents = change.table === "pages" ? [change.fields?.parentId?.value, change.fields?.databaseId?.value] : [];
             if ((await Promise.all(parents.filter((id): id is string => typeof id === "string").map(id => this.meta.get(`purged:${user}:pages:${id}`)))).some(Boolean)) {
               await this.purgeRecords(user, table, change.entityId);
               continue;

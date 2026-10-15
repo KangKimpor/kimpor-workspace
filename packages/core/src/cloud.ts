@@ -43,6 +43,19 @@ export async function cloudRequest(
   return value;
 }
 export class SupabaseTransport implements SyncTransport {
+  async purge(userId: string, changes: SyncChange[]): Promise<{ acknowledged: string[]; refused: string[] }> {
+    const result = { acknowledged: [] as string[], refused: [] as string[] };
+    for (let offset = 0; offset < changes.length; offset += 100) {
+      if ((await currentSession())?.user.id !== userId || changes.some(change => change.userId !== userId))
+        throw new CloudError("Cloud account changed", 403);
+      const batch = changes.slice(offset,offset+100);
+      const response = await cloudRequest("/rest/v1/rpc/purge_entities", { items: batch }) as typeof result;
+      if (!Array.isArray(response?.acknowledged) || !Array.isArray(response?.refused) ||
+        [...response.acknowledged, ...response.refused].some(id => !batch.some(change => change.id === id))) throw new Error("Invalid purge response");
+      result.acknowledged.push(...response.acknowledged); result.refused.push(...response.refused);
+    }
+    return result;
+  }
   async push(
     userId: string,
     changes: SyncChange[],

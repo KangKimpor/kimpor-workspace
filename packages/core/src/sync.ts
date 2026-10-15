@@ -1,6 +1,7 @@
 import type { SyncChange, WorkspaceStore } from "./store";
 
 export interface SyncTransport {
+  purge?(userId: string, changes: SyncChange[]): Promise<{ acknowledged: string[]; refused: string[] }>;
   push(
     userId: string,
     changes: SyncChange[],

@@ -10,12 +10,11 @@ end$$;
 reset role;
 insert into public.pages(user_id,id,fields) values('11111111-1111-4111-8111-111111111111','purge-offline-existing','{"title":{"value":"Offline deletion","clock":{"wall":100,"counter":0,"node":"one"}}}');
 set role authenticated;
--- Client removed its unsent create/trash changes; only immutable Trash intent remains.
-select public.push_changes('[{"id":"offline-existing-intent","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"purge-offline-existing","schemaVersion":1,"fields":{"deletedAt":{"value":"2026-10-14T00:00:00Z","clock":{"wall":200,"counter":0,"node":"offline"}}}},{"id":"offline-new-intent","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"purge-never-synced","schemaVersion":1,"fields":{"deletedAt":{"value":"2026-10-14T00:00:00Z","clock":{"wall":200,"counter":0,"node":"offline"}}}}]');
-do $$declare denied boolean:=false;begin
-  if exists(select 1 from public.pages where id='purge-offline-existing') then raise exception 'Unsent Trash was required';end if;
-  begin perform public.push_changes('[{"id":"invalid-trash-intent","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"malformed-purge","schemaVersion":1,"fields":{"deletedAt":{"value":true,"clock":{"wall":200,"counter":0,"node":"offline"}}}}]');exception when raise_exception then denied:=SQLERRM='Invalid Trash intent';end;
-  if not denied then raise exception 'Malformed Trash intent was accepted';end if;
+-- Unsent Trash intent must not authorize deleting a live or unknown page.
+do $$declare result jsonb;begin
+  result:=public.purge_entities('[{"id":"offline-existing-intent","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"purge-offline-existing","schemaVersion":1},{"id":"offline-new-intent","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"purge-never-synced","schemaVersion":1}]');
+  if jsonb_array_length(result->'refused')<>2 then raise exception 'Live or missing pages were purged';end if;
+  if not exists(select 1 from public.pages where id='purge-offline-existing') then raise exception 'Offline intent overrode server state';end if;
 end$$;
 reset role;
 insert into public.page_doc_updates(user_id,id,page_id,update_base64) values('11111111-1111-4111-8111-111111111111','purge-doc','purge-child','AAA=');
@@ -27,15 +26,21 @@ insert into public.events(user_id,id,fields) values('11111111-1111-4111-8111-111
 insert into public.pages(user_id,id) values('22222222-2222-4222-8222-222222222222','purge-root');
 set role authenticated;
 select public.push_changes('[{"id":"purge-trash","userId":"11111111-1111-4111-8111-111111111111","kind":"entity","table":"pages","entityId":"purge-root","schemaVersion":1,"fields":{"deletedAt":{"value":"2026-10-14T00:00:00Z","clock":{"wall":200,"counter":0,"node":"one"}}}}]');
-select public.push_changes('[{"id":"purge-confirm","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"purge-root","schemaVersion":1}]');
-select public.push_changes('[{"id":"purge-confirm","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"purge-root","schemaVersion":1}]');
+select public.purge_entities('[{"id":"purge-confirm","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"purge-root","schemaVersion":1}]');
+select public.purge_entities('[{"id":"purge-confirm","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"purge-root","schemaVersion":1}]');
+-- A newer restore refuses deletion, without a receipt that hides a later retry.
+select public.push_changes('[{"id":"restore-before-purge","userId":"11111111-1111-4111-8111-111111111111","kind":"entity","table":"pages","entityId":"purge-offline-existing","schemaVersion":1,"fields":{"deletedAt":{"value":null,"clock":{"wall":9999,"counter":0,"node":"restore"}}}}]');
+do $$declare result jsonb;begin
+  result:=public.purge_entities('[{"id":"restore-wins","userId":"11111111-1111-4111-8111-111111111111","kind":"purge","table":"pages","entityId":"purge-offline-existing","schemaVersion":1}]');
+  if jsonb_array_length(result->'refused')<>1 then raise exception 'Restore lost to purge';end if;
+end$$;
 -- Both old IDs and newly-created offline children must remain deleted.
 select public.push_changes('[{"id":"purge-stale","userId":"11111111-1111-4111-8111-111111111111","kind":"entity","table":"pages","entityId":"purge-child","schemaVersion":1,"fields":{"title":{"value":"Stale secret","clock":{"wall":999,"counter":0,"node":"offline"}}}},{"id":"purge-new-child","userId":"11111111-1111-4111-8111-111111111111","kind":"entity","table":"pages","entityId":"purge-offline","schemaVersion":1,"fields":{"parentId":{"value":"purge-root","clock":{"wall":999,"counter":0,"node":"offline"}}}}]');
 select public.push_changes('[{"id":"purge-new-event","userId":"11111111-1111-4111-8111-111111111111","kind":"entity","table":"events","entityId":"purge-offline-event","schemaVersion":1,"fields":{"pageId":{"value":"purge-child","clock":{"wall":999,"counter":0,"node":"offline"}}}}]');
 do $$begin
-  if exists(select 1 from public.pages where id like 'purge-%') or exists(select 1 from public.events where id in ('purge-event','purge-offline-event')) or exists(select 1 from public.databases where id='purge-root') then raise exception 'Purged entities resurrected';end if;
+  if exists(select 1 from public.pages where id like 'purge-%' and id<>'purge-offline-existing') or (select count(*) from public.events where id in ('purge-event','purge-offline-event'))<>2 or exists(select 1 from public.databases where id='purge-root') then raise exception 'Purged entities resurrected';end if;
   if exists(select 1 from public.page_doc_updates where page_id='purge-child') or exists(select 1 from public.page_versions where page_id='purge-child') or exists(select 1 from public.encrypted_doc_updates where page_id='purge-child') or exists(select 1 from public.attachments where page_id='purge-child') then raise exception 'Private bytes survived';end if;
-  if exists(select 1 from public.sync_changes where payload->>'entityId' like 'purge-%' and payload->>'kind'<>'purge') then raise exception 'Private sync payload survived';end if;
+  if exists(select 1 from public.sync_changes where payload->>'entityId' like 'purge-%' and payload->>'table' is distinct from 'events' and payload->>'entityId'<>'purge-offline-existing' and payload->>'kind'<>'purge') then raise exception 'Private sync payload survived';end if;
   if jsonb_array_length(public.pull_changes('0',200)->'changes')<4 then raise exception 'Deletion notifications missing';end if;
 end$$;
 reset role;
