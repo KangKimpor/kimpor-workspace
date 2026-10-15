@@ -54,7 +54,7 @@ import type {
   PropertyDefinition,
   PropertyValue,
 } from "@veloradesk/core/model";
-import { store } from "@veloradesk/core/store";
+import { store, trashRoots } from "@veloradesk/core/store";
 import { completeProjectTask, inferProjectTypes, projectPresets, projectPreset, projectDefinition, projectType, taskDone, taskDue, visibleProjectFields, projectViews, weekNumber, type ProjectType, type ProjectTypes } from "@veloradesk/core/projects";
 import { compareOrder, orderBetween } from "@veloradesk/core/order";
 import { saveAppearance, startAppearance } from "./appearance";
@@ -949,7 +949,7 @@ export default function WorkspaceApp() {
                 <Trash2 size={17} />
                 <span>Trash</span>
                 <span className="ws-count">
-                  {pages.filter(page => page.deletedAt && !pages.some(parent => parent.deletedAt && (parent.id === page.parentId || parent.id === page.databaseId))).length || ""}
+                  {trashRoots(pages).length || ""}
                 </span>
               </Pressable>
               <Pressable

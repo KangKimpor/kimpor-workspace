@@ -107,6 +107,22 @@ const PROTECTED = new Set([
   "prototype",
 ]);
 const LIMIT = 10_000;
+export function trashRoots(pages: Page[]): Page[] {
+  const byId = new Map(pages.map(page => [page.id,page]));
+  return pages.filter(page => {
+    if (!page.deletedAt) return false;
+    const visited = new Set([page.id]), parents = [page.parentId,page.databaseId];
+    for (let index=0;index<parents.length;index++) {
+      const id=parents[index];
+      if (!id || visited.has(id)) continue;
+      visited.add(id);
+      const parent=byId.get(id);
+      if (parent?.deletedAt) return false;
+      if (parent) parents.push(parent.parentId,parent.databaseId);
+    }
+    return true;
+  });
+}
 export function bytesToBase64(bytes: Uint8Array): string {
   let binary = "";
   for (let i = 0; i < bytes.length; i += 16_384)

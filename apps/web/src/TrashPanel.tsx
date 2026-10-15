@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { RotateCcw, Search, Trash2 } from "lucide-react";
 import { Pressable } from "@veloradesk/ui";
 import type { Page } from "@veloradesk/core/model";
+import { trashRoots } from "@veloradesk/core/store";
 
 export default function TrashPanel({ pages, canDelete, onRestore, onDelete }: { pages: Page[]; canDelete: boolean; onRestore:(ids:string[])=>void; onDelete:(pages:Page[])=>void }) {
   const [query,setQuery] = useState(""), [type,setType] = useState("All"), [selection,setSelection] = useState<string[]>([]);
   const types: Record<string,string> = { Notes:"note", Journal:"journal", Projects:"database", Tasks:"row", Pages:"page" };
-  const roots = pages.filter(page=>page.deletedAt && !pages.some(parent=>parent.deletedAt && (parent.id === page.parentId || parent.id === page.databaseId)));
+  const roots = trashRoots(pages);
   const filtered = roots.filter(page=>(type === "All" || page.type === types[type]) && page.title.toLocaleLowerCase().includes(query.toLocaleLowerCase()));
   const selected = roots.filter(page=>selection.includes(page.id));
   useEffect(() => { if (!pages.some(page=>page.deletedAt)) setSelection([]); },[pages]);

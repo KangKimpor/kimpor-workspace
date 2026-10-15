@@ -4,6 +4,7 @@ import * as Y from "yjs";
 import { compareClock } from "./clock";
 import {
   WorkspaceStore,
+  trashRoots,
   base64ToBytes,
   bytesToBase64,
   type SyncChange,
@@ -115,6 +116,17 @@ it("keeps the original workspace intact if the account changes before purge ackn
   await expect(store.purgePages([page.id],transport)).rejects.toThrow("Workspace account changed");
   await store.bindAccount("owner");
   expect(store.listPages(true).map(item=>item.id)).toEqual([page.id]);
+});
+it("keeps imported self-linked project roots visible in Trash and hides deeply trashed descendants", async () => {
+  const store=await workspace("local");
+  const root=await store.createPage("database","Imported project");
+  await store.patchPage(root.id,{databaseId:root.id});
+  const child=await store.createPage("note","Child",{parentId:root.id});
+  const nested=await store.createPage("note","Nested",{parentId:child.id});
+  await store.trashPage(root.id); await store.trashPage(nested.id);
+  expect(trashRoots(store.listPages(true)).map(page=>page.id)).toEqual([root.id]);
+  await store.restorePage(root.id);
+  expect(trashRoots(store.listPages(true)).map(page=>page.id)).toEqual([nested.id]);
 });
 it("hides descendants and task links of a trashed project, and preserves linked events on purge", async () => {
   const store = await workspace("local");
