@@ -116,21 +116,23 @@ function safeOccurrenceEvents(
 
 export default function CalendarModule({
   onOpenPage,
+  initialDay,
 }: {
   onOpenPage?: (id: string) => void;
+  initialDay?: string;
 }) {
   const layout = useWorkspaceSize();
   const revision = useSyncExternalStore(
     (listener) => store.subscribe(listener),
     () => store.getSnapshot(),
   );
-  const [view, setView] = useState<View>("month");
+  const [view, setView] = useState<View>(initialDay ? "day" : "month");
   const [sidebar, setSidebar] = useState(false);
   const monthLayout = useRef<HTMLDivElement>(null);
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [showTasks, setShowTasks] = useState(false);
-  const [date, setDate] = useState(() => dateInZone(new Date(), localZone));
+  const [date, setDate] = useState(() => initialDay ?? dateInZone(new Date(), localZone));
   const [preferences, setPreferences] = useState<Preferences>({
     firstDay: 0,
     hour12: false,

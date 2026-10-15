@@ -409,6 +409,7 @@ export default function WorkspaceApp() {
   const layout = useWorkspaceSize();
   useKeyboardViewport();
   const [module, setModule] = useState<Module>("Today");
+  const [calendarDay,setCalendarDay] = useState<string>();
   const [pages, setPages] = useState<Page[]>([]);
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const [databases, setDatabases] = useState<DatabaseDefinition[]>([]);
@@ -572,11 +573,12 @@ export default function WorkspaceApp() {
       );
     }
   };
-  const navigate = useCallback((next: Module) => {
+  const navigate = useCallback((next: Module,day?:string) => {
     void flushEditors()
       .then(() => {
         history.current = [];
         setModule(next);
+        setCalendarDay(next === "Calendar" ? day : undefined);
         setSelectedId(null);
         setSidebarOpen(false);
         setFolderId(null);
@@ -1026,7 +1028,7 @@ export default function WorkspaceApp() {
           <Loading />
         ) : module === "Calendar" && !selected ? (
           <Suspense fallback={<Loading />}>
-            <CalendarModule onOpenPage={openPage} />
+            <CalendarModule onOpenPage={openPage} initialDay={calendarDay} />
           </Suspense>
         ) : module === "Today" && !selected ? (
           <Today
@@ -1036,7 +1038,7 @@ export default function WorkspaceApp() {
             onOpen={openPage}
             onCapture={() => setCaptureOpen(true)}
             databases={databases}
-            onCalendar={() => navigate("Calendar")}
+            onCalendar={day => navigate("Calendar",day)}
             onComplete={(page) =>
               void run(async () => {
                 const previous = { ...page.properties };
