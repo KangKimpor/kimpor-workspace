@@ -141,3 +141,5 @@
 .cal-time-week .cal-time-headers,.cal-time-week .cal-time-scroll { min-width:782px; }
 
 @container workspace (width >= 600px) { .cal-heading { position:sticky; top:calc(var(--bar-height) + var(--safe-area-top,env(safe-area-inset-top))); z-index:10; background:var(--bg); } }
+
+.calendar-module .cal-mode .pressable[aria-pressed="true"] { background:var(--ink); color:var(--on-ink); }

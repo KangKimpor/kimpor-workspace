@@ -678,3 +678,11 @@
  .ws-database-actions .ws-db-desktop-tool { display:none; }
  .ws-database-actions .ws-db-mobile-tools { display:inline-flex; }
 }
+
+/* WebKit needs an explicit SVG stroke when navigation colors change. */
+.ws-nav svg { color:var(--secondary); stroke:var(--secondary); }
+.ws-nav.selected svg { color:var(--on-ink); stroke:var(--on-ink); }
+@container workspace (width < 600px) {
+ .ws-tabbar .ws-tab svg { color:var(--white); stroke:var(--white); }
+ .ws-tabbar .ws-tab[aria-current='page'] svg { color:var(--on-now); stroke:var(--on-now); }
+}
