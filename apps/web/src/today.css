@@ -7,7 +7,7 @@
 .ws-task-today .ws-schedule-segment { position:absolute; height:44px; top:0; padding:8px; border-radius:var(--radius-pill); color:var(--white); background:color-mix(in srgb,var(--white) 14%,var(--black)); overflow:hidden; font-size:12px; white-space:nowrap; text-overflow:ellipsis; }
 .ws-schedule-segment.now { background:var(--now-fill); color:var(--on-now); }
 .ws-now-marker { position:absolute; inset-block:6px; width:2px; background:var(--now-fill); pointer-events:none; }
-.ws-now-marker small { position:absolute; inset:auto auto -4px -10px; color:var(--on-now); background:var(--now-fill); border-radius:var(--radius-pill); padding:1px 4px; font-size:10px; }
+.ws-now-marker small { white-space:nowrap; width:max-content; position:absolute; inset:auto auto -4px -10px; color:var(--on-now); background:var(--now-fill); border-radius:var(--radius-pill); padding:1px 4px; font-size:10px; }
 .ws-schedule .ws-icon { color:var(--white); flex:none; }
 .ws-no-events { position:absolute; inset:8px 16px; font-size:13px; color:var(--white); }
 .ws-schedule-phone { display:none; }

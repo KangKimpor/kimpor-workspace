@@ -143,3 +143,6 @@
 @container workspace (width >= 600px) { .cal-heading { position:sticky; top:calc(var(--bar-height) + var(--safe-area-top,env(safe-area-inset-top))); z-index:10; background:var(--bg); } }
 
 .calendar-module .cal-mode .pressable[aria-pressed="true"] { background:var(--ink); color:var(--on-ink); }
+
+.calendar-module .cal-heading .filled { background:var(--ink); color:var(--on-ink); border-color:var(--ink); }
+.calendar-module .cal-mode .pressable[aria-pressed="true"] { border-color:var(--ink); }

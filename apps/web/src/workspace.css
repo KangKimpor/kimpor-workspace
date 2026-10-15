@@ -595,7 +595,7 @@
 .ws-trash-actions { display:flex; flex-wrap:wrap; gap:var(--space-2); justify-content:flex-end; }
 @container workspace (width < 600px) { .ws-trash-row { flex-wrap:wrap; } .ws-trash-actions { width:100%; } }
 
-.ws-app .ws-nav.selected:hover { background:var(--schedule); color:var(--on-schedule); }
+.ws-app .ws-nav.selected:hover { background:var(--ink); color:var(--on-ink); }
 
 .ws-sidebar { background:var(--bg); }
 .ws-trash-panel { display:flex; flex-direction:column; gap:16px; }
