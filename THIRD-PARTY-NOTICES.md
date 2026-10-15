@@ -30,3 +30,5 @@ Source-path fields describe the audit machine, not application runtime paths.
 
 No GPL-only or commercial TipTap extension is used. Preserve upstream license
 files when redistributing build tools. Review new license groups before shipping.
+
+Urbanist Variable (@fontsource-variable/urbanist 5.3.0), SIL Open Font License 1.1. See docs/licenses/urbanist-OFL.txt.

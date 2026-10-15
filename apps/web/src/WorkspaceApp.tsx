@@ -7,8 +7,10 @@ import {
   useMemo,
   useRef,
   useState,
+  useSyncExternalStore,
 } from "react";
 import type { CSSProperties, ReactNode, RefObject } from "react";
+import ActionMenu from "./ActionMenu";
 import * as Dialog from "@radix-ui/react-dialog";
 import {
   BookOpen,
@@ -62,6 +64,10 @@ import { flushEditors, registerEditorFlush } from "./editor-lifecycle";
 import { AppLockSettings } from "./ApplicationLock";
 import { startReminders, enablePush, disablePush } from "./notifications";
 import { LocalSearch } from "./search";
+import Today, { ProjectCard, OptionPill } from "./Today";
+import TrashPanel from "./TrashPanel";
+import { cloudState } from "./cloud-state";
+import { SupabaseTransport } from "@veloradesk/core/cloud";
 import AppUpdateNotice from "./AppUpdateNotice";
 const AccountPanel = lazy(() => import("./AccountPanel"));
 const ImportExportPanel = lazy(() => import("./ImportExportPanel"));
@@ -162,6 +168,8 @@ function Sheet({
   children,
   wide = false,
   onAfterClose,
+  alert = false,
+  popoverPosition,
 }: {
   open: boolean;
   onOpenChange: (value: boolean) => void;
@@ -169,6 +177,8 @@ function Sheet({
   children: ReactNode;
   wide?: boolean;
   onAfterClose?: () => void;
+  alert?: boolean;
+  popoverPosition?: { left: number; top: number };
 }) {
   const opener = useRef<HTMLElement | null>(null),
     content = useRef<HTMLDivElement | null>(null);
@@ -179,6 +189,8 @@ function Sheet({
         <Dialog.Content
           ref={content}
           className={`ws-sheet ${wide ? "wide" : ""}`}
+          role={alert ? "alertdialog" : "dialog"}
+          style={popoverPosition ? { position:'fixed', ...popoverPosition, transform:'none', maxHeight:'70dvh' } : undefined}
           onOpenAutoFocus={(event) => {
             opener.current =
               document.activeElement instanceof HTMLElement
@@ -403,6 +415,7 @@ export default function WorkspaceApp() {
   const [projectTypes, setProjectTypes] = useState<ProjectTypes>({});
   const [projectOpen, setProjectOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [peekId, setPeekId] = useState<string | null>(null);
   const [loaded, setLoaded] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -411,6 +424,15 @@ export default function WorkspaceApp() {
   const [tabletExpanded, setTabletExpanded] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(readSetting("velora-sidebar-collapsed", "false") === "true");
   const [trashOpen, setTrashOpen] = useState(false);
+  const [purgeRequest, setPurgeRequest] = useState<{ pages: Page[]; owner: string } | null>(null);
+  const [purging, setPurging] = useState(false);
+  const [online, setOnline] = useState(navigator.onLine);
+  const cloud = useSyncExternalStore(cloudState.subscribe, cloudState.getSnapshot);
+  useEffect(() => {
+    const update = () => setOnline(navigator.onLine);
+    window.addEventListener("online", update); window.addEventListener("offline", update);
+    return () => { window.removeEventListener("online", update); window.removeEventListener("offline", update); };
+  }, []);
   const [toast, setToast] = useState<Toast | null>(null);
   const [error, setError] = useState("");
   const [folderId, setFolderId] = useState<string | null>(null);
@@ -520,16 +542,23 @@ export default function WorkspaceApp() {
       setCaptureOpen(false);
       setSidebarOpen(false);
       setTrashOpen(false);
+      setPurgeRequest(null);
+      setPeekId(null);
       setSelectedId(null);
     };
     window.addEventListener("velora-application-locked", close);
     return () => window.removeEventListener("velora-application-locked", close);
   }, []);
   const livePages = useMemo(
-    () => pages.filter((page) => !page.deletedAt),
+    () => store.listPages(),
     [pages],
   );
   const selected = livePages.find((page) => page.id === selectedId);
+  const peek = livePages.find(page => page.id === peekId);
+  useEffect(() => {
+    if (loaded && selectedId && !store.listPages(true).some(page => page.id === selectedId)) { setSelectedId(null); setToast({message:"This page was deleted."}); }
+    if (peekId && !store.listPages(true).some(page => page.id === peekId)) { setPeekId(null); setToast({message:"This page was deleted."}); }
+  }, [loaded, pages, selectedId, peekId]);
   const notify = (message: string, undo?: () => Promise<void>) =>
     setToast({ message, undo });
   const run = async (action: () => Promise<unknown>) => {
@@ -590,7 +619,7 @@ export default function WorkspaceApp() {
           setSidebarOpen(false);
           setEditing(false);
           requestAnimationFrame(() => { if (mainRef.current) mainRef.current.scrollTop = 0; mainRef.current?.focus(); });
-        }
+        } else notify("This page is no longer available");
       })
       .catch((cause) => setError(String(cause)));
   };
@@ -687,15 +716,23 @@ export default function WorkspaceApp() {
     if (selectedId === page.id) setSelectedId(null);
     notify("Moved to Trash", () => store.restorePage(page.id).then(() => {}));
   };
-  const purge = async (ids: string[], label: string) => {
-    const owner = store.accountId;
-    if (!window.confirm(`Delete ${label} forever? Nested pages, tasks, linked events, files and version history will also be deleted. This cannot be undone.`)) return;
-    await flushEditors();
-    if (store.accountId !== owner) throw new Error("Workspace account changed");
-    await store.purgePages(ids);
-    if (store.accountId !== owner) return;
-    if (selectedId && !store.listPages().some(page => page.id === selectedId)) setSelectedId(null);
-    notify("Permanently deleted. Account changes sync when connected.");
+  const purge = async () => {
+    if (!purgeRequest || purging) return;
+    const owner = purgeRequest.owner;
+    setPurging(true);
+    try {
+      await flushEditors();
+      if (store.accountId !== owner) throw new Error("Workspace account changed");
+      if (owner !== "local") {
+        if (!online || cloud.session?.user.id !== owner) throw new Error("Connect to the internet to delete forever.");
+        await cloudState.sync();
+        if (store.accountId !== owner || store.pendingCount()) throw new Error("Couldn't delete forever. Check your connection and try again.");
+      }
+      await store.purgePages(purgeRequest.pages.map(page => page.id), owner === "local" ? undefined : new SupabaseTransport());
+      if (store.accountId !== owner) return;
+      if (selectedId && !store.listPages().some(page => page.id === selectedId)) setSelectedId(null);
+      setPurgeRequest(null); notify("Deleted forever");
+    } finally { setPurging(false); }
   };
   const duplicate = async (page: Page) => {
     const created = await create(
@@ -859,6 +896,7 @@ export default function WorkspaceApp() {
             </div>
             <Pressable
               className="ws-sidebar-search"
+              aria-label="Search anything"
               onClick={() => setSearchOpen(true)}
             >
               <Search size={18} />
@@ -909,7 +947,7 @@ export default function WorkspaceApp() {
                 <Trash2 size={17} />
                 <span>Trash</span>
                 <span className="ws-count">
-                  {pages.filter((page) => page.deletedAt).length || ""}
+                  {pages.filter(page => page.deletedAt && !pages.some(parent => parent.deletedAt && (parent.id === page.parentId || parent.id === page.databaseId))).length || ""}
                 </span>
               </Pressable>
               <Pressable
@@ -960,14 +998,15 @@ export default function WorkspaceApp() {
                 </span>
               </>
             ) : (
-              <span className="ws-breadcrumb"></span>
+              <div className="ws-breadcrumb">{module === "Calendar" && layout.phone && <h1 className="ws-calendar-title">Calendar</h1>}</div>
             )}
           </div>
           <div className="ws-topbar-actions">{selected ? <>
             <SyncRetry /><Pressable className="ws-icon" aria-label="Page options" onClick={() => window.dispatchEvent(new CustomEvent("kimpor-page-options", { detail: selected.id }))}><MoreHorizontal size={20} /></Pressable>
           </> : <>
+            {module === "Calendar" && layout.phone && <Pressable className="ws-icon" aria-label="Calendar settings and accounts" onClick={() => window.dispatchEvent(new Event('kimpor-calendar-settings'))}><Settings size={20}/></Pressable>}
             <SyncRetry /><Pressable className="ws-icon" aria-label="Search workspace" onClick={() => setSearchOpen(true)}><Search size={20} /></Pressable>
-            {module === "Today" && livePages.some(page => page.type === "row") && <Pressable className="ws-button ws-filled ws-capture-desktop" onClick={() => setCaptureOpen(true)}><Plus size={16} />New task</Pressable>}
+
           </>}</div>
         </header>
         <AppUpdateNotice />
@@ -992,6 +1031,7 @@ export default function WorkspaceApp() {
         ) : module === "Today" && !selected ? (
           <Today
             pages={livePages}
+            types={projectTypes}
             events={events}
             onOpen={openPage}
             onCapture={() => setCaptureOpen(true)}
@@ -1055,6 +1095,7 @@ export default function WorkspaceApp() {
                     onChange={(event) => setFilter(event.target.value)}
                   />
                 </label>
+                {module === "Projects" ? <ActionMenu label="Sort Projects" items={[["updated","Last edited"],["created","Created"],["title","Title"]].map(([value,label])=>({label:label!,onSelect:()=>setSort(value!)}))}>{sort === "updated" ? "Last edited" : sort === "created" ? "Created" : "Title"}<ChevronDown size={14}/></ActionMenu> : (
                 <select
                   aria-label={`Sort ${module}`}
                   value={sort}
@@ -1064,6 +1105,7 @@ export default function WorkspaceApp() {
                   <option value="created">Created</option>
                   <option value="title">Title</option>
                 </select>
+                )}
                 <Pressable
                   className="ws-icon"
                   aria-label={
@@ -1121,7 +1163,7 @@ export default function WorkspaceApp() {
                 </div>
               )}
               {listPages.length ? (
-                <PageList pages={listPages} onOpen={openPage} gallery={listView === "gallery"} />
+                module === "Projects" ? <div className="ws-project-overview">{listPages.map(project => <ProjectCard key={project.id} project={project} pages={livePages} definition={databases.find(definition => definition.id === project.id)} types={projectTypes} onOpen={openPage} />)}</div> : <PageList pages={listPages} onOpen={openPage} gallery={listView === "gallery"} />
               ) : (
                 <div className={`ws-page-list ${listView === "gallery" ? "gallery" : ""}`}>
                   <Empty
@@ -1163,6 +1205,10 @@ export default function WorkspaceApp() {
                     databases={databases}
                     projectTypes={projectTypes}
                     onOpen={openPage}
+                    onPeek={id => {
+                      if ((mainRef.current?.clientWidth ?? 0) < 1280) { openPage(id); return; }
+                      void run(async () => { await flushEditors(); setPeekId(id); });
+                    }}
                     onPatch={(patch) =>
                       run(() => store.patchPage(selected.id, patch))
                     }
@@ -1195,6 +1241,7 @@ export default function WorkspaceApp() {
               <Pressable
                 key={name}
                 className={`ws-tab ${module === name ? "selected" : ""}`}
+                aria-label={name}
                 aria-current={module === name ? "page" : undefined}
                 onClick={() => navigate(name)}
               >
@@ -1255,33 +1302,17 @@ export default function WorkspaceApp() {
       >
         <SettingsPanel onNotify={notify} onError={setError} />
       </Sheet>
+      <Dialog.Root open={!!peek} onOpenChange={open => { if (!open) void run(async () => { await flushEditors(); setPeekId(null); }); }}><Dialog.Portal><Dialog.Overlay className="ws-overlay" /><Dialog.Content className="ws-row-peek"><div className="ws-sheet-heading"><Dialog.Title>Task</Dialog.Title><Dialog.Close asChild><Pressable className="ws-icon" aria-label="Close task"><X size={20} /></Pressable></Dialog.Close></div><Dialog.Description className="ws-sr-only">Task properties and notes</Dialog.Description>{peek && <PageDetail key={peek.id} page={peek} pages={livePages} databases={databases} projectTypes={projectTypes} onOpen={openPage} onPatch={patch => run(() => store.patchPage(peek.id,patch))} onTrash={() => void run(() => trash(peek))} onDuplicate={() => void run(() => duplicate(peek))} onMove={parent => void run(() => movePage(peek.id,parent))} onFocus={() => setFocus(true)} onNotify={notify} onError={setError}/>}</Dialog.Content></Dialog.Portal></Dialog.Root>
       <Sheet open={trashOpen} onOpenChange={setTrashOpen} title="Trash">
-        {pages.some(page => page.deletedAt) && <Pressable className="ws-button ws-danger" onClick={() => void run(() => purge(pages.filter(page => page.deletedAt).map(page => page.id), "all items in Trash"))}>Empty Trash</Pressable>}
-        {pages.filter((page) => page.deletedAt).length ? (
-          pages
-            .filter((page) => page.deletedAt)
-            .map((page) => (
-              <div className="ws-trash-row" key={page.id}>
-                <span>
-                  {pageIcon(page)} {titleOf(page)}
-                </span>
-                <div className="ws-trash-actions"><Pressable
-                  className="ws-button ws-tinted"
-                  onClick={() =>
-                    void run(async () => {
-                      await store.restorePage(page.id);
-                      notify("Item restored");
-                    })
-                  }
-                >
-                  Restore
-                </Pressable>
-                <Pressable className="ws-button ws-danger" aria-label={`Delete ${titleOf(page)} forever`} onClick={() => void run(() => purge([page.id], `“${titleOf(page)}”`))}>Delete forever</Pressable></div>
-              </div>
-            ))
-        ) : (
-          <div className="ws-quiet-empty"><Trash2 size={28} /><p>Trash is empty</p></div>
-        )}
+        <TrashPanel pages={pages} canDelete={store.accountId === "local" || (online && cloud.session?.user.id === store.accountId)}
+          onRestore={ids => void run(async () => { for (const id of ids) await store.restorePage(id); notify("Item restored"); })}
+          onDelete={items => setPurgeRequest({ pages: items, owner: store.accountId })} />
+      </Sheet>
+      <Sheet open={!!purgeRequest} onOpenChange={open => { if (!open && !purging) setPurgeRequest(null); }} alert
+        title={purgeRequest?.pages.length === 1 ? `Delete ${titleOf(purgeRequest.pages[0]!)} forever?` : `Delete ${purgeRequest?.pages.length ?? 0} items forever?`}>
+        <p>This removes the page, its history and its attachments from your account and every signed-in device. This can't be undone.</p>
+        <div className="ws-confirm-actions"><Pressable className="ws-button ws-tinted" data-sheet-autofocus disabled={purging} onClick={() => setPurgeRequest(null)}>Cancel</Pressable>
+          <Pressable className="ws-button ws-danger" disabled={purging} onClick={() => void run(purge)}>{purging ? "Deleting…" : "Delete forever"}</Pressable></div>
       </Sheet>
       {toast && (
         <div className="ws-toast" role="status">
@@ -1329,42 +1360,6 @@ function TaskRow({ task, project, definition, onOpen, onComplete }: { task: Page
     <Pressable className="ws-task-title" onClick={() => onOpen(task.id)}><strong>{titleOf(task)}</strong>
       <small>{[project && titleOf(project), due && displayDate(due), status && task.properties[status.id]].filter(Boolean).join(" · ")}</small>
     </Pressable>
-  </div>;
-}
-
-function Today({ pages, events, databases, onOpen, onCapture, onCalendar, onComplete }: {
-  pages: Page[]; events: CalendarEvent[]; databases: DatabaseDefinition[];
-  onOpen: (id: string) => void; onCapture: () => void; onCalendar: () => void; onComplete: (page: Page) => void;
-}) {
-  const today = localDate();
-  const definitions = new Map(databases.map(database => [database.id, database]));
-  const tasks = pages.filter(page => page.type === "row");
-  const open = tasks.filter(task => !taskDone(task, definitions.get(task.databaseId ?? "")));
-  const groups = [
-    { label: "Earlier", items: open.filter(task => { const due = taskDue(task, definitions.get(task.databaseId ?? "")); return due && due < today; }) },
-    { label: "Today", items: open.filter(task => taskDue(task, definitions.get(task.databaseId ?? ""))?.slice(0,10) === today) },
-    { label: "Upcoming", items: open.filter(task => { const due = taskDue(task, definitions.get(task.databaseId ?? "")); return due && due > today; }).sort((a,b) => (taskDue(a, definitions.get(a.databaseId ?? "")) ?? "").localeCompare(taskDue(b, definitions.get(b.databaseId ?? "")) ?? "")) },
-    { label: "Anytime", items: open.filter(task => !taskDue(task, definitions.get(task.databaseId ?? ""))) },
-  ];
-  const dailyEvents = events.filter(event => !event.deletedAt && event.start.slice(0,10) <= today && event.end.slice(0,10) >= today).sort((a,b) => a.start.localeCompare(b.start));
-  const done = tasks.filter(task => taskDone(task, definitions.get(task.databaseId ?? "")));
-  const project = (task: Page) => pages.find(page => page.type === "database" && (page.id === task.databaseId || page.databaseId === task.databaseId));
-  return <div className="ws-today ws-task-today">
-    <Pressable className="ws-schedule" onClick={onCalendar} aria-label="Open today’s schedule"><span className="ws-schedule-label"><CalendarDays size={18} />Your schedule</span><span className="ws-schedule-track">{dailyEvents.length ? dailyEvents.slice(0, 3).map(event => <span className="ws-schedule-event" key={event.id}><time>{event.allDay ? "All day" : new Date(event.start).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}</time><strong>{event.title || "Untitled"}</strong></span>) : <span className="ws-schedule-event">A little room to breathe. Plan your day.</span>}</span><ChevronRight size={20} /></Pressable>
-    <header className="ws-today-hero"><div><p className="ws-eyebrow">{new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}</p><h1>Today</h1></div><div className="ws-today-stats" aria-label="Workspace overview"><span><strong>{open.length}</strong>Open tasks</span><span><strong>{done.length}</strong>Done</span><span><strong>{pages.filter(page => page.type === "database").length}</strong>Projects</span></div><Pressable className="ws-button ws-filled" onClick={onCapture}><Plus size={18} />New task</Pressable></header>
-    <div className="ws-today-grid">
-      <section className="ws-card ws-today-tasks" aria-label="Tasks">
-        {open.length ? groups.filter(group => group.items.length).map(group => <section className="ws-task-group" key={group.label}>
-          <h2>{group.label}</h2>{group.items.map(task => <TaskRow key={task.id} task={task} project={project(task)} definition={definitions.get(task.databaseId ?? "")} onOpen={onOpen} onComplete={onComplete} />)}
-        </section>) : <div className="ws-quiet-empty"><Check size={28} /><Pressable className="ws-button ws-tinted" onClick={onCapture}>Add task</Pressable></div>}
-        {done.length > 0 && <details className="ws-done-tasks"><summary>Done <span className="ws-count">{done.length}</span></summary>{done.map(task => <TaskRow key={task.id} task={task} project={project(task)} definition={definitions.get(task.databaseId ?? "")} onOpen={onOpen} />)}</details>}
-      </section>
-      <section className="ws-card ws-agenda-card" aria-label="Agenda"><div className="ws-card-heading"><h2>Agenda</h2></div>
-        {dailyEvents.length ? dailyEvents.map(event => <div className="ws-agenda-row" key={event.id}><span className="ws-event-dot" /><span><strong>{event.title || "Untitled"}</strong><small>{event.allDay ? "All day" : new Date(event.start).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" })}{event.location ? ` · ${event.location}` : ""}</small></span>
-          {event.pageId && <Pressable className="ws-icon" aria-label={`Open ${event.title}`} onClick={() => onOpen(event.pageId!)}><ChevronRight size={18} /></Pressable>}
-        </div>) : <div className="ws-quiet-empty"><CalendarDays size={28} /><Pressable className="ws-button" onClick={onCalendar}>Calendar</Pressable></div>}
-      </section>
-    </div>
   </div>;
 }
 
@@ -1607,6 +1602,7 @@ function SearchPanel({
 
 function PageDetail({
   page,
+  onPeek,
   pages,
   databases,
   projectTypes,
@@ -1620,6 +1616,7 @@ function PageDetail({
   onError,
 }: {
   page: Page;
+  onPeek?: (id:string) => void;
   pages: Page[];
   databases: DatabaseDefinition[];
   projectTypes: ProjectTypes;
@@ -1740,10 +1737,16 @@ function PageDetail({
           }}
         />
       </div>
+      {page.type === "database" && <input className="ws-project-description" aria-label="Project description" placeholder="Stay organized with tasks, your way." defaultValue={String(page.properties.__description ?? "")} onBlur={event => {
+        const current = store.listPages().find(item => item.id === page.id);
+        if (current) void store.patchPage(page.id, { properties: { ...current.properties, __description: event.target.value } }).catch(cause => onError(String(cause)));
+      }} />}
       {page.type === "database" ? (
         definition ? (
           <DatabaseEditor
             definition={definition}
+            project={page}
+            onPeek={onPeek}
             pages={pages}
             databases={databases}
             projectType={projectType(page, projectTypes)}
@@ -2140,20 +2143,7 @@ function PropertyInput({
         <span>{value ? <Check size={14} /> : null}</span>
       </Pressable>
     );
-  if (property.type === "select" || property.type === "status")
-    return (
-      <select
-        className={property.type === "status" ? `ws-status-input ${/^(done|shipped|completed?)$/i.test(String(value)) ? "done" : /progress|building|testing|redo/i.test(String(value)) ? "active" : ""}` : undefined}
-        value={String(value ?? "")}
-        aria-label={property.name}
-        onChange={(event) => onChange(event.target.value || null)}
-      >
-        <option value="">—</option>
-        {property.options?.map((option) => (
-          <option key={option}>{option}</option>
-        ))}
-      </select>
-    );
+  if (property.type === "select" || property.type === "status") return <OptionPill property={property} value={value} onChange={onChange} />;
   if (property.type === "relation")
     return (
       <select
@@ -2275,6 +2265,8 @@ function PropertyInput({
 
 function DatabaseEditor({
   definition,
+  onPeek,
+  project,
   pages,
   databases,
   projectType: type,
@@ -2282,6 +2274,8 @@ function DatabaseEditor({
   onError,
 }: {
   definition: DatabaseDefinition;
+  onPeek?: (id:string) => void;
+  project: Page;
   pages: Page[];
   databases: DatabaseDefinition[];
   projectType?: ProjectType;
@@ -2289,11 +2283,22 @@ function DatabaseEditor({
   onError: (message: string) => void;
 }) {
   const preset = projectPreset(type);
-  const views = [...projectViews(definition, type)].sort((a, b) => Number(b.type === "table") - Number(a.type === "table"));
+  const views = projectViews(definition, type);
   const [viewId, setViewId] = useState(views.find(view => view.type === "table")?.id ?? views[0]?.id ?? "");
   const [query, setQuery] = useState("");
-  const visibleFields = views.find(view => view.id === viewId)?.type === "table" ? [...definition.properties.filter(property => property.type === "title"), ...definition.properties.filter(property => property.type !== "title")] : visibleProjectFields(definition, type);
+  const [newTitle, setNewTitle] = useState("");
+  const cellOriginal = useRef<PropertyValue>(null);
+  const hidden = Array.isArray(project.properties.__hiddenColumns) ? project.properties.__hiddenColumns : [];
+  const visibleFields = views.find(view => view.id === viewId)?.type === "table" ? [...definition.properties.filter(property => property.type === "title"), ...definition.properties.filter(property => property.type !== "title" && !hidden.includes(property.id))] : visibleProjectFields(definition, type);
   const [configOpen, setConfigOpen] = useState(false);
+  const [configTab,setConfigTab] = useState<"view"|"filter"|"sort"|"properties">("view");
+  const [configPosition,setConfigPosition] = useState<{left:number;top:number}>();
+  const openConfig=(tab:typeof configTab,element?:HTMLElement)=>{
+    setConfigTab(tab);
+    const rect=element?.getBoundingClientRect();
+    setConfigPosition(rect && (document.getElementById('root')?.clientWidth ?? 0)>=600 ? {left:Math.max(16,Math.min(rect.left,innerWidth-496)),top:Math.max(16,Math.min(rect.bottom+8,innerHeight-Math.min(500,innerHeight*.7)-16))}:undefined);
+    setConfigOpen(true);
+  };
   const [propertyOpen, setPropertyOpen] = useState(false);
   const [newPropertyName, setNewPropertyName] = useState("");
   const [newPropertyType, setNewPropertyType] =
@@ -2342,15 +2347,15 @@ function DatabaseEditor({
       ),
     });
   const completeRow = (row: Page) => completeProjectTask(store, row, definition);
-  const addRow = async (properties: Record<string, PropertyValue> = {}) => {
+  const addRow = async (properties: Record<string, PropertyValue> = {}, title = "", open = true) => {
     try {
-      const row = await store.createPage("row", "", {
+      const row = await store.createPage("row", title, {
         databaseId: definition.id,
         parentId: definition.id,
         properties: { ...(preset?.type === "rework" ? { item: Math.max(0, ...rawRows.map(row => Number(row.properties.item) || 0)) + 1, status: "Open" } : {}),
           ...(preset?.type === "app" ? { status: "Idea" } : {}), ...properties },
       });
-      onOpen(row.id);
+      if (open) onOpen(row.id);
     } catch (cause) {
       onError(String(cause));
     }
@@ -2379,26 +2384,35 @@ function DatabaseEditor({
     (property) => property.type === "date",
   );
   return (
-    <div className="ws-database">
+    <div className="ws-database" onKeyDown={event => {
+      if (event.key.toLowerCase() === "n" && !event.ctrlKey && !event.metaKey && !event.altKey && !event.nativeEvent.isComposing && event.keyCode !== 229 && !(event.target as Element).closest('input,textarea,select,[contenteditable="true"]')) { event.preventDefault(); void addRow(); }
+    }}>
+      <Pressable className="ws-project-quick" aria-label="New task" onClick={() => void addRow()}><Plus size={22}/></Pressable>
       <div className="ws-database-toolbar">
-        <div className="ws-view-tabs" role="tablist" aria-label="Project view">
+        <div className="ws-view-tabs" role="tablist" aria-label="Project views">
           {views.map((item, index) => <Pressable key={item.id} id={`project-tab-${item.id}`} role="tab" aria-selected={view.id === item.id} aria-controls="project-view-panel" tabIndex={view.id === item.id ? 0 : -1} onClick={() => setViewId(item.id)} onKeyDown={event => {
             const next = event.key === "ArrowRight" ? (index + 1) % views.length : event.key === "ArrowLeft" ? (index - 1 + views.length) % views.length : event.key === "Home" ? 0 : event.key === "End" ? views.length - 1 : null;
             if (next === null) return;
             event.preventDefault(); setViewId(views[next]!.id);
             (event.currentTarget.parentElement?.children[next] as HTMLElement)?.focus();
-          }}>{item.name === "Table" ? "All tasks" : item.name === "Board" ? "By status" : item.name}</Pressable>)}
+          }}>{item.name}</Pressable>)}
         </div>
+        <ActionMenu label="Add view" className="ws-icon" items={Object.keys(viewIcons).map(kind => ({label:kind.charAt(0).toUpperCase()+kind.slice(1),onSelect:()=>{
+          const id = crypto.randomUUID(); void save({ ...definition, views: [...views, { id, name: kind.charAt(0).toUpperCase()+kind.slice(1), type: kind as DatabaseView["type"] }] }); setViewId(id);
+        }}))}><Plus size={18}/></ActionMenu>
         <div className="ws-database-actions">
+          <Pressable className="ws-button ws-db-desktop-tool" onClick={event => openConfig("filter",event.currentTarget)}>Filter</Pressable><Pressable className="ws-button ws-db-mobile-tools" onClick={() => openConfig("view")}>Filter and sort</Pressable>
+          <Pressable className="ws-button ws-db-desktop-tool" onClick={event => openConfig("sort",event.currentTarget)}>Sort</Pressable>
+          <Pressable className="ws-button ws-db-desktop-tool" onClick={event => openConfig("properties",event.currentTarget)}>Properties</Pressable>
           <label className="ws-search-field"><Search size={16} /><input type="search" aria-label="Search tasks" placeholder="Search tasks" value={query} onChange={event => setQuery(event.target.value)} /></label>
-          <Pressable className="ws-button" onClick={() => setConfigOpen(true)}>
+          <Pressable className="ws-button ws-db-desktop-tool" onClick={() => openConfig("view")}>
             More
             {view.filter || view.sort?.length ? (
               <span className="ws-status-dot" />
             ) : null}
           </Pressable>
           <Pressable
-            className="ws-button ws-tinted"
+            className="ws-button ws-filled"
             onClick={() => void addRow()}
           >
             <Plus size={16} />
@@ -2417,8 +2431,8 @@ function DatabaseEditor({
             <thead>
               <tr>
                 {visibleFields.map((property) => (
-                  <th key={property.id} scope="col">
-                    {property.name}
+                  <th key={property.id} scope="col" data-type={property.type}>
+                    <span aria-hidden="true">{property.type === "title" ? "Aa" : property.type === "status" ? "◐" : property.type === "date" ? "▣" : "≡"}</span> {property.name}
                   </th>
                 ))}
               </tr>
@@ -2427,13 +2441,20 @@ function DatabaseEditor({
               {rows.map((row) => (
                 <tr key={row.id}>
                   {visibleFields.map((property) => (
-                    <td key={property.id}>
+                    <td key={property.id} data-type={property.type} onFocusCapture={event => {
+                      if (!event.currentTarget.contains(event.relatedTarget as Node)) cellOriginal.current = property.type === "title" ? row.title : row.properties[property.id] ?? null;
+                    }} onKeyDown={event => {
+                      if (event.nativeEvent.isComposing || event.keyCode === 229) return;
+                      if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); patchRow(row, property.type === "title" ? "title" : property.id, cellOriginal.current); (event.target as HTMLElement).blur(); }
+                      if (event.key === "Enter" && event.target instanceof HTMLInputElement) { event.preventDefault(); event.target.blur(); }
+                    }}>
                       {property.type === "title" ? (
-                        <div className="ws-db-title">
+                        <div className={`ws-db-title${taskDone(row, definition) ? " completed" : ""}`}>
+                          <Pressable className="ws-task-check" role="checkbox" aria-checked={taskDone(row, definition)} aria-label={`Complete ${titleOf(row)}`} onClick={() => void completeRow(row).catch(cause => onError(String(cause)))}><span>{taskDone(row, definition) && <Check size={16} />}</span></Pressable>
                           <Pressable
                             className="ws-icon"
                             aria-label={`Open ${titleOf(row)}`}
-                            onClick={() => onOpen(row.id)}
+                            onClick={() => (onPeek ?? onOpen)(row.id)}
                           >
                             <FileText size={16} />
                           </Pressable>
@@ -2461,6 +2482,11 @@ function DatabaseEditor({
                   ))}
                 </tr>
               ))}
+              <tr><td colSpan={visibleFields.length}><input className="ws-inline-task" aria-label="New task name" placeholder="+ New task" value={newTitle} onChange={event => setNewTitle(event.target.value)} onKeyDown={event => {
+                if (event.nativeEvent.isComposing || event.keyCode === 229) return;
+                if (event.key === "Escape") { event.preventDefault(); setNewTitle(""); }
+                if (event.key === "Enter" && newTitle.trim()) { event.preventDefault(); void addRow({}, newTitle.trim(), false); setNewTitle(""); }
+              }} /></td></tr>
             </tbody>
           </table>
         </div>
@@ -2587,8 +2613,10 @@ function DatabaseEditor({
       <Sheet
         open={configOpen}
         onOpenChange={setConfigOpen}
-        title="View settings"
+        title={configTab === "view" ? "View settings" : configTab === "filter" ? "Filter tasks" : configTab === "sort" ? "Sort tasks" : "Visible properties"}
+        popoverPosition={configPosition}
       >
+        {configTab === "view" && <>
         <label className="ws-field-label">
           View name
           <input
@@ -2626,13 +2654,25 @@ function DatabaseEditor({
             ))}
           </select>
         </label>
+        </>}
+        {(configTab === "view" || configTab === "properties") && <>
         <Pressable className="ws-button" onClick={() => setPropertyOpen(true)}>Add property</Pressable>
+        <h3>Visible properties</h3>
+        {definition.properties.filter(property => property.type !== "title").map(property => <label className="ws-column-control" key={property.id}><input type="checkbox" checked={!hidden.includes(property.id)} onChange={event => {
+          const current = store.listPages().find(page => page.id === project.id);
+          if (current) void store.patchPage(project.id, { properties: { ...current.properties, __hiddenColumns: event.target.checked ? hidden.filter(id => id !== property.id) : [...hidden, property.id] } }).catch(cause => onError(String(cause)));
+        }} />{property.name}</label>)}
+        <Pressable className="ws-button ws-danger" disabled={views.length < 2} onClick={() => { void save({ ...definition, views: views.filter(item => item.id !== view.id) }); setViewId(views.find(item => item.id !== view.id)!.id); setConfigOpen(false); }}>Delete view</Pressable>
+        </>}
+        {(configTab === "view" || configTab === "filter") && <>
         <h3>Filters</h3>
         <FilterEditor
           filter={view.filter ?? { operator: "and", children: [] }}
           properties={definition.properties}
           onChange={(filter) => patchView({ filter })}
         />
+        </>}
+        {(configTab === "view" || configTab === "sort") && <>
         <h3>Sort</h3>
         {view.sort?.map((sort, index) => (
           <div className="ws-filter-row" key={index}>
@@ -2717,6 +2757,7 @@ function DatabaseEditor({
         >
           Duplicate saved view
         </Pressable>
+        </>}
       </Sheet>
       <Sheet
         open={propertyOpen}
@@ -3110,7 +3151,7 @@ function SettingsPanel({
   onError: (message: string) => void;
 }) {
   const [theme, setTheme] = useState(readSetting("velora-theme", "system"));
-  const [accent, setAccent] = useState(readSetting("velora-accent", "blue"));
+  const [accent, setAccent] = useState(readSetting("velora-accent", "lime"));
   const [reduceMotion, setReduceMotion] = useState(
     readSetting("velora-reduce-motion", "false") === "true",
   );
@@ -3125,7 +3166,7 @@ function SettingsPanel({
   useEffect(() => {
     const update = () => {
       setTheme(readSetting("velora-theme", "system"));
-      setAccent(readSetting("velora-accent", "blue"));
+      setAccent(readSetting("velora-accent", "lime"));
       setTextSize(readSetting("velora-text-size", "15"));
       setDensity(readSetting("velora-density", "comfortable"));
       setReduceMotion(readSetting("velora-reduce-motion", "false") === "true");
@@ -3188,7 +3229,7 @@ function SettingsPanel({
               saveAppearance("velora-accent", event.target.value);
             }}
           >
-            <option value="blue">Lime</option>
+            <option value="lime">Lime</option><option value="blue">Blue</option>
             <option value="green">Green</option>
             <option value="red">Red</option>
             <option value="purple">Purple</option>

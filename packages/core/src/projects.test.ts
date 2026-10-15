@@ -9,7 +9,8 @@ const page: Page = { id: "fixture-project", userId: "fixture-owner", title: "Pro
 it("creates all project defaults with task-first fields and a usable initial view", () => {
   for (const preset of projectPresets) {
     const definition = projectDefinition(page, preset.type);
-    expect(definition.views[0]?.type).toBe(preset.view);
+    expect(definition.views[0]).toMatchObject({ type:"table",name:"All tasks" });
+    expect(definition.views.some(view => view.type === preset.view)).toBe(true);
     const fields = visibleProjectFields(definition, preset.type);
     expect(fields[0]?.type).toBe("title");
     expect(fields.length).toBeGreaterThanOrEqual(2);
@@ -79,7 +80,7 @@ it("supplies migrated default views and photo/item fields without rewriting sche
   expect(projectViews(definition, "rework").map(view => view.type)).toEqual(["table", "list"]);
   expect(visibleProjectFields(definition, "rework").map(field => field.id)).toEqual(["source-name", "source-number", "source-photos", "source-status"]);
   expect(projectViews(definition)).toBe(definition.views);
-  expect(projectViews(projectDefinition(page, "weekly"), "weekly")[0]?.type).toBe("list");
+  expect(projectViews(projectDefinition(page, "weekly"), "weekly")[0]?.type).toBe("table");
   expect(definition).toEqual(original);
   const listOnly = { ...definition, views: [{ id: "source-list", name: "List", type: "list" as const }] };
   expect(projectViews(listOnly).map(view => view.type)).toEqual(["list", "table"]);
