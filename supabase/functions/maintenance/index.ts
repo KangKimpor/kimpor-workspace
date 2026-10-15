@@ -34,6 +34,17 @@ function authorize(request: Request) {
 serve(async (request) => {
   authorize(request);
   if (request.method !== "POST") throw new HttpError(405, "Use POST");
+  const files = (await database("purged_files?select=user_id,path&limit=100")) as { user_id: string; path: string }[];
+  if (files.length) {
+    const removed = await fetch(`${env("SUPABASE_URL")}/storage/v1/object/attachments`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${env("SUPABASE_SERVICE_ROLE_KEY")}`, apikey: env("SUPABASE_SERVICE_ROLE_KEY"), "Content-Type": "application/json" },
+      body: JSON.stringify({ prefixes: files.map(file => file.path) }),
+      signal: AbortSignal.timeout(25000),
+    });
+    if (!removed.ok) throw new HttpError(503, "Permanent file deletion will retry");
+    for (const file of files) await database(`purged_files?user_id=eq.${encoded(file.user_id)}&path=eq.${encoded(file.path)}`, { method: "DELETE" });
+  }
   const records = (await database(
     "page_doc_updates?select=id,user_id,page_id,update_base64,created_at&order=created_at.asc&limit=32",
   )) as {

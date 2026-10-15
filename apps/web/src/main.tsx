@@ -75,6 +75,7 @@ if (!platform.desktop && "serviceWorker" in navigator && import.meta.env.PROD) {
   window.addEventListener("load", () => {
     void navigator.serviceWorker
       .register(`${import.meta.env.BASE_URL}sw.js`)
+      .then(registration => window.dispatchEvent(new CustomEvent("workspace-sw", { detail: registration })))
       .catch(() => {
         /* First load remains usable if registration is blocked. */
       });

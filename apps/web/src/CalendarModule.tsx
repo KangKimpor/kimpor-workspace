@@ -1,5 +1,6 @@
 import {
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -7,9 +8,15 @@ import {
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
 } from "react";
+import CalendarMonth from "./CalendarMonth";
+import ActionMenu from "./ActionMenu";
+import { useWorkspaceSize } from "./WorkspaceChrome";
 import * as Dialog from "@radix-ui/react-dialog";
 import {
   CalendarDays,
+  ChevronDown,
+  Menu,
+  Search,
   ChevronLeft,
   ChevronRight,
   Download,
@@ -109,17 +116,25 @@ function safeOccurrenceEvents(
 
 export default function CalendarModule({
   onOpenPage,
+  initialDay,
 }: {
   onOpenPage?: (id: string) => void;
+  initialDay?: string;
 }) {
+  const layout = useWorkspaceSize();
   const revision = useSyncExternalStore(
     (listener) => store.subscribe(listener),
     () => store.getSnapshot(),
   );
-  const [view, setView] = useState<View>("month");
-  const [date, setDate] = useState(() => dateInZone(new Date(), localZone));
+  const [view, setView] = useState<View>(initialDay ? "day" : "month");
+  const [sidebar, setSidebar] = useState(false);
+  const monthLayout = useRef<HTMLDivElement>(null);
+  const [search, setSearch] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [showTasks, setShowTasks] = useState(false);
+  const [date, setDate] = useState(() => initialDay ?? dateInZone(new Date(), localZone));
   const [preferences, setPreferences] = useState<Preferences>({
-    firstDay: 1,
+    firstDay: 0,
     hour12: false,
     zone: localZone,
     defaultCalendar: "",
@@ -145,7 +160,7 @@ export default function CalendarModule({
       startZone: preferences.zone, endZone: preferences.zone, location: "", notes: "", url: "", busy: false, reminderMinutes: 0, recurrence: "", exceptions: [], pageId: task.id,
       source: "local", createdAt: task.createdAt, updatedAt: task.updatedAt, deletedAt: null }];
   });
-  const events = [...store.listEvents(), ...taskEvents];
+  const events = showTasks ? taskEvents : store.listEvents();
   const monthStart = `${date.slice(0, 7)}-01`;
   const monthGridStart = addDays(
     monthStart,
@@ -169,14 +184,14 @@ export default function CalendarModule({
     () =>
       safeOccurrenceEvents(
         events.filter((event) =>
-          event.calendarId === "__tasks" || calendars.some(
+          (event.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || event.location.toLocaleLowerCase().includes(search.toLocaleLowerCase())) && (event.calendarId === "__tasks" || calendars.some(
             (calendar) => calendar.id === event.calendarId && calendar.visible,
-          ),
+          )),
         ),
         wallTimeToUtc(`${days[0]}T00:00`, preferences.zone),
         wallTimeToUtc(`${addDays(days.at(-1)!, 1)}T00:00`, preferences.zone),
       ),
-    [revision, date, view, preferences.firstDay, preferences.zone],
+    [revision, date, view, preferences.firstDay, preferences.zone, search, showTasks],
   );
   const time = (instant: string) =>
     new Intl.DateTimeFormat(undefined, {
@@ -214,7 +229,7 @@ export default function CalendarModule({
           const saved = await store.getSetting<Preferences>(
             "calendar:preferences",
             {
-              firstDay: 1,
+              firstDay: 0,
               hour12: false,
               zone: localZone,
               defaultCalendar: "",
@@ -548,6 +563,8 @@ export default function CalendarModule({
         ? (() => {
             const value = new Date(`${date.slice(0, 7)}-01T12:00:00Z`);
             value.setUTCMonth(value.getUTCMonth() + direction);
+            const last = new Date(Date.UTC(value.getUTCFullYear(),value.getUTCMonth()+1,0)).getUTCDate();
+            value.setUTCDate(Math.min(Number(date.slice(-2)),last));
             return value.toISOString().slice(0, 10);
           })()
         : addDays(
@@ -616,11 +633,55 @@ export default function CalendarModule({
     setDraft((value) =>
       value ? { ...value, fields: { ...value.fields, ...patch } } : value,
     );
+  useLayoutEffect(() => {
+    const month=monthLayout.current,root=document.getElementById("root");
+    if (!month || !root) return;
+    const update=()=>{
+      if (!month.isConnected) return;
+      const main=month.closest('.ws-main')!,top=month.getBoundingClientRect().top+main.scrollTop;
+      if(root.clientWidth<600){
+        month.style.height="auto";
+        const grid=month.querySelector<HTMLElement>('.cal-month')!;
+        const budget=Math.max(72,Math.min(root.clientHeight*.44,main.getBoundingClientRect().bottom-top-8));
+        const row=Math.max(44,Math.floor((budget-28)/(days.length/7)));
+        const count=Math.max(1,Math.min(days.length/7,Math.floor((budget-28)/row)));
+        grid.style.setProperty('--month-row-height',`${row}px`); grid.style.height=`${28+count*row}px`;
+      }else{
+        month.style.height=`${Math.max(96,root.getBoundingClientRect().bottom-top-24)}px`;
+        month.querySelector<HTMLElement>('.cal-month')?.style.removeProperty('height');
+      }
+    };
+    const observer=new ResizeObserver(update);observer.observe(root);
+    const bar=month.closest('.ws-main')?.querySelector('.ws-topbar');if(bar)observer.observe(bar);
+    if(month.previousElementSibling)observer.observe(month.previousElementSibling);
+    update();void document.fonts.ready.then(update);
+    return ()=>observer.disconnect();
+  },[view,searchOpen,days.length]);
+  useEffect(()=>{const open=()=>setSettings(true);window.addEventListener('kimpor-calendar-settings',open);return()=>window.removeEventListener('kimpor-calendar-settings',open);},[]);
+  useEffect(() => {
+    const shortcut = (event: KeyboardEvent) => {
+      if (event.isComposing || event.keyCode === 229 || event.ctrlKey || event.metaKey || event.altKey || event.target instanceof Element && event.target.closest('input,textarea,select,[contenteditable="true"],[role="dialog"],[role="menu"]')) return;
+      const target = ({ d:"day", w:"week", m:"month", a:"agenda" } as const)[event.key.toLowerCase() as "d"|"w"|"m"|"a"];
+      if (target) { event.preventDefault(); setView(target); }
+      if (event.key.toLowerCase() === "t") { event.preventDefault(); setDate(dateInZone(new Date(), preferences.zone)); }
+    };
+    window.addEventListener("keydown", shortcut); return () => window.removeEventListener("keydown", shortcut);
+  }, [preferences.zone]);
+  function sidebarContent() {
+    const miniDays = Array.from({length:Math.ceil((monthOffset+monthDays)/7)*7}, (_,index) => addDays(monthGridStart,index));
+    return <><Pressable className="button cal-create" onClick={() => { newDraft(); setSidebar(false); }}><Plus size={18} />New event</Pressable>
+      <div className="cal-mini-heading"><Pressable className="icon-button" aria-label="Previous mini month" onClick={() => shiftDate(-1)}><ChevronLeft size={18} /></Pressable><strong>{dayLabel(date,{month:"long",year:"numeric"})}</strong><Pressable className="icon-button" aria-label="Next mini month" onClick={() => shiftDate(1)}><ChevronRight size={18} /></Pressable></div>
+      <div className="cal-mini-grid">{miniDays.map(day=><Pressable key={day} className={`${day === date ? "selected":""} ${day === dateInZone(now,preferences.zone) ? "today":""} ${day.slice(0,7)!==date.slice(0,7) ? "outside":""}`} aria-label={`Select ${dayLabel(day,{month:"long",day:"numeric",year:"numeric"})}`} aria-pressed={day===date} onClick={() => { setDate(day); setSidebar(false); }}><span>{Number(day.slice(-2))}</span></Pressable>)}</div>
+      {["My calendars","Other calendars"].map(group=><section key={group}><h3>{group}</h3>{calendars.filter(calendar=>(calendar.source === "local") === (group === "My calendars")).map(calendar=><label className={`cal-source-row cal-color-${calendar.color}`} key={calendar.id}><input type="checkbox" checked={calendar.visible} onChange={() => void store.saveCalendar({...calendar,visible:!calendar.visible}).catch(cause=>notify(String(cause)))}/><span>{calendar.title}</span></label>)}</section>)}
+      <Pressable className="button plain" onClick={() => { setSidebar(false); setSettings(true); }}>Add calendar</Pressable></>;
+  }
   return (
     <section className="calendar-module" aria-label="Calendar">
+      {layout.phone && <Pressable className="cal-quick-create" aria-label="New event" onClick={() => newDraft()}><Plus size={24}/></Pressable>}
+      <Dialog.Root open={sidebar} onOpenChange={setSidebar}><Dialog.Portal><Dialog.Overlay className="cal-overlay"/><Dialog.Content className="cal-sidebar-drawer"><div className="cal-actions cal-dialog-head"><Dialog.Title>Calendars</Dialog.Title><Dialog.Close asChild><Pressable className="icon-button" aria-label="Close calendars"><X size={20}/></Pressable></Dialog.Close></div><Dialog.Description className="ws-sr-only">Choose a day or calendar</Dialog.Description>{sidebarContent()}</Dialog.Content></Dialog.Portal></Dialog.Root>
       <header className="cal-heading">
         <div>
-          <h1>Calendar</h1>
+          <div className="cal-title"><Pressable className="icon-button cal-sidebar-toggle" aria-label="Open calendars" onClick={() => setSidebar(true)}><Menu size={20} /></Pressable>{!layout.phone && <h1>Calendar</h1>}</div>
         </div>
         <div className="cal-actions">
           <Pressable
@@ -630,7 +691,7 @@ export default function CalendarModule({
           >
             <Settings2 size={20} />
           </Pressable>
-          {((view !== "month" && view !== "agenda") || (view === "month" ? entriesFor(date).length > 0 : occurrences.length > 0)) && <Pressable className="button filled" onClick={() => newDraft()}><Plus size={18} />New event</Pressable>}
+          {!layout.phone && <Pressable className="button filled" onClick={() => newDraft()}><Plus size={18} />New event</Pressable>}
         </div>
       </header>
       <div className="cal-layout">
@@ -658,92 +719,28 @@ export default function CalendarModule({
                 <ChevronRight size={18} />
               </Pressable>
             </div>
-            <h2>
-              {dayLabel(date, {
+            <h2><Pressable className="cal-period-trigger" aria-label="Choose calendar date" onClick={() => setSidebar(true)}><span className="cal-period-long">{dayLabel(date, {
                 month: "long",
                 year: "numeric",
                 ...(view === "day" ? { day: "numeric" } : {}),
-              })}
-            </h2>
-            <select className="cal-view-select" aria-label="Calendar view" value={view} onChange={event => setView(event.target.value as View)}>
-              {(["day", "week", "month", "agenda"] as const).map(option => <option key={option} value={option}>{option.charAt(0).toUpperCase() + option.slice(1)}</option>)}
-            </select>
-            <div className="cal-views" aria-label="Calendar view">
-              {(["day", "week", "month", "agenda"] as const).map((option) => (
-                <Pressable
-                  key={option}
-                  aria-pressed={view === option}
-                  className={view === option ? "selected" : ""}
-                  onClick={() => setView(option)}
-                >
-                  {option.charAt(0).toUpperCase() + option.slice(1)}
-                </Pressable>
-              ))}
+              })}</span><span className="cal-period-short">{dayLabel(date, { month: "short", year: "numeric", ...(view === "day" ? { day: "numeric" } : {}) })}</span>
+            <ChevronDown size={16}/></Pressable></h2>
+            <div className="cal-toolbar-tools">
+              {searchOpen && <input type="search" className="cal-search" aria-label="Search events" placeholder="Search events" value={search} onChange={event => setSearch(event.target.value)} autoFocus />}
+              <Pressable className="icon-button" aria-label="Search calendar" onClick={() => { setSearchOpen(!searchOpen); if (searchOpen) setSearch(""); }}><Search size={18} /></Pressable>
+              <ActionMenu label="Calendar view" className="button outline" items={(["day","week","month","agenda"] as const).map(option=>({label:option.charAt(0).toUpperCase()+option.slice(1),onSelect:()=>setView(option)}))}>{view.charAt(0).toUpperCase()+view.slice(1)} <ChevronDown size={16}/></ActionMenu>
+              <div className="cal-mode" role="group" aria-label="Calendar content"><Pressable aria-pressed={!showTasks} onClick={() => setShowTasks(false)}>Calendar</Pressable><Pressable aria-pressed={showTasks} onClick={() => setShowTasks(true)}>Tasks</Pressable></div>
             </div>
           </div>
           {view === "month" ? (
-            <div className="cal-month-layout"><div className="cal-month">
-              <div className="cal-month-head" aria-hidden="true">
-                {days.slice(0, 7).map((day) => (
-                  <span key={day}>{dayLabel(day, { weekday: "short" })}</span>
-                ))}
-              </div>
-              <div className="cal-month-grid">
-                {days.map((day) => (
-                  <div
-                    className={`cal-day ${day.slice(0, 7) !== date.slice(0, 7) ? "outside" : ""} ${day === dateInZone(now, preferences.zone) ? "today" : ""} ${day === date ? "selected-day" : ""}`}
-                    key={day}
-                  >
-                    <div className="cal-day-header">
-                      <Pressable
-                        className="cal-day-number"
-                        aria-label={`Open ${dayLabel(day, { weekday: "long", month: "long", day: "numeric", year: "numeric" })}`}
-                        onClick={() => {
-                          setDate(day);
-                        }}
-                      >
-                        <span>{Number(day.slice(-2))}</span>
-                      </Pressable>
-                    </div>
-                    <span className="cal-day-dots" aria-hidden="true">{entriesFor(day).slice(0, 3).map(occurrence => <i key={occurrence.key} className={`cal-color-${calendars.find(calendar => calendar.id === occurrence.event.calendarId)?.color ?? "blue"}`} />)}</span>
-                    <div className="cal-day-events">
-                    {entriesFor(day)
-                      .slice(0, 2)
-                      .map((occurrence) => (
-                        <EventChip
-                          key={occurrence.key}
-                          occurrence={occurrence}
-                          color={
-                            calendars.find(
-                              (calendar) =>
-                                calendar.id === occurrence.event.calendarId,
-                            )?.color ?? "blue"
-                          }
-                          time={time}
-                          onOpen={() => openOccurrence(occurrence)}
-                        />
-                      ))}
-                    {entriesFor(day).length > 2 && (
-                      <Pressable
-                        className="cal-more"
-                        onClick={() => {
-                          setDate(day);
-                          setView("agenda");
-                        }}
-                      >
-                        {entriesFor(day).length - 2} more
-                      </Pressable>
-                    )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <div className="cal-month-layout" ref={monthLayout}><aside className="cal-month-sidebar" aria-label="Calendar sidebar">
+              {sidebarContent()}
+            </aside><CalendarMonth days={days} date={date} now={now} zone={preferences.zone} occurrences={occurrences} calendars={calendars} onSelect={setDate} onDay={day => { setDate(day); setView("day"); }} onCreate={day => newDraft(day)} onOpen={openOccurrence} onMonth={shiftDate} />
             <section className="cal-selected-day" aria-label="Selected day events">
               <header><h2>{dayLabel(date, { month: "long", day: "numeric" })}</h2></header>
               {entriesFor(date).length ? entriesFor(date).map(occurrence => <EventChip key={occurrence.key} occurrence={occurrence}
                 color={calendars.find(calendar => calendar.id === occurrence.event.calendarId)?.color ?? "blue"} time={time} onOpen={() => openOccurrence(occurrence)} />)
-                : <div className="cal-day-empty"><CalendarDays size={28} /><Pressable className="button plain" onClick={() => newDraft(date)}>New event</Pressable></div>}
+                : <div className="cal-day-empty"><CalendarDays size={28} /><Pressable className="button plain" onClick={() => newDraft(date)}>Add event</Pressable></div>}
             </section></div>
           ) : view === "agenda" ? (
             <div className="cal-agenda">
@@ -789,7 +786,7 @@ export default function CalendarModule({
             </div>
           ) : (
             <TimeGrid
-              days={days}
+              days={layout.phone ? [date] : days}
               occurrences={occurrences}
               zone={preferences.zone}
               hour12={preferences.hour12}
@@ -1005,6 +1002,7 @@ export default function CalendarModule({
                     onClick={() => {
                       void (async () => {
                         let id = draft.fields.pageId;
+                        if (id && !store.listPages().some(page => page.id === id)) { notify("This page is no longer available"); return; }
                         if (!id) {
                           const page = await store.createPage(
                             "page",
@@ -1384,7 +1382,7 @@ export default function CalendarModule({
                   >
                     {colors.map((color) => (
                       <option value={color} key={color}>
-                        {color}
+                        {color === "blue" ? "Lime" : color}
                       </option>
                     ))}
                   </select>
@@ -1453,7 +1451,7 @@ function EventChip({
 }) {
   return (
     <Pressable
-      className={`cal-event-chip cal-color-${colors.includes(color) ? color : "blue"}`}
+      className={`cal-event-chip ${occurrence.event.allDay ? "all-day" : "timed"} cal-color-${colors.includes(color) ? color : "blue"}`}
       onClick={onOpen}
     >
       <strong>{occurrence.event.title}</strong>
@@ -1826,7 +1824,7 @@ function TimeGrid({
     force((value) => value + 1);
   }
   return (
-    <div className={`cal-time-view ${days.length > 1 ? "cal-time-week" : ""}`}>
+    <div className={`cal-time-view ${days.length > 1 ? "cal-time-week" : ""}`} data-scroll-x={days.length > 1 || undefined}>
       <div
         className="cal-time-headers"
         style={{ "--cal-columns": days.length } as CSSProperties}
@@ -1861,7 +1859,7 @@ function TimeGrid({
           </div>
         ))}
       </div>
-      <div className="cal-time-scroll">
+      <div className="cal-time-scroll" tabIndex={0} role="region" aria-label="Calendar hours">
         <div
           className="cal-time-grid"
           style={{ "--cal-columns": days.length } as CSSProperties}
@@ -1893,6 +1891,7 @@ function TimeGrid({
               {dateInZone(now, zone) === day && (
                 <div
                   className="cal-now"
+                  role="img"
                   aria-label={`Current time ${clock(minuteOf(now.toISOString()))}`}
                   style={{
                     top: `${(minuteOf(now.toISOString()) / 1440) * 100}%`,
@@ -1968,6 +1967,7 @@ function TimeGrid({
                       <Pressable
                         className="cal-resize"
                         aria-label={`Resize ${occurrence.event.title}`}
+                        onClick={() => { if (!moved.current) onOpen(occurrence); moved.current = false; }}
                         onPointerDown={(event) =>
                           begin(event, day, "resize", occurrence)
                         }
@@ -1975,7 +1975,7 @@ function TimeGrid({
                         onPointerUp={end}
                         onPointerCancel={cancel}
                       >
-                        <span />
+                        <span aria-hidden="true">↕</span>
                       </Pressable>
                     </div>
                   );
@@ -2025,3 +2025,4 @@ function TimeGrid({
     </div>
   );
 }
+import './calendar-redesign.css';

@@ -207,20 +207,30 @@ test("calendar creates a local recurring event and all views are available", asy
   await page.getByText("More details", { exact: true }).click();
   await page.getByLabel("Custom recurrence RRULE").fill("FREQ=WEEKLY;COUNT=4");
   await page.getByRole("button", { name: "Done", exact: true }).click();
-  await expect(
-    page.getByRole("region", { name: "Selected day events", exact: true }).getByRole("button", { name: /Weekly review/ }),
-  ).toBeVisible();
+  await expect(page.getByRole("button", { name: /Weekly review/ }).filter({visible:true}).first()).toBeVisible();
   for (const name of ["Day", "Week", "Month", "Agenda"]) {
-    const view = page.getByRole("combobox", { name: "Calendar view", exact: true });
-    if (await view.isVisible()) {
-      await view.selectOption(name.toLowerCase());
-      await expect(view).toHaveValue(name.toLowerCase());
-    } else {
-      await page.getByRole("button", { name, exact: true }).click();
-      await expect(page.getByRole("button", { name, exact: true })).toHaveAttribute("aria-pressed", "true");
-    }
+    const view = page.getByRole("button", { name: "Calendar view", exact:true });
+    await view.click();
+    await page.getByRole("menuitem", {name,exact:true}).click();
+    await expect(view).toContainText(name);
   }
 });
+test("Today agenda opens an event's day in Calendar", async ({page}) => {
+  await page.clock.setFixedTime(new Date('2026-10-11T09:00:00Z'));
+  await page.goto('/');
+  await navigate(page,'Calendar');
+  await page.getByRole('button',{name:'New event',exact:true}).filter({visible:true}).first().click();
+  const draft=page.getByRole('dialog',{name:'New event',exact:true});
+  await draft.getByLabel('Title',{exact:true}).fill('Schedule navigation proof');
+  await draft.getByRole('button',{name:'Done',exact:true}).click();
+  await expect(draft).toHaveCount(0);
+  await navigate(page,'Today');
+  await page.getByRole('region',{name:'Agenda',exact:true}).getByRole('button',{name:'Open Schedule navigation proof',exact:true}).click();
+  await expect(page.getByRole('button',{name:'Calendar view',exact:true})).toContainText('Day');
+  await expect(page.locator('.cal-time-view')).toBeVisible();
+  await expect(page.getByRole('button',{name:'Choose calendar date',exact:true})).toContainText('11');
+});
+
 test("all modules and settings are accessible in both themes without page overflow", async ({
   page,
 }) => {

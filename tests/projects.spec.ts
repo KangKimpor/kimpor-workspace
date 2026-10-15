@@ -7,12 +7,12 @@ async function navigate(page: Page, name: string) {
 }
 test("project creation is one type tap with the intended default view", async ({ page }) => {
   await page.goto("/");
-  for (const [label, view, count] of [["Weekly report", "List", 4], ["Rework list", "List", 0], ["App build", "Board", 0], ["Coursework", "List", 0], ["Model tracking", "List", 2]] as const) {
+  for (const [label, count] of [["Weekly report", 4], ["Rework list", 0], ["App build", 0], ["Coursework", 0], ["Model tracking", 2]] as const) {
     await navigate(page, "Projects");
     await page.getByRole("button", { name: "New project", exact: true }).click();
     await page.getByRole("dialog", { name: "New project" }).getByRole("button", { name: label, exact: true }).click();
     await expect(page.getByRole("textbox", { name: "Page title" })).toHaveValue(label);
-    await expect(page.getByRole("combobox", { name: "Project view" }).locator("option:checked")).toHaveText(view);
+    await expect(page.getByRole("tab", { name: "All tasks", exact: true })).toHaveAttribute("aria-selected", "true");
     await expect(page.locator(".ws-db-count")).toContainText(`${count} items`);
     await expect(page.getByRole("button", { name: "New task", exact: true }).filter({ visible: true })).toBeVisible();
   }
@@ -27,14 +27,13 @@ test("quick add focuses the task name and completion moves the task to Done", as
   await expect(sheet.getByLabel("Date", { exact: true })).toBeHidden();
   await name.fill("Plan the next step");
   await sheet.getByRole("button", { name: "Add task" }).click();
-  const row = page.locator(".ws-task-row").filter({ hasText: "Plan the next step" });
+  const row = page.locator(".ws-task-card").filter({ hasText: "Plan the next step" });
   await expect(row.locator("strong")).toHaveText("Plan the next step");
-  const sizes = await row.evaluate(element => ({ name: parseFloat(getComputedStyle(element.querySelector("strong")!).fontSize), meta: parseFloat(getComputedStyle(element.querySelector("small")!).fontSize) }));
+  const sizes = await row.evaluate(element => ({ name: parseFloat(getComputedStyle(element.querySelector("strong")!).fontSize), meta: parseFloat(getComputedStyle(element.querySelector(".ws-task-card-meta")!).fontSize) }));
   expect(sizes.name).toBeGreaterThan(sizes.meta);
   await row.getByRole("checkbox", { name: "Complete Plan the next step" }).click();
-  await expect(page.locator(".ws-done-tasks summary")).toBeVisible();
-  await page.locator(".ws-done-tasks summary").click();
-  await expect(page.locator(".ws-done-tasks strong")).toHaveText("Plan the next step");
+  await page.getByRole("button", { name: /^Done 1$/ }).click();
+  await expect(page.locator(".ws-task-card strong")).toHaveText("Plan the next step");
   await navigate(page, "Projects");
   await expect(page.getByRole("button", { name: /Inbox/ }).filter({ visible: true }).first()).toBeVisible();
 });

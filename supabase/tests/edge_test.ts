@@ -12,6 +12,45 @@ import { expandEvents } from "../../packages/integrations/src/calendar.ts";
 function assert(value: unknown, message = "Assertion failed"): asserts value {
   if (!value) throw new Error(message);
 }
+Deno.test("maintenance retains failed Storage cleanup and removes only acknowledged files", async () => {
+  const originalFetch=globalThis.fetch, originalServe=Object.getOwnPropertyDescriptor(Deno,"serve")!;
+  const names=["SUPABASE_URL","SUPABASE_SERVICE_ROLE_KEY","MAINTENANCE_SECRET","VAPID_PUBLIC_KEY","VAPID_PRIVATE_KEY"];
+  const previous=names.map(name=>Deno.env.get(name));
+  let handler: ((request: Request)=>Promise<Response>) | undefined;
+  const removed: string[]=[], paths: string[][]=[];
+  let fail=true;
+  try {
+    Deno.env.set("SUPABASE_URL","https://fixture.example.test");
+    Deno.env.set("SUPABASE_SERVICE_ROLE_KEY","fixture-service-key");
+    Deno.env.set("MAINTENANCE_SECRET","fixture-maintenance");
+    Deno.env.delete("VAPID_PUBLIC_KEY");Deno.env.delete("VAPID_PRIVATE_KEY");
+    Object.defineProperty(Deno,"serve",{configurable:true,value:(callback:typeof handler)=>{handler=callback;}});
+    await import("../functions/maintenance/index.ts");
+    Object.defineProperty(Deno,"serve",originalServe);
+    globalThis.fetch=async (input,init)=>{
+      const url=String(input);
+      if(url.includes('/storage/v1/object/attachments')) {
+        paths.push(JSON.parse(String(init?.body)).prefixes);
+        return fail ? new Response("retry",{status:503}) : Response.json({});
+      }
+      if(url.includes('/purged_files?select=')) return Response.json([{user_id:"fixture-owner",path:"fixture-owner/trashed-file"}]);
+      if(url.includes('/purged_files?user_id=') && init?.method==="DELETE") {removed.push(url);return new Response(null,{status:204});}
+      return Response.json([]);
+    };
+    assert(handler);
+    const request=()=>new Request("https://fixture.example.test/maintenance",{method:"POST",headers:{"x-maintenance-secret":"fixture-maintenance"}});
+    assert((await handler(request())).status===503);
+    assert(JSON.stringify(removed)==='[]',"Failed cleanup dropped its retry queue");
+    fail=false;
+    assert((await handler(request())).status===200);
+    assert(removed.length===1,"Successful cleanup did not clear the queue");
+    assert(paths.every(batch=>JSON.stringify(batch)==='["fixture-owner/trashed-file"]'),"Cleanup escaped the queued paths");
+    assert((await handler(new Request("https://fixture.example.test/maintenance",{method:"POST"}))).status===401);
+  } finally {
+    globalThis.fetch=originalFetch;Object.defineProperty(Deno,"serve",originalServe);
+    names.forEach((name,index)=>{const value=previous[index];if(value===undefined)Deno.env.delete(name);else Deno.env.set(name,value);});
+  }
+});
 async function rejects(action: () => unknown | Promise<unknown>) {
   let failed = false;
   try {

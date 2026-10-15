@@ -14,6 +14,7 @@ test('five modules fit the requested light or dark viewport', async ({ page }) =
   }
   await expect(page.getByRole('button', { name: 'Write', exact: true })).toHaveCount(1);
   await expect(page.getByText('Saved', { exact: true })).toHaveCount(0);
+  await expect(page.locator('.ws-detail-pane').getByText(/on this device|saved locally|saved on/i)).toHaveCount(0);
 });
 
 test('writing uses compact or selection controls and preserves the body', async ({ page }) => {
@@ -62,14 +63,14 @@ test('task names lead Today, project rows, Calendar and search', async ({ page }
   await task.getByRole('button', { name: 'Add task', exact: true }).click();
   await expect(page.locator('.ws-task-title').first().locator('strong')).toHaveText('Prepare fixture report');
   await nav.getByRole('button', { name: 'Projects', exact: true }).click();
-  await page.locator('.ws-page-list').getByRole('button', { name: /Inbox/ }).click();
-  await page.getByRole('combobox', { name: 'Project view' }).selectOption({ label: 'Table' });
+  await page.locator('.ws-project-overview').getByRole('button', { name: /Inbox/ }).click();
+  await page.getByRole('tab', { name: 'All tasks', exact: true }).click();
   await expect(page.getByRole('textbox', { name: 'Row title', exact: true })).toHaveValue('Prepare fixture report');
   await nav.getByRole('button', { name: 'Calendar', exact: true }).click();
-  const selected = page.getByRole('region', { name: 'Selected day events', exact: true });
-  const entry = selected.getByRole('button', { name: /Prepare fixture report/ });
-  await expect(entry.locator('strong')).toHaveText('Prepare fixture report');
-  expect(await entry.evaluate(element => element.firstElementChild?.tagName)).toBe('STRONG');
+  await page.getByRole('group', {name:'Calendar content',exact:true}).getByRole('button',{name:'Tasks',exact:true}).click();
+  const entry = page.getByRole('button', { name: /Prepare fixture report/ }).filter({visible:true}).first();
+  if (!await entry.isVisible()) await page.locator('[data-day="2026-10-11"] .cal-more').click();
+  await expect(entry).toContainText('Prepare fixture report');
   await entry.click();
   await expect(page.getByRole('textbox', { name: 'Page title' })).toHaveValue('Prepare fixture report');
   await page.locator('.ws-detail-back').click();

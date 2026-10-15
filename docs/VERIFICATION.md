@@ -1,5 +1,30 @@
 # Verification ledger
 
+## Lime redesign continuation — 15 October 2026
+
+Owner priority: finalize the **web app first**. Windows 11 EXE implementation,
+packaging, installation and native acceptance are paused until the web app is
+finalized; Windows is the final stage. Any desktop asset-build evidence below
+predates that direction and does not authorize continuing native work.
+
+See `LIME-REDESIGN.md` for R1–R7 coverage and rollout decisions. The updated complete brief supersedes the earlier truncated-prompt report. No production migration, merge, Pages deployment or visual-baseline replacement was performed.
+
+- `pnpm check`: passes 84 tests, 89.68% core line coverage, 226.8 KiB initial gzip (250 KiB budget), and 70 contrast pairs. Baseline main was 220.2 KiB; the previous partial redesign was 221.6 KiB.
+- Focused cloud/store tests: 22 pass, including immutable acknowledgement batches, malformed receipts, network/refusal preservation and account switching during purge.
+- All 12 migrations, ownership SQL and purge SQL execute successfully in isolated PostgreSQL 17.6. Docker is unavailable; the actual SQL engine was run on loopback with synthetic data and stopped afterward.
+- Deno: all eight Edge Functions type-check; eight contract tests pass, including failed Storage cleanup retaining its queue.
+- Account entry: all 18 mocked browser fixtures pass. These cover Google PKCE initiation, code paste/verification/reload and incorrect-code/resend behavior; they do not verify live providers.
+- Final build and focused cross-browser regression: 12 pass across Chromium, WebKit, Firefox and phone WebKit, covering module/theme navigation, Trash flows and Today-to-Day navigation after the last source changes.
+- `SHOT_SCREENS=today,calendar pnpm shots`: all 68 captures and four contact sheets complete. The final time-marker CSS adjustment was also reviewed in fresh desktop/phone/tablet captures. Screenshot output and approved baselines are not committed.
+- JavaScript dependency licenses pass. Gitleaks 8.30.1 scans 72 commits with no leaks; staged changes are scanned again before committing.
+- `pnpm build:desktop` succeeds and excludes web service-worker registration. This is a web asset build, not a native Tauri runtime acceptance test.
+- Read-only live Supabase: ACTIVE_HEALTHY, PostgreSQL 17.11, successful database query. New deletion table/RPC are not deployed. No owner content was purged or altered.
+
+`pnpm layout:audit` passes all 34 profile/theme combinations and all 612 screen audits. Receipts are in `evidence/lime-layout-audit.json`; full geometry and captures are in the Playwright output. Browser regression evidence spans multiple runs: 126 Chromium/WebKit/phone/responsive cases pass after focused app-lock and keyboard reruns; 25 Firefox cases pass. Five Firefox cases that resize an existing window are blocked on this Windows host, reproduced on a blank page. They remain enabled for CI. The new Today-to-Day navigation regression passes in all four browser projects. No complete green 160-case local run is claimed. The layout audit includes 17 profiles in both themes, populated Calendar/Today, project table/cards/board, writing, Search, Trash, Settings and mocked sign-in/code. Resting springs/paint are awaited before measuring. Strict approved baseline comparison remains separate and requires human approval of the changed design.
+
+Historical evidence below describes earlier releases and must not be treated as current redesign acceptance.
+
+
 Updated 2026-10-13. “Tested” describes the stated automated/local evidence, not a
 completed physical release. The owner confirmed iPhone Safari Google/email-code,
 Home Screen/reopen, Khmer/Chinese and VoiceOver checks on iOS 27.0.1, plus installation, Google browser

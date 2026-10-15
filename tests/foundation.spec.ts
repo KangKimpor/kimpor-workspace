@@ -146,7 +146,7 @@ test('saved dark appearance keeps heading contrast in portrait and landscape lay
     // Full-page capture caused WebKit to lose inherited colors during layout.
     await page.screenshot({ fullPage: true });
     const colors = await page.locator('h1,h2,h3,.brand strong').evaluateAll(elements => elements.map(element => getComputedStyle(element).color));
-    expect([...new Set(colors)]).toEqual(['rgb(243, 243, 245)']);
+    expect([...new Set(colors)]).toEqual(['rgb(245, 245, 244)']);
   }
 });
 

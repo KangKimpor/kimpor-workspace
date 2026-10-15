@@ -1,6 +1,6 @@
 {
   "mode": "Fresh project only; generated from the canonical migrations and Edge source. No credentials are embedded.",
-  "schema_sha256": "d2e3ccdda2d4e6aa32b927f03ee5ce8e63a08751fba4ac1ca4136d50a115a8bf",
+  "schema_sha256": "68b78e16c162e598af0a5e988781b5e56329f40feb5a49edb98f7431ce2d9218",
   "migrations": [
     {
       "file": "202610100001_workspace.sql",
@@ -51,15 +51,25 @@
       "file": "202610100010_attachment_idempotency.sql",
       "version": "202610100010",
       "sha256": "5a5198271498b9e8a0dc9bfc0cf84ff20b129566ddd2c409a18c67a236ca0a86"
+    },
+    {
+      "file": "202610140001_permanent_deletion.sql",
+      "version": "202610140001",
+      "sha256": "3ab82493058ab6094876533258a0aa92fc94a7ba8f3788c892ec7530d3dd697e"
+    },
+    {
+      "file": "20261014112842_acknowledged_purge.sql",
+      "version": "20261014112842",
+      "sha256": "4c699af0c6bc8c5022a9aa4e94d0f8ff5b99c9c89a8585c41abae8ee16799dfe"
     }
   ],
   "functions": [
     {
       "name": "attachments",
       "entry": "functions/attachments/index.js",
-      "source_sha256": "fbd43847f99d656c314eec5261917ce51a74a73b168fd23989706e343983bfdf",
-      "bundle_sha256": "c2450dfb0860b63314c4d8838a46bb16823bfd754630146feb33743b26c61009",
-      "bytes": 8418,
+      "source_sha256": "a23e79589879fe3d5a21ce8aafa67f20a1481029387a3ea507e7404e8de6af6e",
+      "bundle_sha256": "2297c63e817f4301f7865fc499263b9f29d22eef8edea4f90a006558c9d8a7be",
+      "bytes": 8753,
       "verify_jwt": false
     },
     {
@@ -89,9 +99,9 @@
     {
       "name": "delete-account",
       "entry": "functions/delete-account/index.js",
-      "source_sha256": "0e7296386792a2f26f93ffded2ae941ec69f7f88bea320e12ca8f564a82a6f46",
-      "bundle_sha256": "569a458d8809f250d2594132651749c7148f26abac5375f41bbe74fbdcc0e817",
-      "bytes": 4030,
+      "source_sha256": "4ab98c868ea95cd8618100440b6a3f0f88f3b3e836820d42b6f0d30383e2f5bc",
+      "bundle_sha256": "0e025167e05a5b44d4cf5f0d1dfaef3bfd3e7d0a71f575390b8505a7533064d4",
+      "bytes": 4144,
       "verify_jwt": false
     },
     {
@@ -105,9 +115,9 @@
     {
       "name": "maintenance",
       "entry": "functions/maintenance/index.js",
-      "source_sha256": "83a1b25e311413d6afb07be85f5c5b076a0184f1ade36d753b71ec1da0431126",
-      "bundle_sha256": "87552c90822dc2d8207e7d6619db638fd9f6ad58268d9a871b3d4463681edcee",
-      "bytes": 53412,
+      "source_sha256": "130c10324e9d10fea192caa33b3a18ab6d91f10fbb34b1f125fc53ab1fd2a31d",
+      "bundle_sha256": "b40b7474209cb46aacdb3a53d0046e010d8ce43f77c20a2cb7db42060ea4be26",
+      "bytes": 54112,
       "verify_jwt": false
     },
     {

@@ -66,11 +66,11 @@ export function weekNumber(date: Date): number {
 }
 export function projectDefinition(page: Page, type: ProjectType): DatabaseDefinition {
   const preset = projectPreset(type)!;
-  const order: DatabaseView["type"][] = [preset.view, ...(["table", "list", "board", "calendar", "gallery"] as const).filter(view => view !== preset.view)];
+  const order: DatabaseView["type"][] = [...new Set<DatabaseView["type"]>(["table", preset.view, "list", "board", "calendar", "gallery"])];
   return {
     id: page.id, userId: page.userId,
     properties: [field("title", "Task name", "title"), ...preset.fields],
-    views: order.map(view => ({ id: crypto.randomUUID(), name: view[0]!.toUpperCase() + view.slice(1), type: view,
+    views: order.map(view => ({ id: crypto.randomUUID(), name: view === "table" ? "All tasks" : view === "board" ? "By status" : view[0]!.toUpperCase() + view.slice(1), type: view,
       groupBy: preset.group, sort: preset.fields.some(field => field.id === "due") ? [{ property: "due", direction: "asc" }] : undefined })),
     createdAt: page.createdAt, updatedAt: page.updatedAt, deletedAt: null,
   };
@@ -93,9 +93,11 @@ export function visibleProjectFields(definition: DatabaseDefinition, type?: Proj
 /** Supply a missing default view for display without writing the source schema. */
 export function projectViews(definition: DatabaseDefinition, type?: ProjectType): DatabaseView[] {
   const preset = projectPreset(type);
-  if (!preset || definition.views.some(view => view.type === preset.view)) return definition.views;
+  const views: DatabaseView[] = definition.views.some(view => view.type === "table") ? definition.views :
+    [...definition.views, { id: "presentation:all-tasks", name: "All tasks", type: "table" }];
+  if (!preset || views.some(view => view.type === preset.view)) return views;
   const date = definition.properties.find(property => property.type === "date");
-  return [...definition.views, { id: `presentation:${type}`, name: preset.view[0]!.toUpperCase() + preset.view.slice(1), type: preset.view,
+  return [...views, { id: `presentation:${type}`, name: preset.view[0]!.toUpperCase() + preset.view.slice(1), type: preset.view,
     groupBy: preset.group, sort: date ? [{ property: date.id, direction: "asc" }] : undefined }];
 }
 export async function completeProjectTask(workspace: Pick<WorkspaceStore, "patchPage" | "createPage">, task: Page, definition?: DatabaseDefinition) {

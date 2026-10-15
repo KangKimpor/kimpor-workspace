@@ -4,6 +4,7 @@ import * as Y from "yjs";
 import { compareClock } from "./clock";
 import {
   WorkspaceStore,
+  trashRoots,
   base64ToBytes,
   bytesToBase64,
   type SyncChange,
@@ -31,6 +32,114 @@ afterEach(async () => {
     await store.close();
     await store.db.delete();
   }
+});
+it("purges a subtree atomically, clears private bytes and rejects stale-device resurrection", async () => {
+  const store = await workspace("local");
+  const root = await store.createPage("database", "Purge project");
+  const child = await store.createPage("row", "Private task", { parentId: root.id, databaseId: root.id });
+  const kept = await store.createPage("note", "Keep this");
+  await store.saveDatabase({ id: root.id, userId: store.accountId, properties: [], views: [], createdAt: root.createdAt, updatedAt: root.updatedAt, deletedAt: null });
+  const calendar = await store.saveCalendar({ title: "Keep calendar" });
+  await store.saveEvent({ calendarId: calendar.id, title: "Linked event", pageId: child.id });
+  const doc = new Y.Doc(); doc.getText("body").insert(0, "Private body");
+  await store.saveDoc(child.id, Y.encodeStateAsUpdate(doc)); doc.destroy();
+  await store.saveAttachmentBytes(child.id, new TextEncoder().encode("Private file"), "private.txt");
+  await store.saveEncryptedDoc(root.id, await encryptBytes(markdownToDocument("Private encrypted body"), "long purge passphrase", createRecoveryKey()));
+  const before = await store.pendingChanges();
+  const archive = await store.exportData();
+  await store.trashPage(root.id);
+  await expect(store.purgePages([root.id, kept.id])).rejects.toThrow("Only items in Trash");
+  expect(store.listPages(true)).toHaveLength(3);
+  await store.purgePages([root.id]);
+  expect(store.listPages(true).map(page => page.id)).toEqual([kept.id]);
+  expect(store.listDatabases()).toEqual([]);
+  expect(store.listEvents()).toHaveLength(1);
+  expect(store.listCalendars()).toHaveLength(1);
+  const exported = JSON.parse(await store.exportData());
+  for (const key of ["documents", "versions", "encryptedDocuments", "attachments"]) expect(exported[key]).toEqual([]);
+  const queued = await store.pendingChanges();
+  expect(queued.some(change => change.kind === "purge")).toBe(false);
+  expect(queued.some(change => change.kind !== "purge" && [root.id, child.id].includes(change.entityId))).toBe(false);
+  await store.applyRemote(before, "1");
+  expect(store.listPages(true).map(page => page.id)).toEqual([kept.id]);
+  await expect(store.restorePage(root.id)).rejects.toThrow("permanently deleted");
+  await expect(store.importData(archive)).rejects.toThrow("permanently deleted");
+  await expect(store.applyRemote([{ id: "foreign-purge", userId: "other", kind: "purge", table: "pages", entityId: kept.id, schemaVersion: 1 }], "2")).rejects.toThrow("outside this account");
+});
+it("applies a remote purge to pending local descendants and retains it after reopen", async () => {
+  const store = await workspace();
+  const root = await store.createPage("note", "Root");
+  const child = await store.createPage("note", "Offline child", { parentId: root.id });
+  const stale = await store.pendingChanges();
+  await store.applyRemote([{ id: "remote-purge", userId: store.accountId, kind: "purge", table: "pages", entityId: root.id, schemaVersion: 1 }], "1");
+  expect(store.listPages(true)).toEqual([]);
+  expect(await store.pendingChanges()).toEqual([]);
+  await store.close();
+  const reopened = new WorkspaceStore(store.db.name, store.accountId); instances.push(reopened);
+  await reopened.ready();
+  await reopened.applyRemote(stale, "2");
+  expect(reopened.listPages(true)).toEqual([]);
+  await expect(reopened.createPage("note", "New child", { parentId: child.id })).rejects.toThrow("Parent was permanently deleted");
+});
+it("waits for cloud acknowledgement, preserves refusal and blocks offline purge", async () => {
+  const store = await workspace();
+  const root = await store.createPage("note", "Cloud Trash");
+  await store.trashPage(root.id);
+  const original = await store.pendingChanges();
+  await expect(store.purgePages([root.id])).rejects.toThrow("Connect to the internet");
+  const transport = {
+    push: vi.fn(), pull: vi.fn(async () => ({ changes: [], cursor: null })),
+    purge: vi.fn(async () => { throw new Error("Network failure"); }),
+  };
+  await expect(store.purgePages([root.id], transport)).rejects.toThrow("Network failure");
+  expect(await store.pendingChanges()).toEqual(original);
+  expect(store.listPages(true)).toHaveLength(1);
+  const refused = { ...transport, purge: vi.fn(async (_owner: string, changes: SyncChange[]) => ({ acknowledged: [], refused: changes.map(change => change.id) })) };
+  await expect(store.purgePages([root.id], refused)).rejects.toThrow("restored on another device");
+  expect(store.listPages(true)).toHaveLength(1);
+  const success = { ...transport, purge: vi.fn(async (_owner: string, changes: SyncChange[]) => ({ acknowledged: changes.map(change => change.id), refused: [] })) };
+  expect(await store.purgePages([root.id], success)).toBe(1);
+  expect(store.listPages(true)).toEqual([]);
+  expect(await store.pendingChanges()).toEqual([]);
+});
+it("keeps the original workspace intact if the account changes before purge acknowledgement", async () => {
+  const store = await workspace();
+  const page = await store.createPage("note","Keep on account switch");
+  await store.trashPage(page.id);
+  const transport = {
+    push:vi.fn(), pull:vi.fn(),
+    purge:async (_owner:string,changes:SyncChange[]) => {
+      await store.bindAccount("another-owner");
+      return {acknowledged:changes.map(change=>change.id),refused:[]};
+    },
+  };
+  await expect(store.purgePages([page.id],transport)).rejects.toThrow("Workspace account changed");
+  await store.bindAccount("owner");
+  expect(store.listPages(true).map(item=>item.id)).toEqual([page.id]);
+});
+it("keeps imported self-linked project roots visible in Trash and hides deeply trashed descendants", async () => {
+  const store=await workspace("local");
+  const root=await store.createPage("database","Imported project");
+  await store.patchPage(root.id,{databaseId:root.id});
+  const child=await store.createPage("note","Child",{parentId:root.id});
+  const nested=await store.createPage("note","Nested",{parentId:child.id});
+  await store.trashPage(root.id); await store.trashPage(nested.id);
+  expect(trashRoots(store.listPages(true)).map(page=>page.id)).toEqual([root.id]);
+  await store.restorePage(root.id);
+  expect(trashRoots(store.listPages(true)).map(page=>page.id)).toEqual([nested.id]);
+});
+it("hides descendants and task links of a trashed project, and preserves linked events on purge", async () => {
+  const store = await workspace("local");
+  const project = await store.createPage("database", "Project");
+  const row = await store.createPage("row", "Task", { databaseId: project.id });
+  await store.createPage("note", "Nested", { parentId: row.id });
+  const event = await store.saveEvent({ title: "Keep event", pageId: row.id });
+  await store.trashPage(project.id);
+  expect(store.listPages()).toEqual([]);
+  expect(store.listPages(true)).toHaveLength(3);
+  await store.purgePages([project.id]);
+  await store.saveEvent({ ...event, title: "Still editable" });
+  expect(store.listEvents()[0]?.title).toBe("Still editable");
 });
 it("keeps list edits detached from persisted pages and nested property values", async () => {
   const store = await workspace();

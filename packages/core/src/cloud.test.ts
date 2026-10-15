@@ -32,6 +32,26 @@ const entity: SyncChange = {
   schemaVersion: 1,
   fields: {},
 };
+it("sends permanent deletion through the authenticated immutable sync queue", async () => {
+  const purge: SyncChange = { id: "delete-forever", userId: "owner", entityId: "page", kind: "purge", table: "pages", schemaVersion: 1 };
+  fetcher.mockResolvedValueOnce(new Response(JSON.stringify({ acknowledged: [purge.id] }), { status: 200 }));
+  expect(await new SupabaseTransport().push("owner", [purge])).toEqual({ acknowledged: [purge.id] });
+  expect(JSON.parse(fetcher.mock.calls[0]![1].body)).toEqual({ changes: [purge] });
+  expect(purge).toEqual({ id: "delete-forever", userId: "owner", entityId: "page", kind: "purge", table: "pages", schemaVersion: 1 });
+});
+it("batches acknowledged purge requests, validates receipts and stops on account changes", async () => {
+  const changes: SyncChange[] = Array.from({length:201},(_,index)=>({...entity,id:`purge-${index}`,entityId:`page-${index}`,kind:"purge"}));
+  const original = structuredClone(changes);
+  fetcher.mockImplementation(async (_url,options)=>response({acknowledged:JSON.parse(options.body).items.map((item:SyncChange)=>item.id),refused:[]}));
+  const transport = new SupabaseTransport();
+  expect((await transport.purge("owner",changes)).acknowledged).toEqual(changes.map(change=>change.id));
+  expect(fetcher.mock.calls.map(call=>JSON.parse(call[1].body).items.length)).toEqual([100,100,1]);
+  expect(changes).toEqual(original);
+  fetcher.mockResolvedValueOnce(response({acknowledged:["forged"],refused:[]}));
+  await expect(transport.purge("owner",changes.slice(0,1))).rejects.toThrow("Invalid purge response");
+  auth.session = {access_token:"another-token",user:{id:"another-owner"}};
+  await expect(transport.purge("owner",changes)).rejects.toMatchObject({status:403});
+});
 beforeEach(() => {
   auth.config = { url: "https://project.supabase.co", key: "public-test-key" };
   auth.session = { access_token: "test-token", user: { id: "owner" } };

@@ -21,6 +21,7 @@
     "e2e": "playwright test",
     "performance": "node scripts/performance.mjs",
     "shots": "node scripts/shots.mjs",
+    "layout:audit": "node scripts/layout-audit.mjs",
     "brand:build": "node scripts/brand.mjs",
     "budget": "node scripts/budget.mjs",
     "licenses": "node scripts/licenses.mjs",

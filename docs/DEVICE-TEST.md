@@ -1,5 +1,18 @@
 # Physical device checklist
 
+Owner direction, 15 October 2026: web first. Windows 11 EXE/native acceptance
+is deferred as the final stage after web finalization. Continue mobile/tablet
+web checks now; leave Windows executable checklist rows pending.
+
+Redesign acceptance (pending, 15 October 2026): check the black phone dock/lime
+current item, month scrolling and selected-day agenda, 44 px controls with real
+safe areas, hardware/software keyboards, VoiceOver/Narrator and IME. Editor
+success stays quiet; a save error offers Retry. Verify the update toast flushes
+edits before reload. After the approved backend rollout, use synthetic Trash
+content to check restore wins, two-device permanent deletion and attachment
+cleanup. Browser emulation and local SQL do not fill these physical rows.
+
+
 Fill date, exact OS version, result and notes. On 2026-10-13 the user confirmed Windows and iPhone are available; iPad/Pencil are unavailable. Automated browser emulation does not fill these physical acceptance rows.
 
 Windows evidence on 2026-10-13: the owner installed the account-configured
