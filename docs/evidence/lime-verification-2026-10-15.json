@@ -1,0 +1,74 @@
+{
+  "checkedAt": "2026-10-15T03:10:27.680Z",
+  "implementationHead": "ae20f5d0ba250ba21e2ab153d1de7d57a23c7a48",
+  "scope": "Web first. Windows 11 EXE work is deferred until web finalization.",
+  "web": {
+    "unitTests": 84,
+    "coreLineCoveragePercent": 89.68,
+    "initialGzipKiB": 226.8,
+    "baselineMainGzipKiB": 220.2,
+    "initialLimitKiB": 250,
+    "contrastPairs": 70,
+    "lint": true,
+    "typecheck": true
+  },
+  "layout": {
+    "passed": true,
+    "profileThemeCombinations": 34,
+    "auditedScreens": 612,
+    "receipt": "lime-layout-audit.json",
+    "reviewCaptures": 68,
+    "contactSheets": 4,
+    "approvedBaselinesChanged": false
+  },
+  "browser": {
+    "verifiedDistinctCasesAcrossRuns": 155,
+    "totalCases": 160,
+    "completeGreenRun": false,
+    "blockedCases": 5,
+    "blockedReason": "Firefox existing-window resize times out on this Windows host, reproduced on a blank page. Tests remain enabled for CI.",
+    "mainRerun": {
+      "passed": 124,
+      "failed": 2
+    },
+    "focusedFixes": {
+      "appLockPassed": 3,
+      "keyboardViewportPassed": 3,
+      "scheduleDayPassed": 4
+    },
+    "firefoxPreviouslyVerified": 25,
+    "mockedAccountCasesPassed": 18
+  },
+  "finalFocusedBrowser": {
+    "passed": 12,
+    "projects": [
+      "chromium",
+      "webkit",
+      "firefox",
+      "phone-webkit"
+    ],
+    "sourceHead": "ae20f5d0ba250ba21e2ab153d1de7d57a23c7a48"
+  },
+  "backend": {
+    "isolatedEngine": "PostgreSQL 17.6",
+    "migrationsApplied": 12,
+    "ownershipAndPurgeSql": "passed",
+    "edgeFunctionsTypechecked": 8,
+    "denoContractsPassed": 8,
+    "migrationSha256": "2ce14fc9b8d85ab3003732dc3c8b5c27726818309d3e4c39d086f5187c8462c2"
+  },
+  "liveReadOnly": {
+    "checkedOn": "2026-10-15",
+    "databaseReady": 1,
+    "permanentDeletionTablePresent": false,
+    "purgeRpcPresent": false,
+    "liveMutationPerformed": false
+  },
+  "remaining": [
+    "Review human-approved visual baselines",
+    "Approve and execute both pending migrations and changed Edge Functions",
+    "Complete real mobile web/device and live synthetic cloud acceptance",
+    "Approve merge and Pages publication",
+    "Windows 11 EXE is a later final stage"
+  ]
+}

@@ -1,122 +1,65 @@
-# Lime workspace redesign
+# Lime workspace redesign — updated brief
 
-The supplied brief ends at section 1.6; its seven requirements and three
-reference images define this implementation. Preserve source schemas, property
-IDs, account isolation and the existing phone/tablet/desktop container layout.
+Continuation dated 15 October 2026. This supersedes the earlier report based on the unfinished prompt. The complete `kimpor-workspace-redesign-prompt.md` is the design brief; `message (9).txt` is historical context. Work continues on `redesign/lime-workspace` in PR #15. No main push, live migration, merge, baseline approval or Pages publication is included.
 
-Ordered phases: (0) plan and baseline, (1) tokens and Today, (2) Projects,
-(3) Calendar, (4) editor/build update visibility, (5) remove Templates,
-(6) durable Trash purge, (7) layout/accessibility audit and documentation.
+## Owner priority: web first
 
-Design: pale neutral canvas, white rounded cards, lime primary actions with dark
-text, black schedule pill, restrained typography using the existing bundled
-font. Dark mode uses charcoal surfaces and the same lime action treatment.
-Projects uses a full-width task table and labeled view tabs; Calendar retains
-the existing month/week/day/agenda engine and uses a full-height month grid.
+On 15 October 2026 the owner explicitly paused Windows 11 EXE work. Finalize the web app first. Windows executable implementation, packaging, installation and native acceptance are a later **final stage**, after web finalization and further owner direction. Keep the current work focused on web behavior, responsive layouts, browser verification and the reviewed web/backend rollout. Desktop asset builds already completed are evidence only; they do not mean native work is active.
 
-Baseline on 2026-10-14: clean main at 645df5a; git fetch succeeded;
-frozen-lockfile installation succeeded; pnpm check passed 76 tests, 89.26%
-core line coverage, 220.2 KiB initial gzip and 44 contrast pairs. Existing Vite
-warnings concern recurrence interop and AccountGate's mixed import modes.
-The host reports pnpm 11.25.0; the repository pins 11.19.0.
+## Requirement coverage
 
-The frontend-design, Ponytail and Plugin Management skills are available.
-The named design and engineering skills are unavailable; token, accessibility,
-test-plan, review and deployment checks are performed with repository tooling.
+| Requirement | Implementation | Evidence and release boundary |
+|---|---|---|
+| R1 | Neutral/ink/lime tokens, Urbanist with Khmer fallback, responsive shell/dock, schedule timeline, Today counts/filter chips/project and task cards | `tokens.css`, `Today.tsx`, `today.css`; contrast, task and layout checks. Reference image files were unavailable; the complete brief's measured values were used. |
+| R2 | Project cards, persisted description, table-first new projects, preserved imported property/view IDs and labels, keyboard tabs, Filter/Sort/Properties dialogs, column visibility, sticky table, inline creation, phone cards and wide row peek | `WorkspaceApp.tsx`, `projects.ts`; preset/core, project and responsive browser tests. Existing native date inputs remain for platform keyboard/date-picker support. |
+| R3 | Period/date chooser, searchable view menu, mini month/sidebar drawer, Sunday default without overwriting stored preferences, full-height desktop month, clipped multi-day spans, overflow list, keyboard grid navigation, compact phone month/agenda and single-column time views | `CalendarModule.tsx`, `CalendarMonth.tsx`, `calendar-redesign.css`; recurrence/DST/provider/ICS unit tests, browser tests and layout audit. Tasks mode is read-only and backed by due dates. |
+| R4 | Removed editor save-device wording and associated styles; update toast flushes editors before activating a web update | `rich-editor.css`, existing `AppUpdateNotice.tsx`; simulated app-update and multilingual offline browser regressions. Native build excludes service-worker registration. |
+| R5 | Removed Templates controls; legacy `__template` properties are not a visibility filter and remain exportable ordinary pages | `WorkspaceApp.tsx`, store exports; no destructive migration of legacy pages. |
+| R6 | Search/type filters, selection, Restore/Delete forever/Empty Trash, alertdialog with Cancel focused, server acknowledgement before local cleanup, restore refusal refresh, owner guards, descendant/data cleanup, permanent markers and Storage retry queue | `TrashPanel.tsx`, `store.ts`, `cloud.ts`, additive migration `20261014112842_acknowledged_purge.sql`; core, SQL and Deno tests. **Cloud rollout remains pending approval.** Linked calendar events survive. |
+| R7 | Explicit 1980 target; 17 profiles × 2 themes; geometry, target, accessibility, month keyboard and menu checks; board, phone cards, auth fixtures and safe-area simulations | `tests/layout-audit.spec.ts`, `scripts/layout-audit.mjs`, `playwright.config.ts`; generated `docs/evidence/lime-layout-audit.json`. Strict approved visual baselines remain a separate human step. |
 
-Purge verification must cover subtree/attachment/document/history cleanup,
-account isolation, retries, stale-device resurrection and transactional rejection
-of live pages. Layout verification must cover light/dark desktop1980, iPhone 15,
-iPad portrait/landscape and the remaining existing screenshot profiles, with
-overflow, touch targets and alignment assertions. Local screenshots are evidence
-only; existing CI visual baselines and thresholds remain unchanged.
+## Decisions and limits
 
-No Pages deployment, live migration, merge or visual-baseline approval is
-authorized by this brief. Backend rollout and CI baseline review are final human
-steps after the pull request is ready.
+- Urbanist is the sole new runtime dependency. Legacy package scopes, storage keys, imported schemas and property IDs stay intact. The default accent becomes `lime`; the old blue default migrates once, and later explicit choices remain available.
+- Interactive month event lanes use 44 px rather than 24 px. A 308 px mini calendar accommodates seven 44 px date targets; 256 px cannot do so. These changes honor the brief's touch/accessibility requirement.
+- Short phones scroll complete month rows within the compact grid, preserving full date targets above the floating action and dock. Desktop date-number activation opens Day; phone activation keeps the selected-day agenda.
+- A shared small menu uses existing Pressable/React portal code. Filter/Sort/Properties reuse the existing Sheet focus-management contract, anchored beside the triggering desktop control and presented as phone sheets.
+- Week grids retain two separate 44 px event/open and resize targets. On narrow tablet panes the week scrolls horizontally inside its marked region; phone week/day remains a single column. Calendar headings stick below the safe-area-aware app header.
+- Native date inputs are retained instead of introducing a custom calendar widget. Existing device keyboard and date semantics are more reliable; display formatting follows the platform.
+- Cell activation reuses the full validated event dialog rather than maintaining a second quick-create form; recurrence and time-zone controls remain available in that same flow.
+- Permanent deletion is deliberately online-only for cloud owners. The unsent purge-intent behavior in the earlier partial implementation is superseded. The UI first flushes editors and syncs normal changes, then asks the strict RPC. No offline destructive intent is queued.
+- Linked events are retained even when their page is purged. Opening the missing link explains that the page is no longer available. Purging a project removes its descendant pages/rows/database definition, documents, encrypted bodies, history and file metadata, and queues private file deletion.
+- Missing optional design/engineering skills were handled with repository checks and direct review. Plugin Management and Graphify were consulted; Graphify had no matching redesign memory. No plugin installation was needed.
 
-## Components and interaction contracts
+## Verification approach
 
-- `Today`: schedule is a single Calendar action with real event times; counts
-  use current tasks and projects. The agenda dot never consumes a flex column.
-- `DatabaseEditor`: All tasks opens first, followed by source views. Keyboard
-  arrows/Home/End move between tabs. Search and inline edits preserve source
-  IDs and schemas; wide tables scroll inside their own pane. Missing table
-  views are supplied for presentation, without changing imported definitions.
-- `CalendarModule`: Today/period navigation shares the month heading's center
-  line. Four view buttons replace the duplicate native picker. Month height
-  follows the workspace container; the selected day stays available on phones
-  and in the desktop sidebar. First-day, time-zone and recurrence logic remain.
-- `AppUpdateNotice`: an available update occupies space below the toolbar.
-  Activation flushes editors to durable storage before requesting SKIP_WAITING.
-  Desktop builds register no service worker.
-- `Trash`: native confirmation names the destructive scope. Purge includes
-  nested pages/tasks, linked events, bodies, encrypted shards, history and files.
-  Only local Trash roots qualify; the immutable purge request carries their Trash intent so an unsent soft-delete or page creation is not required on the server. Persistent deletion IDs suppress stale devices;
-  offline operations remain in the existing owner-bound transactional outbox.
-  Old backup IDs cannot recreate purged items in the same workspace.
+The untouched-main baseline from the prior session was `645df5a`: frozen install and `pnpm check` passed, 76 tests, 89.26% core line coverage, 220.2 KiB initial gzip and 44 contrast pairs. The partial redesign started this continuation at 221.6 KiB. Current command results are recorded in `VERIFICATION.md` and the PR.
 
-Default accent remains keyed `blue` for compatibility and is labeled Lime in
-the interface. Existing font packages and accent preferences are reused. New
-foreground/background pairs live in tokens.css and retain contrast thresholds.
-Pressable targets, focus outlines, safe areas, reduced motion and IME handling
-are preserved. Theme pairs, responsive overflow and touch targets are audited
-by `pnpm layout:audit`; its fixture screenshots never replace CI baselines.
+The layout test uses synthetic local content, fixed time, both themes, simulated safe areas and the existing 17 browser profiles. It checks horizontal overflow, targets, overlap, escaped controls, truncation, selected left edges, equal month rows, dock clearance and serious/critical axe violations. It waits for Pressable springs to settle before measuring. Sign-in and email-code use a separately built mock auth origin, never a real account. JSON receipts are generated only from passing tests; an incomplete matrix exits unsuccessfully.
 
-## Backend rollout for human approval
+Imported self-linked project roots remain visible in Trash; ancestor traversal is shared with the sidebar count and has a dedicated regression.
 
-1. Apply only `202610140001_permanent_deletion.sql` to the existing project via
-   the incremental migration path. The generated dashboard schema is for a
-   fresh project and refuses an existing workspace.
-2. Deploy the changed `attachments`, `maintenance` and `delete-account` Edge
-   Functions before deploying the client. Retained purge notifications must
-   remain available to stale devices. Database deletion is atomic; physical
-   Storage cleanup retries through the existing 15-minute maintenance job.
-3. Verify a test account's purge, stale-device pull, file cleanup and cloud reset
-   against the deployed backend. Local SQL and browser fixtures do not prove
-   production Storage cleanup, account/provider behavior or physical hardware.
-4. Generate the 510-image candidate through the Visual baselines workflow and
-   review it before replacing any baseline. Keep the strict pixel thresholds.
-   Approve merge and Pages publication separately after backend readiness.
+The audit does not establish physical-device acceptance, every prose spacing value, screen-reader quality or fidelity to unavailable reference images. Human review of the 510 strict visual baseline candidates remains required. The 18 audited application/auth states produce 612 local captures; these are not replacements for that baseline set.
 
-Rollback: retain the migration and deletion ledger. Reverting the UI cannot
-restore purged content. Retain maintenance until the file queue is drained;
-existing independent backup copies are outside Trash's deletion scope.
+PostgreSQL tests were executed in a disposable local PostgreSQL 17 instance with all 12 migrations and synthetic owners. This provides actual SQL execution despite Docker being unavailable. Ownership, strict acknowledgement/refusal, restore wins, stale peers, retained events and Storage cleanup queue assertions pass. Deno checks all eight Edge Functions; eight contract tests include failed Storage cleanup retaining its retry work. No live data was deleted.
 
-## Local verification, 14 October 2026
+Read-only live checks after the owner unpaused Supabase report `ACTIVE_HEALTHY`, PostgreSQL 17.11 and a successful database query. The permanent-deletion table and new `purge_entities(jsonb)` RPC are absent in production. Healthy status is not evidence that the new backend is deployed.
 
-`pnpm check` passes 79 unit tests, 89.51% core line coverage, 221.6 KiB initial
-gzip and 48 contrast pairs. Both web and desktop frontend builds pass the
-obsolete-status guard. SQL bootstrap plus all eleven migrations, existing
-ownership checks and permanent-deletion checks pass in isolated PostgreSQL
-18.6 on this Windows host; no live project was contacted. Deno 2.5.5 checks all
-eight Edge Functions and passes seven backend contract tests.
+## Visual self-review
 
-The layout audit passes 442 populated/empty screen cases: thirteen states in
-each of seventeen profiles and both themes. It checks document/root/main
-overflow, nominal 44px targets (0.5px measurement tolerance), toolbar center
-alignment, desktop month height, agenda gutter and the full-width project pane.
-See `evidence/lime-layout-audit.json` and local fixture screenshots under
-`docs/screenshots/lime-layout/`. Minor final color-label copy and native checkbox
-accent changes do not change measured geometry. These captures are evidence,
-not approved visual baselines.
+`SHOT_SCREENS=today,calendar pnpm shots` completed 68 captures. Reviewed the four `docs/screenshots/contact-today-{light,dark}.png` and `contact-calendar-{light,dark}.png` sheets, plus full-size Today/Calendar captures at desktop1980, iPhone 15 and iPad. Fresh final-build captures in `.private/redesign-{today,calendar}-{desktop1980,iphone15,ipad}-{light,dark}.png` confirm the navigation icon paint, ink controls and single-line current-time marker. The 12 final module/theme, Trash and Today navigation regressions pass across all four browser projects.
 
-All 28 targeted browser regressions pass in Chromium, desktop WebKit, Firefox
-and phone WebKit; the 30-case responsive matrix and 18 account entry fixtures
-pass. These cover task views/search/status editing, month selection, Trash
-cancel/restore/purge/reload and editor persistence through simulated app updates.
-The final complete browser suite passes all 150 cases, including the existing
-accessibility, multilingual persistence, offline, import, protection and gesture
-checks. Final self-review also adds an owner check around the destructive UI
-operation's editor flush and avoids showing an old account's deletion result
-in a newly selected account.
+Also inspected `project-table.png` from the desktop1980-light and iphone15-portrait-light layout-audit output, and desktop1980-dark `sign-in.png`. The phone table becomes cards with a native editable title field; longer titles scroll within that field. The original brand mark is retained on sign-in.
 
-JavaScript licenses and Gitleaks's 69-commit history scan pass. Existing build
-warnings about recurrence interop and AccountGate import modes remain. No new
-runtime dependency was added. Production Storage deletion, live sync/providers,
-physical iPhone/iPad and the native Windows runtime were not tested by this work.
+The three reference image files were unavailable, so exact visual comparison remains unverified. Observable departures from the prose reference are documented above: 44 px event lanes, a 308 px mini calendar, native date fields and the full event dialog. Sparse fixture content intentionally leaves open space. The audit checks selected alignment/gutter relationships and simulated insets, not every spacing value or physical device inset. Human baseline and device review remain required. Capture metadata rewritten by `pnpm shots` was restored; no approved baseline images were changed.
 
-Final offline sequencing regression: purge of an existing cloud page with an
-unsent Trash change, purge of a never-synced page, and malformed Trash intent
-rejection pass in the isolated SQL suite. The queued intent contains only the
-deletedAt stamp; private page fields and queued body/file bytes are removed.
+## Rollout after approval
+
+1. Review PR #15, the SQL/ADR and changed function deployment bundles. Take the normal encrypted backup and verify the recovery path.
+2. Apply **both** pending migrations in order: `202610140001_permanent_deletion.sql`, then `20261014112842_acknowledged_purge.sql`. The second migration corrects the earlier implementation's event cascade and adds strict acknowledgements. Do not stop after the first.
+3. Deploy the changed `attachments`, `maintenance` and `delete-account` Edge Functions from the existing branch, using the established CLI/dashboard path. The local dashboard bundle includes all 12 migrations and eight functions; regeneration is checked in CI.
+4. With synthetic signed-in test content, verify two-client deletion/refusal, offline blocking, missing-page event guidance, file cleanup retries and account isolation. Real owner content is unnecessary.
+5. Run the Visual baselines workflow or request its candidate with the existing PR label, review all 510 captures, and commit only the human-approved images. Do not relax comparison thresholds.
+6. Merge and publish Pages only after explicit approval. Refresh installed web copies via the update toast/Install settings; complete iPhone/iPad web acceptance. Keep Windows 11 EXE work deferred until the web app is finalized.
+
+No live migration or deployment has been performed in this continuation.

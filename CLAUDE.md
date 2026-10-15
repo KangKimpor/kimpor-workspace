@@ -1,45 +1,34 @@
 # Kimpor Workspace working memory
 
-Updated 2026-10-13 UTC. All 510 font-fixed CI baselines have been reviewed and
-installed; live Google and code-only email sign-in preserve the original owner
-and imported data. Read the current continuation section below and
-docs/ACCOUNT-FIRST-REDESIGN.md and docs/VERIFICATION.md before editing.
+Updated 2026-10-15. The complete lime redesign brief supersedes the earlier unfinished prompt. Current work is PR #15 on `redesign/lime-workspace`; see `docs/LIME-REDESIGN.md`, `docs/DESIGN-SYSTEM.md` and `docs/VERIFICATION.md`.
 
-## Current continuation, 13 October 2026
+## Current continuation, 15 October 2026
 
-PR #7 is merged as 4fc8726 and published by Pages 38338654296 after explicit
-human approval. Quality 38337462873 passes 138 app cases, 18 account fixtures,
-SQL/Deno, licenses/secrets/build checks and all 510 strict visual comparisons.
-CodeQL 38337462822 passes. Baseline run 38268637809/artifact
-11755859265 provides the reviewed 510-image set; its archive SHA-256 and complete
-matrix were verified. All 30 contacts and detailed Khmer, Calendar and scaled
-editor views pass review. See evidence/account-redesign-baseline-review.json.
+The owner explicitly set the release order on 15 October: **web app first**.
+Pause Windows 11 EXE/native implementation, packaging, installation and runtime
+acceptance until the web app is finalized. Resume Windows as the final stage
+only after web finalization and the owner's next direction. Web code and web
+verification remain active; earlier desktop asset-build results are historical.
 
-Actual dashboard inspection confirms existing SMTP, Google, six-digit 600-second
-codes and both token-only templates. The owner completed real Google and email
-code sign-in in the redesigned local build. One original user and all 69 pages,
-four databases and 62 bodies remain; full stored-row hashes match before/after.
-Only public client configuration was read, and no credential was created.
-Google remains External / Testing, restricted to the configured owner. These
-facts supersede older provider-pending statements below.
+Urbanist/neutral/ink/lime tokens, Today cards/timeline, project database controls,
+Calendar month/time layouts, quiet editor/update notice and acknowledged Trash
+purge are implemented locally. Preserve imported view/property IDs and legacy
+`__template` pages. Cloud purge is online-only and waits for the strict RPC;
+linked calendar events survive. Apply both pending purge migrations in order.
 
-A fresh post-publication audit finds four page additions at 02:09 UTC and one
-prior soft-delete at 02:10 UTC, before publication. Original database/document
-rows still match; human confirmation of page changes is pending. Deployed Google
-sign-in and reload preserve the original owner. Deployed email recheck is pending.
-See evidence/web-publication-2026-10-13.json. Do not claim current page hashes match.
+Read-only Supabase checks after unpausing report ACTIVE_HEALTHY and a working
+PostgreSQL query. The new deletion table/RPC are absent in production. No live
+migration or deployment was performed. SQL verification uses a disposable local
+PostgreSQL 17 instance with synthetic owners; all 12 migrations and ownership/
+purge tests pass. Eight Deno tests include Storage retry behavior. Local browser
+and layout results are recorded in VERIFICATION; they are not physical-device
+acceptance or approval of new visual baselines.
 
-Follow-up local search cache: multilingual/ranking/filter/reindex regression and
-three browser search/IME cases pass; pnpm check passes 74 tests. Warm 10k-item
-Chromium search max 4.5 ms; typing max 19.9 ms still fails 16 ms. Phone WebKit
-large import remains busy at 180 seconds. Latest Windows CI 38337462848 passes
-functional checks but uses 403705856 aggregate resident bytes. No v1 tag.
-
-Local pnpm check passes 73 core tests, 88.91% line coverage, 219.7 KiB initial
-gzip and 44 contrast pairs; 18 auth fixtures, JS/Cargo licenses and Gitleaks
-history pass. Rust 1.99.0 and pnpm 11.19.0 live privately in .private/toolchain.
-Windows MSVC release and NSIS compile locally. Native acceptance is still open;
-do not weaken aggregate resident-memory or typing budgets or tag v1.
+Review PR #15, approve baseline candidates and the backend rollout, then authorize
+merge/Pages publication separately. The updated brief explicitly requires human
+approval for live migrations, main, merge and Pages. Earlier release approvals
+below do not authorize this redesign rollout. Native Windows runtime, installed
+iPhone/iPad and production providers/Storage remain acceptance steps.
 
 ## Authorization and decisions
 
