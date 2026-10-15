@@ -50,6 +50,10 @@
 .cal-event-chip.all-day > span { color:var(--on-cal); }
 .cal-main .cal-event-chip,.cal-main .cal-event-chip > span { color:var(--on-cal); }
 .cal-main .cal-event-chip { background:var(--cal-fill) !important; }
+.cal-main .cal-timed-event { display:flex; gap:4px; min-height:52px; }
+.cal-timed-event .cal-event-body { flex:1; min-width:44px; min-height:44px; overflow:hidden; }
+.cal-event-body > strong,.cal-event-body > span { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.cal-timed-event .cal-resize { position:static; flex:0 0 44px; height:44px; align-self:flex-end; display:grid; place-items:center; }
 .cal-now { border-color:var(--ink); }
 .cal-now::before { content:''; width:8px; height:8px; border-radius:var(--radius-pill); background:var(--ink); position:absolute; left:-4px; top:-5px; }
 .cal-month-sidebar { width:308px; }
@@ -132,3 +136,8 @@
  .cal-week { scroll-margin-top:28px; }
  .cal-day-dots { position:absolute; bottom:2px; left:0; right:0; }
 }
+
+.cal-time-week { overflow-x:auto; }
+.cal-time-week .cal-time-headers,.cal-time-week .cal-time-scroll { min-width:782px; }
+
+@container workspace (width >= 600px) { .cal-heading { position:sticky; top:calc(var(--bar-height) + var(--safe-area-top,env(safe-area-inset-top))); z-index:10; background:var(--bg); } }

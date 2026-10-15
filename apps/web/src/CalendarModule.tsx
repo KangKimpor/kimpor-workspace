@@ -1822,7 +1822,7 @@ function TimeGrid({
     force((value) => value + 1);
   }
   return (
-    <div className={`cal-time-view ${days.length > 1 ? "cal-time-week" : ""}`}>
+    <div className={`cal-time-view ${days.length > 1 ? "cal-time-week" : ""}`} data-scroll-x={days.length > 1 || undefined}>
       <div
         className="cal-time-headers"
         style={{ "--cal-columns": days.length } as CSSProperties}
@@ -1965,6 +1965,7 @@ function TimeGrid({
                       <Pressable
                         className="cal-resize"
                         aria-label={`Resize ${occurrence.event.title}`}
+                        onClick={() => { if (!moved.current) onOpen(occurrence); moved.current = false; }}
                         onPointerDown={(event) =>
                           begin(event, day, "resize", occurrence)
                         }
@@ -1972,7 +1973,7 @@ function TimeGrid({
                         onPointerUp={end}
                         onPointerCancel={cancel}
                       >
-                        <span />
+                        <span aria-hidden="true">↕</span>
                       </Pressable>
                     </div>
                   );

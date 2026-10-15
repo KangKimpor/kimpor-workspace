@@ -5,7 +5,7 @@ import { Pressable } from "@veloradesk/ui";
 export default function ActionMenu({ label, children, className = "ws-button", items }: { label:string; children:ReactNode; className?:string; items:{ label:string; onSelect:()=>void }[] }) {
   const [open,setOpen] = useState(false), [position,setPosition] = useState({top:0,left:0});
   const trigger = useRef<HTMLButtonElement>(null), menu = useRef<HTMLDivElement>(null);
-  const close = () => { setOpen(false); trigger.current?.focus(); };
+  const close = () => { setOpen(false); trigger.current?.focus({preventScroll:true}); };
   const show = () => {
     const rect=trigger.current!.getBoundingClientRect();
     setPosition({top:Math.max(8,Math.min(rect.bottom+4,innerHeight-Math.min(320,items.length*44+16)-8)),left:Math.max(8,Math.min(rect.left,innerWidth-228))}); setOpen(true);
