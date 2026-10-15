@@ -107,7 +107,7 @@ test("imported timed dates display their stated day without losing the original 
   await expect(page.getByText("File imported.", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Close Settings", exact: true }).click();
   await page.getByRole("tree").getByRole("button", { name: "Imported date database", exact: true }).click();
-  await page.getByRole("tab", { name: "All tasks", exact: true }).click();
+  await page.getByRole("tab", { name: "Table", exact: true }).click();
   await expect(page.getByLabel("Due date", { exact: true })).toHaveValue("2026-12-10");
   await settings();
   const [download] = await Promise.all([

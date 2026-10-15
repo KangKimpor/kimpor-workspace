@@ -40,7 +40,7 @@ try {
       await page.getByRole('textbox',{name:'Page title'}).fill('Projects');
       await expect(page.getByRole('textbox',{name:'Page title'})).toHaveValue('Projects');
       await seedTime(-2000);
-      await page.getByRole('button',{name:'New task',exact:true}).click();
+      await page.getByRole('button',{name:'New task',exact:true}).filter({visible:true}).first().click();
       await page.getByRole('textbox',{name:'Document editor'}).waitFor();
       await page.getByRole('textbox',{name:'Page title'}).fill('Make room for a small idea');
       await page.getByRole('textbox',{name:'Document editor'}).fill('One small step, every day.');
@@ -51,7 +51,7 @@ try {
       await page.getByRole('textbox',{name:'Document editor'}).fill('Today I am grateful for a little quiet.\n\nអរគុណ · 谢谢 · Thank you');
       await navigate('Calendar');
       await seedTime(0);
-      await page.getByRole('button',{name:'New event',exact:true}).first().click();
+      await page.getByRole('button',{name:'New event',exact:true}).filter({visible:true}).first().click();
       await page.getByLabel('Title',{exact:true}).fill('A little time to plan');
       await page.getByRole('dialog',{name:'New event',exact:true}).locator('select').first().selectOption({label:'Personal'});
       await page.getByRole('button',{name:'Done',exact:true}).click();
@@ -65,7 +65,7 @@ try {
           await navigate(route);
           await expect(page.getByRole('region',{name:'Page detail',exact:true})).toHaveCount(0);
           if(screen==='note-detail'){await page.locator('main').getByRole('button',{name:/A little room for ideas/}).first().click();await page.getByRole('textbox',{name:'Document editor'}).waitFor();await page.getByRole('textbox',{name:'Document editor'}).focus();}
-          if(screen==='database'){await page.locator('main').getByRole('button',{name:/Projects/}).first().click();await page.getByRole('button',{name:'New task',exact:true}).waitFor();}
+          if(screen==='database'){await page.locator('main').getByRole('button',{name:/Projects/}).first().click();await page.getByRole('button',{name:'New task',exact:true}).filter({visible:true}).first().waitFor();}
           if(screen==='settings'){if(!await page.getByRole('button',{name:'Settings',exact:true}).first().isVisible())await page.getByRole('button',{name:'Open sidebar',exact:true}).click();await page.getByRole('button',{name:'Settings',exact:true}).first().click();await page.getByRole('button',{name:'Export ZIP'}).waitFor();}
           if(screen==='search')await page.getByRole('button',{name:'Search workspace',exact:true}).click();
         }
@@ -85,7 +85,7 @@ try {
         await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
         // Wait for asynchronous account-cache reads and the final WebKit paint.
         if(screen==='today')await expect(page.locator('main').getByText('A little time to plan',{exact:true}).first()).toBeVisible();
-        if(screen==='calendar')await expect(page.locator('.cal-selected-day').getByText('A little time to plan',{exact:true})).toBeVisible();
+        if(screen==='calendar'){await expect(page.locator('.cal-month-grid')).toBeVisible();await expect(page.locator('.cal-month-grid .cal-month-event,.cal-month-grid .cal-more,.cal-month-grid .cal-day-dots i').first()).toBeAttached();}
         await page.waitForTimeout(350);
         const file=`docs/screenshots/${screen}-${name}-${theme}.png`;
         const overflow=await page.evaluate(()=>document.documentElement.scrollWidth > innerWidth+1);
@@ -128,7 +128,7 @@ try {
     console.log(`Rendered ${name}, light and dark.`);
   }
   if(report.length!==screenNames.length*matrix.length*2)throw new Error('Screenshot matrix is incomplete.');
-  for(const screen of [...new Set(report.map(row=>row.screen))]) for(const theme of ['light','dark']) {
+  for(const screen of selectedScreens ?? [...new Set(report.map(row=>row.screen))]) for(const theme of ['light','dark']) {
     const captures=report.filter(row=>row.screen===screen&&row.theme===theme);
     const width=400,height=1100;
     const tiles=[];

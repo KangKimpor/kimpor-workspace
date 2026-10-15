@@ -65,7 +65,7 @@ jobs:
           path: |
             playwright-report/
             docs/screenshots/contact-*.png
-            docs/screenshots/lime-layout/
+            test-results/layout-audit-*/
             docs/evidence/lime-layout-audit.json
             docs/screenshots/diffs/
             docs/evidence/screenshot-matrix.json

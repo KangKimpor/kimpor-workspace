@@ -27,14 +27,13 @@ test("quick add focuses the task name and completion moves the task to Done", as
   await expect(sheet.getByLabel("Date", { exact: true })).toBeHidden();
   await name.fill("Plan the next step");
   await sheet.getByRole("button", { name: "Add task" }).click();
-  const row = page.locator(".ws-task-row").filter({ hasText: "Plan the next step" });
+  const row = page.locator(".ws-task-card").filter({ hasText: "Plan the next step" });
   await expect(row.locator("strong")).toHaveText("Plan the next step");
-  const sizes = await row.evaluate(element => ({ name: parseFloat(getComputedStyle(element.querySelector("strong")!).fontSize), meta: parseFloat(getComputedStyle(element.querySelector("small")!).fontSize) }));
+  const sizes = await row.evaluate(element => ({ name: parseFloat(getComputedStyle(element.querySelector("strong")!).fontSize), meta: parseFloat(getComputedStyle(element.querySelector(".ws-task-card-meta")!).fontSize) }));
   expect(sizes.name).toBeGreaterThan(sizes.meta);
   await row.getByRole("checkbox", { name: "Complete Plan the next step" }).click();
-  await expect(page.locator(".ws-done-tasks summary")).toBeVisible();
-  await page.locator(".ws-done-tasks summary").click();
-  await expect(page.locator(".ws-done-tasks strong")).toHaveText("Plan the next step");
+  await page.getByRole("button", { name: /^Done 1$/ }).click();
+  await expect(page.locator(".ws-task-card strong")).toHaveText("Plan the next step");
   await navigate(page, "Projects");
   await expect(page.getByRole("button", { name: /Inbox/ }).filter({ visible: true }).first()).toBeVisible();
 });

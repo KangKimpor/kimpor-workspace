@@ -20,6 +20,7 @@ test("tablet writing stays uncluttered and formatting remains usable", async ({ 
   await page.getByRole("textbox", { name: "Page title" }).fill("A quiet canvas");
   const editor = page.getByRole("textbox", { name: "Document editor", exact: true });
   await editor.fill("A thought worth keeping · ខ្មែរ · 中文");
+  await expect(page.locator('.ws-detail-pane').getByText(/on this device|saved locally|saved on/i)).toHaveCount(0);
   const toolbar = page.getByRole("toolbar", { name: "Document formatting", exact: true });
   const panel = page.getByRole("group", { name: "Formatting options", exact: true });
   await expect(toolbar.locator("button:visible")).toHaveCount(5);
@@ -73,29 +74,38 @@ test("journal resumes today's entry and shows its saved words in the library", a
   await expect(page.getByRole("button", { name: "Clear", exact: true })).toBeVisible();
 });
 
-test("month selection shows that day's events without leaving the month", async ({ page }) => {
+test("month selection opens a desktop day and keeps the phone agenda", async ({ page }) => {
   await page.clock.setFixedTime(new Date("2026-10-12T09:00:00Z"));
   await page.goto("/");
   await navigate(page, "Calendar");
   const heading = page.getByRole("heading", { name: "Calendar", exact: true });
   expect(await heading.evaluate(element => element.getBoundingClientRect().height <= parseFloat(getComputedStyle(element).lineHeight) + 1)).toBe(true);
-  await page.getByRole("button", { name: "New event", exact: true }).click();
+  await page.getByRole("button", { name: "New event", exact: true }).filter({visible:true}).first().click();
   const dialog = page.getByRole("dialog", { name: "New event", exact: true });
   await dialog.getByLabel("Title", { exact: true }).fill("A little time to plan");
   await expect(dialog.getByLabel("Custom recurrence RRULE")).toBeHidden();
   await dialog.getByRole("button", { name: "Done", exact: true }).click();
+  const phone = page.viewportSize()!.width < 600;
   const selected = page.getByRole("region", { name: "Selected day events", exact: true });
-  await expect(selected.getByRole("button", { name: /A little time to plan/ })).toBeVisible();
-  await page.getByRole("button", { name: "Open Tuesday, October 13, 2026", exact: true }).click();
-  await expect(selected.getByRole("heading", { name: "October 13", exact: true })).toBeVisible();
-  await expect(selected.getByRole("button", { name: "New event", exact: true })).toBeVisible();
-  await expect(page.locator(".cal-month-grid")).toBeVisible();
-  await expect(page.locator(".cal-day-add")).toHaveCount(0);
+  const events = phone ? selected : page.locator('.cal-month-grid');
+  await expect(events.getByRole("button", { name: /A little time to plan/ })).toBeVisible();
   const dateTarget = await page.locator(".cal-day-number").first().boundingBox();
   expect(dateTarget!.width).toBeGreaterThanOrEqual(44);
   expect(dateTarget!.height).toBeGreaterThanOrEqual(44);
-  await page.getByRole("button", { name: "Open Monday, October 12, 2026", exact: true }).click();
-  await selected.getByRole("button", { name: /A little time to plan/ }).click();
+  await page.getByRole("button", { name: "Open Tuesday, October 13, 2026", exact: true }).click();
+  if (phone) {
+    await expect(selected.getByRole("heading", { name: "October 13", exact: true })).toBeVisible();
+    await expect(selected.getByRole("button", { name: "Add event", exact: true })).toBeVisible();
+    await expect(page.locator(".cal-month-grid")).toBeVisible();
+  } else {
+    await expect(page.locator('.cal-time-grid')).toBeVisible();
+    await expect(page.locator('.cal-month-grid')).toHaveCount(0);
+    await page.getByRole('button',{name:'Calendar view',exact:true}).click();
+    await page.getByRole('menuitem',{name:'Month',exact:true}).click();
+  }
+  await expect(page.locator(".cal-day-add")).toHaveCount(0);
+  if (phone) await page.getByRole("button", { name: "Open Monday, October 12, 2026", exact: true }).click();
+  await events.getByRole("button", { name: /A little time to plan/ }).click();
   await expect(page.getByRole("dialog", { name: "Event details", exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Close event", exact: true }).click();
   await page.getByRole("button", { name: "Calendar settings and accounts", exact: true }).click();
@@ -104,6 +114,6 @@ test("month selection shows that day's events without leaving the month", async 
   await personal.click();
   await expect(personal).not.toBeChecked();
   await page.getByRole("button", { name: "Close calendar settings", exact: true }).click();
-  await expect(selected.getByRole("button", { name: /A little time to plan/ })).toHaveCount(0);
+  await expect(events.getByRole("button", { name: /A little time to plan/ })).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
 });
