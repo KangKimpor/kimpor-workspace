@@ -255,3 +255,19 @@ it("accepts the exact desktop deep link and cleans subscriptions and local sign-
   await auth.signOut();
   expect(await auth.currentSession()).toBeNull();
 });
+
+it("rejects malformed and adversarial email addresses before network access", async () => {
+  const auth = await import("./cloud-auth");
+  for (const value of ["a@b", "@b.test", "a@@b.test", "a@.test", "a@b.", "a b@c.test", "a\u0000@b.test", "!.".repeat(100000) + "@x", "a@" + ".".repeat(100000)]) {
+    await expect(auth.sendEmailCode(value)).rejects.toThrow("valid email");
+    await expect(auth.verifyEmailCode(value, "123456")).rejects.toThrow("valid email");
+  }
+  expect(fetcher).not.toHaveBeenCalled();
+});
+
+it.each(["name+tag@example.test", "  中文@例子.test  ", "a".repeat(240) + "@example.test"])("normalizes supported email forms %s", async value => {
+  const auth = await import("./cloud-auth");
+  fetcher.mockResolvedValueOnce(response({}));
+  await auth.sendEmailCode(value);
+  expect(JSON.parse(fetcher.mock.calls[0]![1].body).email).toBe(value.trim());
+});

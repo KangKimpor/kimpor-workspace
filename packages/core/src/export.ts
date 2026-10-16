@@ -4,12 +4,45 @@ import type { Page, PropertyDefinition } from "./model";
 import type { WorkspaceStore } from "./store";
 import { encryptAttachment } from "./crypto";
 
-function inline(text: Y.XmlText): string {
+function escapeText(value: string): string {
+  return value.replace(/[\\`*_[\]<>~|#!+(){}]/g, "\\$&").replace(/(^|\n)([ \t]*)(-|[0-9]+\.)/g, (_, start, spaces, marker: string) => `${start}${spaces}${marker === "-" ? "\\-" : marker.slice(0, -1) + "\\."}`);
+}
+function destination(value: string, image = false): string | null {
+  try {
+    const url = new URL(value);
+    if (!(image ? ["http:", "https:", "attachment:"] : ["http:", "https:", "mailto:", "attachment:"]).includes(url.protocol)) return null;
+    return value.replace(/[\s<>()[\]\\|]/g, character => character === "(" ? "%28" : character === ")" ? "%29" : encodeURIComponent(character));
+  } catch { return null; }
+}
+function codeSpan(value: string, inTable = false): string {
+  if (inTable) {
+    // GFM removes one backslash before each pipe even inside code spans.
+    let escaped = "";
+    for (const character of value) escaped += character === "|" ? "\\|" : character;
+    value = escaped;
+  }
+  const runs = value.match(/`+/g) ?? [];
+  const fence = "`".repeat(runs.reduce((longest, run) => Math.max(longest, run.length), 0) + 1);
+  const padding = value.startsWith("`") || value.endsWith("`") || (value.startsWith(" ") && value.endsWith(" ") && value.trim()) ? " " : "";
+  return `${fence}${padding}${value}${padding}${fence}`;
+}
+function tableCell(value: string): string {
+  return value.trim().replace(/\r\n?|\n/g, " ");
+}
+function headingLine(line: string): { level: number; content: string } | null {
+  let level = 0;
+  while (line[level] === "#" && level < 3) level++;
+  if (!level || (line[level] !== " " && line[level] !== "\t")) return null;
+  let start = level;
+  while (line[start] === " " || line[start] === "\t") start++;
+  return start < line.length ? { level, content: line.slice(start) } : null;
+}
+function inline(text: Y.XmlText, inTable = false): string {
   return text
     .toDelta()
     .map((part: { insert?: unknown; attributes?: Record<string, unknown> }) => {
       let value = typeof part.insert === "string" ? part.insert : "";
-      if (part.attributes?.code) value = `\`${value.replace(/`/g, "\\`")}\``;
+      value = part.attributes?.code ? codeSpan(value, inTable) : escapeText(value);
       if (part.attributes?.bold) value = `**${value}**`;
       if (part.attributes?.italic) value = `*${value}*`;
       if (part.attributes?.strike) value = `~~${value}~~`;
@@ -19,17 +52,17 @@ function inline(text: Y.XmlText): string {
         "href" in part.attributes.link
       ) {
         const href = String(part.attributes.link.href);
-        if (/^(https?:|mailto:|attachment:)/i.test(href))
-          value = `[${value}](${href})`;
+        const target = destination(href);
+        if (target) value = `[${value}](${target})`;
       }
       return value;
     })
     .join("");
 }
-function markdownNode(node: Y.XmlElement | Y.XmlText | Y.XmlHook): string {
-  if (node instanceof Y.XmlText) return inline(node);
+function markdownNode(node: Y.XmlElement | Y.XmlText | Y.XmlHook, inTable = false): string {
+  if (node instanceof Y.XmlText) return inline(node, inTable);
   if (!(node instanceof Y.XmlElement)) return "";
-  const content = node.toArray().map(markdownNode).join("");
+  const content = node.nodeName === "codeBlock" ? node.toArray().map(child => child instanceof Y.XmlText ? child.toDelta().map((part: { insert?: unknown }) => String(part.insert ?? "")).join("") : "").join("") : node.toArray().map(child => markdownNode(child, inTable || node.nodeName === "tableCell" || node.nodeName === "tableHeader")).join("");
   const attributes = node.getAttributes();
   switch (node.nodeName) {
     case "paragraph":
@@ -63,30 +96,33 @@ function markdownNode(node: Y.XmlElement | Y.XmlText | Y.XmlHook): string {
           .map((line) => `> ${line}`)
           .join("\n") + "\n\n"
       );
-    case "codeBlock":
-      return `\`\`\`${attributes.language || ""}\n${content}\n\`\`\`\n\n`;
+    case "codeBlock": {
+      if (inTable) return codeSpan(content, true);
+      const fence = "`".repeat(Math.max(3, (content.match(/`+/g) ?? []).reduce((longest, run) => Math.max(longest, run.length + 1), 0)));
+      return `${fence}${String(attributes.language || "").replace(/[`\r\n]/g, "")}\n${content}\n${fence}\n\n`;
+    }
     case "horizontalRule":
       return "---\n\n";
-    case "image":
-      return /^(https?:|attachment:)/i.test(String(attributes.src))
-        ? `![${attributes.alt || ""}](${attributes.src})\n\n`
-        : "";
+    case "image": {
+      const target = destination(String(attributes.src), true);
+      return target ? `![${escapeText(String(attributes.alt || ""))}](${target})\n\n` : "";
+    }
     case "hardBreak":
       return "  \n";
     case "mention":
     case "pageMention":
-      return `[[${attributes.label || attributes.id || ""}]]`;
+      return `[[${escapeText(String(attributes.label || attributes.id || ""))}]]`;
     case "dateMention":
-      return String(attributes.date ?? "");
+      return escapeText(String(attributes.date ?? ""));
     case "fileAttachment":
-      return `[${attributes.name || "File"}](attachment:${attributes.attachmentId || ""})\n\n`;
+      return `[${escapeText(String(attributes.name || "File"))}](attachment:${encodeURIComponent(String(attributes.attachmentId || ""))})\n\n`;
     case "table":
       return (
         node
           .toArray()
           .map((row, index) => {
             const cells = row instanceof Y.XmlElement ? row.toArray() : [];
-            const line = `| ${cells.map((cell) => markdownNode(cell).trim().replace(/\|/g, "\\|").replace(/\n/g, " ")).join(" | ")} |\n`;
+            const line = `| ${cells.map((cell) => tableCell(markdownNode(cell))).join(" | ")} |\n`;
             return (
               line +
               (index === 0 ? `| ${cells.map(() => "---").join(" | ")} |\n` : "")
@@ -106,7 +142,7 @@ export function documentToMarkdown(update: Uint8Array): string {
       document
         .getXmlFragment("default")
         .toArray()
-        .map(markdownNode)
+        .map(child => markdownNode(child))
         .join("")
         .trimEnd() + "\n"
     );
@@ -116,38 +152,57 @@ export function documentToMarkdown(update: Uint8Array): string {
 }
 function plainInline(value: string): Y.XmlText {
   const text = new Y.XmlText();
-  const expression =
-    /\*\*(.+?)\*\*|\*(.+?)\*|`(.+?)`|~~(.+?)~~|\[([^\]]+)\]\((https?:[^\s)]+|mailto:[^\s)]+)\)/g;
-  let offset = 0;
-  let cursor = 0;
-  let match: RegExpExecArray | null;
-  while ((match = expression.exec(value))) {
-    if (match.index > offset) {
-      const before = value.slice(offset, match.index);
-      text.insert(cursor, before, {});
-      cursor += before.length;
+  const runs = [...value.matchAll(/`+/g)];
+  const next = new Map<number, number>();
+  const last = new Map<number, number>();
+  for (let i = runs.length - 1; i >= 0; i--) {
+    const run = runs[i]!;
+    const closing = last.get(run[0].length);
+    if (closing !== undefined) next.set(run.index, closing);
+    last.set(run[0].length, run.index);
+  }
+  let marker = `\uE000${crypto.randomUUID()}\uE001`;
+  while (value.includes(marker)) marker = `\uE000${crypto.randomUUID()}\uE001`;
+  const tokens: { content: string; code: boolean }[] = [];
+  let masked = "";
+  for (let i = 0; i < value.length;) {
+    let content: string | undefined;
+    let code = false;
+    if (value[i] === "\\" && i + 1 < value.length && /[!"#$%&'()*+,\-./:;<=>?@[\]\\^_`{|}~]/.test(value[i + 1]!)) {
+      content = value[i + 1]!; i += 2;
+    } else if (value[i] === "`") {
+      const end = next.get(i);
+      let length = 1;
+      while (value[i + length] === "`") length++;
+      if (end !== undefined) {
+        content = value.slice(i + length, end).replace(/\r\n?|\n/g, " ");
+        if (content.startsWith(" ") && content.endsWith(" ") && content.trim()) content = content.slice(1, -1);
+        code = true; i = end + length;
+      } else { masked += value.slice(i, i + length); i += length; }
+    } else { masked += value[i++]; }
+    if (content !== undefined) {
+      masked += `${marker}${tokens.length}${marker}`;
+      tokens.push({ content, code });
     }
-    const content =
-      match[1] ?? match[2] ?? match[3] ?? match[4] ?? match[5] ?? "";
-    const start = cursor;
-    text.insert(start, content, {});
-    cursor += content.length;
-    text.format(
-      start,
-      content.length,
-      match[1]
-        ? { bold: {} }
-        : match[2]
-          ? { italic: {} }
-          : match[3]
-            ? { code: {} }
-            : match[4]
-              ? { strike: {} }
-              : { link: { href: match[6] } },
-    );
+  }
+  let cursor = 0;
+  const append = (content: string, attributes: Record<string, unknown> = {}) => {
+    const parts = content.split(marker);
+    for (let i = 0; i < parts.length; i++) {
+      const token = i % 2 ? tokens[Number(parts[i])] : undefined;
+      const literal = token?.content ?? parts[i]!;
+      if (literal) text.insert(cursor, literal, token?.code ? { ...attributes, code: {} } : attributes);
+      cursor += literal.length;
+    }
+  };
+  const expression = /\*\*(.+?)\*\*|\*(.+?)\*|~~(.+?)~~|\[([^\]]+)\]\((https?:[^\s)]+|mailto:[^\s)]+|attachment:[^\s)]+)\)/g;
+  let offset = 0;
+  for (const match of masked.matchAll(expression)) {
+    append(masked.slice(offset, match.index));
+    append(match[1] ?? match[2] ?? match[3] ?? match[4] ?? "", match[1] ? { bold: {} } : match[2] ? { italic: {} } : match[3] ? { strike: {} } : { link: { href: match[5] } });
     offset = match.index + match[0].length;
   }
-  if (offset < value.length) text.insert(cursor, value.slice(offset), {});
+  append(masked.slice(offset));
   return text;
 }
 export function markdownToDocument(markdown: string): Uint8Array {
@@ -164,12 +219,13 @@ export function markdownToDocument(markdown: string): Uint8Array {
       list = null;
       continue;
     }
-    if (line.startsWith("```")) {
+    const fence = /^(`{3,})([^`]*)$/.exec(line);
+    if (fence) {
       list = null;
       const node = new Y.XmlElement("codeBlock");
-      node.setAttribute("language", line.slice(3).trim());
+      node.setAttribute("language", fence[2]!.trim());
       const body: string[] = [];
-      while (++index < lines.length && !lines[index]!.startsWith("```"))
+      while (++index < lines.length && !new RegExp(`^` + "`" + `{${fence[1]!.length},}[ \t]*$`).test(lines[index]!))
         body.push(lines[index]!);
       const text = new Y.XmlText();
       text.insert(0, body.join("\n"));
@@ -177,7 +233,7 @@ export function markdownToDocument(markdown: string): Uint8Array {
       blocks.push(node);
       continue;
     }
-    const heading = /^(#{1,3})\s+(.+)$/.exec(line);
+    const heading = headingLine(line);
     const item = /^\s*(?:([-*])\s+|([0-9]+)\.\s+)(?:\[([ xX])\]\s+)?(.*)$/.exec(
       line,
     );
@@ -212,8 +268,8 @@ export function markdownToDocument(markdown: string): Uint8Array {
     const node = new Y.XmlElement(
       heading ? "heading" : line.startsWith("> ") ? "blockquote" : "paragraph",
     );
-    if (heading) node.setAttribute("level", String(heading[1]!.length));
-    const text = plainInline(heading?.[2] ?? line.replace(/^> /, ""));
+    if (heading) node.setAttribute("level", String(heading.level));
+    const text = plainInline(heading?.content ?? line.replace(/^> /, ""));
     if (node.nodeName === "blockquote") {
       const paragraph = new Y.XmlElement("paragraph");
       paragraph.insert(0, [text]);
@@ -233,20 +289,25 @@ export async function exportPageMarkdown(
   const page = workspace.listPages(true).find((item) => item.id === pageId);
   if (!page) throw new Error("Page not found");
   if (page.properties.__locked)
-    return `# ${page.title}\n\nThis page is encrypted. Its protected document is included in the full workspace export.\n`;
+    return `# ${escapeText(page.title)}\n\nThis page is encrypted. Its protected document is included in the full workspace export.\n`;
   const document = await workspace.loadDoc(pageId);
-  return `# ${page.title}\n\n${document ? documentToMarkdown(document) : ""}`;
+  return `# ${escapeText(page.title)}\n\n${document ? documentToMarkdown(document) : ""}`;
 }
 export async function importMarkdown(
   workspace: WorkspaceStore,
   markdown: string,
   title?: string,
 ): Promise<Page> {
-  const firstHeading = /^#\s+(.+)$/m.exec(markdown);
-  const pageTitle = title || firstHeading?.[1] || "Imported note";
-  const update = markdownToDocument(
-    firstHeading && !title ? markdown.replace(firstHeading[0], "") : markdown,
-  );
+  if (markdown.length > 20_000_000) throw new Error("Markdown exceeds 20 MB");
+  let offset = 0;
+  let firstHeading: { title: string; start: number; end: number } | undefined;
+  for (const line of markdown.split("\n")) {
+    const heading = headingLine(line.endsWith("\r") ? line.slice(0, -1) : line);
+    if (heading?.level === 1) { firstHeading = { title: heading.content.replace(/\\([!"#$%&'()*+,\-./:;<=>?@[\]\\^_`{|}~])/g, "$1"), start: offset, end: offset + line.length }; break; }
+    offset += line.length + 1;
+  }
+  const pageTitle = title || firstHeading?.title || "Imported note";
+  const update = markdownToDocument(firstHeading && !title ? markdown.slice(0, firstHeading.start) + markdown.slice(firstHeading.end) : markdown);
   const page = await workspace.createPage("note", pageTitle);
   await workspace.saveDoc(page.id, update);
   return page;
