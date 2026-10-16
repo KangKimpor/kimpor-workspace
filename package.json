@@ -17,7 +17,7 @@
     "lint": "eslint . && node scripts/check-conventions.mjs",
     "test": "vitest run --coverage",
     "test:backup": "node --test scripts/cloud-backup.test.mjs",
-    "test:cloud": "node --test scripts/cloud-management.test.mjs scripts/account-release-check.test.mjs",
+    "test:cloud": "node --test scripts/visual-matrix.test.mjs scripts/cloud-management.test.mjs scripts/account-release-check.test.mjs",
     "e2e": "playwright test",
     "performance": "node scripts/performance.mjs",
     "shots": "node scripts/shots.mjs",

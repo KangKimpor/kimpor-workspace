@@ -4,16 +4,31 @@ import sharp from 'sharp';
 const url = process.env.BASE_URL ?? 'http://127.0.0.1:4173';
 const fixtureTime = '2026-10-11T09:00:00Z';
 import { matrix } from './viewport-profiles.mjs';
+import { shardProfiles, screenNames, validateCaptures } from './visual-matrix.mjs';
+const shard = process.env.VISUAL_SHARD;
+const profiles = shardProfiles();
+const merging = process.argv.includes('--merge');
+if (shard && (merging || process.env.SHOT_SCREENS)) throw new Error('Shard cannot merge or patch a partial screen set');
 await mkdir('docs/screenshots', {recursive:true});
 const browsers = {};
 const selectedScreens=process.env.SHOT_SCREENS?.split(',').filter(Boolean);
-const screenNames=['today','calendar','notes','note-detail','journal','workspace','database','settings','search','design','editor','about','palette','sign-in','email-code'];
 if(selectedScreens?.some(screen=>!screenNames.includes(screen)))throw new Error('Unknown screenshot screen.');
-const report=selectedScreens
+let report=selectedScreens
   ? JSON.parse(await readFile('docs/evidence/screenshot-matrix.json','utf8')).captures.filter(row=>!selectedScreens.includes(row.screen))
   : [];
+if (merging) {
+  const count = Number(process.env.VISUAL_SHARDS);
+  shardProfiles(`1/${count}`);
+  report = [];
+  for (let index = 1; index <= count; index++) {
+    const partial = JSON.parse(await readFile(`docs/screenshots/shard-${index}.json`, 'utf8'));
+    if (partial.commit !== process.env.GITHUB_SHA || partial.shard !== `${index}/${count}`) throw new Error('Stale or incorrect screenshot shard');
+    validateCaptures(partial.captures, shardProfiles(partial.shard));
+    report.push(...partial.captures);
+  }
+}
 try {
-  for (const [name,width,height,dpr,engine] of matrix) {
+  for (const [name,width,height,dpr,engine] of merging ? [] : profiles) {
     browsers[engine] ??= await ({chromium,webkit,firefox})[engine].launch();
     for (const theme of ['light','dark']) {
       const context = await browsers[engine].newContext({ viewport:{width,height}, deviceScaleFactor:dpr, hasTouch:engine==='webkit', isMobile:engine==='webkit', colorScheme:theme, reducedMotion:'reduce', locale:'en-US', timezoneId:'UTC' });
@@ -127,7 +142,12 @@ try {
     }
     console.log(`Rendered ${name}, light and dark.`);
   }
-  if(report.length!==screenNames.length*matrix.length*2)throw new Error('Screenshot matrix is incomplete.');
+  validateCaptures(report, merging ? matrix : profiles);
+  if (shard) {
+    await writeFile(`docs/screenshots/shard-${shard.split('/')[0]}.json`, JSON.stringify({commit:process.env.GITHUB_SHA,shard,captures:report}));
+    console.log(`Completed screenshot shard ${shard}: ${report.length} captures.`);
+    process.exitCode = 0;
+  } else {
   for(const screen of selectedScreens ?? [...new Set(report.map(row=>row.screen))]) for(const theme of ['light','dark']) {
     const captures=report.filter(row=>row.screen===screen&&row.theme===theme);
     const width=400,height=1100;
@@ -142,4 +162,5 @@ try {
     await sharp({create:{width:width*4,height:height*Math.ceil(tiles.length/4),channels:4,background:'#dcdce2'}}).composite(tiles).png().toFile(`docs/screenshots/contact-${screen}-${theme}.png`);
   }
   await writeFile('docs/evidence/screenshot-matrix.json',JSON.stringify({date:new Date().toISOString(),fixture_time:fixtureTime,locale:'en-US',time_zone:'UTC',captures:report},null,2)+'\n');
+  }
 } finally { for(const browser of Object.values(browsers)) await browser.close(); }

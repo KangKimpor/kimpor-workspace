@@ -1,5 +1,5 @@
 import { defineConfig } from '@playwright/test';
-import { matrix } from './scripts/viewport-profiles.mjs';
+import { shardProfiles } from './scripts/visual-matrix.mjs';
 const legacyIgnore = ['**/layout-audit.spec.ts', '**/account.spec.ts', '**/responsive-matrix.spec.ts'];
 const targets = [
   ['desktop1980', 'chromium', 1980, 1080, false],
@@ -18,7 +18,7 @@ export default defineConfig({
     ...process.env.BASE_URL ? [] : [{ command: 'pnpm --filter @veloradesk/web preview --port 4173', url: 'http://127.0.0.1:4173', reuseExistingServer: !process.env.CI }],
     ...process.env.KIMPOR_LAYOUT_AUDIT === 'true' && !process.env.AUTH_BASE_URL ? [{ command:'pnpm --filter @veloradesk/web exec vite preview --outDir dist-auth --host 127.0.0.1 --port 4174',url:'http://127.0.0.1:4174',reuseExistingServer:!process.env.CI }] : [],
   ],
-  projects: process.env.KIMPOR_LAYOUT_AUDIT === 'true' ? matrix.flatMap(([name,width,height,dpr,browserName]) => (['light','dark'] as const).map(colorScheme => ({
+  projects: process.env.KIMPOR_LAYOUT_AUDIT === 'true' ? shardProfiles().flatMap(([name,width,height,dpr,browserName]) => (['light','dark'] as const).map(colorScheme => ({
     name:`layout-${name}-${colorScheme}`, testMatch:'layout-audit.spec.ts',
     use:{ browserName,viewport:{width,height},deviceScaleFactor:dpr,colorScheme,hasTouch:browserName === 'webkit',isMobile:browserName === 'webkit',reducedMotion:'reduce' as const,timezoneId:'Asia/Phnom_Penh',serviceWorkers:'block' as const },
   }))) : [
