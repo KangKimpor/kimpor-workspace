@@ -22,6 +22,23 @@ async function persistedStudy(page: Page, text: string) {
   }).toContain(text);
 }
 
+test('Dynamic Black is the default even on a light device, with optional light and system themes', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'light' });
+  await page.goto('/');
+  await expect(page.getByRole('heading', { name: 'Today', exact: true })).toBeVisible();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await expect(page.locator('.ws-app')).toHaveCSS('background-color', 'rgb(22, 20, 21)');
+  await page.goto('/design');
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  for (const preference of ['light', 'system']) {
+    await page.evaluate(value => localStorage.setItem('velora-theme', value), preference);
+    await page.reload();
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  }
+});
+
 test('theme persists, command palette supports keyboard and modal focus returns', async ({ page }) => {
   await page.goto('/design');
   await page.getByRole('button', { name: 'Dark', exact: true }).click();

@@ -39,7 +39,7 @@ export function startAppearance(): () => void {
   let stopped = false,
     timer: ReturnType<typeof setTimeout> | undefined;
   const apply = () => {
-    const preference = read("velora-theme") ?? "system",
+    const preference = read("velora-theme") ?? "dark",
       theme =
         preference === "dark" || preference === "light"
           ? preference

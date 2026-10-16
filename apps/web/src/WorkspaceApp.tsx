@@ -3126,7 +3126,7 @@ function SettingsPanel({
   onNotify: (message: string) => void;
   onError: (message: string) => void;
 }) {
-  const [theme, setTheme] = useState(readSetting("velora-theme", "system"));
+  const [theme, setTheme] = useState(readSetting("velora-theme", "dark"));
   const [accent, setAccent] = useState(readSetting("velora-accent", "lime"));
   const [reduceMotion, setReduceMotion] = useState(
     readSetting("velora-reduce-motion", "false") === "true",
@@ -3141,7 +3141,7 @@ function SettingsPanel({
   const importInput = useRef<HTMLInputElement>(null);
   useEffect(() => {
     const update = () => {
-      setTheme(readSetting("velora-theme", "system"));
+      setTheme(readSetting("velora-theme", "dark"));
       setAccent(readSetting("velora-accent", "lime"));
       setTextSize(readSetting("velora-text-size", "15"));
       setDensity(readSetting("velora-density", "comfortable"));

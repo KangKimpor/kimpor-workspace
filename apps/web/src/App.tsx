@@ -104,7 +104,7 @@ function Sheet({
 export function App() {
   const lastOpener = useRef<HTMLElement | null>(null);
   const [theme, setTheme] = useState<Theme>(
-    () => readSetting("velora-theme", "system") as Theme,
+    () => readSetting("velora-theme", "dark") as Theme,
   );
   const [reduced, setReduced] = useState(
     () => readSetting("velora-reduce-motion", "false") === "true",
