@@ -1,11 +1,7 @@
 name: Windows installer
 on:
+  # Desktop delivery is paused. Resume only with user authorization; see AGENTS.md.
   workflow_dispatch:
-  push:
-    branches: [main]
-    tags: ['v*']
-  pull_request:
-    types: [opened, synchronize, reopened, labeled]
 permissions:
   contents: read
 concurrency:

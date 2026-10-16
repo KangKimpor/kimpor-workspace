@@ -1,5 +1,11 @@
 # Repository Instructions
 
+## Current Delivery Scope
+- Work on the web app only until the user explicitly says otherwise.
+- Windows, Linux, and other native desktop apps are paused. Do not develop, build, test, package, release, or deploy them.
+- Preserve the existing desktop source for a future restart; do not remove it as part of web work.
+- Keep automatic CI and deployment focused on the web app and its required backend services. Do not re-enable desktop workflows without explicit user authorization.
+
 ## Working Principles
 - Explore only files relevant to the current task.
 - Search for symbols and paths before opening files.
