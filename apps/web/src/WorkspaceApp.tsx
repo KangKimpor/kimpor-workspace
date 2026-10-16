@@ -3209,7 +3209,7 @@ function SettingsPanel({
               saveAppearance("velora-accent", event.target.value);
             }}
           >
-            <option value="lime">Apocalyptic Orange</option><option value="blue">Blue</option>
+            <option value="lime">Olive</option><option value="blue">Blue</option>
             <option value="green">Green</option>
             <option value="red">Red</option>
             <option value="purple">Purple</option>

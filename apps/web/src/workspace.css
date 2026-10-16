@@ -715,7 +715,7 @@
 .ws-project-description { margin-bottom:var(--space-3); }
 .ws-database { margin-top:var(--space-3); }
 .ws-database-toolbar { gap:var(--space-3); margin-bottom:var(--space-4); }
-.ws-database-views { display:flex; align-items:center; gap:var(--space-2); border-bottom:var(--hairline) solid var(--line); }
+.ws-database-views { width:100%; min-width:0; max-width:100%; display:flex; align-items:center; gap:var(--space-2); border-bottom:var(--hairline) solid var(--line); }
 .ws-database-views .ws-view-tabs { flex-wrap:nowrap; flex:1; min-width:0; border:0; padding:0; }
 .ws-view-tabs [role='tab'] { border-radius:var(--radius-control); padding:var(--space-2) var(--space-3); }
 .ws-view-tabs [aria-selected='true'] { background:var(--surface); color:var(--accent); box-shadow:inset 0 -2px var(--accent); }
@@ -749,7 +749,7 @@
 
 @container workspace (width < 600px) {
  .ws-db-table { min-width:0; }
- .ws-tabbar .ws-tab > span { display:block; font-size:10px; line-height:12px; }
+ .ws-tabbar .ws-tab > span { display:block; font-size:var(--text-caption); line-height:14px; }
  .ws-tabbar .ws-tab svg,.ws-tabbar .ws-tab[aria-current='page'] svg { color:currentColor; stroke:currentColor; }
  .ws-db-table tr { display:grid; grid-template-columns:var(--target) minmax(0,1fr) var(--target); border:var(--hairline) solid var(--line); }
  .ws-db-table td { grid-column:1 / -1; }
