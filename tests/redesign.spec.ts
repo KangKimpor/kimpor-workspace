@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { readFile } from "node:fs/promises";
-import { unzipSync, strFromU8 } from "fflate";
+import { createRequire } from "node:module";
+const { unzipSync, strFromU8 } = createRequire(new URL("../packages/core/package.json", import.meta.url))("fflate");
 import { leaveWriting } from "./workspace-actions";
 
 test("Trash supports cancel, restore, delete forever and emptying after reload", async ({ page }) => {
