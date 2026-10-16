@@ -112,6 +112,13 @@ test("light task controls keep compact pills and hide imported Notion metadata w
   await page.getByRole("button", { name: "New project", exact: true }).click();
   await page.getByRole("dialog", { name: "New project" }).getByRole("button", { name: "Model tracking", exact: true }).click();
   await expect(page.getByRole("toolbar", { name: "Task controls" })).toBeVisible();
+  for (const tab of await page.getByRole("tablist", {name:"Project views"}).getByRole("tab").all()) {
+    const fits = await tab.evaluate(element => {
+      const range = document.createRange(); range.selectNodeContents(element);
+      return range.getBoundingClientRect().width <= element.clientWidth - 8;
+    });
+    expect(fits).toBe(true);
+  }
   const pill = page.getByRole("button", { name: "Status", exact: true }).first();
   const metrics = await pill.evaluate(element => ({ target:element.getBoundingClientRect().height, inset:getComputedStyle(element,"::before").top }));
   expect(metrics.target).toBeGreaterThanOrEqual(44);
