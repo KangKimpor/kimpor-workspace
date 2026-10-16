@@ -1,0 +1,31 @@
+{
+  "source_commit": "59cd080e0556557134cef21bd8a88334551b26d8",
+  "baseline_run": "https://github.com/KangKimpor/kimpor-workspace/actions/runs/38864428269",
+  "captures_compared": 510,
+  "capture_dimensions_unchanged": true,
+  "captures_above_existing_pixel_threshold": 134,
+  "changed_screen_counts": {
+    "calendar": 34,
+    "search": 20,
+    "settings": 14,
+    "today": 32,
+    "workspace": 34
+  },
+  "representative_images_reviewed": [
+    "today-desktop-light.png",
+    "calendar-desktop-dark.png",
+    "today-iphone15-portrait-light.png",
+    "calendar-iphone15-portrait-dark.png",
+    "workspace-desktop-light.png"
+  ],
+  "review": "Expected removal of project symbols and progress bars, the schedule time marker, sidebar page icons, Calendar Tasks mode and mini date picker. Search and Settings capture the updated Today screen behind their overlays.",
+  "validation": {
+    "typecheck": "passed",
+    "focused_lint": "passed",
+    "web_build": "passed",
+    "local_browser_cases": 13,
+    "local_browser_cases_passed_after_navigation_fix": 13,
+    "live_purge_sql_test": "passed; synthetic users and all test writes rolled back",
+    "windows_secret_scanner": "passed; corrupt cached archive rejected; Git commit hook passed"
+  }
+}

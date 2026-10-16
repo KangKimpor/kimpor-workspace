@@ -1,12 +1,12 @@
 {
-  "commit": "d46de68328bc9b59872bc41d9fcdafd962e4ba92",
+  "commit": "59cd080e0556557134cef21bd8a88334551b26d8",
   "platform": "linux",
   "playwright": "1.64.0",
   "runner": "Linux",
   "captures": 510,
-  "date": "2026-10-16T02:55:31.262Z",
+  "date": "2026-10-16T07:12:25.945Z",
   "fixture_time": "2026-10-11T09:00:00Z",
   "locale": "en-US",
   "time_zone": "UTC",
-  "review_receipt": "docs/evidence/honey-glass-verification.json"
+  "review_receipt": "docs/evidence/today-calendar-refresh.json"
 }
