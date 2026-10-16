@@ -1,0 +1,39 @@
+{
+  "commit": "0b4da42",
+  "palette": {
+    "dynamicBlack": "#161415",
+    "honeyBeige": "#F3E2C8",
+    "eggLiqueur": "#DBCBA9",
+    "apocalypticOrange": "#F35226"
+  },
+  "layout": {
+    "profiles": 34,
+    "screens": 612,
+    "passed": true,
+    "receipt": "lime-layout-audit.json"
+  },
+  "browserRegression": {
+    "fullRunPassed": 156,
+    "oldPaletteExpectationUpdated": true,
+    "focusedRerunPassed": 4
+  },
+  "contrastPairs": 72,
+  "lighthouse": {
+    "workspace": {
+      "performance": 0.94,
+      "accessibility": 1,
+      "bestPractices": 1
+    },
+    "design": {
+      "performance": 0.94,
+      "accessibility": 1,
+      "bestPractices": 1
+    }
+  },
+  "glass": {
+    "normalBlur": "20px",
+    "highContrastBlur": "0px",
+    "highContrastOpaque": true
+  },
+  "deviceLimit": "Browser emulation; no physical iPhone or iPad verification."
+}

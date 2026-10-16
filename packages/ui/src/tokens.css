@@ -43,6 +43,7 @@
   --glass-glow: #f3522610;}
 :root[data-accent='blue']{--accent:#2268BF;--accent-fill:#2268BF;--accent-tint:#E5EDF8;--on-accent:#FFFFFF;}
 :root[data-theme='dark'][data-accent='blue']{--accent:#5A9CED;--accent-tint:#22334A;}
+:root[data-accent]:not([data-accent='lime']) { --accent-press:var(--accent-fill); }
 * { box-sizing: border-box; }
 :root[data-accent='green']{--accent:var(--success);--accent-fill:#23764c;--accent-tint:var(--success-tint);--on-accent:#ffffff;}
 :root[data-accent='red']{--accent:var(--danger);--accent-fill:#b92335;--accent-tint:var(--danger-tint);--on-accent:#ffffff;}

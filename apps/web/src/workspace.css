@@ -701,3 +701,5 @@
 @media (prefers-reduced-transparency:reduce),(prefers-contrast:more) {
  .ws-tabbar { background:var(--black); }
 }
+
+.ws-sheet-body { background:var(--surface-raised); }
