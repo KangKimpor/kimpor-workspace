@@ -104,6 +104,10 @@ test("light task controls keep compact pills and hide imported Notion metadata w
   await page.goto("/");
   const phone = page.viewportSize()!.width < 600;
   const nav = page.getByRole("navigation", { name: phone ? "Bottom navigation" : "Main navigation", exact: true });
+  if (phone) {
+    const today = nav.getByRole("button", {name:"Today",exact:true});
+    await expect(today.locator("svg")).toHaveCSS("color", await today.evaluate(element => getComputedStyle(element).color));
+  }
   await nav.getByRole("button", { name: "Projects", exact: true }).click();
   await page.getByRole("button", { name: "New project", exact: true }).click();
   await page.getByRole("dialog", { name: "New project" }).getByRole("button", { name: "Model tracking", exact: true }).click();
@@ -112,6 +116,15 @@ test("light task controls keep compact pills and hide imported Notion metadata w
   const metrics = await pill.evaluate(element => ({ target:element.getBoundingClientRect().height, inset:getComputedStyle(element,"::before").top }));
   expect(metrics.target).toBeGreaterThanOrEqual(44);
   expect(metrics.inset).toBe("9px");
+  const rowTitle = page.getByRole("textbox", {name:"Row title",exact:true}).first();
+  await rowTitle.fill("Swimming pool light replacement delivery");
+  await expect(rowTitle).toHaveJSProperty("tagName", "TEXTAREA");
+  await rowTitle.press("Enter");
+  await expect(rowTitle).toHaveValue("Swimming pool light replacement delivery");
+  if (phone) {
+    const fits = await rowTitle.evaluate(element => element.getBoundingClientRect().right <= element.closest(".ws-db-table-scroll")!.getBoundingClientRect().right);
+    expect(fits).toBe(true);
+  }
   if (phone) {
     await page.getByRole("button", { name: "Back to Projects", exact: true }).click();
     await page.getByRole("button", { name: "Open sidebar", exact: true }).click();

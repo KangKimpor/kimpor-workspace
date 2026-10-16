@@ -2425,7 +2425,7 @@ function DatabaseEditor({
                     }} onKeyDown={event => {
                       if (event.nativeEvent.isComposing || event.keyCode === 229) return;
                       if (event.key === "Escape") { event.preventDefault(); event.stopPropagation(); patchRow(row, property.type === "title" ? "title" : property.id, cellOriginal.current); (event.target as HTMLElement).blur(); }
-                      if (event.key === "Enter" && event.target instanceof HTMLInputElement) { event.preventDefault(); event.target.blur(); }
+                      if (event.key === "Enter" && (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement)) { event.preventDefault(); event.target.blur(); }
                     }}>
                       {property.type === "title" ? (
                         <div className={`ws-db-title${taskDone(row, definition) ? " completed" : ""}`}>
@@ -2437,12 +2437,13 @@ function DatabaseEditor({
                           >
                             <FileText size={16} />
                           </Pressable>
-                          <input
+                          <textarea
+                            rows={2}
                             value={row.title}
                             aria-label="Row title"
                             placeholder="Untitled"
                             onChange={(event) =>
-                              patchRow(row, "title", event.target.value)
+                              patchRow(row, "title", event.target.value.replace(/[\r\n]/g, " "))
                             }
                           />
                         </div>
