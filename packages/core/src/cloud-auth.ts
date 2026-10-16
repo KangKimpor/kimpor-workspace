@@ -154,12 +154,20 @@ export function onSessionChange(listener: Listener): () => void {
     window.removeEventListener("storage", storage);
   };
 }
-export async function sendEmailCode(email: string) {
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim()))
+function normalizedEmail(input: string): string {
+  const email = input.trim();
+  const at = email.indexOf("@");
+  const dot = email.lastIndexOf(".");
+  if (email.length > 254 || at < 1 || at !== email.lastIndexOf("@") ||
+      dot <= at + 1 || dot === email.length - 1 || /[\s\u0000-\u001f\u007f]/u.test(email))
     throw new Error("Enter a valid email address");
+  return email;
+}
+export async function sendEmailCode(email: string) {
+  email = normalizedEmail(email);
   const auth = await emailAuth();
   const { error } = await auth.signInWithOtp({
-    email: email.trim(), options: { shouldCreateUser: true },
+    email, options: { shouldCreateUser: true },
   });
   if (error) throw error;
 }
@@ -174,10 +182,11 @@ async function emailAuth() {
   }));
 }
 export async function verifyEmailCode(email: string, token: string) {
+  email = normalizedEmail(email);
   if (!/^\d{6}$/.test(token))
     throw new Error("Enter the six-digit code from your email");
   const auth = await emailAuth();
-  const { data, error } = await auth.verifyOtp({ email: email.trim(), token, type: "email" });
+  const { data, error } = await auth.verifyOtp({ email, token, type: "email" });
   if (error) throw error;
   const session = sessionFrom((data.session ?? {}) as unknown as Record<string, unknown>);
   localStorage.removeItem(PKCE_KEY);

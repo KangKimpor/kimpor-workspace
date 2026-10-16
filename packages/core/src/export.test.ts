@@ -225,3 +225,82 @@ it("compresses large images within dimension limits and preserves unsupported or
   canvas.getContext.mockReturnValue(null as never);
   expect(await compressImage(source)).toBe(source);
 });
+
+it("round-trips literal markup and arbitrary code delimiters", () => {
+  for (const code of [false, true]) for (const original of ["`", "``hi```", "\\`[]()*_<tag>|", " `code` ", "  ", "ខ្មែរ 中文"]) {
+    const value = code ? original : `Start ${original} end`;
+    const doc = new Y.Doc();
+    const paragraph = new Y.XmlElement("paragraph");
+    const text = new Y.XmlText();
+    text.insert(0, value, code ? { code: {} } : {});
+    paragraph.insert(0, [text]); doc.getXmlFragment("default").insert(0, [paragraph]);
+    const output = documentToMarkdown(Y.encodeStateAsUpdate(doc));
+    const restored = new Y.Doc(); Y.applyUpdate(restored, markdownToDocument(output));
+    const node = restored.getXmlFragment("default").get(0) as Y.XmlElement;
+    const result = node.get(0) as Y.XmlText;
+    expect(result.toDelta().map((part: { insert?: unknown }) => part.insert).join("")).toBe(value);
+    if (code) expect(result.toDelta()[0]?.attributes).toHaveProperty("code");
+    doc.destroy(); restored.destroy();
+  }
+});
+it("extracts only a nonempty single-line heading and preserves overrides", async () => {
+  const store = await workspace();
+  for (const [markdown, title] of [["#\nBody", "Imported note"], ["# \t\r\nBody", "Imported note"], ["\r\n#\t中文\r\nBody\r\n#\t中文", "中文"], ["# " + " ".repeat(100000) + "\nBody", "Imported note"]]) {
+    const page = await importMarkdown(store, markdown!);
+    expect(page.title).toBe(title);
+    expect(await exportPageMarkdown(store, page.id)).toContain("Body");
+  }
+  const page = await importMarkdown(store, "# Original\nBody", "Override");
+  expect(await exportPageMarkdown(store, page.id)).toContain("# Original");
+  await expect(importMarkdown(store, "x".repeat(20_000_001))).rejects.toThrow("20 MB");
+});
+
+it("keeps table delimiters contained and encodes link destinations", () => {
+  const doc = new Y.Doc();
+  const root = doc.getXmlFragment("default");
+  const table = new Y.XmlElement("table"), row = new Y.XmlElement("tableRow");
+  root.insert(0,[table]); table.insert(0,[row]);
+  for (const code of [false, true]) {
+    const cell = new Y.XmlElement("tableCell"), paragraph = new Y.XmlElement("paragraph"), text = new Y.XmlText();
+    text.insert(0, "\\\\| A\r\nB | 中文", code ? {code:{}} : {}); paragraph.insert(0,[text]); cell.insert(0,[paragraph]); row.insert(row.length,[cell]);
+  }
+  const paragraph = new Y.XmlElement("paragraph"), text = new Y.XmlText();
+  text.insert(0,"[site]",{link:{href:"https://example.test/a)b"}});
+  text.insert(6,"bad",{link:{href:"javascript:alert(1)"}});
+  paragraph.insert(0,[text]); root.insert(1,[paragraph]);
+  const output = documentToMarkdown(Y.encodeStateAsUpdate(doc));
+  const line = output.split("\n")[0]!;
+  let separators = 0, slashes = 0;
+  for (const char of line) { if (char === "|" && slashes % 2 === 0) separators++; slashes = char === "\\" ? slashes + 1 : 0; }
+  expect(separators).toBe(3);
+  expect(output).toContain("https://example.test/a%29b");
+  expect(output).not.toContain("javascript:");
+  expect(output).toContain("\\[site\\]");
+  doc.destroy();
+});
+
+it("preserves escaped titles and accepts longer closing fences without swallowing text", async () => {
+  const store = await workspace();
+  const original = await store.createPage("note", "A [B] \\ 中文");
+  const restored = await importMarkdown(store, await exportPageMarkdown(store, original.id));
+  expect(restored.title).toBe(original.title);
+  const output = documentToMarkdown(markdownToDocument("```\na\n````\nAfter"));
+  expect(output).toContain("```\n\nAfter");
+  expect(documentToMarkdown(markdownToDocument("\uE000".repeat(100000)))).toBe("\uE000".repeat(100000) + "\n");
+});
+
+it("preserves backslashes before table pipes inside code after GFM table unescaping", () => {
+  for (let count = 0; count < 4; count++) {
+    const value = "\\".repeat(count) + "|";
+    const doc = new Y.Doc(), table = new Y.XmlElement("table"), row = new Y.XmlElement("tableRow"), cell = new Y.XmlElement("tableCell"), text = new Y.XmlText();
+    text.insert(0,value,{code:{}}); cell.insert(0,[text]); row.insert(0,[cell]); table.insert(0,[row]); doc.getXmlFragment("default").insert(0,[table]);
+    const output = documentToMarkdown(Y.encodeStateAsUpdate(doc));
+    const serializedCell = output.split("\n")[0]!.slice(2,-2);
+    // GFM removes the table escape before parsing inline code (example 200).
+    const inlineCell = serializedCell.replace(/\\\|/g,"|");
+    const parsed = new Y.Doc(); Y.applyUpdate(parsed,markdownToDocument(inlineCell));
+    const paragraph = parsed.getXmlFragment("default").get(0) as Y.XmlElement;
+    expect((paragraph.get(0) as Y.XmlText).toDelta().map((part: {insert?: unknown}) => part.insert).join("")).toBe(value);
+    doc.destroy(); parsed.destroy();
+  }
+});

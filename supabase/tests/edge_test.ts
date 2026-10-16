@@ -12,6 +12,18 @@ import { expandEvents } from "../../packages/integrations/src/calendar.ts";
 function assert(value: unknown, message = "Assertion failed"): asserts value {
   if (!value) throw new Error(message);
 }
+function isDnsEndpoint(input: string | URL | Request): boolean {
+  try {
+    const url = new URL(input instanceof Request ? input.url : String(input));
+    return url.protocol === "https:" && url.hostname === "cloudflare-dns.com" &&
+      !url.port && !url.username && !url.password && url.pathname === "/dns-query";
+  } catch { return false; }
+}
+Deno.test("DNS mock matches only the exact public resolver endpoint", () => {
+  for (const input of ["https://cloudflare-dns.com/dns-query", new URL("https://cloudflare-dns.com/dns-query"), new Request("https://cloudflare-dns.com/dns-query")]) assert(isDnsEndpoint(input));
+  for (const input of ["https://cloudflare-dns.com.attacker.test/dns-query", "http://cloudflare-dns.com/dns-query", "https://user@cloudflare-dns.com/dns-query", "https://cloudflare-dns.com:444/dns-query", "https://cloudflare-dns.com/other", "invalid"]) assert(!isDnsEndpoint(input));
+});
+
 Deno.test("maintenance retains failed Storage cleanup and removes only acknowledged files", async () => {
   const originalFetch=globalThis.fetch, originalServe=Object.getOwnPropertyDescriptor(Deno,"serve")!;
   const names=["SUPABASE_URL","SUPABASE_SERVICE_ROLE_KEY","MAINTENANCE_SECRET","VAPID_PUBLIC_KEY","VAPID_PRIVATE_KEY"];
@@ -333,7 +345,7 @@ Deno.test(
     );
     const original = globalThis.fetch;
     globalThis.fetch = async (input) =>
-      String(input).startsWith("https://cloudflare-dns.com")
+      isDnsEndpoint(input)
         ? Response.json({ Status: 0, Answer: [{ type: 1, data: "1.1.1.1" }] })
         : new Response("", {
             status: 302,
@@ -346,7 +358,7 @@ Deno.test(
         }),
       );
       globalThis.fetch = async (input) =>
-        String(input).startsWith("https://cloudflare-dns.com")
+        isDnsEndpoint(input)
           ? Response.json({ Status: 0, Answer: [{ type: 1, data: "1.1.1.1" }] })
           : new Response("exceeds", { headers: { "Content-Length": "99999" } });
       await rejects(() =>
