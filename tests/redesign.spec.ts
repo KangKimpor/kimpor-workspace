@@ -112,18 +112,23 @@ test("light task controls keep compact pills and hide imported Notion metadata w
   const metrics = await pill.evaluate(element => ({ target:element.getBoundingClientRect().height, inset:getComputedStyle(element,"::before").top }));
   expect(metrics.target).toBeGreaterThanOrEqual(44);
   expect(metrics.inset).toBe("9px");
-  await leaveWriting(page);
-  if (phone) await page.getByRole("button", { name: "Open sidebar", exact: true }).click();
+  if (phone) {
+    await page.getByRole("button", { name: "Back to Projects", exact: true }).click();
+    await page.getByRole("button", { name: "Open sidebar", exact: true }).click();
+  }
   await page.getByRole("button", { name: "Settings", exact: true }).click();
   await page.getByLabel("Import portable files", { exact: true }).setInputFiles({ name:"Imported tasks.csv", mimeType:"text/csv", buffer:Buffer.from("Title,Notion Source\nKeep task,https://notion.example.test/source\n") });
   await expect(page.getByText("File imported.", { exact:true })).toBeVisible();
   await page.getByRole("button", { name:"Close Settings", exact:true }).click();
-  if (phone) await page.getByRole("button", { name:"Close sidebar", exact:true }).click();
+  if (phone) await page.getByRole("complementary", {name:"Sidebar", exact:true}).getByRole("button", { name:"Close sidebar", exact:true }).click();
   await nav.getByRole("button", { name:"Projects", exact:true }).click();
   await page.locator("main .ws-project-card").filter({hasText:"Imported tasks"}).click();
   await expect(page.getByRole("columnheader", {name:/Notion Source/})).toHaveCount(0);
   await expect(page.getByRole("textbox", {name:"Row title"})).toHaveValue("Keep task");
-  if (phone) await page.getByRole("button", { name:"Open sidebar", exact:true }).click();
+  if (phone) {
+    await page.getByRole("button", { name: "Back to Projects", exact: true }).click();
+    await page.getByRole("button", { name: "Open sidebar", exact: true }).click();
+  }
   await page.getByRole("button", { name:"Settings", exact:true }).click();
   const [download] = await Promise.all([page.waitForEvent("download"),page.getByRole("button", { name:"Export ZIP", exact:true }).click()]);
   const archive = unzipSync(await readFile((await download.path())!));
