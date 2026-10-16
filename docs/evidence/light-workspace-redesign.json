@@ -1,0 +1,11 @@
+{
+  "source_commit": "a13002ab379710c31493904b5a3d07cb6a20223c",
+  "baseline_run": "https://github.com/KangKimpor/kimpor-workspace/actions/runs/38878296467",
+  "captures": 510,
+  "profiles": 34,
+  "layout_audits_passed": 612,
+  "contact_sheets_reviewed": 30,
+  "final_frames_reinspected_at_native_size": 6,
+  "review": "Reviewed both themes across all 17 viewport profiles. Accepted the intentional light dashboard redesign. Review caught compressed narrow-screen tabs; fixed and re-reviewed before acceptance. Capture names and dimensions are unchanged. Pixel thresholds and acceptance checks remain unchanged.",
+  "authorization": "User requested Push everything to main after implementation and visual review."
+}
