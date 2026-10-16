@@ -23,7 +23,7 @@ export function ProjectCard({ project, pages, definition, types = {}, onOpen }: 
   const tasks = pages.filter(page => page.databaseId === project.id && page.type === "row");
   const done = tasks.filter(task => taskDone(task, definition)).length;
   const next = tasks.filter(task => !taskDone(task, definition)).map(task => taskDue(task, definition)).filter((due): due is string => !!due).sort()[0];
-  return <Pressable className="ws-project-card" onClick={() => onOpen(project.id)}><span className="ws-project-symbol" aria-hidden="true">{project.icon || "✓"}</span><strong>{title(project)}</strong><small>{projectPreset(projectType(project, types))?.label ?? "Project"}</small><span className="ws-progress" role="progressbar" aria-label={`${title(project)} progress`} aria-valuenow={done} aria-valuemax={tasks.length || 1} aria-valuemin={0}><i style={{ width: `${tasks.length ? done/tasks.length*100 : 0}%` }} /></span><small>{done} of {tasks.length} done{next ? ` · Due ${next}` : ""}</small></Pressable>;
+  return <Pressable className="ws-project-card" onClick={() => onOpen(project.id)}><strong>{title(project)}</strong><small>{projectPreset(projectType(project, types))?.label ?? "Project"}</small><small>{done} of {tasks.length} done{next ? ` · Due ${next}` : ""}</small></Pressable>;
 }
 export function TaskCard({ task, project, definition, next, onOpen, onComplete }: { task: Page; project?: Page; definition?: DatabaseDefinition; next?: boolean; onOpen: (id: string) => void; onComplete: (page: Page) => void }) {
   const [completing, setCompleting] = useState(false);
@@ -51,7 +51,7 @@ function Schedule({ events, now, onOpen, onCalendar }: { events: CalendarEvent[]
         const right = Math.min(100,(new Date(event.end).getTime()-start.getTime())/(hours*3600000)*100);
         return <Pressable key={event.id} className={`ws-schedule-segment${event.id === running?.id ? " now" : ""}`} style={{ left:`${left}%`, width:`${Math.max(1,right-left)}%` }} aria-label={`${event.title}, ${time(event.start)} to ${time(event.end)}`} onClick={() => event.pageId ? onOpen(event.pageId) : onCalendar(dateKey(now))}><span>{time(event.start)} · {event.title}</span></Pressable>;
       })}
-      <span className="ws-now-marker" style={{ left:`${(now.getTime()-start.getTime())/(hours*3600000)*100}%` }} aria-hidden="true"><small>{time(now)}</small></span>{!events.length && <span className="ws-no-events">No events today</span>}
+      {!events.length && <span className="ws-no-events">No events today</span>}
     </div><span className="ws-schedule-phone">{upcoming ? <>{running ? "Now" : "Next"} · {upcoming.allDay ? "All day" : time(upcoming.start)} {upcoming.title}{!running && !upcoming.allDay ? ` · in ${Math.ceil((new Date(upcoming.start).getTime()-now.getTime())/60000)} min` : ""}</> : "No events today"}</span>
     <Pressable className="ws-icon" aria-label="Open today’s schedule" onClick={()=>onCalendar()}><ArrowUpRight size={20} /></Pressable></section>;
 }

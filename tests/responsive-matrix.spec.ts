@@ -49,7 +49,7 @@ test('writing uses compact or selection controls and preserves the body', async 
   await expect(editor).toHaveText('A clear place to write · ខ្មែរ · 中文');
 });
 
-test('task names lead Today, project rows, Calendar and search', async ({ page }) => {
+test('task names lead Today, project rows and search', async ({ page }) => {
   await page.clock.setFixedTime(new Date('2026-10-11T09:00:00Z'));
   await page.goto('/');
   const width = page.viewportSize()!.width;
@@ -66,13 +66,6 @@ test('task names lead Today, project rows, Calendar and search', async ({ page }
   await page.locator('.ws-project-overview').getByRole('button', { name: /Inbox/ }).click();
   await page.getByRole('tab', { name: 'All tasks', exact: true }).click();
   await expect(page.getByRole('textbox', { name: 'Row title', exact: true })).toHaveValue('Prepare fixture report');
-  await nav.getByRole('button', { name: 'Calendar', exact: true }).click();
-  await page.getByRole('group', {name:'Calendar content',exact:true}).getByRole('button',{name:'Tasks',exact:true}).click();
-  const entry = page.getByRole('button', { name: /Prepare fixture report/ }).filter({visible:true}).first();
-  if (!await entry.isVisible()) await page.locator('[data-day="2026-10-11"] .cal-more').click();
-  await expect(entry).toContainText('Prepare fixture report');
-  await entry.click();
-  await expect(page.getByRole('textbox', { name: 'Page title' })).toHaveValue('Prepare fixture report');
   await page.locator('.ws-detail-back').click();
   await page.getByRole('button', { name: 'Search workspace', exact: true }).click();
   await page.getByRole('textbox', { name: 'Search query', exact: true }).fill('Prepare fixture');

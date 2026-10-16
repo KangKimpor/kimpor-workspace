@@ -371,7 +371,7 @@ function Tree({ pages, onOpen, onMove, selected }: {
           <Pressable className={`ws-tree-page ${selected === page.id ? "selected" : ""}`} draggable
             onDragStartCapture={event => event.dataTransfer.setData("text/veloradesk-page", page.id)}
             onClick={() => onOpen(page.id)}>
-            <span aria-hidden="true">{pageIcon(page)}</span><span>{titleOf(page)}</span>
+            <span>{titleOf(page)}</span>
           </Pressable>
         </div>
       </div>;

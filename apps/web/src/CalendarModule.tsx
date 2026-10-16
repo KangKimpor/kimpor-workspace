@@ -18,7 +18,6 @@ import { Pressable } from "@veloradesk/ui";
 import { store } from "@veloradesk/core/store";
 import { platform } from "@veloradesk/core/platform";
 import type { CalendarEvent } from "@veloradesk/core/model";
-import { taskDone, taskDue } from "@veloradesk/core/projects";
 import {
   addDays,
   dateInZone,
@@ -120,7 +119,6 @@ export default function CalendarModule({
   const monthLayout = useRef<HTMLDivElement>(null);
   const [search, setSearch] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
-  const [showTasks, setShowTasks] = useState(false);
   const [date, setDate] = useState(() => initialDay ?? dateInZone(new Date(), localZone));
   const [preferences, setPreferences] = useState<Preferences>({
     firstDay: 0,
@@ -140,16 +138,7 @@ export default function CalendarModule({
   const upload = useRef<HTMLInputElement>(null);
   const changedAccount = useRef("");
   const calendars = store.listCalendars();
-  const definitions = store.listDatabases();
-  const tasks = store.listPages().filter(page => page.type === "row" && !taskDone(page, definitions.find(definition => definition.id === page.databaseId)));
-  const taskEvents: CalendarEvent[] = tasks.flatMap(task => {
-    const due = taskDue(task, definitions.find(definition => definition.id === task.databaseId));
-    if (!due) return [];
-    return [{ id: `task:${task.id}`, userId: task.userId, calendarId: "__tasks", title: task.title || "Untitled", start: due, end: addDays(due,1), allDay: true,
-      startZone: preferences.zone, endZone: preferences.zone, location: "", notes: "", url: "", busy: false, reminderMinutes: 0, recurrence: "", exceptions: [], pageId: task.id,
-      source: "local", createdAt: task.createdAt, updatedAt: task.updatedAt, deletedAt: null }];
-  });
-  const events = showTasks ? taskEvents : store.listEvents();
+  const events = store.listEvents();
   const monthStart = `${date.slice(0, 7)}-01`;
   const monthGridStart = addDays(
     monthStart,
@@ -173,14 +162,14 @@ export default function CalendarModule({
     () =>
       safeOccurrenceEvents(
         events.filter((event) =>
-          (event.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || event.location.toLocaleLowerCase().includes(search.toLocaleLowerCase())) && (event.calendarId === "__tasks" || calendars.some(
+          (event.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || event.location.toLocaleLowerCase().includes(search.toLocaleLowerCase())) && calendars.some(
             (calendar) => calendar.id === event.calendarId && calendar.visible,
-          )),
+          ),
         ),
         wallTimeToUtc(`${days[0]}T00:00`, preferences.zone),
         wallTimeToUtc(`${addDays(days.at(-1)!, 1)}T00:00`, preferences.zone),
       ),
-    [revision, date, view, preferences.firstDay, preferences.zone, search, showTasks],
+    [revision, date, view, preferences.firstDay, preferences.zone, search],
   );
   const time = (instant: string) =>
     new Intl.DateTimeFormat(undefined, {
@@ -303,7 +292,6 @@ export default function CalendarModule({
     });
   }
   function openOccurrence(occurrence: EventOccurrence<CalendarEvent>) {
-    if (occurrence.event.calendarId === "__tasks" && occurrence.event.pageId) { onOpenPage?.(occurrence.event.pageId); return; }
     setError("");
     setDraft({
       fields: { ...occurrence.event },
@@ -509,12 +497,6 @@ export default function CalendarModule({
     start: string,
     end: string,
   ) {
-    if (occurrence.event.calendarId === "__tasks") {
-      const task = tasks.find(task => task.id === occurrence.event.pageId);
-      const property = definitions.find(definition => definition.id === task?.databaseId)?.properties.find(property => property.type === "date");
-      if (task) void store.patchPage(task.id, { properties: { ...task.properties, [property?.id ?? "due"]: inputTime(start, preferences.zone, true).slice(0,10) } }).catch(cause => notify(String(cause)));
-      return;
-    }
     if (occurrence.event.source === "ics") return;
     if (occurrence.event.recurrence) {
       openOccurrence(occurrence);
@@ -657,10 +639,7 @@ export default function CalendarModule({
     window.addEventListener("keydown", shortcut); return () => window.removeEventListener("keydown", shortcut);
   }, [preferences.zone]);
   function sidebarContent() {
-    const miniDays = Array.from({length:Math.ceil((monthOffset+monthDays)/7)*7}, (_,index) => addDays(monthGridStart,index));
     return <><Pressable className="button cal-create" onClick={() => { newDraft(); setSidebar(false); }}><Plus size={18} />New event</Pressable>
-      <div className="cal-mini-heading"><Pressable className="icon-button" aria-label="Previous mini month" onClick={() => shiftDate(-1)}><ChevronLeft size={18} /></Pressable><strong>{dayLabel(date,{month:"long",year:"numeric"})}</strong><Pressable className="icon-button" aria-label="Next mini month" onClick={() => shiftDate(1)}><ChevronRight size={18} /></Pressable></div>
-      <div className="cal-mini-grid">{miniDays.map(day=><Pressable key={day} className={`${day === date ? "selected":""} ${day === dateInZone(now,preferences.zone) ? "today":""} ${day.slice(0,7)!==date.slice(0,7) ? "outside":""}`} aria-label={`Select ${dayLabel(day,{month:"long",day:"numeric",year:"numeric"})}`} aria-pressed={day===date} onClick={() => { setDate(day); setSidebar(false); }}><span>{Number(day.slice(-2))}</span></Pressable>)}</div>
       {["My calendars","Other calendars"].map(group=><section key={group}><h3>{group}</h3>{calendars.filter(calendar=>(calendar.source === "local") === (group === "My calendars")).map(calendar=><label className={`cal-source-row cal-color-${calendar.color}`} key={calendar.id}><input type="checkbox" checked={calendar.visible} onChange={() => void store.saveCalendar({...calendar,visible:!calendar.visible}).catch(cause=>notify(String(cause)))}/><span>{calendar.title}</span></label>)}</section>)}
       <Pressable className="button plain" onClick={() => { setSidebar(false); setSettings(true); }}>Add calendar</Pressable></>;
   }
@@ -708,17 +687,15 @@ export default function CalendarModule({
                 <ChevronRight size={18} />
               </Pressable>
             </div>
-            <h2><Pressable className="cal-period-trigger" aria-label="Choose calendar date" onClick={() => setSidebar(true)}><span className="cal-period-long">{dayLabel(date, {
+            <h2 className="cal-period-trigger"><span className="cal-period-long">{dayLabel(date, {
                 month: "long",
                 year: "numeric",
                 ...(view === "day" ? { day: "numeric" } : {}),
-              })}</span><span className="cal-period-short">{dayLabel(date, { month: "short", year: "numeric", ...(view === "day" ? { day: "numeric" } : {}) })}</span>
-            <ChevronDown size={16}/></Pressable></h2>
+              })}</span><span className="cal-period-short">{dayLabel(date, { month: "short", year: "numeric", ...(view === "day" ? { day: "numeric" } : {}) })}</span></h2>
             <div className="cal-toolbar-tools">
               {searchOpen && <input type="search" className="cal-search" aria-label="Search events" placeholder="Search events" value={search} onChange={event => setSearch(event.target.value)} autoFocus />}
               <Pressable className="icon-button" aria-label="Search calendar" onClick={() => { setSearchOpen(!searchOpen); if (searchOpen) setSearch(""); }}><Search size={18} /></Pressable>
               <ActionMenu label="Calendar view" className="button outline" items={(["day","week","month","agenda"] as const).map(option=>({label:option.charAt(0).toUpperCase()+option.slice(1),onSelect:()=>setView(option)}))}>{view.charAt(0).toUpperCase()+view.slice(1)} <ChevronDown size={16}/></ActionMenu>
-              <div className="cal-mode" role="group" aria-label="Calendar content"><Pressable aria-pressed={!showTasks} onClick={() => setShowTasks(false)}>Calendar</Pressable><Pressable aria-pressed={showTasks} onClick={() => setShowTasks(true)}>Tasks</Pressable></div>
             </div>
           </div>
           {view === "month" ? (

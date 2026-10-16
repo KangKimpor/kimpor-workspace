@@ -228,7 +228,7 @@ test("Today agenda opens an event's day in Calendar", async ({page}) => {
   await page.getByRole('region',{name:'Agenda',exact:true}).getByRole('button',{name:'Open Schedule navigation proof',exact:true}).click();
   await expect(page.getByRole('button',{name:'Calendar view',exact:true})).toContainText('Day');
   await expect(page.locator('.cal-time-view')).toBeVisible();
-  await expect(page.getByRole('button',{name:'Choose calendar date',exact:true})).toContainText('11');
+  await expect(page.locator('.cal-period-trigger').filter({visible:true})).toContainText('11');
 });
 
 test("all modules and settings are accessible in both themes without page overflow", async ({
