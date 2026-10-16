@@ -2265,7 +2265,8 @@ function DatabaseEditor({
   const [newTitle, setNewTitle] = useState("");
   const cellOriginal = useRef<PropertyValue>(null);
   const hidden = Array.isArray(project.properties.__hiddenColumns) ? project.properties.__hiddenColumns : [];
-  const visibleFields = views.find(view => view.id === viewId)?.type === "table" ? [...definition.properties.filter(property => property.type === "title"), ...definition.properties.filter(property => property.type !== "title" && !hidden.includes(property.id))] : visibleProjectFields(definition, type);
+  const userProperties = definition.properties.filter(property => property.name.trim().toLowerCase() !== "notion source");
+  const visibleFields = views.find(view => view.id === viewId)?.type === "table" ? [...userProperties.filter(property => property.type === "title"), ...userProperties.filter(property => property.type !== "title" && !hidden.includes(property.id))] : visibleProjectFields({ ...definition, properties: userProperties }, type);
   const [configOpen, setConfigOpen] = useState(false);
   const [configTab,setConfigTab] = useState<"view"|"filter"|"sort"|"properties">("view");
   const [configPosition,setConfigPosition] = useState<{left:number;top:number}>();
@@ -2365,6 +2366,7 @@ function DatabaseEditor({
     }}>
       <Pressable className="ws-project-quick" aria-label="New task" onClick={() => void addRow()}><Plus size={22}/></Pressable>
       <div className="ws-database-toolbar">
+        <div className="ws-database-views">
         <div className="ws-view-tabs" role="tablist" aria-label="Project views">
           {views.map((item, index) => <Pressable key={item.id} id={`project-tab-${item.id}`} role="tab" aria-selected={view.id === item.id} aria-controls="project-view-panel" tabIndex={view.id === item.id ? 0 : -1} onClick={() => setViewId(item.id)} onKeyDown={event => {
             const next = event.key === "ArrowRight" ? (index + 1) % views.length : event.key === "ArrowLeft" ? (index - 1 + views.length) % views.length : event.key === "Home" ? 0 : event.key === "End" ? views.length - 1 : null;
@@ -2376,11 +2378,12 @@ function DatabaseEditor({
         <ActionMenu label="Add view" className="ws-icon" items={Object.keys(viewIcons).map(kind => ({label:kind.charAt(0).toUpperCase()+kind.slice(1),onSelect:()=>{
           const id = crypto.randomUUID(); void save({ ...definition, views: [...views, { id, name: kind.charAt(0).toUpperCase()+kind.slice(1), type: kind as DatabaseView["type"] }] }); setViewId(id);
         }}))}><Plus size={18}/></ActionMenu>
-        <div className="ws-database-actions">
+        </div>
+        <div className="ws-database-actions" role="toolbar" aria-label="Task controls">
+          <label className="ws-search-field"><Search size={16} /><input type="search" aria-label="Search tasks" placeholder="Search tasks" value={query} onChange={event => setQuery(event.target.value)} /></label>
           <Pressable className="ws-button ws-db-desktop-tool" onClick={event => openConfig("filter",event.currentTarget)}>Filter</Pressable><Pressable className="ws-button ws-db-mobile-tools" onClick={() => openConfig("view")}>Filter and sort</Pressable>
           <Pressable className="ws-button ws-db-desktop-tool" onClick={event => openConfig("sort",event.currentTarget)}>Sort</Pressable>
           <Pressable className="ws-button ws-db-desktop-tool" onClick={event => openConfig("properties",event.currentTarget)}>Properties</Pressable>
-          <label className="ws-search-field"><Search size={16} /><input type="search" aria-label="Search tasks" placeholder="Search tasks" value={query} onChange={event => setQuery(event.target.value)} /></label>
           <Pressable className="ws-button ws-db-desktop-tool" onClick={() => openConfig("view")}>
             More
             {view.filter || view.sort?.length ? (
@@ -2469,7 +2472,7 @@ function DatabaseEditor({
       )}
       {view.type === "list" && (
         <div className="ws-db-list">
-          {((preset?.group === "area" || preset?.group === "week") ? groups : [""]).map(group => <section key={group}>
+          {((preset?.group === "area" || preset?.group === "week" || grouping?.type === "status") ? groups : [""]).filter(group => rows.some(row => !taskDone(row, definition) && (!group || groupKey(row) === group))).map(group => <section className="ws-db-list-group" key={group}>
             {group && <h3>{preset?.group === "week" && group !== "Anytime" ? `Week ${group}` : group}</h3>}
             {rows.filter(row => !taskDone(row, definition) && (!group || groupKey(row) === group)).map(row => <div className="ws-project-task" key={row.id}>
               <TaskRow task={row} definition={definition} onOpen={onOpen} onComplete={row => void completeRow(row).catch(cause => onError(String(cause)))} />
@@ -2634,7 +2637,7 @@ function DatabaseEditor({
         {(configTab === "view" || configTab === "properties") && <>
         <Pressable className="ws-button" onClick={() => setPropertyOpen(true)}>Add property</Pressable>
         <h3>Visible properties</h3>
-        {definition.properties.filter(property => property.type !== "title").map(property => <label className="ws-column-control" key={property.id}><input type="checkbox" checked={!hidden.includes(property.id)} onChange={event => {
+        {userProperties.filter(property => property.type !== "title").map(property => <label className="ws-column-control" key={property.id}><input type="checkbox" checked={!hidden.includes(property.id)} onChange={event => {
           const current = store.listPages().find(page => page.id === project.id);
           if (current) void store.patchPage(project.id, { properties: { ...current.properties, __hiddenColumns: event.target.checked ? hidden.filter(id => id !== property.id) : [...hidden, property.id] } }).catch(cause => onError(String(cause)));
         }} />{property.name}</label>)}
@@ -3126,7 +3129,7 @@ function SettingsPanel({
   onNotify: (message: string) => void;
   onError: (message: string) => void;
 }) {
-  const [theme, setTheme] = useState(readSetting("velora-theme", "dark"));
+  const [theme, setTheme] = useState(readSetting("velora-theme", "light"));
   const [accent, setAccent] = useState(readSetting("velora-accent", "lime"));
   const [reduceMotion, setReduceMotion] = useState(
     readSetting("velora-reduce-motion", "false") === "true",
@@ -3141,7 +3144,7 @@ function SettingsPanel({
   const importInput = useRef<HTMLInputElement>(null);
   useEffect(() => {
     const update = () => {
-      setTheme(readSetting("velora-theme", "dark"));
+      setTheme(readSetting("velora-theme", "light"));
       setAccent(readSetting("velora-accent", "lime"));
       setTextSize(readSetting("velora-text-size", "15"));
       setDensity(readSetting("velora-density", "comfortable"));

@@ -1,4 +1,6 @@
 import { test, expect } from "@playwright/test";
+import { readFile } from "node:fs/promises";
+import { unzipSync, strFromU8 } from "fflate";
 import { leaveWriting } from "./workspace-actions";
 
 test("Trash supports cancel, restore, delete forever and emptying after reload", async ({ page }) => {
@@ -95,4 +97,34 @@ test("an app update is visible outside Settings and flushes the editor before ac
   await nav.getByRole("button", { name: "Notes", exact: true }).click();
   await page.locator(".ws-list-pane").getByRole("button", { name: /Update persistence proof/ }).click();
   await expect(page.getByRole("textbox", { name: "Document editor" })).toContainText("Flush this before updating. ខ្មែរ 中文");
+});
+
+test("light task controls keep compact pills and hide imported Notion metadata without deleting it", async ({ page }) => {
+  await page.goto("/");
+  const phone = page.viewportSize()!.width < 600;
+  const nav = page.getByRole("navigation", { name: phone ? "Bottom navigation" : "Main navigation", exact: true });
+  await nav.getByRole("button", { name: "Projects", exact: true }).click();
+  await page.getByRole("button", { name: "New project", exact: true }).click();
+  await page.getByRole("dialog", { name: "New project" }).getByRole("button", { name: "Model tracking", exact: true }).click();
+  await expect(page.getByRole("toolbar", { name: "Task controls" })).toBeVisible();
+  const pill = page.getByRole("button", { name: "Status", exact: true }).first();
+  const metrics = await pill.evaluate(element => ({ target:element.getBoundingClientRect().height, inset:getComputedStyle(element,"::before").top }));
+  expect(metrics.target).toBeGreaterThanOrEqual(44);
+  expect(metrics.inset).toBe("9px");
+  await leaveWriting(page);
+  if (phone) await page.getByRole("button", { name: "Open sidebar", exact: true }).click();
+  await page.getByRole("button", { name: "Settings", exact: true }).click();
+  await page.getByLabel("Import portable files", { exact: true }).setInputFiles({ name:"Imported tasks.csv", mimeType:"text/csv", buffer:Buffer.from("Title,Notion Source\nKeep task,https://notion.example.test/source\n") });
+  await expect(page.getByText("File imported.", { exact:true })).toBeVisible();
+  await page.getByRole("button", { name:"Close Settings", exact:true }).click();
+  if (phone) await page.getByRole("button", { name:"Close sidebar", exact:true }).click();
+  await nav.getByRole("button", { name:"Projects", exact:true }).click();
+  await page.locator("main .ws-project-card").filter({hasText:"Imported tasks"}).click();
+  await expect(page.getByRole("columnheader", {name:/Notion Source/})).toHaveCount(0);
+  await expect(page.getByRole("textbox", {name:"Row title"})).toHaveValue("Keep task");
+  if (phone) await page.getByRole("button", { name:"Open sidebar", exact:true }).click();
+  await page.getByRole("button", { name:"Settings", exact:true }).click();
+  const [download] = await Promise.all([page.waitForEvent("download"),page.getByRole("button", { name:"Export ZIP", exact:true }).click()]);
+  const archive = unzipSync(await readFile((await download.path())!));
+  expect(strFromU8(archive["workspace.json"]!)).toContain("https://notion.example.test/source");
 });

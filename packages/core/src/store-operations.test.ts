@@ -573,3 +573,22 @@ it("adopts cache additions and merges text without replacing account fields or p
   expect((await account.loadEncryptedDocs(shared.id)).length).toBeGreaterThan(0);
   base.destroy(); cloudDoc.destroy(); merged.destroy();
 });
+
+it("initializes Personal concurrently and consolidates only local duplicates without losing events", async () => {
+  const store = await workspace();
+  await Promise.all([store.ensurePersonalCalendar(), store.ensurePersonalCalendar()]);
+  expect(store.listCalendars()).toHaveLength(1);
+  const duplicate = await store.saveCalendar({ title: "Personal", visible: false });
+  const external = await store.saveCalendar({ title: "Personal", source: "google", remoteId: "remote" });
+  const event = await store.saveEvent({ calendarId: duplicate.id, title: "Keep me" });
+  await store.setSetting("calendar:preferences", { defaultCalendar: duplicate.id, zone: "Asia/Bangkok" });
+  await store.ensurePersonalCalendar();
+  const local = store.listCalendars().filter(calendar => calendar.source === "local");
+  expect(local).toHaveLength(1);
+  expect(await store.getSetting("calendar:preferences", null)).toEqual({ defaultCalendar: local[0]!.id, zone: "Asia/Bangkok" });
+  expect(store.listEvents().find(item => item.id === event.id)?.calendarId).toBe(local[0]!.id);
+  expect(store.listCalendars()).toContainEqual(expect.objectContaining({ id: external.id }));
+  await store.ensurePersonalCalendar();
+  await store.refreshSnapshot();
+  expect(store.listCalendars()).toHaveLength(2);
+});

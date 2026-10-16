@@ -668,6 +668,38 @@ export class WorkspaceStore {
     }
     await this.outbox.where("userId").equals(user).filter(item => item.change.kind !== "setting" && removed.has(`${item.change.table ?? "pages"}:${item.change.entityId}`)).delete();
   }
+  async ensurePersonalCalendar(): Promise<void> {
+    const user = this.user;
+    await this.db.transaction("rw", [this.entities, this.outbox, this.meta], async () => {
+      if (user !== this.user) throw new Error("Workspace account changed");
+      const records = await this.entities.where("userId").equals(user).toArray();
+      if (user !== this.user) throw new Error("Workspace account changed");
+      const write = (table: EntityTable, id: string, fields: Record<string, unknown>, create = false) => {
+        if (user !== this.user) throw new Error("Workspace account changed");
+        return this.write(table, id, fields, create);
+      };
+      const calendars = records.filter(record => record.table === "calendars").map(record => recordEntity(record) as Calendar).filter(calendar => !calendar.deletedAt);
+      const personal = calendars.filter(calendar => calendar.source === "local" && !calendar.remoteId && calendar.title.trim() === "Personal").sort((a, b) => a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id));
+      if (!calendars.length) {
+        await write("calendars", "personal", { id: "personal", userId: user, title: "Personal", color: "blue", visible: true, source: "local", createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), deletedAt: null }, true);
+      } else if (personal.length > 1) {
+        const canonical = personal[0]!;
+        const duplicates = new Set(personal.slice(1).map(calendar => calendar.id));
+        // Reassign events before tombstoning duplicates so sync and restore retain them.
+        for (const record of records.filter(record => record.table === "events")) {
+          const event = recordEntity(record) as CalendarEvent;
+          if (duplicates.has(event.calendarId)) await write("events", event.id, { calendarId: canonical.id });
+        }
+        if (personal.some(calendar => calendar.visible) && !canonical.visible) await write("calendars", canonical.id, { visible: true });
+        const preferences = await this.getSetting<Record<string, unknown> | null>("calendar:preferences", null);
+        if (user !== this.user) throw new Error("Workspace account changed");
+        if (preferences && typeof preferences.defaultCalendar === "string" && duplicates.has(preferences.defaultCalendar))
+          await this.setSetting("calendar:preferences", { ...preferences, defaultCalendar: canonical.id });
+        for (const id of duplicates) await write("calendars", id, { deletedAt: new Date().toISOString() });
+      }
+    });
+    await this.refresh();
+  }
   async saveCalendar(
     patch: Partial<Calendar> & { id?: string },
   ): Promise<Calendar> {

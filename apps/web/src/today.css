@@ -73,3 +73,31 @@
 @container workspace (width < 600px) { .ws-task-today { padding:16px; } }
 
 .ws-task-card:not(.next),.ws-project-card,.ws-task-today .ws-agenda-card { background:var(--glass); box-shadow:inset 0 1px 0 var(--glass-edge),0 8px 24px var(--glass-shadow); -webkit-backdrop-filter:blur(var(--blur)); backdrop-filter:blur(var(--blur)); }
+
+.ws-task-card,.ws-task-card.next,.ws-task-card:not(.next),.ws-project-card,.ws-task-today .ws-agenda-card { background:var(--surface); color:var(--text); border:var(--hairline) solid var(--line); box-shadow:0 2px 8px var(--shadow-color); backdrop-filter:none; }
+.ws-task-card.next { border-color:var(--accent); }
+.ws-task-card { gap:var(--space-3); padding:var(--space-4); }
+.ws-task-card-meta > span { background:var(--surface-inset); color:var(--secondary); }
+.ws-status-pill { --pill-fill:var(--chip); position:relative; isolation:isolate; min-height:var(--target); padding:0 8px; gap:4px; background:transparent; font-size:12px; font-weight:500; }
+.ws-status-pill::before { content:""; position:absolute; inset:9px 0; border-radius:inherit; background:var(--pill-fill); z-index:-1; }
+.ws-status-pill.active { --pill-fill:var(--accent-tint); background:transparent; color:var(--accent); }
+.ws-status-pill.done { --pill-fill:var(--success-tint); background:transparent; }
+.ws-status-pill.blocked { --pill-fill:var(--danger-tint); background:transparent; }
+.ws-pill-dot { width:5px; height:5px; }
+.ws-status-pill > svg { width:12px; height:12px; }
+@media (hover:hover) {
+ .ws-app .ws-status-pill:hover { background:transparent; }
+ .ws-status-pill:hover::before { box-shadow:inset 0 0 0 var(--hairline) currentColor; }
+ .ws-app .ws-project-card:hover { background:var(--surface); box-shadow:0 3px 12px var(--shadow-color),inset 0 0 0 var(--hairline) var(--accent); }
+ .ws-app .ws-task-card .ws-task-title:hover,.ws-app .ws-task-card .ws-task-check:hover { background:transparent; }
+}
+
+.ws-task-today .ws-schedule { background:var(--surface); color:var(--text); border:var(--hairline) solid var(--line); border-radius:var(--radius-group); }
+.ws-task-today .ws-schedule-track { background:var(--surface-inset); }
+.ws-task-today .ws-schedule-segment { background:var(--chip); color:var(--text); }
+.ws-task-today .ws-schedule-segment.now { background:var(--now-fill); color:var(--on-now); }
+.ws-schedule .ws-icon,.ws-no-events { color:var(--secondary); }
+@media (hover:hover) {
+ .ws-app .ws-filter-chips .pressable:hover { background:var(--chip); box-shadow:inset 0 0 0 var(--hairline) var(--line); }
+ .ws-app .ws-filter-chips .pressable[aria-pressed='true']:hover { background:var(--ink); }
+}

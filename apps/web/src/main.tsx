@@ -14,9 +14,9 @@ import WorkspaceApp from "./WorkspaceApp";
 const AccountGate = lazy(() => import("./AccountGate"));
 
 // Resolve appearance before the first React layout, including container queries.
-let savedTheme = "dark";
+let savedTheme = "light";
 try {
-  savedTheme = localStorage.getItem("velora-theme") ?? "dark";
+  savedTheme = localStorage.getItem("velora-theme") ?? "light";
 } catch {
   /* Storage is optional. */
 }

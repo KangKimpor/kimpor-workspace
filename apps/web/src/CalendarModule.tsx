@@ -179,6 +179,10 @@ export default function CalendarModule({
       timeZone: preferences.zone,
     }).format(new Date(instant));
   const notify = (message: string) => setError(message);
+  useEffect(() => {
+    const personal = store.listCalendars().filter(calendar => calendar.source === "local" && !calendar.remoteId && calendar.title.trim() === "Personal");
+    if (personal.length > 1) void store.ensurePersonalCalendar().catch(cause => setError(String(cause)));
+  }, [revision]);
   async function syncAccounts() {
     if (syncing) return;
     setSyncing(true);
@@ -201,8 +205,7 @@ export default function CalendarModule({
       .ready()
       .then(async () => {
         const owner = store.accountId;
-        if (!store.listCalendars().length)
-          await store.saveCalendar({ title: "Personal", color: "blue" });
+        await store.ensurePersonalCalendar();
         if (active) {
           const saved = await store.getSetting<Preferences>(
             "calendar:preferences",

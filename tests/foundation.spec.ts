@@ -22,20 +22,20 @@ async function persistedStudy(page: Page, text: string) {
   }).toContain(text);
 }
 
-test('Dynamic Black is the default even on a light device, with optional light and system themes', async ({ page }) => {
+test('Warm light is the default, with saved dark and system themes preserved', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'light' });
   await page.goto('/');
   await expect(page.getByRole('heading', { name: 'Today', exact: true })).toBeVisible();
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await expect(page.locator('.ws-app')).toHaveCSS('background-color', 'rgb(22, 20, 21)');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await expect(page.locator('.ws-app')).toHaveCSS('background-color', 'rgb(246, 245, 242)');
   await page.goto('/design');
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  for (const preference of ['light', 'system']) {
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  for (const preference of ['dark', 'light', 'system']) {
     await page.evaluate(value => localStorage.setItem('velora-theme', value), preference);
     await page.reload();
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
-    await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', preference === 'dark' ? 'dark' : 'light');
   }
 });
 
@@ -176,7 +176,7 @@ test('saved dark appearance keeps heading contrast in portrait and landscape lay
     // Full-page capture caused WebKit to lose inherited colors during layout.
     await page.screenshot({ fullPage: true });
     const colors = await page.locator('h1,h2,h3,.brand strong').evaluateAll(elements => elements.map(element => getComputedStyle(element).color));
-    expect([...new Set(colors)]).toEqual(['rgb(243, 226, 200)']);
+    expect([...new Set(colors)]).toEqual(['rgb(240, 242, 235)']);
   }
 });
 
