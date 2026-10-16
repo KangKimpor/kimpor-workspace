@@ -2,7 +2,9 @@ import { mkdir, readFile, writeFile, copyFile, access } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 import pixelmatch from 'pixelmatch';
+import { validateCaptures } from './visual-matrix.mjs';
 const matrix = JSON.parse(await readFile('docs/evidence/screenshot-matrix.json', 'utf8'));
+validateCaptures(matrix.captures);
 const destination = 'docs/visual-baselines';
 if (process.argv.includes('--record')) {
   if (process.env.CI !== 'true') throw new Error('Record approved baselines on the CI runner with the Visual baselines workflow, then review its artifact before committing.');
