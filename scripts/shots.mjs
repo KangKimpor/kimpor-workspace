@@ -77,12 +77,11 @@ try {
         // Pressable uses a JavaScript spring, which screenshot animations:'disabled'
         // does not stop. WebKit can retain the old tab text tint in that layer until
         // the spring returns to rest even after aria-current updates.
-        await page.waitForFunction(() => [...document.querySelectorAll('.pressable')].every(element => {
-          if (element.matches(':disabled') || !element.getClientRects().length) return true;
+        await page.waitForFunction(() => [...document.querySelectorAll('.ws-nav,.ws-tab')].every(element => {
           const style = getComputedStyle(element);
           return style.opacity === '1' && style.transform === 'none' && element.getAttribute('data-pressed') !== 'true';
         }));
-        // Capture the settled compositor paint after every control is at rest.
+        // Capture the settled compositor paint after the navigation is at rest.
         await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
         // Wait for asynchronous account-cache reads and the final WebKit paint.
         if(screen==='today')await expect(page.locator('main').getByText('A little time to plan',{exact:true}).first()).toBeVisible();
