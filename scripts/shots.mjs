@@ -65,7 +65,7 @@ try {
           await navigate(route);
           await expect(page.getByRole('region',{name:'Page detail',exact:true})).toHaveCount(0);
           if(screen==='note-detail'){await page.locator('main').getByRole('button',{name:/A little room for ideas/}).first().click();await page.getByRole('textbox',{name:'Document editor'}).waitFor();await page.getByRole('textbox',{name:'Document editor'}).focus();}
-          if(screen==='database'){await page.locator('main').getByRole('button',{name:/Projects/}).first().click();await page.getByRole('button',{name:'New task',exact:true}).filter({visible:true}).first().waitFor();}
+          if(screen==='database'){await page.locator('main .ws-project-card').filter({hasText:'Projects'}).first().click();await expect(page.locator('.ws-database')).toBeVisible();}
           if(screen==='settings'){if(!await page.getByRole('button',{name:'Settings',exact:true}).first().isVisible())await page.getByRole('button',{name:'Open sidebar',exact:true}).click();await page.getByRole('button',{name:'Settings',exact:true}).first().click();await page.getByRole('button',{name:'Export ZIP'}).waitFor();}
           if(screen==='search')await page.getByRole('button',{name:'Search workspace',exact:true}).click();
         }
