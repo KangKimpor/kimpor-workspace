@@ -1,8 +1,26 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { managementApi, projectRef, verifyProject, applyReviewedSchema, configureAuth } from './cloud-management.mjs';
+import { managementApi, projectRef, verifyProject, applyReviewedSchema, configureAuth, configureDomain } from './cloud-management.mjs';
 const privateFixture = 'sbp_' + 'x'.repeat(40);
+
+test('domain-only setup preserves redirects and changes only domain settings', async () => {
+  let settings = { site_url: 'https://kangkimpor.github.io/kimpor-workspace/', uri_allow_list: 'https://kangkimpor.github.io/kimpor-workspace/**,http://localhost:5173/**' };
+  await configureDomain(async (route, method, body) => {
+    assert.ok(['config/auth', 'secrets'].includes(route));
+    if (route === 'config/auth' && method === 'PATCH') {
+      assert.deepEqual(Object.keys(body).sort(), ['site_url', 'uri_allow_list']);
+      settings = { ...settings, ...body };
+    }
+    if (route === 'secrets') {
+      assert.deepEqual(body.map(row => row.name), ['ALLOWED_ORIGINS', 'VAPID_SUBJECT']);
+      assert.ok(body[0].value.split(',').includes('https://ws.kimporkang.com'));
+    }
+    return settings;
+  });
+  assert.equal(settings.site_url, 'https://ws.kimporkang.com/');
+  assert.equal(settings.uri_allow_list, 'https://kangkimpor.github.io/kimpor-workspace/**,http://localhost:5173/**,https://ws.kimporkang.com/**');
+});
 
 test('deployment rejects another project before any network request', () => {
   assert.throws(() => managementApi('private-fixture', 'another-project', () => { throw Error('Network must not run'); }), /another project/);
@@ -62,6 +80,9 @@ test('custom sender receives token-only templates without changing Google identi
     return settings;
   });
   assert.equal(settings.smtp_max_frequency, 30);
+  assert.equal(settings.site_url, 'https://ws.kimporkang.com/');
+  assert.ok(settings.uri_allow_list.split(',').includes('https://ws.kimporkang.com/**'));
+  assert.ok(settings.uri_allow_list.split(',').includes('https://kangkimpor.github.io/kimpor-workspace/**'));
   assert.equal(settings.mailer_templates_confirmation_content, '{{ .Token }}');
   assert.equal(settings.mailer_templates_magic_link_content, '{{ .Token }}');
   assert.equal(report.email_mode, 'code');

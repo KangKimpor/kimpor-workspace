@@ -1,6 +1,11 @@
 name: Cloud deployment
 on:
   workflow_dispatch:
+    inputs:
+      domain_only:
+        description: Update only custom-domain Auth and server origins
+        type: boolean
+        default: false
   release:
     types: [published]
 permissions:
@@ -28,12 +33,19 @@ jobs:
           test -n "$SUPABASE_ACCESS_TOKEN"
           test "$SUPABASE_PROJECT_REF" = 'nlcpjdokfvawlpzyfytx'
       - name: Apply reviewed schema and configure the dedicated project
+        if: inputs.domain_only != true
         run: node scripts/cloud-management.mjs
+      - name: Configure custom domain only
+        if: inputs.domain_only == true
+        run: node scripts/cloud-management.mjs --domain-only
       - name: Deploy canonical Edge Functions through the official API
+        if: inputs.domain_only != true
         run: pnpm dlx supabase@2.120.0 functions deploy --project-ref "$SUPABASE_PROJECT_REF" --use-api --import-map supabase/functions/deno.json
       - name: Verify deployed functions and real maintenance
+        if: inputs.domain_only != true
         run: node scripts/cloud-management.mjs --verify
       - name: Verify live authenticated ownership and private Storage
+        if: inputs.domain_only != true
         run: node scripts/cloud-live-check.mjs
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         if: always()

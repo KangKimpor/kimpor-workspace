@@ -2,7 +2,7 @@
 
 An account workspace for tasks, projects, calendars, notes and journals.
 
-[Open Kimpor Workspace](https://kangkimpor.github.io/kimpor-workspace/).
+[Open Kimpor Workspace](https://ws.kimporkang.com/).
 The redesigned account screen is published from `4fc8726`; final-source Quality
 CI passes 138 app cases, 18 account fixtures and 510 visual comparisons.
 The Supabase Free account holds the workspace. IndexedDB is an invisible cache

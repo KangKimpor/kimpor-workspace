@@ -4,7 +4,8 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
 export const projectRef = 'nlcpjdokfvawlpzyfytx';
-export const siteUrl = 'https://kangkimpor.github.io/kimpor-workspace/';
+export const siteUrl = 'https://ws.kimporkang.com/';
+const allowedOrigins = 'https://ws.kimporkang.com,https://kangkimpor.github.io,http://tauri.localhost,https://tauri.localhost,tauri://localhost';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const reportPath = path.join(root, 'docs/evidence/cloud-deployment.json');
 
@@ -64,12 +65,21 @@ export async function applyReviewedSchema(api, schema, manifest) {
   return { applied, migrations: versions.map(row => row.version), tables };
 }
 
+export async function configureDomain(api) {
+  const previous = await api('config/auth');
+  const redirects = [...new Set([...(previous.uri_allow_list || '').split(',').filter(Boolean), `${siteUrl}**`])].join(',');
+  await api('config/auth', 'PATCH', { site_url: siteUrl, uri_allow_list: redirects });
+  const saved = await api('config/auth');
+  if (saved.site_url !== siteUrl || saved.uri_allow_list !== redirects) throw new Error('Domain Auth configuration differs');
+  await api('secrets', 'POST', [{ name: 'ALLOWED_ORIGINS', value: allowedOrigins }, { name: 'VAPID_SUBJECT', value: siteUrl }]);
+}
+
 export async function configureAuth(api) {
   const previous = await api('config/auth');
   if (!previous.smtp_host) throw new Error('Verified custom SMTP is required before code-only account configuration.');
   const desired = {
     site_url: siteUrl,
-    uri_allow_list: `${siteUrl}**,kimpor-workspace://auth/callback**,veloradesk://auth/callback**`,
+    uri_allow_list: `${siteUrl}**,https://kangkimpor.github.io/kimpor-workspace/**,kimpor-workspace://auth/callback**,veloradesk://auth/callback**`,
     mailer_autoconfirm: false,
     external_anonymous_users_enabled: false,
     external_email_enabled: true,
@@ -117,7 +127,7 @@ export async function configureServer(api) {
   pair.setPrivateKey(Buffer.from(privateKey, 'base64url'));
   const publicKey = await keep('VAPID_PUBLIC_KEY', 'kimpor_vapid_public_key', () => pair.getPublicKey().toString('base64url'));
   if (publicKey !== pair.getPublicKey().toString('base64url')) throw new Error('Saved VAPID pair differs');
-  secrets.push({ name: 'ALLOWED_ORIGINS', value: 'https://kangkimpor.github.io,http://tauri.localhost,https://tauri.localhost,tauri://localhost' }, { name: 'VAPID_SUBJECT', value: siteUrl });
+  secrets.push({ name: 'ALLOWED_ORIGINS', value: allowedOrigins }, { name: 'VAPID_SUBJECT', value: siteUrl });
   await api('secrets', 'POST', secrets);
   const saved = new Set((await api('secrets')).map(row => row.name));
   if (secrets.some(row => !saved.has(row.name))) throw new Error('Server secret names were not saved');
@@ -143,6 +153,11 @@ export async function verifyFunctions(api, manifest) {
 async function main() {
   const api = managementApi(process.env.SUPABASE_ACCESS_TOKEN, process.env.SUPABASE_PROJECT_REF ?? projectRef);
   const identity = await verifyProject(api);
+  if (process.argv.includes('--domain-only')) {
+    await configureDomain(api);
+    console.log('Custom domain Auth and server origins saved.');
+    return;
+  }
   const manifest = JSON.parse(await readFile(path.join(root, 'supabase/dashboard/manifest.json'), 'utf8'));
   let report;
   if (process.argv.includes('--verify')) {

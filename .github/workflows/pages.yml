@@ -39,7 +39,7 @@ jobs:
       - run: node scripts/account-release-check.mjs && pnpm build && node scripts/pages.mjs
         env:
           KIMPOR_CLOUD_READY: ${{ vars.KIMPOR_CLOUD_READY }}
-          BASE_PATH: /kimpor-workspace/
+          BASE_PATH: /
           # Account entry needs verified code delivery and same-account Google linking.
           # Unconfigured builds are development fixtures, never public deployment.
           VITE_SUPABASE_URL: ${{ vars.VITE_SUPABASE_URL }}
