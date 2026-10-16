@@ -14,6 +14,7 @@ for (const theme of ['light', 'dark']) {
   check(theme, 'danger', 'danger-tint', 4.5);
   for (const color of ['blue','green','purple','orange','red']) check(theme, 'on-cal', `cal-${color}`, 4.5);
   check(theme, 'on-accent', 'accent-fill', 4.5);
+  check(theme, 'on-accent', 'accent-press', 4.5);
   check(theme, 'on-schedule', 'schedule', 4.5);
   check(theme, 'schedule-secondary', 'schedule', 4.5);
   check(theme, 'accent', 'accent-tint', 4.5);

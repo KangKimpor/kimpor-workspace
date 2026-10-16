@@ -190,6 +190,13 @@
   },
   {
     "theme": "light",
+    "foreground": "on-accent",
+    "background": "accent-press",
+    "ratio": 5.104,
+    "minimum": 4.5
+  },
+  {
+    "theme": "light",
     "foreground": "on-schedule",
     "background": "schedule",
     "ratio": 14.431,
@@ -424,6 +431,13 @@
     "foreground": "on-accent",
     "background": "accent-fill",
     "ratio": 5.28,
+    "minimum": 4.5
+  },
+  {
+    "theme": "dark",
+    "foreground": "on-accent",
+    "background": "accent-press",
+    "ratio": 5.104,
     "minimum": 4.5
   },
   {
