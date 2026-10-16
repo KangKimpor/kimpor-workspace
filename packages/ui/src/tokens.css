@@ -59,7 +59,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 svg { flex-shrink: 0; }
 button:disabled { cursor: not-allowed; opacity: .5; }
 ::selection { background: var(--accent-tint); color: var(--text); }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
-:root[data-reduce-motion='true'] *, :root[data-reduce-motion='true'] *::before, :root[data-reduce-motion='true'] *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+:root[data-reduce-motion='true'] *, :root[data-reduce-motion='true'] *::before, :root[data-reduce-motion='true'] *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) { :root, :root[data-theme] { --glass: var(--surface); --blur: 0px; } }
 @media (forced-colors: active) { .pressable, .card, input { border: var(--hairline) solid ButtonText !important; } }

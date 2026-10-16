@@ -39,6 +39,19 @@ test('Dynamic Black is the default even on a light device, with optional light a
   }
 });
 
+test('reduced motion keeps Search rows free of opacity entrance animations', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce', colorScheme: 'dark' });
+  await page.setViewportSize({ width: 852, height: 393 });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Search workspace', exact: true }).click();
+  const rows = page.getByRole('dialog', { name: 'Search', exact: true }).locator('.ws-page-row');
+  await expect(rows).toHaveCount(5);
+  for (const row of await rows.all()) {
+    await expect(row).toHaveCSS('animation-name', 'none');
+    await expect(row).toHaveCSS('opacity', '1');
+  }
+});
+
 test('theme persists, command palette supports keyboard and modal focus returns', async ({ page }) => {
   await page.goto('/design');
   await page.getByRole('button', { name: 'Dark', exact: true }).click();

@@ -55,5 +55,11 @@
     "platform": "linux",
     "review": "90 requested-device screenshots reviewed, refreshed sheets inspected, all 510 files decoded. Remaining non-modal captures compared to the prior candidate within the existing 0.001 changed-pixel threshold.",
     "postCaptureChange": "Default appearance and launch metadata changed to Dynamic Black. The capture matrix explicitly selects each light/dark theme."
+  },
+  "reducedMotion": {
+    "cssEntranceAnimations": "disabled",
+    "additionalBrowserCasesPassed": 4,
+    "safariLandscapePaintChecks": 10,
+    "reason": "Prevent intermittent missing Search row paint in WebKit screenshots."
   }
 }
