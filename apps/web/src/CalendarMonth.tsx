@@ -3,7 +3,8 @@ import { Pressable } from "@veloradesk/ui";
 import type { Calendar, CalendarEvent } from "@veloradesk/core/model";
 import { addDays, dateInZone, type EventOccurrence } from "@veloradesk/integrations";
 import * as Dialog from "@radix-ui/react-dialog";
-import { X } from "lucide-react";
+import { X } from "./Coolicons";
+
 
 export default function CalendarMonth({ days, date, now, zone, occurrences, calendars, onSelect, onDay, onCreate, onOpen, onMonth }: { days:string[]; date:string; now:Date; zone:string; occurrences:EventOccurrence<CalendarEvent>[]; calendars:Calendar[]; onSelect:(day:string)=>void; onDay:(day:string)=>void; onCreate:(day:string)=>void; onOpen:(event:EventOccurrence<CalendarEvent>)=>void; onMonth:(direction:number)=>void }) {
   const grid = useRef<HTMLDivElement>(null);

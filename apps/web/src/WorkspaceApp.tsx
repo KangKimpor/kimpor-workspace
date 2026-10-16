@@ -12,34 +12,8 @@ import {
 import type { CSSProperties, ReactNode, RefObject } from "react";
 import ActionMenu from "./ActionMenu";
 import * as Dialog from "@radix-ui/react-dialog";
-import {
-  BookOpen,
-  CalendarDays,
-  Check,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  Clock3,
-  Columns3,
-  Download,
-  FileText,
-  Folder,
-  Home,
-  LayoutGrid,
-  List,
-  Menu,
-  MoreHorizontal,
-  Plus,
-  PenLine,
-  PanelLeftClose,
-  PanelLeftOpen,
-  Search,
-  Settings,
-  Star,
-  Table2,
-  Trash2,
-  X,
-} from "lucide-react";
+import { BookOpen, CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight, Clock3, Columns3, Download, FileText, Folder, Home, LayoutGrid, List, Menu, MoreHorizontal, Plus, PenLine, PanelLeftClose, PanelLeftOpen, Search, Settings, Star, Table2, Trash2, X } from "./Coolicons";
+
 import { BrandMark, Pressable } from "@veloradesk/ui";
 import { EdgeBack, SheetHandle, useCollapsingTitle, useKeyboardViewport, useWorkspaceSize } from "./WorkspaceChrome";
 import { SyncRetry } from "./AccountGate";
@@ -1887,7 +1861,7 @@ function PageDetail({
               onChange={(event) => void onPatch({ cover: event.target.value })}
             >
               <option value="">No cover</option>
-              <option value="blue">Lime gradient</option>
+              <option value="blue">Ember gradient</option>
               <option value="purple">Purple gradient</option>
               <option value="warm">Warm gradient</option>
             </select>
@@ -3231,7 +3205,7 @@ function SettingsPanel({
               saveAppearance("velora-accent", event.target.value);
             }}
           >
-            <option value="lime">Lime</option><option value="blue">Blue</option>
+            <option value="lime">Apocalyptic Orange</option><option value="blue">Blue</option>
             <option value="green">Green</option>
             <option value="red">Red</option>
             <option value="purple">Purple</option>

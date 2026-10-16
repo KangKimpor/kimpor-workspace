@@ -12,19 +12,8 @@ import CalendarMonth from "./CalendarMonth";
 import ActionMenu from "./ActionMenu";
 import { useWorkspaceSize } from "./WorkspaceChrome";
 import * as Dialog from "@radix-ui/react-dialog";
-import {
-  CalendarDays,
-  ChevronDown,
-  Menu,
-  Search,
-  ChevronLeft,
-  ChevronRight,
-  Download,
-  Plus,
-  Settings2,
-  Upload,
-  X,
-} from "lucide-react";
+import { CalendarDays, ChevronDown, Menu, Search, ChevronLeft, ChevronRight, Download, Plus, Settings2, Upload, X } from "./Coolicons";
+
 import { Pressable } from "@veloradesk/ui";
 import { store } from "@veloradesk/core/store";
 import { platform } from "@veloradesk/core/platform";

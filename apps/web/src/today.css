@@ -71,3 +71,5 @@
 
 @container workspace (width < 1024px) { .ws-task-today { padding:24px; } }
 @container workspace (width < 600px) { .ws-task-today { padding:16px; } }
+
+.ws-task-card:not(.next),.ws-project-card,.ws-task-today .ws-agenda-card { background:var(--glass); box-shadow:inset 0 1px 0 var(--glass-edge),0 8px 24px var(--glass-shadow); -webkit-backdrop-filter:blur(var(--blur)); backdrop-filter:blur(var(--blur)); }

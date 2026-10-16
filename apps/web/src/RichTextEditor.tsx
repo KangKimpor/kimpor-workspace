@@ -37,27 +37,8 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import {
-  Bold,
-  Code2,
-  Paperclip,
-  GripVertical,
-  Heading2,
-  Highlighter,
-  ImagePlus,
-  Italic,
-  List,
-  ListChecks,
-  LockKeyhole,
-  Palette,
-  PenLine,
-  Plus,
-  Redo2,
-  Search,
-  Underline,
-  Undo2,
-  X,
-} from "lucide-react";
+import { Bold, Code2, Paperclip, GripVertical, Heading2, ImagePlus, Italic, List, ListChecks, LockKeyhole, Palette, PenLine, Plus, Redo2, Search, Underline, Undo2, X } from "./Coolicons";
+import { Highlighter } from "lucide-react";
 import { Pressable } from "@veloradesk/ui";
 import { store } from "@veloradesk/core/store";
 import {

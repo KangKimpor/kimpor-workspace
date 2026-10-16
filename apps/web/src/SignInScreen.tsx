@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Check, ChevronLeft } from "lucide-react";
+import { Check, ChevronLeft } from "./Coolicons";
+
 import { Pressable } from "@veloradesk/ui";
 import { sendEmailCode, signInGoogle, verifyEmailCode } from "@veloradesk/core/cloud-auth";
 import "./sign-in.css";

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { getStroke } from "perfect-freehand";
 import * as Y from "yjs";
-import { Download, Eraser, Undo2 } from "lucide-react";
+import { Download, Undo2 } from "./Coolicons";
+import { Eraser } from "lucide-react";
 import { Pressable } from "@veloradesk/ui";
 type Point = [number, number, number];
 interface Stroke {

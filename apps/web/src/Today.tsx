@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import ActionMenu from "./ActionMenu";
 import { useWorkspaceSize } from "./WorkspaceChrome";
-import { ArrowUpRight, CalendarDays, Check, ChevronDown, Plus } from "lucide-react";
+import { ArrowUpRight, CalendarDays, Check, ChevronDown, Plus } from "./Coolicons";
+
 import { Pressable } from "@veloradesk/ui";
 import type { CalendarEvent, DatabaseDefinition, Page, PropertyDefinition, PropertyValue } from "@veloradesk/core/model";
 import { store } from "@veloradesk/core/store";

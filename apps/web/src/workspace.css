@@ -686,3 +686,18 @@
  .ws-tabbar .ws-tab svg { color:var(--white); stroke:var(--white); }
  .ws-tabbar .ws-tab[aria-current='page'] svg { color:var(--on-now); stroke:var(--on-now); }
 }
+
+/* Glass stays on chrome and discrete cards so long documents remain clear. */
+.ws-app { background:radial-gradient(ellipse at 90% 0%,var(--glass-glow),transparent 55%),var(--bg); }
+.ws-sidebar,.ws-topbar,.ws-sheet,.ws-option-menu { background:var(--glass); -webkit-backdrop-filter:blur(var(--blur)) saturate(140%); backdrop-filter:blur(var(--blur)) saturate(140%); box-shadow:inset 0 1px 0 var(--glass-edge),0 8px 32px var(--glass-shadow); }
+.ws-sidebar { border-right:var(--hairline) solid var(--glass-edge); }
+.ws-topbar { border-bottom:var(--hairline) solid var(--glass-edge); }
+.ws-nav.selected { background:var(--accent-fill); color:var(--on-accent); }
+.ws-nav.selected svg { color:var(--on-accent); stroke:var(--on-accent); }
+.ws-app .ws-nav.selected:hover { background:var(--accent-press); color:var(--on-accent); }
+@container workspace (width < 600px) {
+ .ws-tabbar { background:var(--glass-dock); -webkit-backdrop-filter:blur(var(--blur)) saturate(140%); backdrop-filter:blur(var(--blur)) saturate(140%); box-shadow:inset 0 1px 0 var(--glass-edge),0 8px 32px var(--glass-shadow); }
+}
+@media (prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+ .ws-tabbar { background:var(--black); }
+}

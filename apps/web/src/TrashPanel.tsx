@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { RotateCcw, Search, Trash2 } from "lucide-react";
+import { RotateCcw, Search, Trash2 } from "./Coolicons";
+
 import { Pressable } from "@veloradesk/ui";
 import type { Page } from "@veloradesk/core/model";
 import { trashRoots } from "@veloradesk/core/store";

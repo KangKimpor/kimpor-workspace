@@ -1,31 +1,8 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { MotionConfig } from "motion/react";
 import * as Dialog from "@radix-ui/react-dialog";
-import {
-  ArrowDownToLine,
-  ArrowRight,
-  BookOpen,
-  Check,
-  ChevronRight,
-  CircleHelp,
-  Command,
-  Component,
-  Feather,
-  FlaskConical,
-  Layers,
-  LayoutGrid,
-  Menu,
-  Monitor,
-  Moon,
-  Palette,
-  Plus,
-  Search,
-  Settings2,
-  ShieldCheck,
-  SlidersHorizontal,
-  Sun,
-  X,
-} from "lucide-react";
+import { ArrowDownToLine, ArrowRight, BookOpen, Check, ChevronRight, CircleHelp, Command, Component, Layers, LayoutGrid, Menu, Monitor, Moon, Palette, Plus, Search, Settings2, ShieldCheck, SlidersHorizontal, Sun, X } from "./Coolicons";
+import { Feather, FlaskConical } from "lucide-react";
 import { BrandMark, Pressable } from "@veloradesk/ui";
 import { platform } from "@veloradesk/core/platform";
 const EditorSpike = lazy(() => import("./EditorSpike"));
@@ -436,7 +413,7 @@ export function App() {
                           <Feather size={22} />
                         </span>
                         <div>
-                          <h3>A softer kind of blue</h3>
+                          <h3>A warmer kind of focus</h3>
                           <p className="muted">
                             A considered accent, with room to breathe.
                           </p>

@@ -21,15 +21,8 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import {
-  Bold,
-  GripVertical,
-  Heading2,
-  Italic,
-  List,
-  Redo2,
-  Undo2,
-} from "lucide-react";
+import { Bold, GripVertical, Heading2, Italic, List, Redo2, Undo2 } from "./Coolicons";
+
 import { Pressable } from "@veloradesk/ui";
 import { loadStudy, saveStudy } from "@veloradesk/core/study-storage";
 
