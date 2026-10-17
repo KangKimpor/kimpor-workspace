@@ -14,7 +14,8 @@ test('domain-only setup preserves redirects and changes only domain settings', a
     }
     if (route === 'secrets') {
       assert.deepEqual(body.map(row => row.name), ['ALLOWED_ORIGINS', 'VAPID_SUBJECT']);
-      assert.ok(body[0].value.split(',').includes('https://ws.kimporkang.com'));
+      const allowedOrigins = body[0].value.split(',').map(value => new URL(value.trim()).origin);
+      assert.ok(allowedOrigins.includes('https://ws.kimporkang.com'));
     }
     return settings;
   });
