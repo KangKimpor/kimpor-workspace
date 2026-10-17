@@ -665,8 +665,11 @@
 .ws-option-item:hover,.ws-option-item:focus-visible { background:var(--chip); }
 @container workspace (width < 600px) {
  .ws-tabbar { min-height:64px; }
- /* Let content scroll clear of both the floating action and navigation. */
- .ws-app:not([data-editing='true']) .ws-main { padding-bottom:calc(148px + max(12px,var(--safe-area-bottom,env(safe-area-inset-bottom)))); }
+ /* End the scroll viewport above fixed controls so they cannot cover actions. */
+ .ws-app:not([data-editing='true']) .ws-main { height:calc(100cqh - 76px - max(12px,var(--safe-area-bottom,env(safe-area-inset-bottom)))); padding-bottom:var(--space-4); }
+ .ws-app[data-module='Today']:not([data-editing='true']) .ws-main,
+ .ws-app[data-module='Calendar']:not([data-editing='true']) .ws-main,
+ .ws-app[data-module='Projects'][data-writing='false']:not([data-editing='true']) .ws-main { height:calc(100cqh - 148px - max(12px,var(--safe-area-bottom,env(safe-area-inset-bottom)))); }
 }
 
 .ws-trash-item > .ws-trash-actions { width:auto; flex:0 0 auto; flex-wrap:nowrap; }
