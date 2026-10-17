@@ -47,6 +47,8 @@ p { margin: var(--space-2) 0; }
 .tinted { background: var(--accent-tint); color: var(--accent); }
 .plain { color: var(--accent); }
 .outline { border: var(--hairline) solid var(--line); color: var(--secondary); }
+/* The button variant shares a name with Tailwind's outline utility. */
+.outline:not(:focus-visible) { outline: none; }
 .hero-art { width: var(--hero-art-width); height: var(--hero-art-height); position: relative; flex-shrink: 0; margin-right: var(--space-4); }
 .art-card { border-radius: var(--radius-card); border: var(--hairline) solid var(--line); position: absolute; width: var(--hero-card-width); height: var(--hero-card-height); background: var(--surface); box-shadow: var(--shadow-lift); padding: var(--space-4); }
 .art-back { left: var(--space-2); top: 0; transform: rotate(-12deg); color: var(--accent); }

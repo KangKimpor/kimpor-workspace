@@ -18,7 +18,7 @@
 .ws-eyebrow { color: var(--secondary); font-size: var(--text-footnote); margin-bottom:var(--space-2) !important; }
 .ws-sidebar { width: var(--ws-sidebar-width); position: fixed; inset: 0 auto 0 0; z-index: 30; display: flex; flex-direction: column; padding:max(var(--space-5), var(--safe-area-top,env(safe-area-inset-top))) var(--space-3) max(var(--space-4), var(--safe-area-bottom,env(safe-area-inset-bottom))); background: var(--sidebar); border-right: var(--hairline) solid var(--line); overflow-y: auto; overscroll-behavior: contain; }
 .ws-brand { display: flex; align-items: center; gap:var(--space-3); padding:var(--space-2) var(--space-3) var(--space-6); }
-.ws-brand strong { font-size: var(--text-headline); letter-spacing: var(--tracking-tight); }
+.ws-brand strong { font-family:'Urbanist Variable',var(--font); font-size:var(--text-headline); letter-spacing:var(--tracking-tight); }
 .ws-sidebar-search { display: flex; gap:var(--space-2); align-items: center; padding:var(--space-2) var(--space-3); color: var(--secondary); border: var(--hairline) solid var(--line); border-radius:var(--radius-control); background: var(--surface); font-size: var(--text-footnote); margin-bottom:var(--space-5); }
 .ws-sidebar-search span { flex: 1; text-align: left; }
 .ws-sidebar-search kbd { font-family: var(--font); font-size: var(--text-caption); color: var(--tertiary); white-space: nowrap; }
@@ -210,10 +210,12 @@
 .ws-setting-row > span:first-child { flex: 1; }
 .ws-setting-row input[type='range'] { width: min(140px, 40%); min-height:var(--target); accent-color: var(--accent); }
 .ws-settings summary { display:flex; align-items:center; min-height:var(--target); cursor:pointer; }
-.ws-switch { width: var(--switch-width); background: var(--field); border: var(--hairline) solid var(--line); border-radius:var(--radius-pill); padding:var(--space-1); }
-.ws-switch span { display: block; width: var(--switch-knob); height: var(--switch-knob); background: var(--surface); border-radius:var(--radius-pill); transition: transform var(--duration-normal) var(--ease-standard); box-shadow: var(--shadow); }
-.ws-switch[aria-checked='true'] { background: var(--accent-fill); }
-.ws-switch[aria-checked='true'] span { transform: translateX(var(--space-4)); }
+/* Keep the visible track compact inside a full-height touch target. */
+.ws-switch { flex:none; display:inline-flex; align-items:center; width:var(--switch-width); height:var(--target); padding:0 var(--focus-width); border-radius:var(--radius-pill); }
+.ws-switch::before { content:''; position:absolute; inset-inline:0; height:var(--switch-height); background:var(--field); border:var(--hairline) solid var(--line); border-radius:inherit; }
+.ws-switch span { position:relative; display:block; width:var(--switch-knob); height:var(--switch-knob); background:var(--surface); border-radius:var(--radius-pill); transition:transform var(--duration-normal) var(--ease-standard); box-shadow:var(--shadow); }
+.ws-switch[aria-checked='true']::before { background:var(--accent-fill); border-color:var(--accent-fill); }
+.ws-switch[aria-checked='true'] span { transform:translateX(var(--switch-travel)); }
 .ws-shortcuts { display: flex; flex-direction: column; gap:var(--space-3); font-size: var(--text-footnote); }
 .ws-shortcuts > span { display: flex; justify-content: space-between; gap:var(--space-3); }
 .ws-shortcuts kbd { font: inherit; color: var(--secondary); white-space: nowrap; }
@@ -302,13 +304,13 @@
 .ws-page-detail[data-page-type='journal'] .ws-page-title { font-size: clamp(26px, 3vw, 34px); }
 .ws-journal-home { max-width: 1160px; padding:36px var(--space-8) 60px; margin:0 auto; }
 .ws-journal-home-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom:var(--space-7); }
-.ws-journal-home-heading h1 { font-size: 34px; }
+.ws-journal-home-heading h1 { font-size: var(--text-large); }
 .ws-journal-count { color: var(--secondary); font-size: var(--text-footnote); }
 .ws-journal-home-grid { display: grid; grid-template-columns: 310px minmax(0, 1fr); gap:36px; align-items: start; }
 .ws-journal-home-aside { min-width: 0; position: sticky; top: calc(var(--nav-height) + 20px); }
 .ws-journal-invitation { background: var(--surface); border: var(--hairline) solid var(--line); padding:var(--space-7); border-radius:var(--space-6); }
 .ws-journal-today-label { display: flex; align-items: center; gap:var(--space-4); margin-bottom:var(--space-6); }
-.ws-journal-today-date { display: grid; place-items: center; width: 54px; height: 60px; background: var(--accent-tint); color: var(--accent); border-radius:var(--space-4); font-size: 30px; font-weight: 650; }
+.ws-journal-today-date { display: grid; place-items: center; width: 54px; height: 60px; background: var(--accent-tint); color: var(--accent); border-radius:var(--space-4); font-size: var(--text-title); font-weight: 650; }
 .ws-journal-today-label strong, .ws-journal-today-label time { display: block; }
 .ws-journal-today-label time { margin-top:var(--space-1); color: var(--secondary); font-size: var(--text-caption); }
 .ws-journal-invitation h2 { font-size: 24px; margin:0 0 var(--space-3); letter-spacing: -.02em; }
@@ -327,7 +329,7 @@
 .ws-journal-entry { min-height: 112px; height: 112px; margin-bottom:var(--space-2); padding:var(--space-5); border: var(--hairline) solid var(--line); border-radius:var(--space-5) !important; background: var(--surface); text-align: left; }
 .ws-journal-entry:last-child { border: var(--hairline) solid var(--line); }
 .ws-journal-date-badge { flex: 0 0 48px; display: flex; flex-direction: column; align-items: center; gap:var(--space-1); }
-.ws-journal-date-badge > span { font-size: 11px; text-transform: uppercase; color: var(--secondary); letter-spacing: .08em; }
+.ws-journal-date-badge > span { font-size: var(--text-caption); text-transform: uppercase; color: var(--secondary); letter-spacing: .08em; }
 .ws-journal-date-badge strong { font-size: 28px; font-weight: 500; }
 .ws-journal-preview { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; color: var(--secondary); line-height: 1.5; font-size: var(--text-footnote); margin:var(--space-2) 0; }
 .ws-journal-empty { display: flex; flex-direction: column; align-items: center; text-align: center; gap:var(--space-4); padding:var(--space-16) var(--space-5); border: var(--hairline) solid var(--line); border-radius:var(--space-5); background: var(--surface); color: var(--secondary); }
@@ -358,11 +360,11 @@
   .ws-detail-pane { padding:var(--space-5) var(--space-5) var(--space-10); }
   .ws-journal-home { padding:var(--space-6) var(--space-5) 36px; }
   .ws-journal-home-heading { margin-bottom:var(--space-6); }
-  .ws-journal-home-heading h1 { font-size: 30px; }
+  .ws-journal-home-heading h1 { font-size: var(--text-large); }
   .ws-journal-invitation { display: block; padding:var(--space-6); }
   .ws-journal-invitation .primary { width: 100%; }
   .ws-journal-today-label { margin-bottom:var(--space-5); }
-  .ws-journal-invitation h2 { font-size: 22px; }
+  .ws-journal-invitation h2 { font-size: var(--text-title3); }
   .ws-journal-entry { padding:var(--space-4); }
 }
 .ws-app:is([data-module='Calendar'], [data-module='Journal']) .ws-quick-capture,
@@ -489,7 +491,7 @@
 .ws-page-details { text-align:left; }
 @container workspace (width < 600px) { .ws-app.sidebar-collapsed .ws-main { grid-column:auto; } }
 
-.ws-journal-home { max-width:var(--reading-width); }
+.ws-journal-home { max-width:var(--content-width); }
 .ws-journal-home > .ws-search-field { margin-bottom:var(--space-4); }
 .ws-journal-home .ws-page-list { padding:0; }
 .ws-journal-entry { min-height:var(--row-height); height:112px; padding:var(--space-4); border-radius:var(--radius-card) !important; }
@@ -663,12 +665,8 @@
 .ws-option-item:hover,.ws-option-item:focus-visible { background:var(--chip); }
 @container workspace (width < 600px) {
  .ws-tabbar { min-height:64px; }
- .ws-app:not([data-editing='true']) .ws-main { padding-bottom:calc(max(12px,var(--safe-area-bottom,env(safe-area-inset-bottom))) + 80px); }
-}
-
-@container workspace (width < 600px) {
- .ws-app:not([data-editing='true']) .ws-main { height:calc(100cqh - 76px - max(12px,var(--safe-area-bottom,env(safe-area-inset-bottom)))); padding-bottom:16px; }
- .ws-app[data-module='Today']:not([data-editing='true']) .ws-main,.ws-app[data-module='Projects'][data-writing='false']:not([data-editing='true']) .ws-main { height:calc(100cqh - 148px - max(12px,var(--safe-area-bottom,env(safe-area-inset-bottom)))); }
+ /* Let content scroll clear of both the floating action and navigation. */
+ .ws-app:not([data-editing='true']) .ws-main { padding-bottom:calc(148px + max(12px,var(--safe-area-bottom,env(safe-area-inset-bottom)))); }
 }
 
 .ws-trash-item > .ws-trash-actions { width:auto; flex:0 0 auto; flex-wrap:nowrap; }
@@ -758,4 +756,34 @@
  .ws-db-title .ws-task-check { grid-column:1; grid-row:2; }
  .ws-db-title .ws-icon { grid-column:3; grid-row:2; }
  .ws-db-table td[data-type='date'] { grid-column:2; grid-row:2; }
+}
+
+/* Page gutters: 24px on tablet/desktop, 16px on phones, for every section. */
+@container workspace (width < 600px) {
+ .ws-list-pane,.ws-journal-home,.ws-today { padding:var(--space-4); }
+}
+/* One page-title size for Projects, Notes, Journal and Calendar. */
+.ws-journal-home .ws-journal-home-heading h1 { font-size:var(--text-large); }
+
+/* Toolbars: identical height, radius, fill and type for every control. */
+.ws-search-field { border:0; box-shadow:inset 0 0 0 var(--hairline) transparent; }
+.ws-search-field:focus-within { box-shadow:inset 0 0 0 var(--hairline) var(--accent); }
+.ws-list-tools select,.ws-folder-tools select,.ws-list-tools > .ws-button { font-size:var(--text-input); }
+.ws-list-tools > .ws-button { padding-inline:var(--space-3); background:var(--field); border:var(--hairline) solid var(--line); border-radius:var(--radius-control); color:var(--secondary); font-weight:400; }
+@container workspace (width < 600px) {
+ .ws-list-tools .ws-search-field { flex:1 1 100%; }
+ .ws-list-tools > :last-child { margin-left:auto; }
+}
+
+/* Settings forms: label, field and action sit on the 4/8 rhythm. */
+.ws-settings form { display:grid; gap:var(--space-3); }
+.ws-settings form label { display:grid; gap:var(--space-2); font-size:var(--text-footnote); color:var(--secondary); }
+.ws-settings form input.ws-input { height:var(--target); padding-block:0; }
+.ws-settings form .ws-button { justify-self:start; }
+
+/* Content aligns to the page gutter: remove the nested insets that pushed project cards
+   and project titles 16px right of the toolbar and every other page. */
+.ws-list-pane .ws-project-overview { padding:0; }
+@container workspace (width < 600px) {
+ .ws-page-detail[data-page-type='database'] { padding:0; }
 }

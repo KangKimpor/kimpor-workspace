@@ -1,9 +1,9 @@
-.ws-task-today { max-width:1480px; padding:clamp(24px,3vw,48px); display:flex; flex-direction:column; gap:var(--space-8); }
+.ws-task-today { max-width:var(--content-width); padding:var(--pane-padding); display:flex; flex-direction:column; gap:var(--space-8); }
 .ws-task-today .ws-schedule { display:flex; align-items:center; height:64px; min-height:64px; padding:8px 16px; margin:0; border:1px solid var(--line); border-radius:var(--radius-pill); background:var(--black); color:var(--white); gap:24px; }
-.ws-schedule-label { display:flex; gap:12px; flex:none; align-items:center; font-size:14px; }
+.ws-schedule-label { display:flex; gap:12px; flex:none; align-items:center; font-size: var(--text-footnote); }
 .ws-schedule-label small { display:block; color:var(--schedule-secondary); font-variant-numeric:tabular-nums; }
 .ws-task-today .ws-schedule-track { position:relative; height:48px; min-width:0; flex:1; overflow:hidden; border-radius:var(--radius-pill); background:color-mix(in srgb,var(--now-fill) 12%,var(--black)); }
-.ws-schedule-ticks { display:flex; justify-content:space-around; font-size:11px; color:var(--schedule-secondary); position:absolute; inset:0; align-items:flex-end; padding-bottom:2px; }
+.ws-schedule-ticks { display:flex; justify-content:space-around; font-size: var(--text-caption); color:var(--schedule-secondary); position:absolute; inset:0; align-items:flex-end; padding-bottom:2px; }
 .ws-task-today .ws-schedule-segment { position:absolute; height:44px; top:0; padding:8px; border-radius:var(--radius-pill); color:var(--white); background:color-mix(in srgb,var(--white) 14%,var(--black)); overflow:hidden; font-size:12px; white-space:nowrap; text-overflow:ellipsis; }
 .ws-schedule-segment.now { background:var(--now-fill); color:var(--on-now); }
 .ws-now-marker { position:absolute; inset-block:6px; width:2px; background:var(--now-fill); pointer-events:none; }
@@ -12,7 +12,7 @@
 .ws-no-events { position:absolute; inset:8px 16px; font-size:13px; color:var(--white); }
 .ws-schedule-phone { display:none; }
 .ws-task-today .ws-today-hero { display:flex; align-items:center; gap:24px; margin:0; }
-.ws-task-today .ws-today-hero h1 { font-size:var(--text-hero); font-weight:700; }
+.ws-task-today .ws-today-hero h1 { font-size:var(--text-large); font-weight:650; }
 .ws-task-today .ws-today-stats { margin-left:auto; display:flex; gap:32px; }
 .ws-task-today .ws-today-stats > span { display:flex; flex-direction:row; align-items:center; gap:8px; color:var(--secondary); font-size:13px; }
 .ws-task-today .ws-today-stats strong { font-size:48px; line-height:1; font-weight:500; color:var(--text); font-variant-numeric:tabular-nums; }
@@ -22,14 +22,14 @@
 .ws-section-title h2 { font-size:20px; }
 .ws-section-title h2 > span { color:var(--secondary); font-size:13px; margin-left:8px; }
 .ws-filter-chips { display:flex; gap:8px; overflow-x:auto; max-width:100%; }
-.ws-filter-chips .pressable { background:var(--chip); color:var(--text); border-radius:var(--radius-pill); padding:8px 16px; white-space:nowrap; flex:none; font-size:14px; }
+.ws-filter-chips .pressable { background:var(--chip); color:var(--text); border-radius:var(--radius-pill); padding:8px 16px; white-space:nowrap; flex:none; font-size: var(--text-footnote); }
 .ws-filter-chips .pressable[aria-pressed='true'] { background:var(--ink); color:var(--on-ink); }
 .ws-project-strip { display:flex; overflow-x:auto; gap:16px; padding:2px 2px 8px; scroll-snap-type:x mandatory; }
 .ws-project-strip .ws-project-card { width:280px; flex:0 0 280px; scroll-snap-align:start; }
 .ws-project-card { display:flex; flex-direction:column; gap:10px; background:var(--field); padding:20px; border-radius:var(--radius-card); min-width:0; text-align:left; }
 .ws-project-card > strong { font-size:17px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .ws-project-card > small { color:var(--secondary); }
-.ws-project-symbol { width:44px; height:44px; display:grid; place-items:center; border-radius:var(--radius-pill); background:var(--chip); font-size:22px; }
+.ws-project-symbol { width:44px; height:44px; display:grid; place-items:center; border-radius:var(--radius-pill); background:var(--chip); font-size: var(--text-title3); }
 .ws-progress { height:6px; background:var(--chip-strong); border-radius:var(--radius-pill); width:100%; overflow:hidden; }
 .ws-progress i { display:block; height:100%; background:var(--now-fill); }
 .ws-project-overview { display:grid; grid-template-columns:repeat(auto-fill,minmax(min(260px,100%),1fr)); gap:16px; padding:16px 24px; }
